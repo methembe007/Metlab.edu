@@ -729,3 +729,10 @@ WARNING 2025-10-08 20:44:18,166 ai_services 11592 14684 OpenAI not available or 
 WARNING 2025-10-08 20:44:18,166 ai_services 11592 14684 OpenAI not available or API key not configured
 WARNING 2025-10-08 20:44:18,167 ai_services 11592 14684 OpenAI not available or API key not configured
 WARNING 2025-10-08 20:44:18,167 ai_services 11592 14684 OpenAI not available or API key not configured
+INFO 2025-10-08 20:44:25,859 basehttp 11592 12596 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-08 20:44:25,897 basehttp 11592 12596 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4146
+WARNING 2025-10-08 20:44:25,919 basehttp 11592 12596 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 20:44:36,833 basehttp 11592 14680 "POST /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4380
+WARNING 2025-10-08 20:44:36,848 basehttp 11592 14680 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 20:48:15,971 basehttp 11592 14292 "POST /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4357
+WARNING 2025-10-08 20:48:15,986 basehttp 11592 14292 "GET /static/css/output.css HTTP/1.1" 404 1856
