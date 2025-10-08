@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ content.original_filename }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <nav class="flex" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-4">
+                    <li>
+                        <a href="{% url 'content:library' %}" class="text-gray-400 hover:text-gray-500">
+                            <svg class="flex-shrink-0 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L9 5.414V17a1 1 0 102 0V5.414l5.293 5.293a1 1 0 001.414-1.414l-7-7z" />
+                            </svg>
+                            <span class="sr-only">Back to library</span>
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <a href="{% url 'content:library' %}" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-700">Library</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="ml-4 text-sm font-medium text-gray-500">{{ content.original_filename }}</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+            
+            <div class="mt-4 flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ content.original_filename }}</h1>
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                        <span>Uploaded {{ content.created_at|date:"M d, Y" }}</span>
+                        <span class="mx-2">•</span>
+                        <span class="uppercase">{{ content.content_type }}</span>
+                        <span class="mx-2">•</span>
+                        <span>{{ content.file_size|filesizeformat }}</span>
+                        {% if content.subject %}
+                            <span class="mx-2">•</span>
+                            <span>{{ content.subject }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    <a href="{% url 'content:download' content.id %}" class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd" />
+                        </svg>
+                        Download
+                    </a>
+                    <a href="{% url 'content:delete' content.id %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z" clip-rule="evenodd" />
+                            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414L7.586 12l-1.293 1.293a1 1 0 101.414 1.414L9 13.414l1.293 1.293a1 1 0 001.414-1.414L10.414 12l1.293-1.293z" clip-rule="evenodd" />
+                        </svg>
+                        Delete
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Processing Status -->
+        {% if content.processing_status != 'completed' %}
+            <div class="mb-8">
+                {% if content.processing_status == 'processing' %}
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400 animate-spin" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">Processing in progress</h3>
+                                <p class="mt-1 text-sm text-yellow-700">Your content is being processed. AI-generated materials will be available shortly.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% elif content.processing_status == 'failed' %}
+                    <div class="bg-red-50 border border-red-200 rounded-md p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-red-800">Processing failed</h3>
+                                <p class="mt-1 text-sm text-red-700">There was an error processing your content. Please try uploading again.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="bg-blue-50 border border-blue-200 rounded-md p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-blue-800">Pending processing</h3>
+                                <p class="mt-1 text-sm text-blue-700">Your content is queued for processing. Processing will begin shortly.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        {% endif %}
+
+        <!-- Generated Content -->
+        {% if content.processing_status == 'completed' %}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Summaries -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Summaries</h2>
+                    {% if summaries %}
+                        <div class="space-y-4">
+                            {% for summary in summaries %}
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h3 class="font-medium text-gray-900 capitalize mb-2">{{ summary.get_summary_type_display }}</h3>
+                                    <p class="text-sm text-gray-600 mb-2">{{ summary.word_count }} words</p>
+                                    <p class="text-gray-700">{{ summary.text|truncatewords:30 }}</p>
+                                    <button class="mt-2 text-blue-600 hover:text-blue-800 text-sm font-medium">Read more</button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No summaries generated yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Quizzes -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Quizzes</h2>
+                    {% if quizzes %}
+                        <div class="space-y-4">
+                            {% for quiz in quizzes %}
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h3 class="font-medium text-gray-900 mb-2">{{ quiz.title }}</h3>
+                                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                                        <span>{{ quiz.question_count }} questions</span>
+                                        <span class="mx-2">•</span>
+                                        <span>{{ quiz.estimated_time_minutes }} min</span>
+                                        <span class="mx-2">•</span>
+                                        <span class="capitalize">{{ quiz.difficulty_level }}</span>
+                                    </div>
+                                    <a href="{% url 'content:quiz' quiz.id %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                        Take Quiz
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No quizzes generated yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Flashcards -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Flashcards</h2>
+                    {% if flashcards %}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-3">{{ flashcards.count }} flashcards available</p>
+                            <a href="{% url 'content:flashcards' content.id %}" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                Study Flashcards
+                            </a>
+                        </div>
+                        <div class="space-y-2">
+                            {% for flashcard in flashcards|slice:":3" %}
+                                <div class="text-sm">
+                                    <span class="font-medium text-gray-900">{{ flashcard.concept_tag }}</span>
+                                    <span class="text-gray-500"> - {{ flashcard.front_text|truncatewords:8 }}</span>
+                                </div>
+                            {% endfor %}
+                            {% if flashcards.count > 3 %}
+                                <p class="text-sm text-gray-500">And {{ flashcards.count|add:"-3" }} more...</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No flashcards generated yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
