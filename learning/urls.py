@@ -46,8 +46,13 @@ urlpatterns = [
     path('teacher/classes/create/', teacher_views.create_class, name='create_class'),
     path('teacher/classes/<int:class_id>/', teacher_views.class_detail, name='class_detail'),
     path('teacher/classes/<int:class_id>/progress/', teacher_views.student_progress, name='student_progress'),
+    path('teacher/classes/<int:class_id>/analytics/', teacher_views.class_analytics, name='class_analytics'),
     path('teacher/classes/<int:class_id>/remove/<int:student_id>/', teacher_views.remove_student, name='remove_student'),
     path('teacher/distribute/', teacher_views.bulk_content_distribution, name='bulk_content_distribution'),
+    path('teacher/bulk-assign/', teacher_views.bulk_assign_content, name='bulk_assign_content'),
+    
+    # Student enrollment
+    path('enroll/', teacher_views.enroll_in_class, name='enroll_in_class'),
     
     # Parent monitoring dashboard
     path('parent/', parent_views.parent_dashboard, name='parent_dashboard'),

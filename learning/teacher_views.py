@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.http import JsonResponse, Http404
 from django.core.paginator import Paginator
-from django.db import transaction
+from django.db import transaction, models
 from django.utils import timezone
 from django.urls import reverse
 from django.views.decorators.http import require_http_methods
@@ -366,7 +366,7 @@ def bulk_content_distribution(request):
 @login_required
 @teacher_required
 def student_progress(request, class_id):
-    """View student progress in a specific class"""
+    """View comprehensive student progress in a specific class"""
     teacher_profile = request.user.teacher_profile
     teacher_class = get_object_or_404(
         TeacherClass,
@@ -387,19 +387,64 @@ def student_progress(request, class_id):
             quiz__assigned_classes=teacher_class
         ).order_by('-completed_at')
         
-        # Calculate average score
+        # Get learning sessions for class content
+        from .models import LearningSession
+        learning_sessions = LearningSession.objects.filter(
+            student=student,
+            content__teacher_content__assigned_classes=teacher_class,
+            status='completed'
+        ).order_by('-start_time')
+        
+        # Get daily lessons completed
+        from .models import DailyLesson
+        daily_lessons = DailyLesson.objects.filter(
+            student=student,
+            status='completed'
+        ).order_by('-lesson_date')
+        
+        # Calculate comprehensive metrics
         if quiz_attempts:
-            avg_score = sum(attempt.score for attempt in quiz_attempts) / len(quiz_attempts)
+            avg_quiz_score = sum(attempt.score for attempt in quiz_attempts) / len(quiz_attempts)
         else:
-            avg_score = 0
+            avg_quiz_score = 0
+            
+        if learning_sessions:
+            avg_session_score = sum(session.performance_score or 0 for session in learning_sessions) / len(learning_sessions)
+            total_time_spent = sum(session.time_spent_minutes for session in learning_sessions)
+        else:
+            avg_session_score = 0
+            total_time_spent = 0
+        
+        # Calculate overall performance
+        overall_score = (avg_quiz_score + avg_session_score) / 2 if (avg_quiz_score > 0 or avg_session_score > 0) else 0
+        
+        # Get weakness analysis
+        from .models import WeaknessAnalysis
+        weaknesses = WeaknessAnalysis.objects.filter(
+            student=student,
+            weakness_level__in=['high', 'critical']
+        ).order_by('-priority_level')[:3]
         
         student_progress.append({
             'student': student,
             'enrollment': enrollment,
             'quiz_attempts': quiz_attempts[:5],  # Last 5 attempts
-            'total_attempts': quiz_attempts.count(),
-            'average_score': avg_score,
+            'learning_sessions': learning_sessions[:5],  # Last 5 sessions
+            'daily_lessons': daily_lessons[:5],  # Last 5 lessons
+            'total_quiz_attempts': quiz_attempts.count(),
+            'total_learning_sessions': learning_sessions.count(),
+            'total_daily_lessons': daily_lessons.count(),
+            'avg_quiz_score': round(avg_quiz_score, 1),
+            'avg_session_score': round(avg_session_score, 1),
+            'overall_score': round(overall_score, 1),
+            'total_time_spent': total_time_spent,
+            'total_xp': student.total_xp,
+            'current_streak': student.current_streak,
+            'weaknesses': weaknesses,
         })
+    
+    # Sort by overall performance
+    student_progress.sort(key=lambda x: x['overall_score'], reverse=True)
     
     context = {
         'teacher_class': teacher_class,
@@ -508,6 +553,222 @@ def quiz_analytics(request, quiz_id):
     }
     
     return render(request, 'learning/quiz_analytics.html', context)
+
+
+@login_required
+def enroll_in_class(request):
+    """Allow students to enroll in a class using invitation code"""
+    if not hasattr(request.user, 'student_profile'):
+        messages.error(request, 'Only students can enroll in classes.')
+        return redirect('student_dashboard')
+    
+    student_profile = request.user.student_profile
+    
+    if request.method == 'POST':
+        form = ClassEnrollmentForm(request.POST)
+        if form.is_valid():
+            invitation_code = form.cleaned_data['invitation_code']
+            
+            try:
+                teacher_class = TeacherClass.objects.get(
+                    invitation_code=invitation_code,
+                    is_active=True
+                )
+                
+                # Check if student is already enrolled
+                existing_enrollment = ClassEnrollment.objects.filter(
+                    teacher_class=teacher_class,
+                    student=student_profile
+                ).first()
+                
+                if existing_enrollment:
+                    if existing_enrollment.is_active:
+                        messages.warning(request, 'You are already enrolled in this class.')
+                    else:
+                        # Reactivate enrollment
+                        existing_enrollment.is_active = True
+                        existing_enrollment.save()
+                        messages.success(request, f'Successfully re-enrolled in "{teacher_class.name}"!')
+                else:
+                    # Create new enrollment
+                    ClassEnrollment.objects.create(
+                        teacher_class=teacher_class,
+                        student=student_profile
+                    )
+                    messages.success(request, f'Successfully enrolled in "{teacher_class.name}"!')
+                
+                return redirect('student_dashboard')
+                
+            except TeacherClass.DoesNotExist:
+                messages.error(request, 'Invalid invitation code. Please check with your teacher.')
+    else:
+        form = ClassEnrollmentForm()
+    
+    context = {
+        'form': form,
+        'student_profile': student_profile,
+    }
+    
+    return render(request, 'learning/enroll_class.html', context)
+
+
+@login_required
+@teacher_required
+def bulk_assign_content(request):
+    """Enhanced bulk content distribution with better UI"""
+    teacher_profile = request.user.teacher_profile
+    
+    if request.method == 'POST':
+        form = BulkContentDistributionForm(request.POST, teacher=teacher_profile)
+        if form.is_valid():
+            content_items = form.cleaned_data['content_items']
+            target_classes = form.cleaned_data['target_classes']
+            
+            # Track assignments for reporting
+            assignments_made = 0
+            
+            # Distribute content to classes
+            for content_item in content_items:
+                for target_class in target_classes:
+                    if target_class not in content_item.assigned_classes.all():
+                        content_item.assigned_classes.add(target_class)
+                        assignments_made += 1
+            
+            if assignments_made > 0:
+                messages.success(
+                    request, 
+                    f'Successfully made {assignments_made} new content assignments across {len(target_classes)} classes.'
+                )
+            else:
+                messages.info(request, 'All selected content was already assigned to the selected classes.')
+            
+            return redirect('teacher_content_dashboard')
+    else:
+        form = BulkContentDistributionForm(teacher=teacher_profile)
+    
+    # Get content and class statistics for the form
+    total_content = teacher_profile.teacher_content.count()
+    total_classes = teacher_profile.classes.filter(is_active=True).count()
+    
+    context = {
+        'form': form,
+        'teacher_profile': teacher_profile,
+        'total_content': total_content,
+        'total_classes': total_classes,
+    }
+    
+    return render(request, 'learning/bulk_assign_content.html', context)
+
+
+@login_required
+@teacher_required
+def class_analytics(request, class_id):
+    """Comprehensive analytics for a specific class"""
+    teacher_profile = request.user.teacher_profile
+    teacher_class = get_object_or_404(
+        TeacherClass,
+        id=class_id,
+        teacher=teacher_profile
+    )
+    
+    # Get enrolled students
+    enrollments = teacher_class.enrollments.filter(is_active=True)
+    student_count = enrollments.count()
+    
+    if student_count == 0:
+        context = {
+            'teacher_class': teacher_class,
+            'teacher_profile': teacher_profile,
+            'student_count': 0,
+        }
+        return render(request, 'learning/class_analytics.html', context)
+    
+    # Get all quiz attempts for this class
+    quiz_attempts = QuizAttempt.objects.filter(
+        quiz__assigned_classes=teacher_class
+    ).select_related('student__user', 'quiz')
+    
+    # Get learning sessions for class content
+    from .models import LearningSession
+    learning_sessions = LearningSession.objects.filter(
+        content__teacher_content__assigned_classes=teacher_class,
+        status='completed'
+    ).select_related('student__user', 'content')
+    
+    # Calculate class-wide statistics
+    if quiz_attempts.exists():
+        avg_quiz_score = quiz_attempts.aggregate(models.Avg('score'))['score__avg'] or 0
+        quiz_completion_rate = (quiz_attempts.values('student').distinct().count() / student_count) * 100
+    else:
+        avg_quiz_score = 0
+        quiz_completion_rate = 0
+    
+    if learning_sessions.exists():
+        avg_session_score = learning_sessions.aggregate(
+            models.Avg('performance_score')
+        )['performance_score__avg'] or 0
+        total_study_time = learning_sessions.aggregate(
+            models.Sum('time_spent_minutes')
+        )['time_spent_minutes__sum'] or 0
+    else:
+        avg_session_score = 0
+        total_study_time = 0
+    
+    # Get performance distribution
+    performance_ranges = {
+        'excellent': 0,  # 90-100
+        'good': 0,       # 80-89
+        'average': 0,    # 70-79
+        'below_average': 0,  # 60-69
+        'poor': 0        # <60
+    }
+    
+    for enrollment in enrollments:
+        student = enrollment.student
+        student_quiz_attempts = quiz_attempts.filter(student=student)
+        student_sessions = learning_sessions.filter(student=student)
+        
+        if student_quiz_attempts.exists() or student_sessions.exists():
+            quiz_avg = student_quiz_attempts.aggregate(models.Avg('score'))['score__avg'] or 0
+            session_avg = student_sessions.aggregate(models.Avg('performance_score'))['performance_score__avg'] or 0
+            overall_avg = (quiz_avg + session_avg) / 2 if (quiz_avg > 0 or session_avg > 0) else 0
+            
+            if overall_avg >= 90:
+                performance_ranges['excellent'] += 1
+            elif overall_avg >= 80:
+                performance_ranges['good'] += 1
+            elif overall_avg >= 70:
+                performance_ranges['average'] += 1
+            elif overall_avg >= 60:
+                performance_ranges['below_average'] += 1
+            else:
+                performance_ranges['poor'] += 1
+    
+    # Get most challenging content
+    from .models import WeaknessAnalysis
+    common_weaknesses = WeaknessAnalysis.objects.filter(
+        student__class_enrollments__teacher_class=teacher_class,
+        student__class_enrollments__is_active=True,
+        weakness_level__in=['high', 'critical']
+    ).values('concept').annotate(
+        student_count=models.Count('student', distinct=True)
+    ).order_by('-student_count')[:5]
+    
+    context = {
+        'teacher_class': teacher_class,
+        'teacher_profile': teacher_profile,
+        'student_count': student_count,
+        'avg_quiz_score': round(avg_quiz_score, 1),
+        'avg_session_score': round(avg_session_score, 1),
+        'quiz_completion_rate': round(quiz_completion_rate, 1),
+        'total_study_time': total_study_time,
+        'performance_ranges': performance_ranges,
+        'common_weaknesses': common_weaknesses,
+        'total_quiz_attempts': quiz_attempts.count(),
+        'total_learning_sessions': learning_sessions.count(),
+    }
+    
+    return render(request, 'learning/class_analytics.html', context)
 
 
 # AJAX endpoints for dynamic functionality

@@ -1,0 +1,307 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher_class.name }} - Class Details - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ teacher_class.name }}</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ teacher_class.subject }} - {{ teacher_class.grade_level }}
+                    </p>
+                    {% if teacher_class.description %}
+                        <p class="mt-2 text-sm text-gray-700">{{ teacher_class.description }}</p>
+                    {% endif %}
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{% url 'class_management' %}" class="text-blue-600 hover:text-blue-800">
+                        ← Back to Classes
+                    </a>
+                    <a href="{% url 'class_analytics' teacher_class.id %}" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
+                        View Analytics
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Class Info and Invitation -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- Class Statistics -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Class Statistics</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Enrolled Students:</span>
+                        <span class="text-sm font-medium text-gray-900">{{ enrollments.count }} / {{ teacher_class.max_students }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Assigned Content:</span>
+                        <span class="text-sm font-medium text-gray-900">{{ assigned_content.count }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Active Quizzes:</span>
+                        <span class="text-sm font-medium text-gray-900">{{ assigned_quizzes.count }}</span>
+                    </div>
+                    <div class="flex justify-between">
+                        <span class="text-sm text-gray-600">Created:</span>
+                        <span class="text-sm font-medium text-gray-900">{{ teacher_class.created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Invitation Code -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Invitation Code</h3>
+                <div class="text-center">
+                    <div class="bg-blue-50 rounded-lg p-4 mb-4">
+                        <code class="text-2xl font-mono font-bold text-blue-900">{{ teacher_class.invitation_code }}</code>
+                    </div>
+                    <button onclick="copyToClipboard('{{ teacher_class.invitation_code }}')" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+                        Copy Invitation Code
+                    </button>
+                    <p class="mt-2 text-xs text-gray-500">Share this code with students to join your class</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quick Actions -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-4 py-5 sm:p-6">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
+                <div class="space-y-3">
+                    <a href="{% url 'student_progress' teacher_class.id %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center block">
+                        View Student Progress
+                    </a>
+                    <a href="{% url 'bulk_assign_content' %}" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 text-center block">
+                        Assign Content
+                    </a>
+                    <a href="{% url 'upload_content' %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 text-center block">
+                        Upload New Content
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Enrolled Students -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Enrolled Students ({{ enrollments.count }})</h3>
+                {% if enrollments.count > 0 %}
+                    <a href="{% url 'student_progress' teacher_class.id %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                        View Detailed Progress →
+                    </a>
+                {% endif %}
+            </div>
+            
+            {% if enrollments %}
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Student
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Enrolled
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Status
+                                </th>
+                                <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                    Actions
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            {% for enrollment in enrollments %}
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <div class="flex items-center">
+                                            <div class="flex-shrink-0 h-8 w-8">
+                                                <div class="h-8 w-8 rounded-full bg-blue-100 flex items-center justify-center">
+                                                    <span class="text-xs font-medium text-blue-800">
+                                                        {{ enrollment.student.user.first_name|first|default:enrollment.student.user.username|first }}{{ enrollment.student.user.last_name|first|default:"" }}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            <div class="ml-4">
+                                                <div class="text-sm font-medium text-gray-900">
+                                                    {% if enrollment.student.user.first_name %}
+                                                        {{ enrollment.student.user.first_name }} {{ enrollment.student.user.last_name }}
+                                                    {% else %}
+                                                        {{ enrollment.student.user.username }}
+                                                    {% endif %}
+                                                </div>
+                                                <div class="text-sm text-gray-500">{{ enrollment.student.user.email }}</div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                        {{ enrollment.enrolled_at|date:"M d, Y" }}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        {% if enrollment.is_active %}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
+                                                Active
+                                            </span>
+                                        {% else %}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                                                Inactive
+                                            </span>
+                                        {% endif %}
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        {% if enrollment.is_active %}
+                                            <form method="post" action="{% url 'remove_student' teacher_class.id enrollment.student.id %}" class="inline" onsubmit="return confirm('Are you sure you want to remove this student from the class?')">
+                                                {% csrf_token %}
+                                                <button type="submit" class="text-red-600 hover:text-red-900">Remove</button>
+                                            </form>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No students enrolled</h3>
+                    <p class="mt-1 text-sm text-gray-500">Share the invitation code with students to get started.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Assigned Content -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Assigned Content ({{ assigned_content.count }})</h3>
+                <a href="{% url 'bulk_assign_content' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                    Assign More Content →
+                </a>
+            </div>
+            
+            {% if assigned_content %}
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {% for content in assigned_content %}
+                        <div class="border border-gray-200 rounded-lg p-4 hover:shadow-md transition-shadow">
+                            <h4 class="text-sm font-medium text-gray-900 mb-2">{{ content.title }}</h4>
+                            <p class="text-xs text-gray-600 mb-2">{{ content.subject }} - {{ content.grade_level }}</p>
+                            {% if content.description %}
+                                <p class="text-xs text-gray-500 mb-3">{{ content.description|truncatewords:15 }}</p>
+                            {% endif %}
+                            <div class="flex justify-between items-center">
+                                <span class="text-xs text-gray-500">{{ content.created_at|date:"M d" }}</span>
+                                <a href="{% url 'teacher_content_detail' content.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No content assigned</h3>
+                    <p class="mt-1 text-sm text-gray-500">Assign content to make it available to students in this class.</p>
+                    <div class="mt-4">
+                        <a href="{% url 'bulk_assign_content' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            Assign Content
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Active Quizzes -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900">Active Quizzes ({{ assigned_quizzes.count }})</h3>
+                <a href="{% url 'teacher_quiz_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                    Manage Quizzes →
+                </a>
+            </div>
+            
+            {% if assigned_quizzes %}
+                <div class="space-y-4">
+                    {% for quiz in assigned_quizzes %}
+                        <div class="border border-gray-200 rounded-lg p-4">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <h4 class="text-sm font-medium text-gray-900">{{ quiz.title }}</h4>
+                                    <p class="text-xs text-gray-600 mt-1">
+                                        {{ quiz.get_question_count }} questions
+                                        {% if quiz.time_limit_minutes %} • {{ quiz.time_limit_minutes }} min limit{% endif %}
+                                        {% if quiz.due_date %} • Due {{ quiz.due_date|date:"M d, Y" }}{% endif %}
+                                    </p>
+                                </div>
+                                <div class="flex space-x-2">
+                                    <a href="{% url 'quiz_analytics' quiz.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
+                                        Analytics
+                                    </a>
+                                    <form method="post" action="{% url 'toggle_quiz_status' quiz.id %}" class="inline">
+                                        {% csrf_token %}
+                                        <button type="submit" class="text-gray-600 hover:text-gray-800 text-xs">
+                                            {% if quiz.is_active %}Deactivate{% else %}Activate{% endif %}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No active quizzes</h3>
+                    <p class="mt-1 text-sm text-gray-500">Create and assign quizzes to assess student understanding.</p>
+                    <div class="mt-4">
+                        <a href="{% url 'teacher_quiz_list' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            Manage Quizzes
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+        const button = event.target;
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-green-600 hover:bg-green-700');
+        
+        setTimeout(function() {
+            button.textContent = originalText;
+            button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-blue-600 hover:bg-blue-700');
+        }, 2000);
+    }).catch(function(err) {
+        console.error('Could not copy text: ', err);
+        alert('Failed to copy invitation code');
+    });
+}
+</script>
+{% endblock %}

@@ -1,0 +1,300 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher_class.name }} Student Progress - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ teacher_class.name }} - Student Progress</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ teacher_class.subject }} - {{ teacher_class.grade_level }} | {{ student_progress|length }}
+                        student{{ student_progress|length|pluralize }}
+                    </p>
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{% url 'class_detail' teacher_class.id %}" class="text-blue-600 hover:text-blue-800">
+                        ← Back to Class
+                    </a>
+                    <a href="{% url 'class_analytics' teacher_class.id %}"
+                        class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
+                        View Analytics
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if student_progress %}
+    <!-- Progress Overview -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Progress Overview</h3>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Student
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Overall Score
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Quiz Performance
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Study Activity
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Engagement
+                            </th>
+                            <th scope="col"
+                                class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                                Actions
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        {% for progress in student_progress %}
+                        <tr class="hover:bg-gray-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 h-10 w-10">
+                                        <div
+                                            class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                            <span class="text-sm font-medium text-blue-800">
+                                                {{
+                                                progress.student.user.first_name|first|default:progress.student.user.username|first
+                                                }}{{ progress.student.user.last_name|first|default:"" }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="ml-4">
+                                        <div class="text-sm font-medium text-gray-900">
+                                            {% if progress.student.user.first_name %}
+                                            {{ progress.student.user.first_name }} {{ progress.student.user.last_name }}
+                                            {% else %}
+                                            {{ progress.student.user.username }}
+                                            {% endif %}
+                                        </div>
+                                        <div class="text-sm text-gray-500">{{ progress.student.user.email }}</div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center">
+                                    <div class="flex-shrink-0 w-16">
+                                        <div class="text-sm font-medium text-gray-900">{{ progress.overall_score }}%
+                                        </div>
+                                    </div>
+                                    <div class="ml-2 flex-1">
+                                        <div class="w-full bg-gray-200 rounded-full h-2">
+                                            {% if progress.overall_score >= 80 %}
+                                            <div class="h-2 rounded-full bg-green-500"
+                                                style="width: {{ progress.overall_score|default:0 }}%"></div>
+                                            {% elif progress.overall_score >= 60 %}
+                                            <div class="h-2 rounded-full bg-yellow-500"
+                                                style="width: {{ progress.overall_score|default:0 }}%"></div>
+                                            {% else %}
+                                            <div class="h-2 rounded-full bg-red-500"
+                                                style="width: {{ progress.overall_score|default:0 }}%"></div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <div>{{ progress.avg_quiz_score }}% avg</div>
+                                <div class="text-xs text-gray-500">{{ progress.total_quiz_attempts }} attempt{{
+                                    progress.total_quiz_attempts|pluralize }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                <div>{{ progress.total_time_spent }} min</div>
+                                <div class="text-xs text-gray-500">{{ progress.total_learning_sessions }} session{{
+                                    progress.total_learning_sessions|pluralize }}</div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="flex items-center space-x-2">
+                                    <div class="text-sm text-gray-900">{{ progress.total_xp }} XP</div>
+                                    {% if progress.current_streak > 0 %}
+                                    <span
+                                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-orange-100 text-orange-800">
+                                        {{ progress.current_streak }} day streak
+                                    </span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                <button onclick="toggleStudentDetails('student-{{ progress.student.id }}')"
+                                    class="text-blue-600 hover:text-blue-900">
+                                    View Details
+                                </button>
+                            </td>
+                        </tr>
+
+                        <!-- Detailed Progress Row (Hidden by default) -->
+                        <tr id="student-{{ progress.student.id }}" class="hidden bg-gray-50">
+                            <td colspan="6" class="px-6 py-4">
+                                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                                    <!-- Recent Quiz Attempts -->
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900 mb-3">Recent Quiz Attempts</h4>
+                                        {% if progress.quiz_attempts %}
+                                        <div class="space-y-2">
+                                            {% for attempt in progress.quiz_attempts %}
+                                            <div class="flex justify-between items-center p-2 bg-white rounded border">
+                                                <div>
+                                                    <div class="text-sm font-medium">{{
+                                                        attempt.quiz.title|truncatechars:30 }}</div>
+                                                    <div class="text-xs text-gray-500">{{ attempt.completed_at|date:"M
+                                                        d, Y" }}</div>
+                                                </div>
+                                                <div
+                                                    class="text-sm font-medium {% if attempt.score >= 80 %}text-green-600{% elif attempt.score >= 60 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                                                    {{ attempt.score }}%
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p class="text-sm text-gray-500">No quiz attempts yet</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Recent Learning Sessions -->
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900 mb-3">Recent Learning Sessions</h4>
+                                        {% if progress.learning_sessions %}
+                                        <div class="space-y-2">
+                                            {% for session in progress.learning_sessions %}
+                                            <div class="flex justify-between items-center p-2 bg-white rounded border">
+                                                <div>
+                                                    <div class="text-sm font-medium">{{ session.session_type|title }}
+                                                    </div>
+                                                    <div class="text-xs text-gray-500">{{ session.start_time|date:"M d,
+                                                        Y" }} - {{ session.time_spent_minutes }} min</div>
+                                                </div>
+                                                <div
+                                                    class="text-sm font-medium {% if session.performance_score >= 80 %}text-green-600{% elif session.performance_score >= 60 %}text-yellow-600{% else %}text-red-600{% endif %}">
+                                                    {% if session.performance_score %}{{ session.performance_score }}%{%
+                                                    else %}N/A{% endif %}
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p class="text-sm text-gray-500">No learning sessions yet</p>
+                                        {% endif %}
+                                    </div>
+
+                                    <!-- Weaknesses & Daily Lessons -->
+                                    <div>
+                                        <h4 class="text-sm font-medium text-gray-900 mb-3">Areas for Improvement</h4>
+                                        {% if progress.weaknesses %}
+                                        <div class="space-y-2 mb-4">
+                                            {% for weakness in progress.weaknesses %}
+                                            <div class="p-2 bg-red-50 rounded border border-red-200">
+                                                <div class="text-sm font-medium text-red-900">{{ weakness.concept }}
+                                                </div>
+                                                <div class="text-xs text-red-600">{{ weakness.get_weakness_level_display
+                                                    }} - Priority {{ weakness.priority_level }}</div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% endif %}
+
+                                        <h5 class="text-sm font-medium text-gray-900 mb-2">Recent Daily Lessons</h5>
+                                        {% if progress.daily_lessons %}
+                                        <div class="space-y-1">
+                                            {% for lesson in progress.daily_lessons %}
+                                            <div class="flex justify-between items-center text-xs">
+                                                <span class="text-gray-600">{{ lesson.lesson_date }}</span>
+                                                <span
+                                                    class="{% if lesson.status == 'completed' %}text-green-600{% elif lesson.status == 'skipped' %}text-yellow-600{% else %}text-gray-500{% endif %}">
+                                                    {{ lesson.get_status_display }}
+                                                </span>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                        {% else %}
+                                        <p class="text-xs text-gray-500">No daily lessons completed</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {% else %}
+    <!-- No Students -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="text-center py-12">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z">
+                    </path>
+                </svg>
+                <h3 class="mt-2 text-sm font-medium text-gray-900">No students enrolled</h3>
+                <p class="mt-1 text-sm text-gray-500">
+                    Share the invitation code <strong>{{ teacher_class.invitation_code }}</strong> with students to get
+                    started.
+                </p>
+                <div class="mt-6">
+                    <button onclick="copyToClipboard('{{ teacher_class.invitation_code }}')"
+                        class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        Copy Invitation Code
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleStudentDetails(studentId) {
+        const detailsRow = document.getElementById(studentId);
+        const button = event.target;
+
+        if (detailsRow.classList.contains('hidden')) {
+            detailsRow.classList.remove('hidden');
+            button.textContent = 'Hide Details';
+        } else {
+            detailsRow.classList.add('hidden');
+            button.textContent = 'View Details';
+        }
+    }
+
+    function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function () {
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = 'Copied!';
+            button.className = button.className.replace('bg-blue-600 hover:bg-blue-700', 'bg-green-600 hover:bg-green-700');
+
+            setTimeout(function () {
+                button.textContent = originalText;
+                button.className = button.className.replace('bg-green-600 hover:bg-green-700', 'bg-blue-600 hover:bg-blue-700');
+            }, 2000);
+        }).catch(function (err) {
+            console.error('Could not copy text: ', err);
+            alert('Failed to copy invitation code');
+        });
+    }
+</script>
+{% endblock %}

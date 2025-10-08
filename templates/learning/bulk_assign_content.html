@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk Content Assignment - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Bulk Content Assignment</h1>
+                <a href="{% url 'teacher_content_dashboard' %}" class="text-blue-600 hover:text-blue-800">
+                    ← Back to Dashboard
+                </a>
+            </div>
+            
+            <!-- Statistics -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-8 w-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-blue-600">Total Content Items</p>
+                            <p class="text-2xl font-bold text-blue-900">{{ total_content }}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-green-50 rounded-lg p-4">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <svg class="h-8 w-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-4">
+                            <p class="text-sm font-medium text-green-600">Active Classes</p>
+                            <p class="text-2xl font-bold text-green-900">{{ total_classes }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            {% if total_content > 0 and total_classes > 0 %}
+                <form method="post" class="space-y-8">
+                    {% csrf_token %}
+                    
+                    <!-- Content Selection -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Select Content to Distribute</h3>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            {% if form.content_items %}
+                                <div class="space-y-3">
+                                    {% for choice in form.content_items %}
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                {{ choice.tag }}
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="{{ choice.id_for_label }}" class="font-medium text-gray-700">
+                                                    {{ choice.choice_label }}
+                                                </label>
+                                                {% if choice.choice_value.description %}
+                                                    <p class="text-gray-500">{{ choice.choice_value.description|truncatewords:15 }}</p>
+                                                {% endif %}
+                                                <p class="text-xs text-gray-400">
+                                                    Subject: {{ choice.choice_value.subject }} | Grade: {{ choice.choice_value.grade_level }}
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if form.content_items.errors %}
+                                    <div class="mt-2 text-sm text-red-600">
+                                        {{ form.content_items.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-gray-500">No content items available for distribution.</p>
+                            {% endif %}
+                        </div>
+                        {% if form.content_items.help_text %}
+                            <p class="mt-2 text-sm text-gray-500">{{ form.content_items.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Class Selection -->
+                    <div>
+                        <h3 class="text-lg font-medium text-gray-900 mb-4">Select Target Classes</h3>
+                        <div class="bg-gray-50 rounded-lg p-4">
+                            {% if form.target_classes %}
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                    {% for choice in form.target_classes %}
+                                        <div class="flex items-start">
+                                            <div class="flex items-center h-5">
+                                                {{ choice.tag }}
+                                            </div>
+                                            <div class="ml-3 text-sm">
+                                                <label for="{{ choice.id_for_label }}" class="font-medium text-gray-700">
+                                                    {{ choice.choice_label }}
+                                                </label>
+                                                <p class="text-gray-500">
+                                                    {{ choice.choice_value.subject }} - {{ choice.choice_value.grade_level }}
+                                                </p>
+                                                <p class="text-xs text-gray-400">
+                                                    {{ choice.choice_value.get_student_count }} students enrolled
+                                                </p>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                {% if form.target_classes.errors %}
+                                    <div class="mt-2 text-sm text-red-600">
+                                        {{ form.target_classes.errors.0 }}
+                                    </div>
+                                {% endif %}
+                            {% else %}
+                                <p class="text-gray-500">No active classes available.</p>
+                            {% endif %}
+                        </div>
+                        {% if form.target_classes.help_text %}
+                            <p class="mt-2 text-sm text-gray-500">{{ form.target_classes.help_text }}</p>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Information Box -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">Important Notes</h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <ul class="list-disc list-inside space-y-1">
+                                        <li>Content will be added to the selected classes' assigned content</li>
+                                        <li>Students in those classes will gain access to the content immediately</li>
+                                        <li>Content already assigned to a class will not be duplicated</li>
+                                        <li>You can modify individual assignments later from each class's detail page</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Submit Buttons -->
+                    <div class="flex justify-end space-x-3">
+                        <a href="{% url 'teacher_content_dashboard' %}" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Cancel
+                        </a>
+                        <button type="submit" class="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            Assign Content to Classes
+                        </button>
+                    </div>
+                </form>
+            {% else %}
+                <div class="text-center py-12">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No content or classes available</h3>
+                    <p class="mt-1 text-sm text-gray-500">
+                        {% if total_content == 0 %}
+                            You need to upload some content first.
+                        {% elif total_classes == 0 %}
+                            You need to create some classes first.
+                        {% endif %}
+                    </p>
+                    <div class="mt-6 flex justify-center space-x-3">
+                        {% if total_content == 0 %}
+                            <a href="{% url 'upload_content' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                                Upload Content
+                            </a>
+                        {% endif %}
+                        {% if total_classes == 0 %}
+                            <a href="{% url 'create_class' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                                Create Class
+                            </a>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<script>
+// Add select all functionality
+document.addEventListener('DOMContentLoaded', function() {
+    // Add "Select All" buttons for content and classes
+    addSelectAllButton('content_items', 'Select All Content');
+    addSelectAllButton('target_classes', 'Select All Classes');
+});
+
+function addSelectAllButton(fieldName, buttonText) {
+    const fieldContainer = document.querySelector(`input[name="${fieldName}"]`)?.closest('.space-y-3, .grid');
+    if (fieldContainer) {
+        const selectAllBtn = document.createElement('button');
+        selectAllBtn.type = 'button';
+        selectAllBtn.className = 'mb-3 text-sm text-blue-600 hover:text-blue-800 font-medium';
+        selectAllBtn.textContent = buttonText;
+        selectAllBtn.onclick = function() {
+            const checkboxes = fieldContainer.querySelectorAll(`input[name="${fieldName}"]`);
+            const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+            checkboxes.forEach(cb => cb.checked = !allChecked);
+            selectAllBtn.textContent = allChecked ? buttonText : buttonText.replace('Select', 'Deselect');
+        };
+        fieldContainer.parentNode.insertBefore(selectAllBtn, fieldContainer);
+    }
+}
+</script>
+{% endblock %}

@@ -689,3 +689,43 @@ WARNING 2025-10-08 18:55:02,955 ai_services 1892 16744 OpenAI not available or A
 WARNING 2025-10-08 18:55:02,955 ai_services 1892 16744 OpenAI not available or API key not configured
 WARNING 2025-10-08 18:55:02,956 ai_services 1892 16744 OpenAI not available or API key not configured
 WARNING 2025-10-08 18:55:02,957 ai_services 1892 16744 OpenAI not available or API key not configured
+INFO 2025-10-08 20:36:06,907 autoreload 3176 2640 Watching for file changes with StatReloader
+WARNING 2025-10-08 20:36:06,983 ai_services 3176 2640 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:36:06,983 ai_services 3176 2640 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:36:06,983 ai_services 3176 2640 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:36:06,984 ai_services 3176 2640 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:36:06,984 ai_services 3176 2640 OpenAI not available or API key not configured
+INFO 2025-10-08 20:36:11,524 basehttp 3176 12352 "GET / HTTP/1.1" 302 0
+INFO 2025-10-08 20:36:11,821 basehttp 3176 12352 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-08 20:36:11,939 basehttp 3176 12352 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-08 20:36:12,317 log 3176 5820 Not Found: /favicon.ico
+WARNING 2025-10-08 20:36:12,319 basehttp 3176 5820 "GET /favicon.ico HTTP/1.1" 404 3148
+INFO 2025-10-08 20:40:27,689 basehttp 3176 5820 "GET /accounts/register/ HTTP/1.1" 200 7777
+WARNING 2025-10-08 20:40:27,720 basehttp 3176 5820 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 20:41:46,634 autoreload 3176 2640 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2025-10-08 20:41:48,110 autoreload 13800 14388 Watching for file changes with StatReloader
+WARNING 2025-10-08 20:41:48,162 ai_services 13800 14388 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:41:48,163 ai_services 13800 14388 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:41:48,168 ai_services 13800 14388 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:41:48,168 ai_services 13800 14388 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:41:48,170 ai_services 13800 14388 OpenAI not available or API key not configured
+ERROR 2025-10-08 20:43:09,120 log 13800 14116 Internal Server Error: /accounts/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 168, in dashboard_view
+    if user.role == 'student':
+       ^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\functional.py", line 253, in inner
+    return func(_wrapped, *args)
+AttributeError: 'AnonymousUser' object has no attribute 'role'
+ERROR 2025-10-08 20:43:09,133 basehttp 13800 14116 "GET /accounts/dashboard/ HTTP/1.1" 500 72426
+INFO 2025-10-08 20:44:16,696 autoreload 13800 14388 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2025-10-08 20:44:18,111 autoreload 11592 14684 Watching for file changes with StatReloader
+WARNING 2025-10-08 20:44:18,162 ai_services 11592 14684 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:44:18,166 ai_services 11592 14684 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:44:18,166 ai_services 11592 14684 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:44:18,167 ai_services 11592 14684 OpenAI not available or API key not configured
+WARNING 2025-10-08 20:44:18,167 ai_services 11592 14684 OpenAI not available or API key not configured
