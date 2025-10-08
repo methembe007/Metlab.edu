@@ -1,0 +1,183 @@
+{% extends 'base.html' %}
+
+{% block title %}My Badges - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">My Badge Collection</h1>
+            <p class="mt-2 text-gray-600">Showcase your learning achievements</p>
+        </div>
+
+        <!-- Badge Stats -->
+        <div class="bg-white rounded-lg shadow p-6 mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-semibold text-gray-900">Collection Progress</h2>
+                    <p class="text-gray-600">{{ total_badges }} of {{ total_possible }} badges earned</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-3xl font-bold text-blue-600">{{ completion_percentage|floatformat:0 }}%</div>
+                    <div class="text-sm text-gray-500">Complete</div>
+                </div>
+            </div>
+            <div class="mt-4 bg-gray-200 rounded-full h-3">
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-500" 
+                     style="width: {{ completion_percentage }}%"></div>
+            </div>
+        </div>
+
+        <!-- Badge Gallery by Category -->
+        {% if achievements_by_type %}
+            {% for type_key, type_data in achievements_by_type.items %}
+            <div class="mb-8">
+                <h2 class="text-2xl font-bold text-gray-900 mb-4">
+                    {{ type_data.display_name }} Badges
+                    <span class="text-lg font-normal text-gray-500">({{ type_data.achievements|length }})</span>
+                </h2>
+                
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                    {% for student_achievement in type_data.achievements %}
+                    <div class="bg-white rounded-lg shadow-lg p-4 text-center hover:shadow-xl transition-shadow duration-300 border-2 border-green-200">
+                        <!-- Badge Icon -->
+                        <div class="text-6xl mb-3 animate-pulse">{{ student_achievement.achievement.badge_icon }}</div>
+                        
+                        <!-- Badge Name -->
+                        <h3 class="font-semibold text-gray-900 text-sm mb-2">{{ student_achievement.achievement.name }}</h3>
+                        
+                        <!-- Earned Date -->
+                        <p class="text-xs text-gray-500 mb-3">{{ student_achievement.earned_at|date:"M d, Y" }}</p>
+                        
+                        <!-- Badge Description (tooltip on hover) -->
+                        <div class="relative group">
+                            <button class="text-xs text-blue-600 hover:text-blue-800">View Details</button>
+                            <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none z-10 w-48">
+                                {{ student_achievement.achievement.description }}
+                                {% if student_achievement.achievement.xp_reward > 0 or student_achievement.achievement.coin_reward > 0 %}
+                                <div class="mt-2 pt-2 border-t border-gray-600">
+                                    {% if student_achievement.achievement.xp_reward > 0 %}
+                                    <div>+{{ student_achievement.achievement.xp_reward }} XP</div>
+                                    {% endif %}
+                                    {% if student_achievement.achievement.coin_reward > 0 %}
+                                    <div>+{{ student_achievement.achievement.coin_reward }} coins</div>
+                                    {% endif %}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <!-- Rewards -->
+                        {% if student_achievement.achievement.xp_reward > 0 or student_achievement.achievement.coin_reward > 0 %}
+                        <div class="flex justify-center space-x-1 mt-2">
+                            {% if student_achievement.achievement.xp_reward > 0 %}
+                            <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                                +{{ student_achievement.achievement.xp_reward }}
+                            </span>
+                            {% endif %}
+                            {% if student_achievement.achievement.coin_reward > 0 %}
+                            <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                +{{ student_achievement.achievement.coin_reward }}
+                            </span>
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <!-- No badges earned yet -->
+            <div class="text-center py-12">
+                <div class="text-6xl mb-4">🏆</div>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">No Badges Yet</h2>
+                <p class="text-gray-600 mb-6">Start learning to earn your first badge!</p>
+                <a href="{% url 'learning:daily_lesson' %}" 
+                   class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                    Start Learning
+                </a>
+            </div>
+        {% endif %}
+
+        <!-- Badge Sharing -->
+        {% if total_badges > 0 %}
+        <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow p-6 text-white text-center">
+            <h2 class="text-xl font-bold mb-2">Share Your Achievement!</h2>
+            <p class="mb-4">Show off your {{ total_badges }} badge{{ total_badges|pluralize }} to friends and family</p>
+            <button onclick="shareAchievements()" 
+                    class="bg-white text-blue-600 font-bold py-2 px-4 rounded hover:bg-gray-100 transition-colors">
+                Share Collection
+            </button>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+function shareAchievements() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'My Learning Badges - Metlab.edu',
+            text: `I've earned {{ total_badges }} learning badges on Metlab.edu! Check out my progress.`,
+            url: window.location.href
+        });
+    } else {
+        // Fallback for browsers that don't support Web Share API
+        const url = window.location.href;
+        const text = `I've earned {{ total_badges }} learning badges on Metlab.edu! Check out my progress: ${url}`;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('Achievement link copied to clipboard!');
+            });
+        } else {
+            // Further fallback
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textArea);
+            alert('Achievement link copied to clipboard!');
+        }
+    }
+}
+
+// Add some animation to badges on scroll
+document.addEventListener('DOMContentLoaded', function() {
+    const badges = document.querySelectorAll('.animate-pulse');
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'bounce 0.6s ease-in-out';
+                observer.unobserve(entry.target);
+            }
+        });
+    });
+    
+    badges.forEach(badge => {
+        observer.observe(badge);
+    });
+});
+</script>
+
+<style>
+@keyframes bounce {
+    0%, 20%, 53%, 80%, 100% {
+        transform: translate3d(0,0,0);
+    }
+    40%, 43% {
+        transform: translate3d(0, -15px, 0);
+    }
+    70% {
+        transform: translate3d(0, -7px, 0);
+    }
+    90% {
+        transform: translate3d(0, -2px, 0);
+    }
+}
+</style>
+{% endblock %}

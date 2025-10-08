@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+
+{% block title %}Link Child Account - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Link Child Account</h1>
+                <p class="text-sm text-gray-600">Connect your child's learning account to monitor their progress</p>
+            </div>
+            <a href="{% url 'learning:parent_dashboard' %}" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition duration-200">
+                Back to Dashboard
+            </a>
+        </div>
+        
+        <!-- Instructions -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+            <div class="flex">
+                <div class="flex-shrink-0">
+                    <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                    </svg>
+                </div>
+                <div class="ml-3">
+                    <h3 class="text-sm font-medium text-blue-800">How to Link Your Child's Account</h3>
+                    <div class="mt-2 text-sm text-blue-700">
+                        <ol class="list-decimal list-inside space-y-1">
+                            <li>Ask your child to log into their Metlab.edu student account</li>
+                            <li>Have them go to their profile settings and generate a "Parent Link Code"</li>
+                            <li>Enter their username and the link code below</li>
+                            <li>Once linked, you'll be able to monitor their learning progress and set screen time limits</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Link Form -->
+        <div class="max-w-md mx-auto">
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <div>
+                    <label for="child_username" class="block text-sm font-medium text-gray-700 mb-2">
+                        Child's Username
+                    </label>
+                    <input type="text" 
+                           id="child_username" 
+                           name="child_username" 
+                           required
+                           placeholder="Enter your child's username"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <p class="text-xs text-gray-600 mt-1">This is the username your child uses to log in</p>
+                </div>
+                
+                <div>
+                    <label for="link_code" class="block text-sm font-medium text-gray-700 mb-2">
+                        Parent Link Code
+                    </label>
+                    <input type="text" 
+                           id="link_code" 
+                           name="link_code" 
+                           required
+                           placeholder="Enter the link code from your child's account"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <p class="text-xs text-gray-600 mt-1">Your child can generate this code in their profile settings</p>
+                </div>
+                
+                <div class="flex justify-end space-x-4">
+                    <a href="{% url 'learning:parent_dashboard' %}" 
+                       class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-200">
+                        Link Account
+                    </button>
+                </div>
+            </form>
+        </div>
+        
+        <!-- Currently Linked Children -->
+        {% if parent_profile.children.all %}
+        <div class="mt-12">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Currently Linked Children</h3>
+            <div class="bg-gray-50 rounded-lg p-4">
+                <div class="space-y-3">
+                    {% for child in parent_profile.children.all %}
+                        <div class="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-200">
+                            <div class="flex items-center">
+                                <div class="flex-shrink-0">
+                                    <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                                        <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <p class="text-sm font-medium text-gray-900">
+                                        {{ child.user.first_name }} {{ child.user.last_name }}
+                                    </p>
+                                    <p class="text-xs text-gray-600">@{{ child.user.username }}</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">
+                                    Linked
+                                </span>
+                                <form method="post" action="{% url 'learning:unlink_child_account' child.id %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" 
+                                            onclick="return confirm('Are you sure you want to unlink {{ child.user.first_name }}\'s account?')"
+                                            class="text-xs px-2 py-1 bg-red-100 text-red-800 rounded-full hover:bg-red-200 transition duration-200">
+                                        Unlink
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        
+        <!-- Help Section -->
+        <div class="mt-12 bg-gray-50 border border-gray-200 rounded-lg p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Need Help?</h3>
+            <div class="space-y-4 text-sm text-gray-600">
+                <div>
+                    <h4 class="font-medium text-gray-900">Where does my child find the link code?</h4>
+                    <p>Your child should log into their account, go to Profile Settings, and look for "Parent Account Linking" section. They can generate a new code there.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-gray-900">What if the link code doesn't work?</h4>
+                    <p>Link codes expire after 24 hours for security. Ask your child to generate a new code and try again.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-gray-900">Can I link multiple children?</h4>
+                    <p>Yes! You can link as many children as needed. Each child will need to provide their own link code.</p>
+                </div>
+                
+                <div>
+                    <h4 class="font-medium text-gray-900">What information can I see?</h4>
+                    <p>Once linked, you can view your child's learning progress, set screen time limits, receive progress notifications, and send encouragement messages.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-format link code input (uppercase, remove spaces)
+document.getElementById('link_code').addEventListener('input', function() {
+    this.value = this.value.toUpperCase().replace(/\s/g, '');
+});
+
+// Form validation
+document.querySelector('form').addEventListener('submit', function(e) {
+    const username = document.getElementById('child_username').value.trim();
+    const linkCode = document.getElementById('link_code').value.trim();
+    
+    if (!username || !linkCode) {
+        e.preventDefault();
+        alert('Please fill in both the username and link code.');
+        return false;
+    }
+    
+    if (linkCode.length < 8) {
+        e.preventDefault();
+        alert('Link code appears to be too short. Please check with your child.');
+        return false;
+    }
+});
+</script>
+{% endblock %}

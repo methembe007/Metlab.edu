@@ -1,0 +1,200 @@
+{% extends 'base.html' %}
+
+{% block title %}Competition - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Friendly Competition</h1>
+            <p class="mt-2 text-gray-600">See how you stack up against nearby learners</p>
+        </div>
+
+        <!-- Time Period Selector -->
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex space-x-4">
+                    {% for type in valid_types %}
+                    <a href="?type={{ type }}" 
+                       class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {% if leaderboard_type == type %}bg-blue-500 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                        {{ type|title }}
+                    </a>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <!-- Your Position -->
+            <div class="bg-gradient-to-r from-green-500 to-blue-600 rounded-lg shadow p-6 text-white">
+                <h2 class="text-xl font-semibold mb-4">Your Position</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-100">Current Rank:</span>
+                        <span class="text-2xl font-bold">#{{ student_rank|default:"--" }}</span>
+                    </div>
+                    
+                    {% if student_entry %}
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-100">Your XP:</span>
+                        <span class="text-xl font-semibold">
+                            {% if leaderboard_type == 'weekly' %}
+                                {{ student_entry.weekly_xp }}
+                            {% elif leaderboard_type == 'monthly' %}
+                                {{ student_entry.monthly_xp }}
+                            {% else %}
+                                {{ student_entry.all_time_xp }}
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endif %}
+                    
+                    <div class="flex items-center justify-between">
+                        <span class="text-green-100">Learning Streak:</span>
+                        <span class="text-xl font-semibold">{{ student_profile.current_streak }} days</span>
+                    </div>
+                </div>
+
+                {% if xp_to_next_rank > 0 and next_rank_student %}
+                <div class="mt-6 pt-4 border-t border-green-400">
+                    <div class="text-sm text-green-100 mb-2">To beat 
+                        {% if next_rank_student.show_real_name and next_rank_student.user.first_name %}
+                            {{ next_rank_student.user.first_name }}
+                        {% else %}
+                            {{ next_rank_student.user.username }}
+                        {% endif %}:
+                    </div>
+                    <div class="text-lg font-semibold">{{ xp_to_next_rank }} more XP needed</div>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Recent Achievements -->
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Achievements</h3>
+                
+                {% if recent_achievements %}
+                <div class="space-y-3">
+                    {% for achievement in recent_achievements %}
+                    <div class="flex items-center space-x-3 p-3 bg-yellow-50 rounded-lg">
+                        <div class="text-2xl">{{ achievement.achievement.badge_icon }}</div>
+                        <div>
+                            <div class="font-medium text-gray-900">{{ achievement.achievement.name }}</div>
+                            <div class="text-sm text-gray-600">{{ achievement.earned_at|timesince }} ago</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <div class="text-4xl mb-2">🏆</div>
+                    <p class="text-gray-600">No recent achievements</p>
+                    <p class="text-sm text-gray-500 mt-1">Complete lessons to earn your first achievement!</p>
+                </div>
+                {% endif %}
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a href="{% url 'gamification:achievements' %}" 
+                       class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                        View All Achievements →
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Competition Area -->
+        {% if competitors %}
+        <div class="mt-6 bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">Your Competition</h2>
+                <p class="text-sm text-gray-600 mt-1">Students ranked around you</p>
+            </div>
+            
+            <div class="divide-y divide-gray-200">
+                {% for competitor in competitors %}
+                <div class="px-6 py-4 flex items-center justify-between {% if competitor.student == student_profile %}bg-blue-50{% endif %}">
+                    <div class="flex items-center space-x-4">
+                        <!-- Rank with special styling -->
+                        <div class="flex-shrink-0 w-12 text-center">
+                            {% if competitor.rank == 1 %}
+                                <span class="text-3xl">🥇</span>
+                            {% elif competitor.rank == 2 %}
+                                <span class="text-3xl">🥈</span>
+                            {% elif competitor.rank == 3 %}
+                                <span class="text-3xl">🥉</span>
+                            {% else %}
+                                <div class="w-8 h-8 rounded-full {% if competitor.student == student_profile %}bg-blue-500 text-white{% else %}bg-gray-200 text-gray-700{% endif %} flex items-center justify-center text-sm font-bold">
+                                    {{ competitor.rank }}
+                                </div>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- User Info -->
+                        <div>
+                            <div class="font-medium {% if competitor.student == student_profile %}text-blue-600{% else %}text-gray-900{% endif %}">
+                                {% if competitor.student == student_profile %}
+                                    You
+                                {% elif competitor.student.show_real_name and competitor.student.user.first_name %}
+                                    {{ competitor.student.user.first_name }}
+                                {% else %}
+                                    {{ competitor.student.user.username }}
+                                {% endif %}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Streak: {{ competitor.student.current_streak }} days
+                                {% if competitor.student.current_streak >= 7 %}🔥{% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- XP and Progress -->
+                    <div class="text-right">
+                        <div class="font-semibold text-gray-900">
+                            {% if leaderboard_type == 'weekly' %}
+                                {{ competitor.weekly_xp }} XP
+                            {% elif leaderboard_type == 'monthly' %}
+                                {{ competitor.monthly_xp }} XP
+                            {% else %}
+                                {{ competitor.all_time_xp }} XP
+                            {% endif %}
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            Total: {{ competitor.student.total_xp }} XP
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% else %}
+        <div class="mt-6 bg-white rounded-lg shadow p-12 text-center">
+            <div class="text-4xl mb-4">🎯</div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Competition Yet</h3>
+            <p class="text-gray-600 mb-4">Complete some lessons to see how you rank against other learners!</p>
+            <a href="{% url 'learning:daily_lesson' %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                Start Learning
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Motivation Section -->
+        <div class="mt-8 bg-gradient-to-r from-purple-500 to-pink-600 rounded-lg shadow p-6 text-white text-center">
+            <h2 class="text-xl font-bold mb-2">Keep Pushing Forward!</h2>
+            <p class="mb-4">Every lesson completed gets you closer to the top</p>
+            <div class="flex justify-center space-x-4">
+                <a href="{% url 'learning:daily_lesson' %}" 
+                   class="bg-white text-purple-600 font-bold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                    Today's Lesson
+                </a>
+                <a href="{% url 'gamification:leaderboard' %}" 
+                   class="bg-purple-400 text-white font-bold py-2 px-6 rounded-lg hover:bg-purple-300 transition-colors">
+                    Full Leaderboard
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

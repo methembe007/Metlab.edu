@@ -1,0 +1,253 @@
+{% extends 'base.html' %}
+
+{% block title %}Screen Time Settings - {{ child.user.first_name }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="bg-white shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+        <!-- Header -->
+        <div class="flex items-center justify-between mb-6">
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">Screen Time Settings</h1>
+                <p class="text-sm text-gray-600">Configure learning time limits for {{ child.user.first_name }}</p>
+            </div>
+            <a href="{% url 'learning:parent_dashboard' %}" class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition duration-200">
+                Back to Dashboard
+            </a>
+        </div>
+        
+        <!-- Current Settings Overview -->
+        <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <h3 class="text-lg font-medium text-blue-900 mb-2">Current Settings</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                <div>
+                    <span class="text-blue-700">Daily Limit:</span>
+                    <span class="font-medium text-blue-900">{{ current_settings.daily_limit_minutes|default:default_settings.daily_limit_minutes }} minutes</span>
+                </div>
+                <div>
+                    <span class="text-blue-700">Weekly Limit:</span>
+                    <span class="font-medium text-blue-900">{{ current_settings.weekly_limit_minutes|default:default_settings.weekly_limit_minutes }} minutes</span>
+                </div>
+                <div>
+                    <span class="text-blue-700">Break Reminder:</span>
+                    <span class="font-medium text-blue-900">Every {{ current_settings.break_reminder_minutes|default:default_settings.break_reminder_minutes }} minutes</span>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Settings Form -->
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Daily and Weekly Limits -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label for="daily_limit_minutes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Daily Learning Time Limit
+                    </label>
+                    <div class="relative">
+                        <input type="number" 
+                               id="daily_limit_minutes" 
+                               name="daily_limit_minutes" 
+                               min="15" 
+                               max="480" 
+                               value="{{ current_settings.daily_limit_minutes|default:default_settings.daily_limit_minutes }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 text-sm">minutes</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Recommended: 60-120 minutes per day</p>
+                </div>
+                
+                <div>
+                    <label for="weekly_limit_minutes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Weekly Learning Time Limit
+                    </label>
+                    <div class="relative">
+                        <input type="number" 
+                               id="weekly_limit_minutes" 
+                               name="weekly_limit_minutes" 
+                               min="60" 
+                               max="2520" 
+                               value="{{ current_settings.weekly_limit_minutes|default:default_settings.weekly_limit_minutes }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 text-sm">minutes</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Recommended: 420-840 minutes per week (7-14 hours)</p>
+                </div>
+            </div>
+            
+            <!-- Break and Sleep Settings -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div>
+                    <label for="break_reminder_minutes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Break Reminder Interval
+                    </label>
+                    <div class="relative">
+                        <input type="number" 
+                               id="break_reminder_minutes" 
+                               name="break_reminder_minutes" 
+                               min="15" 
+                               max="120" 
+                               value="{{ current_settings.break_reminder_minutes|default:default_settings.break_reminder_minutes }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                            <span class="text-gray-500 text-sm">minutes</span>
+                        </div>
+                    </div>
+                    <p class="text-xs text-gray-600 mt-1">Remind to take breaks</p>
+                </div>
+                
+                <div>
+                    <label for="bedtime_hour" class="block text-sm font-medium text-gray-700 mb-2">
+                        Bedtime (No Learning After)
+                    </label>
+                    <select id="bedtime_hour" 
+                            name="bedtime_hour"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        {% for hour in "012345678901234567890123"|make_list %}
+                            {% if forloop.counter0 >= 18 or forloop.counter0 <= 23 %}
+                                <option value="{{ forloop.counter0 }}" {% if current_settings.bedtime_hour|default:default_settings.bedtime_hour == forloop.counter0 %}selected{% endif %}>
+                                    {% if forloop.counter0 == 0 %}12:00 AM{% elif forloop.counter0 <= 12 %}{{ forloop.counter0 }}:00 {% if forloop.counter0 == 12 %}PM{% else %}AM{% endif %}{% else %}{{ forloop.counter0|add:"-12" }}:00 PM{% endif %}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <p class="text-xs text-gray-600 mt-1">Block learning after this time</p>
+                </div>
+                
+                <div>
+                    <label for="wakeup_hour" class="block text-sm font-medium text-gray-700 mb-2">
+                        Wake-up Time (Learning Allowed After)
+                    </label>
+                    <select id="wakeup_hour" 
+                            name="wakeup_hour"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        {% for hour in "012345678901234567890123"|make_list %}
+                            {% if forloop.counter0 >= 5 and forloop.counter0 <= 10 %}
+                                <option value="{{ forloop.counter0 }}" {% if current_settings.wakeup_hour|default:default_settings.wakeup_hour == forloop.counter0 %}selected{% endif %}>
+                                    {% if forloop.counter0 == 0 %}12:00 AM{% elif forloop.counter0 <= 12 %}{{ forloop.counter0 }}:00 {% if forloop.counter0 == 12 %}PM{% else %}AM{% endif %}{% else %}{{ forloop.counter0|add:"-12" }}:00 PM{% endif %}
+                                </option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <p class="text-xs text-gray-600 mt-1">Allow learning after this time</p>
+                </div>
+            </div>
+            
+            <!-- Weekend Settings -->
+            <div>
+                <label for="weekend_extra_minutes" class="block text-sm font-medium text-gray-700 mb-2">
+                    Weekend Extra Time
+                </label>
+                <div class="relative max-w-xs">
+                    <input type="number" 
+                           id="weekend_extra_minutes" 
+                           name="weekend_extra_minutes" 
+                           min="0" 
+                           max="240" 
+                           value="{{ current_settings.weekend_extra_minutes|default:default_settings.weekend_extra_minutes }}"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                        <span class="text-gray-500 text-sm">minutes</span>
+                    </div>
+                </div>
+                <p class="text-xs text-gray-600 mt-1">Additional learning time allowed on weekends</p>
+            </div>
+            
+            <!-- Information Box -->
+            <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-yellow-800">Important Information</h3>
+                        <div class="mt-2 text-sm text-yellow-700">
+                            <ul class="list-disc list-inside space-y-1">
+                                <li>Screen time limits help maintain healthy learning habits</li>
+                                <li>Break reminders encourage rest and prevent eye strain</li>
+                                <li>Bedtime restrictions ensure adequate sleep for learning</li>
+                                <li>Weekend extra time can motivate consistent learning</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Action Buttons -->
+            <div class="flex justify-end space-x-4">
+                <a href="{% url 'learning:parent_dashboard' %}" 
+                   class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition duration-200">
+                    Cancel
+                </a>
+                <button type="submit" 
+                        class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 transition duration-200">
+                    Save Settings
+                </button>
+            </div>
+        </form>
+        
+        <!-- Current Usage Preview -->
+        <div class="mt-8 bg-gray-50 border border-gray-200 rounded-lg p-4">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">How These Settings Work</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Daily Limits</h4>
+                    <ul class="space-y-1 text-gray-600">
+                        <li>• Learning sessions will be blocked after reaching daily limit</li>
+                        <li>• Limits reset at midnight each day</li>
+                        <li>• Weekend bonus time is added automatically</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-medium text-gray-900 mb-2">Break Reminders</h4>
+                    <ul class="space-y-1 text-gray-600">
+                        <li>• Gentle reminders to take breaks during long sessions</li>
+                        <li>• Helps prevent eye strain and fatigue</li>
+                        <li>• Can be dismissed but will reappear after interval</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Auto-calculate weekly limit based on daily limit
+document.getElementById('daily_limit_minutes').addEventListener('input', function() {
+    const dailyLimit = parseInt(this.value) || 0;
+    const weeklyInput = document.getElementById('weekly_limit_minutes');
+    const currentWeekly = parseInt(weeklyInput.value) || 0;
+    
+    // Suggest weekly limit as 7 times daily limit if current weekly is less
+    const suggestedWeekly = dailyLimit * 7;
+    if (currentWeekly < suggestedWeekly) {
+        weeklyInput.value = suggestedWeekly;
+    }
+});
+
+// Validate that weekly limit is not less than daily limit
+document.querySelector('form').addEventListener('submit', function(e) {
+    const dailyLimit = parseInt(document.getElementById('daily_limit_minutes').value) || 0;
+    const weeklyLimit = parseInt(document.getElementById('weekly_limit_minutes').value) || 0;
+    
+    if (weeklyLimit < dailyLimit) {
+        e.preventDefault();
+        alert('Weekly limit cannot be less than daily limit. Please adjust your settings.');
+        return false;
+    }
+    
+    if (dailyLimit < 15 || dailyLimit > 480) {
+        e.preventDefault();
+        alert('Daily limit must be between 15 minutes and 8 hours (480 minutes).');
+        return false;
+    }
+});
+</script>
+{% endblock %}

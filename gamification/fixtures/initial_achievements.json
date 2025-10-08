@@ -1,0 +1,172 @@
+[
+    {
+        "model": "gamification.achievement",
+        "pk": 1,
+        "fields": {
+            "name": "First Steps",
+            "description": "Complete your first lesson",
+            "badge_icon": "🎯",
+            "achievement_type": "lesson",
+            "xp_requirement": 0,
+            "streak_requirement": 0,
+            "lesson_requirement": 1,
+            "xp_reward": 50,
+            "coin_reward": 25,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 2,
+        "fields": {
+            "name": "Week Warrior",
+            "description": "Maintain a 7-day learning streak",
+            "badge_icon": "🔥",
+            "achievement_type": "streak",
+            "xp_requirement": 0,
+            "streak_requirement": 7,
+            "lesson_requirement": 0,
+            "xp_reward": 100,
+            "coin_reward": 50,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 3,
+        "fields": {
+            "name": "Learning Machine",
+            "description": "Complete 10 lessons",
+            "badge_icon": "🤖",
+            "achievement_type": "lesson",
+            "xp_requirement": 0,
+            "streak_requirement": 0,
+            "lesson_requirement": 10,
+            "xp_reward": 200,
+            "coin_reward": 100,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 4,
+        "fields": {
+            "name": "XP Hunter",
+            "description": "Earn 500 XP points",
+            "badge_icon": "⭐",
+            "achievement_type": "xp",
+            "xp_requirement": 500,
+            "streak_requirement": 0,
+            "lesson_requirement": 0,
+            "xp_reward": 100,
+            "coin_reward": 75,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 5,
+        "fields": {
+            "name": "Dedication Master",
+            "description": "Maintain a 30-day learning streak",
+            "badge_icon": "👑",
+            "achievement_type": "streak",
+            "xp_requirement": 0,
+            "streak_requirement": 30,
+            "lesson_requirement": 0,
+            "xp_reward": 500,
+            "coin_reward": 250,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 6,
+        "fields": {
+            "name": "Scholar",
+            "description": "Complete 50 lessons",
+            "badge_icon": "📚",
+            "achievement_type": "lesson",
+            "xp_requirement": 0,
+            "streak_requirement": 0,
+            "lesson_requirement": 50,
+            "xp_reward": 750,
+            "coin_reward": 400,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 7,
+        "fields": {
+            "name": "XP Legend",
+            "description": "Earn 2000 XP points",
+            "badge_icon": "🏆",
+            "achievement_type": "xp",
+            "xp_requirement": 2000,
+            "streak_requirement": 0,
+            "lesson_requirement": 0,
+            "xp_reward": 300,
+            "coin_reward": 200,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 8,
+        "fields": {
+            "name": "Perfect Score",
+            "description": "Get a perfect score on any quiz",
+            "badge_icon": "💯",
+            "achievement_type": "quiz",
+            "xp_requirement": 0,
+            "streak_requirement": 0,
+            "lesson_requirement": 0,
+            "xp_reward": 150,
+            "coin_reward": 75,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 9,
+        "fields": {
+            "name": "Century Club",
+            "description": "Complete 100 lessons",
+            "badge_icon": "💎",
+            "achievement_type": "lesson",
+            "xp_requirement": 0,
+            "streak_requirement": 0,
+            "lesson_requirement": 100,
+            "xp_reward": 1000,
+            "coin_reward": 500,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    },
+    {
+        "model": "gamification.achievement",
+        "pk": 10,
+        "fields": {
+            "name": "Unstoppable",
+            "description": "Maintain a 60-day learning streak",
+            "badge_icon": "🚀",
+            "achievement_type": "streak",
+            "xp_requirement": 0,
+            "streak_requirement": 60,
+            "lesson_requirement": 0,
+            "xp_reward": 1000,
+            "coin_reward": 500,
+            "is_active": true,
+            "created_at": "2024-01-01T00:00:00Z"
+        }
+    }
+]

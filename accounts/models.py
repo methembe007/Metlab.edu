@@ -56,9 +56,44 @@ class StudentProfile(models.Model):
         default=list,
         help_text="List of subjects the student is interested in"
     )
+    leaderboard_visible = models.BooleanField(
+        default=True,
+        help_text="Whether this student appears on public leaderboards"
+    )
+    show_real_name = models.BooleanField(
+        default=False,
+        help_text="Whether to show real name instead of username on leaderboards"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    @property
+    def level(self):
+        """Calculate student level based on total XP"""
+        if self.total_xp < 100:
+            return 1
+        elif self.total_xp < 300:
+            return 2
+        elif self.total_xp < 600:
+            return 3
+        elif self.total_xp < 1000:
+            return 4
+        elif self.total_xp < 1500:
+            return 5
+        elif self.total_xp < 2100:
+            return 6
+        elif self.total_xp < 2800:
+            return 7
+        elif self.total_xp < 3600:
+            return 8
+        elif self.total_xp < 4500:
+            return 9
+        elif self.total_xp < 5500:
+            return 10
+        else:
+            # Level 11+ requires 1000 XP per level
+            return 10 + ((self.total_xp - 5500) // 1000) + 1
+
     def update_learning_streak(self):
         """Update the student's learning streak based on recent activity"""
         from django.utils import timezone
@@ -102,6 +137,10 @@ class StudentProfile(models.Model):
                 days_since_activity = (today - last_activity.lesson_date).days
                 if days_since_activity > 1:
                     self.current_streak = 0
+    
+    def generate_parent_link_code(self):
+        """Generate a simple parent link code for account linking"""
+        return f"PARENT_{self.id}"
     
     def __str__(self):
         return f"Student Profile: {self.user.username}"

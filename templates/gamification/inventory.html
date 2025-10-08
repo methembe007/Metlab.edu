@@ -1,0 +1,273 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Inventory - Metlab.edu{% endblock %}
+
+{% block extra_css %}
+<style>
+    .inventory-item {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .inventory-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    .category-tab.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+    .active-item {
+        border: 2px solid #10b981;
+        background: linear-gradient(135deg, #ecfdf5, #f0fdf4);
+    }
+    .quantity-badge {
+        position: absolute;
+        top: -8px;
+        right: -8px;
+        background: #ef4444;
+        color: white;
+        border-radius: 50%;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 12px;
+        font-weight: bold;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">My Inventory</h1>
+                    <p class="text-gray-600">Manage your purchased items and customizations</p>
+                </div>
+                
+                <div class="mt-4 md:mt-0">
+                    <a href="{% url 'gamification:shop' %}" 
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Visit Shop
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex flex-wrap gap-2">
+                <a href="{% url 'gamification:inventory' %}?category=all" 
+                   class="category-tab px-4 py-2 rounded-lg font-medium transition-colors {% if current_category == 'all' %}active{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    All Items
+                </a>
+                {% for category_key, category_data in items_by_category.items %}
+                <a href="{% url 'gamification:inventory' %}?category={{ category_key }}" 
+                   class="category-tab px-4 py-2 rounded-lg font-medium transition-colors {% if current_category == category_key %}active{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    {{ category_data.display_name }} ({{ category_data.items|length }})
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Inventory Items -->
+        {% if inventory_items %}
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for inventory_item in inventory_items %}
+            {% with item=inventory_item.item %}
+            <div class="inventory-item bg-white rounded-lg shadow-sm overflow-hidden relative {% if inventory_item.is_active %}active-item{% endif %}">
+                <!-- Quantity Badge -->
+                {% if inventory_item.quantity > 1 %}
+                <div class="quantity-badge">{{ inventory_item.quantity }}</div>
+                {% endif %}
+                
+                <!-- Active Indicator -->
+                {% if inventory_item.is_active %}
+                <div class="absolute top-2 left-2 bg-green-500 text-white px-2 py-1 rounded-full text-xs font-medium">
+                    <i class="fas fa-check mr-1"></i>Active
+                </div>
+                {% endif %}
+                
+                <!-- Item Image/Icon -->
+                <div class="h-32 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                    <i class="fas fa-{{ item.icon }} text-4xl text-white"></i>
+                </div>
+                
+                <!-- Item Details -->
+                <div class="p-4">
+                    <div class="flex items-start justify-between mb-2">
+                        <h3 class="font-semibold text-gray-900 text-sm">{{ item.name }}</h3>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                            {{ item.get_item_type_display }}
+                        </span>
+                    </div>
+                    
+                    <p class="text-gray-600 text-xs mb-3 line-clamp-2">{{ item.description }}</p>
+                    
+                    <!-- Purchase Date -->
+                    <div class="text-xs text-gray-500 mb-3">
+                        Purchased: {{ inventory_item.purchased_at|date:"M d, Y" }}
+                    </div>
+                    
+                    <!-- Action Buttons -->
+                    <div class="flex gap-2">
+                        {% if item.item_type in 'theme,customization,avatar' %}
+                            {% if not inventory_item.is_active %}
+                            <button onclick="activateItem({{ item.id }}, '{{ item.name }}')" 
+                                    class="flex-1 bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors">
+                                <i class="fas fa-play mr-1"></i>Activate
+                            </button>
+                            {% else %}
+                            <button disabled 
+                                    class="flex-1 bg-gray-300 text-gray-500 px-3 py-1 rounded text-sm font-medium cursor-not-allowed">
+                                <i class="fas fa-check mr-1"></i>Active
+                            </button>
+                            {% endif %}
+                        {% elif item.item_type in 'hint,power_up' %}
+                        <button onclick="useItem({{ item.id }}, '{{ item.name }}', {{ inventory_item.quantity }})" 
+                                class="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors">
+                            <i class="fas fa-magic mr-1"></i>Use
+                        </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="bg-white rounded-lg shadow-sm p-12 text-center">
+            <i class="fas fa-box-open text-4xl text-gray-300 mb-4"></i>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">Your inventory is empty</h3>
+            <p class="text-gray-600 mb-6">Visit the shop to purchase items and customizations!</p>
+            <a href="{% url 'gamification:shop' %}" 
+               class="inline-flex items-center px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                <i class="fas fa-shopping-cart mr-2"></i>
+                Browse Shop
+            </a>
+        </div>
+        {% endif %}
+
+        <!-- Quick Links -->
+        <div class="mt-8 bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'gamification:shop' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    Visit Shop
+                </a>
+                <a href="{% url 'gamification:coin_history' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-history mr-2"></i>
+                    Transaction History
+                </a>
+                <a href="{% url 'learning:dashboard' %}" 
+                   class="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Back to Learning
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function activateItem(itemId, itemName) {
+    if (!confirm(`Activate ${itemName}? This will deactivate any other items of the same type.`)) {
+        return;
+    }
+    
+    fetch('{% url "gamification:activate_item" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            item_id: itemId
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message, 'success');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } else {
+            showNotification(data.message || 'Failed to activate item', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('An error occurred', 'error');
+    });
+}
+
+function useItem(itemId, itemName, availableQuantity) {
+    let quantity = 1;
+    
+    if (availableQuantity > 1) {
+        const input = prompt(`How many ${itemName} would you like to use? (Available: ${availableQuantity})`);
+        if (input === null) return; // User cancelled
+        
+        quantity = parseInt(input);
+        if (isNaN(quantity) || quantity < 1 || quantity > availableQuantity) {
+            showNotification('Invalid quantity', 'error');
+            return;
+        }
+    }
+    
+    if (!confirm(`Use ${quantity} ${itemName}${quantity > 1 ? 's' : ''}?`)) {
+        return;
+    }
+    
+    fetch('{% url "gamification:use_item" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            item_id: itemId,
+            quantity: quantity
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showNotification(data.message, 'success');
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } else {
+            showNotification(data.message || 'Failed to use item', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('An error occurred', 'error');
+    });
+}
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+</script>
+{% endblock %}

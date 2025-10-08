@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Settings - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Privacy Settings</h1>
+            <p class="mt-2 text-gray-600">Control how you appear on leaderboards and competitions</p>
+        </div>
+
+        <!-- Privacy Settings Form -->
+        <div class="bg-white rounded-lg shadow">
+            <form method="post" class="p-6 space-y-6">
+                {% csrf_token %}
+                
+                <!-- Leaderboard Visibility -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex items-center h-5">
+                        <input id="leaderboard_visible" 
+                               name="leaderboard_visible" 
+                               type="checkbox" 
+                               {% if student_profile.leaderboard_visible %}checked{% endif %}
+                               class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <label for="leaderboard_visible" class="text-sm font-medium text-gray-900">
+                            Show me on leaderboards
+                        </label>
+                        <p class="text-sm text-gray-500">
+                            When enabled, you'll appear on public leaderboards and other students can see your ranking. 
+                            When disabled, you'll be hidden from all public leaderboards but can still see your own progress.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Name Display -->
+                <div class="flex items-start space-x-3">
+                    <div class="flex items-center h-5">
+                        <input id="show_real_name" 
+                               name="show_real_name" 
+                               type="checkbox" 
+                               {% if student_profile.show_real_name %}checked{% endif %}
+                               class="focus:ring-blue-500 h-4 w-4 text-blue-600 border-gray-300 rounded">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                        <label for="show_real_name" class="text-sm font-medium text-gray-900">
+                            Show my real name
+                        </label>
+                        <p class="text-sm text-gray-500">
+                            When enabled, your first name will be displayed on leaderboards instead of your username. 
+                            Only works if you have a first name set in your profile.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Current Settings Info -->
+                <div class="bg-blue-50 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-blue-900 mb-2">Current Display Settings</h3>
+                    <div class="text-sm text-blue-800">
+                        <p><strong>Leaderboard Visibility:</strong> 
+                            {% if student_profile.leaderboard_visible %}
+                                <span class="text-green-600">Visible</span> - You appear on public leaderboards
+                            {% else %}
+                                <span class="text-red-600">Hidden</span> - You're hidden from public leaderboards
+                            {% endif %}
+                        </p>
+                        <p class="mt-1"><strong>Name Display:</strong> 
+                            {% if student_profile.show_real_name and user.first_name %}
+                                <span class="text-blue-600">{{ user.first_name }}</span> (Real name)
+                            {% else %}
+                                <span class="text-blue-600">{{ user.username }}</span> (Username)
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Privacy Information -->
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-gray-900 mb-2">🔒 Privacy Information</h3>
+                    <ul class="text-sm text-gray-600 space-y-1">
+                        <li>• Your learning progress and scores are always private</li>
+                        <li>• Only your rank and XP totals are shown on leaderboards</li>
+                        <li>• You can change these settings at any time</li>
+                        <li>• Teachers and parents with linked accounts can always see your progress</li>
+                    </ul>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="flex justify-between pt-6 border-t border-gray-200">
+                    <a href="{% url 'gamification:leaderboard' %}" 
+                       class="px-4 py-2 text-sm font-medium text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors">
+                        Save Settings
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Additional Links -->
+        <div class="mt-6 text-center">
+            <a href="{% url 'gamification:leaderboard' %}" 
+               class="text-blue-600 hover:text-blue-800 text-sm transition-colors">
+                ← Back to Leaderboard
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}""

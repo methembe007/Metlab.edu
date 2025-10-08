@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+
+{% block title %}Leaderboard - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Leaderboard</h1>
+            <p class="mt-2 text-gray-600">See how you rank against other learners</p>
+        </div>
+
+        <!-- Leaderboard Controls -->
+        <div class="bg-white rounded-lg shadow mb-6">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between space-y-4 sm:space-y-0">
+                    <!-- Time Period Selector -->
+                    <div class="flex space-x-2">
+                        {% for type in valid_types %}
+                        <a href="?type={{ type }}{% if subject %}&subject={{ subject }}{% endif %}" 
+                           class="px-4 py-2 rounded-lg text-sm font-medium transition-colors {% if leaderboard_type == type %}bg-blue-500 text-white{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                            {{ type|title }}
+                        </a>
+                        {% endfor %}
+                    </div>
+                    
+                    <!-- Subject Filter -->
+                    {% if available_subjects %}
+                    <div class="flex items-center space-x-2">
+                        <label for="subject-filter" class="text-sm font-medium text-gray-700">Subject:</label>
+                        <select id="subject-filter" onchange="filterBySubject(this.value)" 
+                                class="px-3 py-1 border border-gray-300 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="">All Subjects</option>
+                            {% for subj in available_subjects %}
+                            <option value="{{ subj }}" {% if subject == subj %}selected{% endif %}>{{ subj|title }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <!-- Leaderboard Stats -->
+            <div class="px-6 py-3 bg-gray-50 border-b border-gray-200">
+                <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                    <div>
+                        <div class="text-lg font-bold text-gray-900">{{ stats.total_participants }}</div>
+                        <div class="text-xs text-gray-600">Total Participants</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-gray-900">{{ stats.active_learners }}</div>
+                        <div class="text-xs text-gray-600">Active Learners</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-gray-900">{{ stats.average_xp }}</div>
+                        <div class="text-xs text-gray-600">Average XP</div>
+                    </div>
+                    <div>
+                        <div class="text-lg font-bold text-gray-900">{{ stats.top_xp }}</div>
+                        <div class="text-xs text-gray-600">Top Score</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Your Rank and Competition -->
+        {% if student_entry %}
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
+            <!-- Your Rank Card -->
+            <div class="bg-gradient-to-r from-blue-500 to-purple-600 rounded-lg shadow p-6 text-white">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h2 class="text-xl font-semibold">Your Rank</h2>
+                        <p class="text-blue-100">{{ leaderboard_type|title }} leaderboard{% if subject %} - {{ subject|title }}{% endif %}</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="text-3xl font-bold">#{{ student_rank|default:"--" }}</div>
+                        <div class="text-sm text-blue-100">
+                            {% if leaderboard_type == 'weekly' %}
+                                {{ student_entry.weekly_xp }} XP this week
+                            {% elif leaderboard_type == 'monthly' %}
+                                {{ student_entry.monthly_xp }} XP this month
+                            {% else %}
+                                {{ student_entry.all_time_xp }} XP total
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Privacy Settings Link -->
+                <div class="mt-4 pt-4 border-t border-blue-400">
+                    <a href="{% url 'gamification:privacy_settings' %}" 
+                       class="text-sm text-blue-100 hover:text-white transition-colors">
+                        ⚙️ Privacy Settings
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Competition Card -->
+            {% if competitors %}
+            <div class="bg-white rounded-lg shadow p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Your Competition</h3>
+                <div class="space-y-3">
+                    {% for competitor in competitors %}
+                    <div class="flex items-center justify-between {% if competitor.student == student_profile %}bg-blue-50 rounded-lg px-3 py-2{% endif %}">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-sm font-medium text-gray-600">#{{ competitor.rank }}</span>
+                            <span class="font-medium {% if competitor.student == student_profile %}text-blue-600{% else %}text-gray-900{% endif %}">
+                                {% if competitor.student == student_profile %}
+                                    You
+                                {% elif competitor.student.show_real_name and competitor.student.user.first_name %}
+                                    {{ competitor.student.user.first_name }}
+                                {% else %}
+                                    {{ competitor.student.user.username }}
+                                {% endif %}
+                            </span>
+                        </div>
+                        <span class="text-sm font-medium text-gray-600">
+                            {% if leaderboard_type == 'weekly' %}
+                                {{ competitor.weekly_xp }} XP
+                            {% elif leaderboard_type == 'monthly' %}
+                                {{ competitor.monthly_xp }} XP
+                            {% else %}
+                                {{ competitor.all_time_xp }} XP
+                            {% endif %}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="mt-4 pt-4 border-t border-gray-200">
+                    <a href="{% url 'gamification:competition' %}?type={{ leaderboard_type }}" 
+                       class="text-sm text-blue-600 hover:text-blue-800 transition-colors">
+                        View Full Competition →
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Leaderboard -->
+        <div class="bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-xl font-semibold text-gray-900">
+                    Top Learners - {{ leaderboard_type|title }}
+                </h2>
+            </div>
+            
+            {% if top_students %}
+            <div class="divide-y divide-gray-200">
+                {% for entry in top_students %}
+                <div class="px-6 py-4 flex items-center justify-between {% if entry.student == student_profile %}bg-blue-50{% endif %}">
+                    <div class="flex items-center space-x-4">
+                        <!-- Rank -->
+                        <div class="flex-shrink-0 w-8 text-center">
+                            {% if entry.rank == 1 %}
+                                <span class="text-2xl">🥇</span>
+                            {% elif entry.rank == 2 %}
+                                <span class="text-2xl">🥈</span>
+                            {% elif entry.rank == 3 %}
+                                <span class="text-2xl">🥉</span>
+                            {% else %}
+                                <span class="text-lg font-bold text-gray-600">#{{ entry.rank }}</span>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- User Info -->
+                        <div>
+                            <div class="font-medium text-gray-900">
+                                {% if entry.student == student_profile %}
+                                    You
+                                {% elif entry.student.show_real_name and entry.student.user.first_name %}
+                                    {{ entry.student.user.first_name }}
+                                {% else %}
+                                    {{ entry.student.user.username }}
+                                {% endif %}
+                            </div>
+                            <div class="text-sm text-gray-500">
+                                Streak: {{ entry.student.current_streak }} days
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- XP -->
+                    <div class="text-right">
+                        <div class="font-semibold text-gray-900">
+                            {% if leaderboard_type == 'weekly' %}
+                                {{ entry.weekly_xp }} XP
+                            {% elif leaderboard_type == 'monthly' %}
+                                {{ entry.monthly_xp }} XP
+                            {% else %}
+                                {{ entry.all_time_xp }} XP
+                            {% endif %}
+                        </div>
+                        <div class="text-sm text-gray-500">
+                            Total: {{ entry.student.total_xp }} XP
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <div class="px-6 py-12 text-center">
+                <div class="text-4xl mb-4">🏆</div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No rankings yet</h3>
+                <p class="text-gray-600">Be the first to start learning and claim the top spot!</p>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Motivation Section -->
+        <div class="mt-8 bg-gradient-to-r from-green-400 to-blue-500 rounded-lg shadow p-6 text-white text-center">
+            <h2 class="text-xl font-bold mb-2">Keep Learning!</h2>
+            <p class="mb-4">Complete lessons and maintain your streak to climb the leaderboard</p>
+            <a href="{% url 'learning:daily_lesson' %}" 
+               class="bg-white text-blue-600 font-bold py-2 px-6 rounded-lg hover:bg-gray-100 transition-colors">
+                Start Today's Lesson
+            </a>
+        </div>
+    </div>
+</div>
+
+<script>
+function filterBySubject(subject) {
+    const currentUrl = new URL(window.location);
+    if (subject) {
+        currentUrl.searchParams.set('subject', subject);
+    } else {
+        currentUrl.searchParams.delete('subject');
+    }
+    window.location.href = currentUrl.toString();
+}
+</script>
+{% endblock %}

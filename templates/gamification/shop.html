@@ -1,0 +1,277 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Rewards Shop - Metlab.edu{% endblock %}
+
+{% block extra_css %}
+<style>
+    .shop-item {
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .shop-item:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    .coin-balance {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #1a202c;
+    }
+    .category-tab.active {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+    .purchase-btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Rewards Shop</h1>
+                    <p class="text-gray-600">Spend your coins on themes, hints, and customizations!</p>
+                </div>
+                
+                <!-- Coin Balance -->
+                <div class="mt-4 md:mt-0">
+                    <div class="coin-balance rounded-lg px-6 py-4 text-center">
+                        <div class="text-2xl font-bold">{{ currency.coins }}</div>
+                        <div class="text-sm font-medium">Coins Available</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quick Stats -->
+            <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="text-center">
+                    <div class="text-lg font-semibold text-gray-900">{{ shop_stats.total_earned }}</div>
+                    <div class="text-sm text-gray-600">Total Earned</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-lg font-semibold text-gray-900">{{ shop_stats.total_spent }}</div>
+                    <div class="text-sm text-gray-600">Total Spent</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-lg font-semibold text-gray-900">{{ shop_stats.total_purchases }}</div>
+                    <div class="text-sm text-gray-600">Items Purchased</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-lg font-semibold text-gray-900">{{ shop_stats.coins_earned_today }}</div>
+                    <div class="text-sm text-gray-600">Earned Today</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex flex-wrap gap-2">
+                <a href="{% url 'gamification:shop' %}?category=all" 
+                   class="category-tab px-4 py-2 rounded-lg font-medium transition-colors {% if current_category == 'all' %}active{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    All Items
+                </a>
+                {% for category_key, category_data in categories.items %}
+                <a href="{% url 'gamification:shop' %}?category={{ category_key }}" 
+                   class="category-tab px-4 py-2 rounded-lg font-medium transition-colors {% if current_category == category_key %}active{% else %}bg-gray-100 text-gray-700 hover:bg-gray-200{% endif %}">
+                    {{ category_data.display_name }}
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Shop Items -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {% for item_data in shop_items %}
+            {% with item=item_data.item %}
+            <div class="shop-item bg-white rounded-lg shadow-sm overflow-hidden">
+                <!-- Item Image/Icon -->
+                <div class="h-32 bg-gradient-to-br from-blue-400 to-purple-500 flex items-center justify-center">
+                    <i class="fas fa-{{ item.icon }} text-4xl text-white"></i>
+                </div>
+                
+                <!-- Item Details -->
+                <div class="p-4">
+                    <div class="flex items-start justify-between mb-2">
+                        <h3 class="font-semibold text-gray-900 text-sm">{{ item.name }}</h3>
+                        {% if item_data.owned %}
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Owned</span>
+                        {% endif %}
+                    </div>
+                    
+                    <p class="text-gray-600 text-xs mb-3 line-clamp-2">{{ item.description }}</p>
+                    
+                    <!-- Price and Purchase -->
+                    <div class="flex items-center justify-between">
+                        <div class="flex items-center">
+                            <i class="fas fa-coins text-yellow-500 mr-1"></i>
+                            <span class="font-bold text-gray-900">{{ item.price }}</span>
+                        </div>
+                        
+                        {% if item_data.can_purchase %}
+                        <button onclick="purchaseItem({{ item.id }}, '{{ item.name }}')" 
+                                class="purchase-btn bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors">
+                            Buy Now
+                        </button>
+                        {% else %}
+                        <button disabled 
+                                class="purchase-btn bg-gray-300 text-gray-500 px-3 py-1 rounded text-sm font-medium cursor-not-allowed"
+                                title="{{ item_data.reason }}">
+                            {% if item_data.owned %}Owned{% else %}{{ item_data.reason }}{% endif %}
+                        </button>
+                        {% endif %}
+                    </div>
+                    
+                    <!-- Stock Info -->
+                    {% if item.stock_quantity is not None %}
+                    <div class="mt-2 text-xs text-gray-500">
+                        {% if item.stock_quantity > 0 %}
+                        {{ item.stock_quantity }} left
+                        {% else %}
+                        Out of stock
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endwith %}
+            {% empty %}
+            <div class="col-span-full text-center py-12">
+                <i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No items available</h3>
+                <p class="text-gray-600">Check back later for new items!</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Quick Links -->
+        <div class="mt-8 bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'gamification:inventory' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-box mr-2"></i>
+                    My Inventory
+                </a>
+                <a href="{% url 'gamification:coin_history' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-history mr-2"></i>
+                    Transaction History
+                </a>
+                <a href="{% url 'learning:dashboard' %}" 
+                   class="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Earn More Coins
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Purchase Confirmation Modal -->
+<div id="purchaseModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-lg p-6 max-w-md mx-4">
+        <h3 class="text-lg font-semibold text-gray-900 mb-4">Confirm Purchase</h3>
+        <p class="text-gray-600 mb-6">Are you sure you want to purchase <span id="itemName" class="font-medium"></span>?</p>
+        
+        <div class="flex justify-end space-x-3">
+            <button onclick="closePurchaseModal()" 
+                    class="px-4 py-2 text-gray-600 hover:text-gray-800 transition-colors">
+                Cancel
+            </button>
+            <button id="confirmPurchase" 
+                    class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                Confirm Purchase
+            </button>
+        </div>
+    </div>
+</div>
+
+<script>
+let currentItemId = null;
+
+function purchaseItem(itemId, itemName) {
+    currentItemId = itemId;
+    document.getElementById('itemName').textContent = itemName;
+    document.getElementById('purchaseModal').classList.remove('hidden');
+    document.getElementById('purchaseModal').classList.add('flex');
+}
+
+function closePurchaseModal() {
+    document.getElementById('purchaseModal').classList.add('hidden');
+    document.getElementById('purchaseModal').classList.remove('flex');
+    currentItemId = null;
+}
+
+document.getElementById('confirmPurchase').addEventListener('click', function() {
+    if (!currentItemId) return;
+    
+    const button = this;
+    button.disabled = true;
+    button.textContent = 'Processing...';
+    
+    fetch('{% url "gamification:purchase_item" %}', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({
+            item_id: currentItemId,
+            quantity: 1
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update coin balance
+            document.querySelector('.coin-balance .text-2xl').textContent = data.new_balance;
+            
+            // Show success message
+            showNotification('Purchase successful!', 'success');
+            
+            // Reload page to update item states
+            setTimeout(() => {
+                window.location.reload();
+            }, 1000);
+        } else {
+            showNotification(data.error || 'Purchase failed', 'error');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        showNotification('An error occurred', 'error');
+    })
+    .finally(() => {
+        button.disabled = false;
+        button.textContent = 'Confirm Purchase';
+        closePurchaseModal();
+    });
+});
+
+function showNotification(message, type) {
+    const notification = document.createElement('div');
+    notification.className = `fixed top-4 right-4 px-6 py-3 rounded-lg text-white z-50 ${
+        type === 'success' ? 'bg-green-500' : 'bg-red-500'
+    }`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        notification.remove();
+    }, 3000);
+}
+
+// Close modal when clicking outside
+document.getElementById('purchaseModal').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closePurchaseModal();
+    }
+});
+</script>
+{% endblock %}

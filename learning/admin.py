@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import LearningSession, WeaknessAnalysis, PersonalizedRecommendation, DailyLesson, LessonProgress
+from .teacher_models import TeacherClass, ClassEnrollment, TeacherContent, TeacherQuiz, QuizAttempt
 
 
 @admin.register(LearningSession)
@@ -155,3 +156,133 @@ class LessonProgressAdmin(admin.ModelAdmin):
     
     def get_queryset(self, request):
         return super().get_queryset(request).select_related('lesson__student__user')
+
+
+# Teacher Models Admin
+
+@admin.register(TeacherClass)
+class TeacherClassAdmin(admin.ModelAdmin):
+    list_display = ['name', 'teacher', 'subject', 'grade_level', 'get_student_count', 'invitation_code', 'is_active', 'created_at']
+    list_filter = ['subject', 'grade_level', 'is_active', 'created_at']
+    search_fields = ['name', 'teacher__user__username', 'subject', 'invitation_code']
+    readonly_fields = ['invitation_code', 'created_at', 'updated_at']
+    
+    fieldsets = (
+        ('Class Information', {
+            'fields': ('teacher', 'name', 'subject', 'grade_level', 'description')
+        }),
+        ('Settings', {
+            'fields': ('max_students', 'is_active', 'invitation_code')
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('teacher__user')
+
+
+@admin.register(ClassEnrollment)
+class ClassEnrollmentAdmin(admin.ModelAdmin):
+    list_display = ['student', 'teacher_class', 'enrolled_at', 'is_active']
+    list_filter = ['is_active', 'enrolled_at', 'teacher_class__subject']
+    search_fields = ['student__user__username', 'teacher_class__name', 'teacher_class__teacher__user__username']
+    readonly_fields = ['enrolled_at']
+    
+    fieldsets = (
+        ('Enrollment Information', {
+            'fields': ('teacher_class', 'student', 'is_active')
+        }),
+        ('Timestamps', {
+            'fields': ('enrolled_at',)
+        })
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('student__user', 'teacher_class__teacher__user')
+
+
+@admin.register(TeacherContent)
+class TeacherContentAdmin(admin.ModelAdmin):
+    list_display = ['title', 'teacher', 'subject', 'grade_level', 'is_public', 'created_at']
+    list_filter = ['subject', 'grade_level', 'is_public', 'created_at']
+    search_fields = ['title', 'teacher__user__username', 'subject', 'description']
+    readonly_fields = ['created_at', 'updated_at']
+    filter_horizontal = ['assigned_classes']
+    
+    fieldsets = (
+        ('Content Information', {
+            'fields': ('teacher', 'uploaded_content', 'title', 'description')
+        }),
+        ('Classification', {
+            'fields': ('subject', 'grade_level', 'is_public')
+        }),
+        ('Class Assignment', {
+            'fields': ('assigned_classes',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('teacher__user', 'uploaded_content')
+
+
+@admin.register(TeacherQuiz)
+class TeacherQuizAdmin(admin.ModelAdmin):
+    list_display = ['title', 'teacher', 'get_question_count', 'time_limit_minutes', 'attempts_allowed', 'is_active', 'due_date']
+    list_filter = ['is_active', 'attempts_allowed', 'created_at', 'due_date']
+    search_fields = ['title', 'teacher__user__username', 'instructions']
+    readonly_fields = ['created_at', 'updated_at']
+    filter_horizontal = ['assigned_classes']
+    
+    fieldsets = (
+        ('Quiz Information', {
+            'fields': ('teacher', 'generated_quiz', 'title', 'instructions')
+        }),
+        ('Quiz Settings', {
+            'fields': ('time_limit_minutes', 'attempts_allowed', 'is_active', 'due_date')
+        }),
+        ('Questions', {
+            'fields': ('customized_questions',),
+            'classes': ('collapse',)
+        }),
+        ('Class Assignment', {
+            'fields': ('assigned_classes',)
+        }),
+        ('Timestamps', {
+            'fields': ('created_at', 'updated_at'),
+            'classes': ('collapse',)
+        })
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('teacher__user', 'generated_quiz')
+
+
+@admin.register(QuizAttempt)
+class QuizAttemptAdmin(admin.ModelAdmin):
+    list_display = ['student', 'quiz', 'attempt_number', 'score', 'time_taken_minutes', 'completed_at']
+    list_filter = ['attempt_number', 'completed_at', 'quiz__title']
+    search_fields = ['student__user__username', 'quiz__title', 'quiz__teacher__user__username']
+    readonly_fields = ['started_at', 'completed_at']
+    
+    fieldsets = (
+        ('Attempt Information', {
+            'fields': ('quiz', 'student', 'attempt_number')
+        }),
+        ('Performance', {
+            'fields': ('score', 'time_taken_minutes', 'answers'),
+            'classes': ('collapse',)
+        }),
+        ('Timing', {
+            'fields': ('started_at', 'completed_at')
+        })
+    )
+    
+    def get_queryset(self, request):
+        return super().get_queryset(request).select_related('student__user', 'quiz__teacher__user')

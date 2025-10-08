@@ -1,0 +1,236 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Coin History - Metlab.edu{% endblock %}
+
+{% block extra_css %}
+<style>
+    .transaction-item {
+        transition: background-color 0.2s;
+    }
+    .transaction-item:hover {
+        background-color: #f9fafb;
+    }
+    .earned-transaction {
+        border-left: 4px solid #10b981;
+    }
+    .spent-transaction {
+        border-left: 4px solid #ef4444;
+    }
+    .bonus-transaction {
+        border-left: 4px solid #f59e0b;
+    }
+    .coin-balance {
+        background: linear-gradient(135deg, #ffd700, #ffed4e);
+        color: #1a202c;
+    }
+    .stats-card {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: white;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900 mb-2">Coin History</h1>
+                    <p class="text-gray-600">Track your coin earnings and spending</p>
+                </div>
+                
+                <!-- Current Balance -->
+                <div class="mt-4 md:mt-0">
+                    <div class="coin-balance rounded-lg px-6 py-4 text-center">
+                        <div class="text-2xl font-bold">{{ currency.coins }}</div>
+                        <div class="text-sm font-medium">Current Balance</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+            <div class="stats-card rounded-lg p-6 text-center">
+                <div class="text-2xl font-bold">{{ shop_stats.total_earned }}</div>
+                <div class="text-sm opacity-90">Total Earned</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+                <div class="text-2xl font-bold text-red-600">{{ shop_stats.total_spent }}</div>
+                <div class="text-sm text-gray-600">Total Spent</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+                <div class="text-2xl font-bold text-green-600">{{ shop_stats.coins_earned_today }}</div>
+                <div class="text-sm text-gray-600">Earned Today</div>
+            </div>
+            <div class="bg-white rounded-lg shadow-sm p-6 text-center">
+                <div class="text-2xl font-bold text-blue-600">{{ shop_stats.total_purchases }}</div>
+                <div class="text-sm text-gray-600">Items Purchased</div>
+            </div>
+        </div>
+
+        <!-- Tabs -->
+        <div class="bg-white rounded-lg shadow-sm mb-8">
+            <div class="border-b border-gray-200">
+                <nav class="-mb-px flex">
+                    <button onclick="showTab('transactions')" 
+                            id="transactions-tab"
+                            class="tab-button py-4 px-6 border-b-2 border-blue-500 text-blue-600 font-medium">
+                        Coin Transactions
+                    </button>
+                    <button onclick="showTab('purchases')" 
+                            id="purchases-tab"
+                            class="tab-button py-4 px-6 border-b-2 border-transparent text-gray-500 hover:text-gray-700 font-medium">
+                        Purchase History
+                    </button>
+                </nav>
+            </div>
+
+            <!-- Transactions Tab -->
+            <div id="transactions-content" class="p-6">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Transactions</h3>
+                
+                {% if transactions %}
+                <div class="space-y-3">
+                    {% for transaction in transactions %}
+                    <div class="transaction-item {{ transaction.transaction_type }}-transaction bg-white border rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                {% if transaction.transaction_type == 'earned' %}
+                                <div class="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-plus text-green-600"></i>
+                                </div>
+                                {% elif transaction.transaction_type == 'spent' %}
+                                <div class="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-minus text-red-600"></i>
+                                </div>
+                                {% elif transaction.transaction_type == 'bonus' %}
+                                <div class="w-10 h-10 bg-yellow-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-star text-yellow-600"></i>
+                                </div>
+                                {% else %}
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-undo text-blue-600"></i>
+                                </div>
+                                {% endif %}
+                                
+                                <div>
+                                    <div class="font-medium text-gray-900">{{ transaction.reason }}</div>
+                                    <div class="text-sm text-gray-500">{{ transaction.created_at|date:"M d, Y g:i A" }}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-right">
+                                <div class="font-bold {% if transaction.transaction_type == 'earned' or transaction.transaction_type == 'bonus' %}text-green-600{% else %}text-red-600{% endif %}">
+                                    {% if transaction.transaction_type == 'earned' or transaction.transaction_type == 'bonus' %}+{% else %}-{% endif %}{{ transaction.amount }}
+                                </div>
+                                <div class="text-sm text-gray-500">Balance: {{ transaction.balance_after }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-coins text-4xl text-gray-300 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No transactions yet</h3>
+                    <p class="text-gray-600">Start learning to earn your first coins!</p>
+                </div>
+                {% endif %}
+            </div>
+
+            <!-- Purchases Tab -->
+            <div id="purchases-content" class="p-6 hidden">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Purchase History</h3>
+                
+                {% if purchases %}
+                <div class="space-y-3">
+                    {% for purchase in purchases %}
+                    <div class="transaction-item bg-white border rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center mr-3">
+                                    <i class="fas fa-{{ purchase.item.icon }} text-blue-600"></i>
+                                </div>
+                                
+                                <div>
+                                    <div class="font-medium text-gray-900">{{ purchase.item.name }}</div>
+                                    <div class="text-sm text-gray-500">
+                                        {{ purchase.purchased_at|date:"M d, Y g:i A" }}
+                                        {% if purchase.quantity > 1 %} • Quantity: {{ purchase.quantity }}{% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="text-right">
+                                <div class="font-bold text-red-600">-{{ purchase.total_price }}</div>
+                                <div class="text-sm text-gray-500 capitalize">{{ purchase.status }}</div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <i class="fas fa-shopping-bag text-4xl text-gray-300 mb-4"></i>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No purchases yet</h3>
+                    <p class="text-gray-600 mb-4">Visit the shop to buy your first item!</p>
+                    <a href="{% url 'gamification:shop' %}" 
+                       class="inline-flex items-center px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
+                        <i class="fas fa-shopping-cart mr-2"></i>
+                        Browse Shop
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+            <div class="flex flex-wrap gap-4">
+                <a href="{% url 'gamification:shop' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-shopping-cart mr-2"></i>
+                    Visit Shop
+                </a>
+                <a href="{% url 'gamification:inventory' %}" 
+                   class="flex items-center px-4 py-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors">
+                    <i class="fas fa-box mr-2"></i>
+                    My Inventory
+                </a>
+                <a href="{% url 'learning:dashboard' %}" 
+                   class="flex items-center px-4 py-2 bg-blue-100 hover:bg-blue-200 text-blue-700 rounded-lg transition-colors">
+                    <i class="fas fa-graduation-cap mr-2"></i>
+                    Earn More Coins
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function showTab(tabName) {
+    // Hide all tab contents
+    document.getElementById('transactions-content').classList.add('hidden');
+    document.getElementById('purchases-content').classList.add('hidden');
+    
+    // Remove active styles from all tabs
+    document.querySelectorAll('.tab-button').forEach(button => {
+        button.classList.remove('border-blue-500', 'text-blue-600');
+        button.classList.add('border-transparent', 'text-gray-500');
+    });
+    
+    // Show selected tab content
+    document.getElementById(tabName + '-content').classList.remove('hidden');
+    
+    // Add active styles to selected tab
+    const activeTab = document.getElementById(tabName + '-tab');
+    activeTab.classList.remove('border-transparent', 'text-gray-500');
+    activeTab.classList.add('border-blue-500', 'text-blue-600');
+}
+</script>
+{% endblock %}

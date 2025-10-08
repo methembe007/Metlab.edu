@@ -1,0 +1,194 @@
+[
+  {
+    "model": "gamification.shopitem",
+    "pk": 1,
+    "fields": {
+      "name": "Ocean Theme",
+      "description": "Transform your dashboard with a beautiful ocean theme featuring blue gradients and wave animations.",
+      "item_type": "theme",
+      "price": 50,
+      "icon": "water",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 1,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 2,
+    "fields": {
+      "name": "Forest Theme",
+      "description": "Enjoy a calming forest theme with green tones and nature-inspired elements.",
+      "item_type": "theme",
+      "price": 50,
+      "icon": "tree",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 1,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 3,
+    "fields": {
+      "name": "Space Theme",
+      "description": "Explore the cosmos with a dark space theme featuring stars and galaxies.",
+      "item_type": "theme",
+      "price": 75,
+      "icon": "rocket",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 5,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 4,
+    "fields": {
+      "name": "Quiz Hint",
+      "description": "Get a helpful hint during your next quiz to guide you toward the correct answer.",
+      "item_type": "hint",
+      "price": 10,
+      "icon": "lightbulb",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 1,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 5,
+    "fields": {
+      "name": "Super Hint",
+      "description": "Get an advanced hint that eliminates wrong answers and provides detailed explanations.",
+      "item_type": "hint",
+      "price": 25,
+      "icon": "magic",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 3,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 6,
+    "fields": {
+      "name": "XP Booster",
+      "description": "Double your XP earnings for the next lesson you complete.",
+      "item_type": "power_up",
+      "price": 30,
+      "icon": "bolt",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 2,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 7,
+    "fields": {
+      "name": "Streak Shield",
+      "description": "Protect your learning streak for one day if you miss your daily goal.",
+      "item_type": "power_up",
+      "price": 40,
+      "icon": "shield-alt",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 3,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 8,
+    "fields": {
+      "name": "Golden Avatar Frame",
+      "description": "Show off your achievements with a shiny golden frame around your profile picture.",
+      "item_type": "avatar",
+      "price": 100,
+      "icon": "crown",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 10,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 9,
+    "fields": {
+      "name": "Rainbow Avatar Frame",
+      "description": "Stand out with a colorful rainbow frame that shows your personality.",
+      "item_type": "avatar",
+      "price": 80,
+      "icon": "rainbow",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 7,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 10,
+    "fields": {
+      "name": "Custom Dashboard Name",
+      "description": "Personalize your dashboard with a custom welcome message and name styling.",
+      "item_type": "customization",
+      "price": 60,
+      "icon": "edit",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 5,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 11,
+    "fields": {
+      "name": "Achievement Showcase",
+      "description": "Display your top 3 achievements prominently on your dashboard.",
+      "item_type": "customization",
+      "price": 45,
+      "icon": "trophy",
+      "is_active": true,
+      "is_limited": false,
+      "stock_quantity": null,
+      "level_requirement": 4,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "gamification.shopitem",
+    "pk": 12,
+    "fields": {
+      "name": "Limited Edition Holiday Badge",
+      "description": "A special badge available only during the holiday season. Show your festive spirit!",
+      "item_type": "badge",
+      "price": 150,
+      "icon": "gift",
+      "is_active": true,
+      "is_limited": true,
+      "stock_quantity": 100,
+      "level_requirement": 8,
+      "created_at": "2024-01-01T00:00:00Z"
+    }
+  }
+]

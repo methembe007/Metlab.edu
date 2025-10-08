@@ -223,6 +223,22 @@ def student_dashboard(request):
             print(f"Error generating recommendations: {e}")
             recommendations = []
     
+    # Get achievement data
+    from gamification.services import AchievementService
+    from gamification.models import VirtualCurrency
+    
+    # Get recent achievements
+    recent_achievements = AchievementService.get_recent_achievements(student_profile, days=7)[:3]
+    
+    # Get achievement statistics
+    achievement_stats = AchievementService.get_achievement_stats(student_profile)
+    
+    # Get virtual currency
+    try:
+        virtual_currency = VirtualCurrency.objects.get(student=student_profile)
+    except VirtualCurrency.DoesNotExist:
+        virtual_currency = None
+    
     context = {
         'user': request.user,
         'profile': student_profile,
@@ -232,6 +248,9 @@ def student_dashboard(request):
         'recent_sessions': recent_sessions,
         'weak_topics': weak_topics,
         'recommendations': recommendations,
+        'recent_achievements': recent_achievements,
+        'achievement_stats': achievement_stats,
+        'virtual_currency': virtual_currency,
     }
     return render(request, 'accounts/student_dashboard.html', context)
 
@@ -252,12 +271,5 @@ def teacher_dashboard(request):
 @parent_required
 @profile_required
 def parent_dashboard(request):
-    """Parent dashboard view"""
-    parent_profile = request.user.parent_profile
-    context = {
-        'user': request.user,
-        'profile': parent_profile,
-        'children': parent_profile.children.all(),
-        'page_title': 'Parent Dashboard'
-    }
-    return render(request, 'accounts/parent_dashboard.html', context)
+    """Parent dashboard view - redirect to learning parent dashboard"""
+    return redirect('learning:parent_dashboard')

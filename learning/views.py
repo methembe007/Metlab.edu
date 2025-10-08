@@ -608,7 +608,29 @@ def complete_daily_lesson(request, lesson_id):
         # Complete the lesson
         lesson.complete_lesson(performance_score=performance_score, xp_earned=xp_earned)
         
-        return JsonResponse({
+        # Check for new achievements after lesson completion
+        from gamification.services import AchievementService, XPCalculationService, CoinRewardService, StreakService
+        
+        # Update streak
+        StreakService.update_streak(lesson.student)
+        
+        # Award XP for lesson completion
+        lesson_xp = XPCalculationService.calculate_lesson_xp(
+            lesson.student, 
+            lesson_score=performance_score,
+            perfect_score=(performance_score == 100)
+        )
+        
+        # Award coins for lesson completion
+        lesson_coins = CoinRewardService.award_lesson_coins(
+            lesson.student,
+            perfect_score=(performance_score == 100)
+        )
+        
+        # Check and award achievements
+        new_achievements = AchievementService.check_and_award_achievements(lesson.student)
+        
+        response_data = {
             'success': True,
             'message': 'Lesson completed successfully',
             'performance_score': lesson.performance_score,
@@ -616,8 +638,14 @@ def complete_daily_lesson(request, lesson_id):
             'time_spent': lesson.time_spent_minutes,
             'completion_ratio': completion_ratio,
             'activities_completed': len(progress_entries),
-            'total_activities': len(activities)
-        })
+            'total_activities': len(activities),
+            'bonus_xp': lesson_xp,
+            'coins_earned': lesson_coins,
+            'new_achievements': len(new_achievements),
+            'current_streak': lesson.student.current_streak
+        }
+        
+        return JsonResponse(response_data)
             
     except Exception as e:
         return JsonResponse({

@@ -1,0 +1,309 @@
+{% extends 'base.html' %}
+
+{% block title %}My Achievements - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">My Achievements</h1>
+            <p class="mt-2 text-gray-600">Track your learning milestones and unlock new badges</p>
+        </div>
+
+        <!-- Achievement Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">🏆</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Total Achievements</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ stats.total_earned }}/{{ stats.total_available }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">%</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Completion</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ stats.completion_percentage|floatformat:0 }}%</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">⭐</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Total XP</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ student_profile.total_xp }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow p-6">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-8 h-8 bg-orange-500 rounded-full flex items-center justify-center">
+                            <span class="text-white font-bold">🔥</span>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <p class="text-sm font-medium text-gray-500">Current Streak</p>
+                        <p class="text-2xl font-bold text-gray-900">{{ student_profile.current_streak }} days</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Achievement Categories -->
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Achievement Categories</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                {% for type_key, type_data in stats.by_type.items %}
+                <div class="bg-white rounded-lg shadow p-4">
+                    <h3 class="font-semibold text-gray-900">{{ type_data.display_name }}</h3>
+                    <p class="text-sm text-gray-600">{{ type_data.earned }}/{{ type_data.total }}</p>
+                    <div class="mt-2 bg-gray-200 rounded-full h-2">
+                        <div class="bg-blue-500 h-2 rounded-full" style="width: {{ type_data.percentage }}%"></div>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">{{ type_data.percentage|floatformat:0 }}% complete</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Recent Achievements -->
+        {% if recent_achievements %}
+        <div class="mb-8">
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">Recent Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for student_achievement in recent_achievements %}
+                <div class="bg-white rounded-lg shadow p-6 border-l-4 border-green-500">
+                    <div class="flex items-center">
+                        <div class="text-3xl mr-4">{{ student_achievement.achievement.badge_icon }}</div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900">{{ student_achievement.achievement.name }}</h3>
+                            <p class="text-sm text-gray-600">{{ student_achievement.achievement.description }}</p>
+                            <p class="text-xs text-gray-500 mt-2">
+                                Earned {{ student_achievement.earned_at|timesince }} ago
+                            </p>
+                            {% if student_achievement.achievement.xp_reward > 0 or student_achievement.achievement.coin_reward > 0 %}
+                            <div class="flex items-center mt-2 space-x-4">
+                                {% if student_achievement.achievement.xp_reward > 0 %}
+                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                                    +{{ student_achievement.achievement.xp_reward }} XP
+                                </span>
+                                {% endif %}
+                                {% if student_achievement.achievement.coin_reward > 0 %}
+                                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                    +{{ student_achievement.achievement.coin_reward }} coins
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- All Achievements -->
+        <div>
+            <h2 class="text-2xl font-bold text-gray-900 mb-4">All Achievements</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for item in achievement_progress %}
+                <div class="bg-white rounded-lg shadow p-6 {% if item.earned %}border-l-4 border-green-500{% else %}border-l-4 border-gray-300{% endif %}">
+                    <div class="flex items-start">
+                        <div class="text-3xl mr-4 {% if not item.earned %}opacity-50{% endif %}">
+                            {{ item.achievement.badge_icon }}
+                        </div>
+                        <div class="flex-1">
+                            <h3 class="font-semibold text-gray-900">{{ item.achievement.name }}</h3>
+                            <p class="text-sm text-gray-600 mb-3">{{ item.achievement.description }}</p>
+                            
+                            {% if item.earned %}
+                                <div class="flex items-center text-green-600 mb-2">
+                                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-sm font-medium">Completed</span>
+                                </div>
+                                {% if item.earned_at %}
+                                <p class="text-xs text-gray-500">{{ item.earned_at|date:"M d, Y" }}</p>
+                                {% endif %}
+                            {% else %}
+                                <div class="mb-2">
+                                    <div class="flex justify-between text-sm text-gray-600 mb-1">
+                                        <span>Progress</span>
+                                        <span>{{ item.progress|floatformat:0 }}%</span>
+                                    </div>
+                                    <div class="bg-gray-200 rounded-full h-2">
+                                        <div class="bg-blue-500 h-2 rounded-full transition-all duration-300" 
+                                             style="width: {{ item.progress }}%"></div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            <!-- Rewards -->
+                            {% if item.achievement.xp_reward > 0 or item.achievement.coin_reward > 0 %}
+                            <div class="flex items-center mt-3 space-x-2">
+                                {% if item.achievement.xp_reward > 0 %}
+                                <span class="text-xs bg-purple-100 text-purple-800 px-2 py-1 rounded">
+                                    +{{ item.achievement.xp_reward }} XP
+                                </span>
+                                {% endif %}
+                                {% if item.achievement.coin_reward > 0 %}
+                                <span class="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded">
+                                    +{{ item.achievement.coin_reward }} coins
+                                </span>
+                                {% endif %}
+                            </div>
+                            {% endif %}
+                            
+                            <!-- Requirements -->
+                            <div class="mt-3 text-xs text-gray-500">
+                                {% if item.achievement.xp_requirement > 0 %}
+                                <div>Requires: {{ item.achievement.xp_requirement }} XP</div>
+                                {% endif %}
+                                {% if item.achievement.streak_requirement > 0 %}
+                                <div>Requires: {{ item.achievement.streak_requirement }} day streak</div>
+                                {% endif %}
+                                {% if item.achievement.lesson_requirement > 0 %}
+                                <div>Requires: {{ item.achievement.lesson_requirement }} lessons</div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Achievement Notification Modal -->
+<div id="achievementModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div class="text-center">
+                <div class="text-6xl mb-4" id="achievementIcon">🏆</div>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Achievement Unlocked!</h3>
+                <h4 class="text-xl font-bold text-blue-600 mb-2" id="achievementName"></h4>
+                <p class="text-gray-600 mb-4" id="achievementDescription"></p>
+                <div class="flex justify-center space-x-4 mb-4" id="achievementRewards"></div>
+                <button onclick="closeAchievementModal()" 
+                        class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
+                    Awesome!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Check for new achievements on page load
+document.addEventListener('DOMContentLoaded', function() {
+    checkForNewAchievements();
+});
+
+function checkForNewAchievements() {
+    fetch('{% url "gamification:check_achievements" %}')
+        .then(response => response.json())
+        .then(data => {
+            if (data.achievements && data.achievements.length > 0) {
+                showAchievementNotifications(data.achievements);
+            }
+        })
+        .catch(error => console.error('Error checking achievements:', error));
+}
+
+function showAchievementNotifications(achievements) {
+    let currentIndex = 0;
+    
+    function showNext() {
+        if (currentIndex < achievements.length) {
+            const achievement = achievements[currentIndex];
+            showAchievementModal(achievement);
+            currentIndex++;
+        } else {
+            // Mark all achievements as notified
+            const achievementIds = achievements.map(a => a.id);
+            markAchievementsNotified(achievementIds);
+        }
+    }
+    
+    showNext();
+    
+    // Override the close function to show next achievement
+    window.closeAchievementModal = function() {
+        document.getElementById('achievementModal').classList.add('hidden');
+        setTimeout(showNext, 500);
+    };
+}
+
+function showAchievementModal(achievement) {
+    document.getElementById('achievementIcon').textContent = achievement.badge_icon;
+    document.getElementById('achievementName').textContent = achievement.name;
+    document.getElementById('achievementDescription').textContent = achievement.description;
+    
+    // Show rewards
+    const rewardsContainer = document.getElementById('achievementRewards');
+    rewardsContainer.innerHTML = '';
+    
+    if (achievement.xp_reward > 0) {
+        const xpBadge = document.createElement('span');
+        xpBadge.className = 'bg-purple-100 text-purple-800 px-3 py-1 rounded-full text-sm';
+        xpBadge.textContent = `+${achievement.xp_reward} XP`;
+        rewardsContainer.appendChild(xpBadge);
+    }
+    
+    if (achievement.coin_reward > 0) {
+        const coinBadge = document.createElement('span');
+        coinBadge.className = 'bg-yellow-100 text-yellow-800 px-3 py-1 rounded-full text-sm';
+        coinBadge.textContent = `+${achievement.coin_reward} coins`;
+        rewardsContainer.appendChild(coinBadge);
+    }
+    
+    document.getElementById('achievementModal').classList.remove('hidden');
+}
+
+function markAchievementsNotified(achievementIds) {
+    const formData = new FormData();
+    achievementIds.forEach(id => formData.append('achievement_ids[]', id));
+    
+    fetch('{% url "gamification:mark_notified" %}', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            console.log(`Marked ${data.marked_count} achievements as notified`);
+        }
+    })
+    .catch(error => console.error('Error marking achievements as notified:', error));
+}
+</script>
+
+{% csrf_token %}
+{% endblock %}

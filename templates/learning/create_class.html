@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Class - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between mb-6">
+                <h1 class="text-2xl font-bold text-gray-900">Create New Class</h1>
+                <a href="{% url 'class_management' %}" class="text-blue-600 hover:text-blue-800">
+                    ← Back to Classes
+                </a>
+            </div>
+            
+            <form method="post" class="space-y-6">
+                {% csrf_token %}
+                
+                <!-- Class Name -->
+                <div>
+                    <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Class Name *
+                    </label>
+                    <div class="mt-1">
+                        {{ form.name }}
+                        {% if form.name.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {{ form.name.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Choose a descriptive name for your class (e.g., "Advanced Biology", "9th Grade Math")
+                    </p>
+                </div>
+                
+                <!-- Subject and Grade Level -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div>
+                        <label for="{{ form.subject.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                            Subject *
+                        </label>
+                        <div class="mt-1">
+                            {{ form.subject }}
+                            {% if form.subject.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {{ form.subject.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="{{ form.grade_level.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                            Grade Level *
+                        </label>
+                        <div class="mt-1">
+                            {{ form.grade_level }}
+                            {% if form.grade_level.errors %}
+                                <div class="mt-1 text-sm text-red-600">
+                                    {{ form.grade_level.errors.0 }}
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Description -->
+                <div>
+                    <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Description
+                    </label>
+                    <div class="mt-1">
+                        {{ form.description }}
+                        {% if form.description.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {{ form.description.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Provide a brief description of what this class covers and any special requirements
+                    </p>
+                </div>
+                
+                <!-- Maximum Students -->
+                <div>
+                    <label for="{{ form.max_students.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        Maximum Students *
+                    </label>
+                    <div class="mt-1">
+                        {{ form.max_students }}
+                        {% if form.max_students.errors %}
+                            <div class="mt-1 text-sm text-red-600">
+                                {{ form.max_students.errors.0 }}
+                            </div>
+                        {% endif %}
+                    </div>
+                    <p class="mt-2 text-sm text-gray-500">
+                        Set the maximum number of students that can enroll in this class (1-100)
+                    </p>
+                </div>
+                
+                <!-- Information Box -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">What happens next?</h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>After creating your class:</p>
+                            <ul class="list-disc list-inside mt-1 space-y-1">
+                                <li>A unique 8-character invitation code will be generated</li>
+                                <li>Share this code with students so they can join your class</li>
+                                <li>You can upload and assign content to the class</li>
+                                <li>Monitor student progress and performance</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Submit Button -->
+                <div class="flex justify-end space-x-3">
+                    <a href="{% url 'class_management' %}" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Cancel
+                    </a>
+                    <button type="submit" class="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        Create Class
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
