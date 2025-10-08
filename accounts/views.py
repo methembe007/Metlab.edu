@@ -179,12 +179,59 @@ def dashboard_view(request):
 @student_required
 @profile_required
 def student_dashboard(request):
-    """Student dashboard view"""
+    """Enhanced student dashboard view with daily lessons, progress, and recommendations"""
+    from learning.models import DailyLesson, LearningSession, WeaknessAnalysis, PersonalizedRecommendation
+    from learning.services import DailyLessonService, WeaknessAnalysisService, RecommendationService
+    from django.utils import timezone
+    from datetime import timedelta
+    
     student_profile = request.user.student_profile
+    
+    # Get or generate today's lesson
+    today_lesson = DailyLessonService.get_student_daily_lesson(student_profile)
+    
+    # Calculate daily progress percentage
+    daily_progress_percentage = 0
+    if today_lesson:
+        if today_lesson.status == 'completed':
+            daily_progress_percentage = 100
+        elif today_lesson.status == 'active':
+            daily_progress_percentage = 50
+        else:
+            daily_progress_percentage = 0
+    
+    # Get recent learning sessions
+    recent_sessions = LearningSession.objects.filter(
+        student=student_profile,
+        status='completed'
+    ).order_by('-start_time')[:5]
+    
+    # Get top weaknesses for reminders
+    weak_topics = WeaknessAnalysisService.get_student_weaknesses(student_profile, limit=3)
+    
+    # Get active recommendations
+    recommendations = RecommendationService.get_active_recommendations(student_profile, limit=3)
+    
+    # Generate new recommendations if none exist
+    if not recommendations.exists():
+        try:
+            RecommendationService.generate_weakness_recommendations(student_profile)
+            RecommendationService.generate_content_recommendations(student_profile)
+            recommendations = RecommendationService.get_active_recommendations(student_profile, limit=3)
+        except Exception as e:
+            # Handle any errors in recommendation generation
+            print(f"Error generating recommendations: {e}")
+            recommendations = []
+    
     context = {
         'user': request.user,
         'profile': student_profile,
-        'page_title': 'Student Dashboard'
+        'page_title': 'Student Dashboard',
+        'today_lesson': today_lesson,
+        'daily_progress_percentage': daily_progress_percentage,
+        'recent_sessions': recent_sessions,
+        'weak_topics': weak_topics,
+        'recommendations': recommendations,
     }
     return render(request, 'accounts/student_dashboard.html', context)
 

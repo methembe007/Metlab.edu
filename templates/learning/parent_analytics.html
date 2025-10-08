@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}Parent Dashboard - Children's Progress{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-7xl mx-auto">
+        <h1 class="text-3xl font-bold text-gray-900 mb-8">Children's Learning Progress</h1>
+        
+        {% if children_data %}
+            {% for child_data in children_data %}
+            <div class="mb-8 bg-white rounded-lg shadow-lg overflow-hidden">
+                <!-- Child Header -->
+                <div class="bg-gradient-to-r from-blue-500 to-purple-600 px-6 py-4">
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h2 class="text-xl font-semibold text-white">
+                                {{ child_data.profile.user.first_name|default:child_data.profile.user.username }}
+                            </h2>
+                            <p class="text-blue-100">Grade: {{ child_data.profile.grade_level|default:"Not specified" }}</p>
+                        </div>
+                        <div class="text-right">
+                            <p class="text-2xl font-bold text-white">{{ child_data.profile.total_xp }}</p>
+                            <p class="text-blue-100">Total XP</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Child Statistics -->
+                <div class="p-6">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                        <div class="text-center p-4 bg-blue-50 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-600">{{ child_data.stats.total_sessions|default:0 }}</div>
+                            <div class="text-sm text-gray-600">Total Sessions</div>
+                        </div>
+                        <div class="text-center p-4 bg-green-50 rounded-lg">
+                            <div class="text-2xl font-bold text-green-600">{{ child_data.stats.avg_performance|floatformat:1|default:0 }}%</div>
+                            <div class="text-sm text-gray-600">Average Performance</div>
+                        </div>
+                        <div class="text-center p-4 bg-purple-50 rounded-lg">
+                            <div class="text-2xl font-bold text-purple-600">{{ child_data.stats.total_time|default:0 }}m</div>
+                            <div class="text-sm text-gray-600">Study Time</div>
+                        </div>
+                        <div class="text-center p-4 bg-yellow-50 rounded-lg">
+                            <div class="text-2xl font-bold text-yellow-600">{{ child_data.profile.current_streak }}</div>
+                            <div class="text-sm text-gray-600">Day Streak</div>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Recent Sessions -->
+                        <div class="lg:col-span-2">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Learning Sessions</h3>
+                            {% if child_data.recent_sessions %}
+                                <div class="space-y-3">
+                                    {% for session in child_data.recent_sessions %}
+                                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                                        <div>
+                                            <p class="font-medium text-gray-900">{{ session.content.original_filename|truncatechars:35 }}</p>
+                                            <p class="text-sm text-gray-600">{{ session.get_session_type_display }} • {{ session.start_time|date:"M d, H:i" }}</p>
+                                        </div>
+                                        <div class="text-right">
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                                                {% if session.performance_score >= 80 %}bg-green-100 text-green-800
+                                                {% elif session.performance_score >= 60 %}bg-yellow-100 text-yellow-800
+                                                {% else %}bg-red-100 text-red-800{% endif %}">
+                                                {{ session.performance_score|floatformat:1 }}%
+                                            </span>
+                                            <p class="text-sm text-gray-600 mt-1">{{ session.time_spent_minutes }}m</p>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-600">No recent sessions to display.</p>
+                            {% endif %}
+                        </div>
+                        
+                        <!-- Areas for Improvement -->
+                        <div>
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Areas for Improvement</h3>
+                            {% if child_data.weaknesses %}
+                                <div class="space-y-3">
+                                    {% for weakness in child_data.weaknesses %}
+                                    <div class="p-3 bg-red-50 rounded-lg border border-red-200">
+                                        <p class="font-medium text-red-900">{{ weakness.concept }}</p>
+                                        <p class="text-sm text-red-700">{{ weakness.subject }}</p>
+                                        <div class="mt-2">
+                                            <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium
+                                                {% if weakness.weakness_level == 'critical' %}bg-red-100 text-red-800
+                                                {% elif weakness.weakness_level == 'high' %}bg-orange-100 text-orange-800
+                                                {% elif weakness.weakness_level == 'medium' %}bg-yellow-100 text-yellow-800
+                                                {% else %}bg-green-100 text-green-800{% endif %}">
+                                                {{ weakness.get_weakness_level_display }}
+                                            </span>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                            {% else %}
+                                <p class="text-gray-600">No specific weaknesses identified yet.</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+                    <!-- Learning Insights -->
+                    {% if child_data.patterns %}
+                    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
+                        <h4 class="font-semibold text-blue-900 mb-3">Learning Insights</h4>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                            <div>
+                                <span class="font-medium text-blue-800">Study Consistency:</span>
+                                <span class="text-blue-700">{{ child_data.patterns.consistency_score|floatformat:1 }}%</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-blue-800">Learning Velocity:</span>
+                                <span class="text-blue-700">{{ child_data.patterns.learning_velocity }} sessions/week</span>
+                            </div>
+                            <div>
+                                <span class="font-medium text-blue-800">Trend:</span>
+                                <span class="text-blue-700">{{ child_data.patterns.improvement_trend|title }}</span>
+                            </div>
+                        </div>
+                        
+                        {% if child_data.patterns.peak_performance_time %}
+                        <div class="mt-3 p-3 bg-white rounded border border-blue-200">
+                            <p class="text-blue-800">
+                                <strong>💡 Best Study Time:</strong> {{ child_data.patterns.peak_performance_time }}
+                                - Consider scheduling important study sessions during this time.
+                            </p>
+                        </div>
+                        {% endif %}
+                        
+                        {% if child_data.patterns.improvement_trend == 'declining' %}
+                        <div class="mt-3 p-3 bg-red-100 rounded border border-red-200">
+                            <p class="text-red-800">
+                                <strong>⚠️ Attention Needed:</strong> Performance has been declining recently. 
+                                Consider providing additional support or taking a short break.
+                            </p>
+                        </div>
+                        {% elif child_data.patterns.improvement_trend == 'improving' %}
+                        <div class="mt-3 p-3 bg-green-100 rounded border border-green-200">
+                            <p class="text-green-800">
+                                <strong>🎉 Great Progress:</strong> Performance is improving! 
+                                Keep encouraging this positive trend.
+                            </p>
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        {% else %}
+            <div class="text-center py-12">
+                <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">No Children Linked</h3>
+                <p class="text-gray-600 mb-4">You haven't linked any children's accounts to your parent profile yet.</p>
+                <a href="{% url 'accounts:parent_dashboard' %}" class="inline-block px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                    Manage Children
+                </a>
+            </div>
+        {% endif %}
+        
+        <!-- Screen Time Controls -->
+        {% if children_data %}
+        <div class="mt-8 bg-white rounded-lg shadow">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-semibold text-gray-900">Screen Time & Controls</h2>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="p-4 bg-yellow-50 rounded-lg">
+                        <h3 class="font-medium text-yellow-900 mb-2">Daily Study Time Recommendations</h3>
+                        <ul class="text-sm text-yellow-800 space-y-1">
+                            <li>• Elementary (K-5): 15-30 minutes</li>
+                            <li>• Middle School (6-8): 30-45 minutes</li>
+                            <li>• High School (9-12): 45-60 minutes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="p-4 bg-green-50 rounded-lg">
+                        <h3 class="font-medium text-green-900 mb-2">Healthy Learning Tips</h3>
+                        <ul class="text-sm text-green-800 space-y-1">
+                            <li>• Take breaks every 20-30 minutes</li>
+                            <li>• Encourage consistent daily practice</li>
+                            <li>• Celebrate achievements and progress</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

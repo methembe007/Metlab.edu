@@ -59,6 +59,50 @@ class StudentProfile(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     
+    def update_learning_streak(self):
+        """Update the student's learning streak based on recent activity"""
+        from django.utils import timezone
+        from datetime import timedelta
+        
+        # Check if student has completed any lessons today
+        today = timezone.now().date()
+        yesterday = today - timedelta(days=1)
+        
+        # Import here to avoid circular imports
+        from learning.models import DailyLesson
+        
+        # Check if there's a completed lesson today
+        completed_today = DailyLesson.objects.filter(
+            student=self,
+            lesson_date=today,
+            status='completed'
+        ).exists()
+        
+        if completed_today:
+            # Check if there was activity yesterday to continue streak
+            completed_yesterday = DailyLesson.objects.filter(
+                student=self,
+                lesson_date=yesterday,
+                status='completed'
+            ).exists()
+            
+            if completed_yesterday or self.current_streak == 0:
+                self.current_streak += 1
+            else:
+                # Reset streak if there was a gap
+                self.current_streak = 1
+        else:
+            # Check if streak should be reset (no activity for more than 1 day)
+            last_activity = DailyLesson.objects.filter(
+                student=self,
+                status='completed'
+            ).order_by('-lesson_date').first()
+            
+            if last_activity:
+                days_since_activity = (today - last_activity.lesson_date).days
+                if days_since_activity > 1:
+                    self.current_streak = 0
+    
     def __str__(self):
         return f"Student Profile: {self.user.username}"
     

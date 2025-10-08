@@ -24,3 +24,188 @@ INFO 2025-10-08 09:34:05,076 basehttp 14112 12796 "GET /accounts/register/ HTTP/
 WARNING 2025-10-08 09:34:05,119 basehttp 14112 12796 "GET /static/css/output.css HTTP/1.1" 404 1856
 INFO 2025-10-08 09:34:36,246 basehttp 14112 15756 "GET /accounts/login/ HTTP/1.1" 200 3797
 WARNING 2025-10-08 09:34:36,277 basehttp 14112 15756 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-08 11:54:34,074 ai_services 16296 16188 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:54:34,076 ai_services 16296 16188 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:54:34,076 ai_services 16296 16188 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:54:34,077 ai_services 16296 16188 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:54:34,077 ai_services 16296 16188 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:55:01,483 ai_services 12492 14940 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:55:01,484 ai_services 12492 14940 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:55:01,485 ai_services 12492 14940 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:55:01,486 ai_services 12492 14940 OpenAI not available or API key not configured
+WARNING 2025-10-08 11:55:01,486 ai_services 12492 14940 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:08,483 ai_services 14964 10128 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:08,484 ai_services 14964 10128 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:08,486 ai_services 14964 10128 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:08,488 ai_services 14964 10128 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:08,489 ai_services 14964 10128 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:30,780 ai_services 10456 11056 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:30,783 ai_services 10456 11056 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:30,784 ai_services 10456 11056 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:30,785 ai_services 10456 11056 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:30,786 ai_services 10456 11056 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:52,687 ai_services 14848 8268 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:52,688 ai_services 14848 8268 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:52,688 ai_services 14848 8268 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:52,689 ai_services 14848 8268 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:35:52,689 ai_services 14848 8268 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:39:22,312 ai_services 16064 5616 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:39:22,312 ai_services 16064 5616 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:39:22,313 ai_services 16064 5616 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:39:22,314 ai_services 16064 5616 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:39:22,316 ai_services 16064 5616 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:42:09,082 ai_services 15916 288 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:42:09,083 ai_services 15916 288 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:42:09,084 ai_services 15916 288 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:42:09,084 ai_services 15916 288 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:42:09,085 ai_services 15916 288 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:52:50,725 ai_services 12028 7464 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:52:50,726 ai_services 12028 7464 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:52:50,726 ai_services 12028 7464 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:52:50,727 ai_services 12028 7464 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:52:50,727 ai_services 12028 7464 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:54:08,278 ai_services 7212 15892 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:54:08,279 ai_services 7212 15892 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:54:08,279 ai_services 7212 15892 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:54:08,280 ai_services 7212 15892 OpenAI not available or API key not configured
+WARNING 2025-10-08 12:54:08,280 ai_services 7212 15892 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:00:31,875 ai_services 7732 10104 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:00:31,876 ai_services 7732 10104 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:00:31,876 ai_services 7732 10104 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:00:31,876 ai_services 7732 10104 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:00:31,877 ai_services 7732 10104 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:01:33,230 ai_services 9824 3280 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:01:33,231 ai_services 9824 3280 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:01:33,231 ai_services 9824 3280 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:01:33,231 ai_services 9824 3280 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:01:33,232 ai_services 9824 3280 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:23:17,931 ai_services 972 13636 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:23:17,931 ai_services 972 13636 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:23:17,932 ai_services 972 13636 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:23:17,932 ai_services 972 13636 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:23:17,932 ai_services 972 13636 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:06,389 ai_services 316 1784 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:06,389 ai_services 316 1784 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:06,390 ai_services 316 1784 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:06,390 ai_services 316 1784 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:06,390 ai_services 316 1784 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:51,037 ai_services 9896 11652 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:51,038 ai_services 9896 11652 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:51,039 ai_services 9896 11652 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:51,040 ai_services 9896 11652 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:24:51,041 ai_services 9896 11652 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:25:15,827 ai_services 9292 15192 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:25:15,828 ai_services 9292 15192 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:25:15,828 ai_services 9292 15192 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:25:15,829 ai_services 9292 15192 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:25:15,829 ai_services 9292 15192 OpenAI not available or API key not configured
+INFO 2025-10-08 13:29:46,854 autoreload 15144 8732 Watching for file changes with StatReloader
+WARNING 2025-10-08 13:29:46,914 ai_services 15144 8732 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:29:46,946 ai_services 15144 8732 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:29:46,958 ai_services 15144 8732 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:29:46,959 ai_services 15144 8732 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:29:46,960 ai_services 15144 8732 OpenAI not available or API key not configured
+INFO 2025-10-08 13:29:52,409 basehttp 15144 16056 "GET / HTTP/1.1" 302 0
+INFO 2025-10-08 13:29:52,495 basehttp 15144 16056 "GET /accounts/login/ HTTP/1.1" 200 3797
+WARNING 2025-10-08 13:29:52,728 basehttp 15144 16056 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-08 13:29:53,427 log 15144 8748 Not Found: /favicon.ico
+WARNING 2025-10-08 13:29:53,444 basehttp 15144 8748 "GET /favicon.ico HTTP/1.1" 404 2992
+INFO 2025-10-08 13:30:31,668 basehttp 15144 8748 "POST /accounts/login/ HTTP/1.1" 200 4018
+WARNING 2025-10-08 13:30:31,692 basehttp 15144 8748 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:30:34,146 basehttp 15144 7432 "GET /accounts/register/ HTTP/1.1" 200 7428
+WARNING 2025-10-08 13:30:34,165 basehttp 15144 7432 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:31:41,798 basehttp 15144 13232 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:31:41,826 basehttp 15144 13232 "GET /accounts/login/ HTTP/1.1" 200 4046
+WARNING 2025-10-08 13:31:41,892 basehttp 15144 13232 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:31:47,008 basehttp 15144 13176 "POST /accounts/login/ HTTP/1.1" 200 4018
+WARNING 2025-10-08 13:31:47,045 basehttp 15144 13176 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:01,465 basehttp 15144 1276 "POST /accounts/login/ HTTP/1.1" 200 4018
+WARNING 2025-10-08 13:32:01,487 basehttp 15144 1276 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-08 13:32:09,678 basehttp 15144 14572 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:12,591 basehttp 15144 12664 "GET /accounts/login/ HTTP/1.1" 200 3797
+WARNING 2025-10-08 13:32:12,617 basehttp 15144 12664 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:21,925 basehttp 15144 7904 "POST /accounts/register/ HTTP/1.1" 200 7954
+WARNING 2025-10-08 13:32:21,948 basehttp 15144 7904 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:30,229 basehttp 15144 7972 "GET /accounts/login/ HTTP/1.1" 200 3797
+WARNING 2025-10-08 13:32:30,271 basehttp 15144 7972 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:35,618 basehttp 15144 6476 "POST /accounts/login/ HTTP/1.1" 200 4018
+WARNING 2025-10-08 13:32:35,648 basehttp 15144 6476 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:32:47,472 basehttp 15144 9292 "GET /accounts/register/ HTTP/1.1" 200 7428
+WARNING 2025-10-08 13:32:47,505 basehttp 15144 9292 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:33:52,494 basehttp 15144 2204 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:33:52,507 basehttp 15144 2204 "GET /accounts/login/ HTTP/1.1" 200 4046
+WARNING 2025-10-08 13:33:52,537 basehttp 15144 2204 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:33:59,465 basehttp 15144 13952 "POST /accounts/login/ HTTP/1.1" 200 4008
+WARNING 2025-10-08 13:33:59,506 basehttp 15144 13952 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:34:03,181 basehttp 15144 5600 "GET /accounts/login/ HTTP/1.1" 200 3797
+WARNING 2025-10-08 13:34:03,207 basehttp 15144 5600 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:34:07,663 basehttp 15144 15832 "GET /accounts/register/ HTTP/1.1" 200 7428
+WARNING 2025-10-08 13:34:07,705 basehttp 15144 15832 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:35:58,227 basehttp 15144 15172 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:35:58,251 basehttp 15144 15172 "GET /accounts/login/ HTTP/1.1" 200 4046
+WARNING 2025-10-08 13:35:58,283 basehttp 15144 15172 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:36:07,369 basehttp 15144 5736 "POST /accounts/login/ HTTP/1.1" 200 4007
+WARNING 2025-10-08 13:36:07,394 basehttp 15144 5736 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:36:33,394 basehttp 15144 11444 "POST /accounts/login/ HTTP/1.1" 200 4017
+WARNING 2025-10-08 13:36:33,418 basehttp 15144 11444 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:36:43,194 basehttp 15144 4252 "POST /accounts/login/ HTTP/1.1" 200 4017
+WARNING 2025-10-08 13:36:43,223 basehttp 15144 4252 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:36:55,831 basehttp 15144 15496 "POST /accounts/login/ HTTP/1.1" 200 4017
+WARNING 2025-10-08 13:36:55,855 basehttp 15144 15496 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:37:18,784 basehttp 15144 10612 "POST /accounts/login/ HTTP/1.1" 200 4017
+WARNING 2025-10-08 13:37:18,802 basehttp 15144 10612 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:37:25,957 basehttp 15144 5128 "GET /accounts/login/ HTTP/1.1" 200 3797
+WARNING 2025-10-08 13:37:25,996 basehttp 15144 5128 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:37:29,881 basehttp 15144 5500 "POST /accounts/login/ HTTP/1.1" 200 4007
+WARNING 2025-10-08 13:37:29,917 basehttp 15144 5500 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:39:11,913 basehttp 15144 16060 "POST /accounts/login/ HTTP/1.1" 200 4017
+WARNING 2025-10-08 13:39:11,931 basehttp 15144 16060 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-08 13:44:06,665 basehttp 15144 11472 "POST /accounts/login/ HTTP/1.1" 200 4007
+WARNING 2025-10-08 13:44:06,697 basehttp 15144 11472 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-08 13:45:35,733 ai_services 4976 3704 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:45:35,734 ai_services 4976 3704 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:45:35,734 ai_services 4976 3704 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:45:35,734 ai_services 4976 3704 OpenAI not available or API key not configured
+WARNING 2025-10-08 13:45:35,735 ai_services 4976 3704 OpenAI not available or API key not configured
+INFO 2025-10-08 13:47:17,473 basehttp 15144 14904 "GET /admin HTTP/1.1" 301 0
+INFO 2025-10-08 13:47:17,603 basehttp 15144 7732 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:47:17,663 basehttp 15144 7732 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4173
+INFO 2025-10-08 13:47:18,031 basehttp 15144 2924 "GET /static/admin/js/theme.js HTTP/1.1" 200 1653
+INFO 2025-10-08 13:47:18,031 basehttp 15144 2848 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2808
+INFO 2025-10-08 13:47:18,037 basehttp 15144 15932 "GET /static/admin/css/responsive.css HTTP/1.1" 200 16565
+INFO 2025-10-08 13:47:18,038 basehttp 15144 7732 "GET /static/admin/css/base.css HTTP/1.1" 200 22120
+INFO 2025-10-08 13:47:18,043 basehttp 15144 10008 "GET /static/admin/css/login.css HTTP/1.1" 200 951
+INFO 2025-10-08 13:47:18,048 basehttp 15144 15404 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-10-08 13:47:18,051 basehttp 15144 10008 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-10-08 13:48:05,150 basehttp 15144 10008 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:48:05,190 basehttp 15144 10008 "GET /admin/ HTTP/1.1" 200 15558
+INFO 2025-10-08 13:48:05,216 basehttp 15144 10008 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-10-08 13:48:05,224 basehttp 15144 15404 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-10-08 13:48:05,230 basehttp 15144 10008 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-10-08 13:48:17,618 basehttp 15144 10008 "GET /admin/accounts/user/ HTTP/1.1" 200 22077
+INFO 2025-10-08 13:48:17,655 basehttp 15144 15932 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-10-08 13:48:17,661 basehttp 15144 2924 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9777
+INFO 2025-10-08 13:48:17,674 basehttp 15144 2848 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-10-08 13:48:17,685 basehttp 15144 10008 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6878
+INFO 2025-10-08 13:48:17,691 basehttp 15144 2924 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-10-08 13:48:17,693 basehttp 15144 15932 "GET /static/admin/js/actions.js HTTP/1.1" 200 8076
+INFO 2025-10-08 13:48:17,701 basehttp 15144 2848 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-10-08 13:48:17,707 basehttp 15144 15404 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-10-08 13:48:17,717 basehttp 15144 15932 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-10-08 13:48:17,717 basehttp 15144 2924 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-10-08 13:48:17,718 basehttp 15144 7732 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-10-08 13:48:17,742 basehttp 15144 10008 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-10-08 13:48:17,747 basehttp 15144 2924 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-10-08 13:48:17,754 basehttp 15144 10008 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-10-08 13:48:17,773 basehttp 15144 15932 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-10-08 13:48:17,773 basehttp 15144 10008 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-10-08 13:48:17,774 basehttp 15144 2924 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-10-08 13:48:45,835 basehttp 15144 2924 "POST /admin/accounts/user/ HTTP/1.1" 200 15359
+INFO 2025-10-08 13:48:45,858 basehttp 15144 2924 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-10-08 13:48:48,126 basehttp 15144 2924 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-10-08 13:48:48,175 basehttp 15144 2924 "GET /admin/accounts/user/ HTTP/1.1" 200 20428
+INFO 2025-10-08 13:48:48,214 basehttp 15144 2924 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-10-08 13:49:11,539 log 15144 2924 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-10-08 13:49:11,541 basehttp 15144 2924 "POST /accounts/login/ HTTP/1.1" 403 2503
+WARNING 2025-10-08 13:49:25,167 log 15144 2924 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-10-08 13:49:25,168 basehttp 15144 2924 "POST /accounts/login/ HTTP/1.1" 403 2503

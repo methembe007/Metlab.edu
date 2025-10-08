@@ -1,97 +1,455 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}{{ page_title }} - Metlab.edu{% endblock %}
 
 {% block content %}
-<div class="bg-white shadow rounded-lg">
-    <div class="px-4 py-5 sm:p-6">
-        <div class="flex items-center justify-between mb-6">
-            <h1 class="text-2xl font-bold text-gray-900">Student Dashboard</h1>
-            <div class="flex items-center space-x-4">
-                <div class="text-sm text-gray-600">
-                    <span class="font-medium">Current Streak:</span> {{ profile.current_streak }} days
+{% csrf_token %}
+<div class="min-h-screen bg-gray-50 py-6">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header Section with Streak Counter -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between mb-4">
+                    <div>
+                        <h1 class="text-3xl font-bold text-gray-900">Welcome back, {{ user.first_name|default:user.username }}!</h1>
+                        <p class="text-gray-600 mt-1">Ready to continue your learning journey?</p>
+                    </div>
+                    <div class="flex items-center space-x-6">
+                        <!-- Streak Counter -->
+                        <div class="text-center">
+                            <div class="flex items-center justify-center w-16 h-16 bg-orange-100 rounded-full mb-2">
+                                <svg class="w-8 h-8 text-orange-600" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+                                </svg>
+                            </div>
+                            <div class="text-2xl font-bold text-orange-600">{{ profile.current_streak }}</div>
+                            <div class="text-xs text-gray-500">Day Streak</div>
+                        </div>
+                        <!-- Total XP -->
+                        <div class="text-center">
+                            <div class="flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full mb-2">
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div class="text-2xl font-bold text-purple-600">{{ profile.total_xp }}</div>
+                            <div class="text-xs text-gray-500">Total XP</div>
+                        </div>
+                    </div>
                 </div>
-                <div class="text-sm text-gray-600">
-                    <span class="font-medium">Total XP:</span> {{ profile.total_xp }}
+                
+                <!-- Progress Bar -->
+                <div class="bg-gray-200 rounded-full h-3 mb-2">
+                    <div class="bg-gradient-to-r from-blue-500 to-purple-600 h-3 rounded-full transition-all duration-500" 
+                         style="width: {{ daily_progress_percentage|default:0 }}%"></div>
+                </div>
+                <div class="flex justify-between text-sm text-gray-600">
+                    <span>Daily Progress</span>
+                    <span>{{ daily_progress_percentage|default:0 }}% Complete</span>
                 </div>
             </div>
         </div>
-        
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <!-- Daily Lesson Card -->
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                <div class="flex items-center">
-                    <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                            </svg>
+        <!-- Daily Lesson Section -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Today's Lesson</h2>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                        {% if today_lesson %}{{ today_lesson.estimated_duration_minutes }} min{% else %}5-10 min{% endif %}
+                    </span>
+                </div>
+                
+                {% if today_lesson %}
+                    <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-lg p-6 border border-blue-200">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <h3 class="text-lg font-medium text-gray-900 mb-2">{{ today_lesson.title }}</h3>
+                                <p class="text-gray-600 mb-4">{{ today_lesson.description }}</p>
+                                
+                                <!-- Focus Areas -->
+                                {% if today_lesson.priority_concepts %}
+                                <div class="mb-4">
+                                    <p class="text-sm font-medium text-gray-700 mb-2">Focus Areas:</p>
+                                    <div class="flex flex-wrap gap-2">
+                                        {% for concept in today_lesson.priority_concepts %}
+                                            <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-indigo-100 text-indigo-800">
+                                                {{ concept }}
+                                            </span>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="ml-6 flex-shrink-0">
+                                {% if today_lesson.status == 'scheduled' %}
+                                    <button onclick="startLesson({{ today_lesson.id }})" 
+                                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm">
+                                        Start Lesson
+                                    </button>
+                                {% elif today_lesson.status == 'active' %}
+                                    <a href="{% url 'learning:lesson_detail' today_lesson.id %}" 
+                                       class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-lg font-medium transition-colors shadow-sm inline-block">
+                                        Continue Lesson
+                                    </a>
+                                {% elif today_lesson.status == 'completed' %}
+                                    <div class="text-center">
+                                        <div class="flex items-center justify-center w-12 h-12 bg-green-100 rounded-full mb-2">
+                                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                            </svg>
+                                        </div>
+                                        <p class="text-sm text-green-600 font-medium">Completed!</p>
+                                        <p class="text-xs text-gray-500">+{{ today_lesson.xp_earned }} XP</p>
+                                    </div>
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
-                    <div class="ml-4">
-                        <h3 class="text-lg font-medium text-gray-900">Today's Lesson</h3>
-                        <p class="text-sm text-gray-600">Start your daily 5-10 minute lesson</p>
+                {% else %}
+                    <div class="bg-gray-50 rounded-lg p-6 text-center">
+                        <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Your lesson is being prepared</h3>
+                        <p class="text-gray-600 mb-4">We're creating a personalized lesson just for you!</p>
+                        <a href="{% url 'learning:daily_lesson' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                            Check Again
+                        </a>
                     </div>
-                </div>
-                <div class="mt-4">
-                    <button class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
-                        Start Learning
-                    </button>
-                </div>
+                {% endif %}
             </div>
-            
+        </div>
+
+        <!-- Quick Actions Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <!-- Content Upload Card -->
-            <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path>
+                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"/>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
                         <h3 class="text-lg font-medium text-gray-900">Upload Content</h3>
-                        <p class="text-sm text-gray-600">Upload PDFs, notes, or textbooks</p>
+                        <p class="text-sm text-gray-600">Add new study materials</p>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
+                    <a href="{% url 'content:upload' %}" class="block w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center">
                         Upload Files
-                    </button>
+                    </a>
                 </div>
             </div>
             
             <!-- Progress Analytics Card -->
-            <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
-                        <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
-                            <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                        <div class="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
                             </svg>
                         </div>
                     </div>
                     <div class="ml-4">
                         <h3 class="text-lg font-medium text-gray-900">Progress Analytics</h3>
-                        <p class="text-sm text-gray-600">View your learning insights</p>
+                        <p class="text-sm text-gray-600">View learning insights</p>
                     </div>
                 </div>
                 <div class="mt-4">
-                    <button class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200">
+                    <a href="{% url 'learning:analytics' %}" class="block w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 text-center">
                         View Analytics
-                    </button>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Content Library Card -->
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Content Library</h3>
+                        <p class="text-sm text-gray-600">Browse your materials</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'content:library' %}" class="block w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 text-center">
+                        Browse Library
+                    </a>
                 </div>
             </div>
         </div>
-        
+        <!-- Weakness Reminders Section -->
+        {% if weak_topics %}
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Areas to Focus On</h2>
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
+                        {{ weak_topics|length }} topic{{ weak_topics|length|pluralize }}
+                    </span>
+                </div>
+                
+                <div class="space-y-3">
+                    {% for weakness in weak_topics %}
+                    <div class="flex items-center justify-between p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                {% if weakness.weakness_level == 'critical' %}
+                                    <div class="w-3 h-3 bg-red-500 rounded-full"></div>
+                                {% elif weakness.weakness_level == 'high' %}
+                                    <div class="w-3 h-3 bg-orange-500 rounded-full"></div>
+                                {% else %}
+                                    <div class="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <p class="text-sm font-medium text-gray-900">{{ weakness.concept }}</p>
+                                <p class="text-xs text-gray-600">{{ weakness.subject }} • {{ weakness.weakness_score|floatformat:0 }}% needs improvement</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs text-gray-500">Priority {{ weakness.priority_level }}/5</span>
+                            <button onclick="practiceWeakness('{{ weakness.concept }}')" 
+                                    class="text-yellow-700 hover:text-yellow-800 text-sm font-medium">
+                                Practice
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                {% if weak_topics|length > 3 %}
+                <div class="mt-4 text-center">
+                    <a href="{% url 'learning:analytics' %}" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                        View all areas for improvement →
+                    </a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Recommendations Section -->
+        {% if recommendations %}
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-xl font-semibold text-gray-900">Recommended for You</h2>
+                    <button onclick="refreshRecommendations()" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                        Refresh
+                    </button>
+                </div>
+                
+                <div class="space-y-3" id="recommendations-list">
+                    {% for rec in recommendations %}
+                    <div class="flex items-start justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                        <div class="flex-1">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <h3 class="text-sm font-medium text-gray-900">{{ rec.title }}</h3>
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                    {{ rec.get_recommendation_type_display }}
+                                </span>
+                                {% if rec.priority >= 4 %}
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">
+                                        High Priority
+                                    </span>
+                                {% endif %}
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2">{{ rec.description }}</p>
+                            <p class="text-xs text-gray-500">Estimated time: {{ rec.estimated_time_minutes }} minutes</p>
+                        </div>
+                        <div class="ml-4 flex-shrink-0">
+                            <button onclick="acceptRecommendation({{ rec.id }})" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors">
+                                Try It
+                            </button>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
         <!-- Recent Activity Section -->
-        <div class="mt-8">
-            <h2 class="text-lg font-medium text-gray-900 mb-4">Recent Activity</h2>
-            <div class="bg-gray-50 rounded-lg p-4">
-                <p class="text-gray-600 text-center">No recent activity. Start learning to see your progress here!</p>
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-5">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h2>
+                
+                {% if recent_sessions %}
+                <div class="space-y-3">
+                    {% for session in recent_sessions %}
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                {% if session.status == 'completed' %}
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">
+                                    {{ session.content.original_filename|truncatechars:40 }}
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    {{ session.start_time|timesince }} ago • {{ session.get_session_type_display }}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            {% if session.performance_score %}
+                                <span class="text-sm text-gray-600">{{ session.performance_score|floatformat:0 }}%</span>
+                            {% endif %}
+                            <span class="text-xs text-gray-500">+{{ session.xp_earned }} XP</span>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+                
+                <div class="mt-4 text-center">
+                    <a href="{% url 'learning:analytics' %}" class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                        View all activity →
+                    </a>
+                </div>
+                {% else %}
+                <div class="text-center py-8">
+                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/>
+                    </svg>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">No recent activity</h3>
+                    <p class="text-gray-600 mb-4">Start learning to see your progress here!</p>
+                    <a href="{% url 'content:upload' %}" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+                        Upload Your First Content
+                    </a>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
 </div>
+
+<script>
+function startLesson(lessonId) {
+    fetch(`/learning/api/lesson/${lessonId}/start/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.href = `/learning/lesson/${lessonId}/`;
+        } else {
+            alert('Error starting lesson: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while starting the lesson.');
+    });
+}
+
+function practiceWeakness(concept) {
+    // Redirect to practice session for the specific concept
+    window.location.href = `/learning/practice/?concept=${encodeURIComponent(concept)}`;
+}
+
+function acceptRecommendation(recommendationId) {
+    fetch(`/learning/api/recommendations/${recommendationId}/viewed/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Mark as accepted and potentially redirect
+            alert('Recommendation accepted! We\'ll incorporate this into your learning plan.');
+            location.reload();
+        } else {
+            alert('Error accepting recommendation: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while accepting the recommendation.');
+    });
+}
+
+function refreshRecommendations() {
+    fetch('/learning/api/recommendations/', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            // Update recommendations list
+            const recommendationsList = document.getElementById('recommendations-list');
+            if (data.recommendations.length > 0) {
+                let html = '';
+                data.recommendations.forEach(rec => {
+                    html += `
+                        <div class="flex items-start justify-between p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-2 mb-2">
+                                    <h3 class="text-sm font-medium text-gray-900">${rec.title}</h3>
+                                    <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">
+                                        ${rec.type}
+                                    </span>
+                                    ${rec.priority >= 4 ? '<span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800">High Priority</span>' : ''}
+                                </div>
+                                <p class="text-sm text-gray-600 mb-2">${rec.description}</p>
+                                <p class="text-xs text-gray-500">Estimated time: ${rec.estimated_time} minutes</p>
+                            </div>
+                            <div class="ml-4 flex-shrink-0">
+                                <button onclick="acceptRecommendation(${rec.id})" 
+                                        class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm font-medium transition-colors">
+                                    Try It
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                });
+                recommendationsList.innerHTML = html;
+            } else {
+                recommendationsList.innerHTML = '<p class="text-gray-600 text-center py-4">No new recommendations available.</p>';
+            }
+        } else {
+            alert('Error refreshing recommendations: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while refreshing recommendations.');
+    });
+}
+
+// Auto-refresh recommendations every 5 minutes
+setInterval(refreshRecommendations, 300000);
+</script>
 {% endblock %}

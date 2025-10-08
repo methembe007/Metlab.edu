@@ -1,0 +1,901 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ lesson.title }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header with Timer -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
+                        <a href="{% url 'learning:daily_lesson' %}" class="hover:text-gray-700">Daily Lessons</a>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                        <span class="text-gray-900">{{ lesson.title }}</span>
+                    </nav>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ lesson.title }}</h1>
+                    <p class="text-gray-600 mt-1">{{ lesson.description }}</p>
+                </div>
+                <div class="text-right">
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+                            {{ lesson.lesson_type|title }}
+                        </span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                            {{ lesson.estimated_duration_minutes }} min
+                        </span>
+                    </div>
+                    <!-- Lesson Timer -->
+                    {% if lesson.status == 'active' %}
+                    <div class="flex items-center space-x-2 text-lg font-mono">
+                        <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span id="lesson-timer" class="text-blue-600 font-semibold">00:00</span>
+                    </div>
+                    {% endif %}
+                    <div class="text-sm text-gray-500">{{ lesson.lesson_date|date:"M d, Y" }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Lesson Progress and Performance -->
+        {% if lesson.status == 'active' or lesson.status == 'completed' %}
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="flex items-center justify-between mb-4">
+                <h2 class="text-lg font-semibold text-gray-900">Lesson Progress</h2>
+                <div class="flex items-center space-x-4">
+                    {% if lesson.status == 'completed' %}
+                        <div class="flex items-center space-x-2">
+                            <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                            </svg>
+                            <span class="text-sm font-medium text-green-600">Completed</span>
+                            {% if lesson.performance_score %}
+                                <span class="text-sm text-gray-500">{{ lesson.performance_score|floatformat:0 }}%</span>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    <!-- Real-time Progress Counter -->
+                    <div class="text-sm text-gray-600">
+                        <span id="completed-activities">0</span> / <span id="total-activities">{{ activities|length|default:0 }}</span> activities
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Dynamic Progress Bar -->
+            <div class="w-full bg-gray-200 rounded-full h-3 mb-4">
+                {% if lesson.status == 'completed' %}
+                    <div class="bg-green-600 h-3 rounded-full transition-all duration-300" style="width: 100%"></div>
+                {% else %}
+                    <div id="progress-bar" class="bg-blue-600 h-3 rounded-full transition-all duration-300" style="width: 0%"></div>
+                {% endif %}
+            </div>
+
+            <!-- Performance Metrics -->
+            {% if lesson.status == 'active' %}
+            <div class="grid grid-cols-3 gap-4 text-center">
+                <div class="p-3 bg-blue-50 rounded-lg">
+                    <div id="current-score" class="text-lg font-bold text-blue-600">0%</div>
+                    <div class="text-xs text-gray-600">Current Score</div>
+                </div>
+                <div class="p-3 bg-green-50 rounded-lg">
+                    <div id="correct-answers" class="text-lg font-bold text-green-600">0</div>
+                    <div class="text-xs text-gray-600">Correct</div>
+                </div>
+                <div class="p-3 bg-yellow-50 rounded-lg">
+                    <div id="time-per-activity" class="text-lg font-bold text-yellow-600">0s</div>
+                    <div class="text-xs text-gray-600">Avg Time</div>
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Activity Progress History -->
+            {% if progress_entries %}
+            <div class="mt-6">
+                <h3 class="text-sm font-medium text-gray-900 mb-3">Activity History</h3>
+                <div class="space-y-2 max-h-48 overflow-y-auto">
+                    {% for progress in progress_entries %}
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="flex-shrink-0">
+                                {% if progress.is_correct %}
+                                    <svg class="w-5 h-5 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                {% elif progress.is_correct == False %}
+                                    <svg class="w-5 h-5 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                {% endif %}
+                            </div>
+                            <div>
+                                <div class="text-sm font-medium text-gray-900">{{ progress.activity_type|title }} - {{ progress.concept }}</div>
+                                {% if progress.question_text %}
+                                    <div class="text-xs text-gray-500">{{ progress.question_text|truncatechars:60 }}</div>
+                                {% endif %}
+                                {% if progress.difficulty_rating %}
+                                    <span class="inline-flex items-center px-1.5 py-0.5 rounded-full text-xs font-medium 
+                                        {% if progress.difficulty_rating == 'easy' %}bg-green-100 text-green-800
+                                        {% elif progress.difficulty_rating == 'medium' %}bg-yellow-100 text-yellow-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ progress.difficulty_rating|title }}
+                                    </span>
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="text-xs text-gray-500">
+                            {{ progress.time_spent_seconds }}s
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Lesson Activities -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Lesson Activities</h2>
+            
+            {% if lesson.status == 'scheduled' %}
+                <div class="text-center py-8">
+                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                    </svg>
+                    <h3 class="text-lg font-medium text-gray-900 mb-2">Lesson Not Started</h3>
+                    <p class="text-gray-600 mb-4">Start the lesson to access activities and content.</p>
+                    <button onclick="startLesson({{ lesson.id }})" 
+                            class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                        Start Lesson
+                    </button>
+                </div>
+            {% else %}
+                <!-- Interactive Lesson Content -->
+                <div id="lesson-content">
+                    {% if activities %}
+                        <div class="space-y-6">
+                            {% for activity in activities %}
+                            <div class="activity-item border rounded-lg p-4 transition-all duration-300" 
+                                 data-activity-index="{{ forloop.counter0 }}" 
+                                 data-activity-type="{{ activity.type }}"
+                                 data-concept="{{ activity.concept|default:'' }}"
+                                 data-start-time="">
+                                <div class="flex items-center justify-between mb-3">
+                                    <div class="flex items-center space-x-2">
+                                        <span class="activity-status w-6 h-6 rounded-full border-2 border-gray-300 flex items-center justify-center">
+                                            <span class="activity-number text-xs font-medium text-gray-500">{{ forloop.counter }}</span>
+                                        </span>
+                                        <h3 class="text-md font-medium text-gray-900">{{ activity.title }}</h3>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="activity-timer text-xs text-gray-500 font-mono">00:00</span>
+                                        <span class="text-xs text-gray-500">{{ activity.estimated_time|default:2 }} min</span>
+                                    </div>
+                                </div>
+                                
+                                {% if activity.type == 'reading' %}
+                                    <div class="prose prose-sm max-w-none">
+                                        <p class="text-gray-700">{{ activity.description }}</p>
+                                        {% if activity.content %}
+                                            <div class="mt-3 p-4 bg-gray-50 rounded-lg">
+                                                <div class="text-sm text-gray-800">{{ activity.content|safe }}</div>
+                                            </div>
+                                        {% endif %}
+                                        {% if activity.concept %}
+                                            <div class="mt-3 p-3 bg-blue-50 rounded-lg">
+                                                <h4 class="font-medium text-blue-900">Key Concept: {{ activity.concept }}</h4>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                
+                                {% elif activity.type == 'quiz' %}
+                                    <div class="quiz-activity">
+                                        <p class="text-gray-700 mb-4">{{ activity.description|default:"Answer the following questions:" }}</p>
+                                        <div class="space-y-4">
+                                            {% for question in activity.questions %}
+                                            <div class="question-item p-4 border rounded-lg bg-white" data-question-index="{{ forloop.counter0 }}">
+                                                <p class="font-medium mb-3">{{ forloop.counter }}. {{ question.text }}</p>
+                                                <div class="space-y-2">
+                                                    {% for option in question.options %}
+                                                    <label class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer">
+                                                        <input type="radio" 
+                                                               name="q{{ forloop.parentloop.parentloop.counter0 }}_{{ forloop.parentloop.counter0 }}" 
+                                                               value="{{ forloop.counter0 }}"
+                                                               data-correct="{{ option.is_correct|yesno:'true,false' }}"
+                                                               class="mr-3 text-blue-600">
+                                                        <span class="text-gray-700">{{ option.text }}</span>
+                                                    </label>
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="question-feedback mt-3 hidden">
+                                                    <div class="feedback-content p-3 rounded-lg"></div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <div class="p-3 border rounded-lg">
+                                                <p class="font-medium mb-2">Sample Question about {{ activity.concept|default:"the topic" }}</p>
+                                                <div class="space-y-2">
+                                                    <label class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer">
+                                                        <input type="radio" name="q{{ forloop.counter0 }}" value="0" class="mr-3 text-blue-600">
+                                                        <span>Option A</span>
+                                                    </label>
+                                                    <label class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer">
+                                                        <input type="radio" name="q{{ forloop.counter0 }}" value="1" class="mr-3 text-blue-600">
+                                                        <span>Option B</span>
+                                                    </label>
+                                                    <label class="flex items-center p-2 rounded hover:bg-gray-50 cursor-pointer">
+                                                        <input type="radio" name="q{{ forloop.counter0 }}" value="2" class="mr-3 text-blue-600">
+                                                        <span>Option C</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                
+                                {% elif activity.type == 'flashcard' %}
+                                    <div class="flashcard-activity">
+                                        <p class="text-gray-700 mb-4">{{ activity.description|default:"Review these flashcards:" }}</p>
+                                        <div class="flashcard-container space-y-3">
+                                            {% for card in activity.flashcards %}
+                                            <div class="flashcard bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg text-center cursor-pointer transition-transform hover:scale-105" 
+                                                 onclick="flipCard(this)" data-card-index="{{ forloop.counter0 }}">
+                                                <div class="front">
+                                                    <h4 class="text-lg font-medium">{{ card.front_text }}</h4>
+                                                    <p class="text-sm mt-2 opacity-75">Click to reveal answer</p>
+                                                </div>
+                                                <div class="back hidden">
+                                                    <p class="text-lg">{{ card.back_text }}</p>
+                                                    <div class="mt-4 flex justify-center space-x-4">
+                                                        <button onclick="rateCard(this, 'easy')" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded text-sm">Easy</button>
+                                                        <button onclick="rateCard(this, 'medium')" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded text-sm">Medium</button>
+                                                        <button onclick="rateCard(this, 'hard')" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">Hard</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% empty %}
+                                            <div class="flashcard bg-gradient-to-r from-blue-500 to-purple-600 text-white p-6 rounded-lg text-center cursor-pointer transition-transform hover:scale-105" 
+                                                 onclick="flipCard(this)">
+                                                <div class="front">
+                                                    <h4 class="text-lg font-medium">{{ activity.concept|default:"Key Concept" }}</h4>
+                                                    <p class="text-sm mt-2 opacity-75">Click to reveal answer</p>
+                                                </div>
+                                                <div class="back hidden">
+                                                    <p>Definition or explanation would appear here</p>
+                                                    <div class="mt-4 flex justify-center space-x-4">
+                                                        <button onclick="rateCard(this, 'easy')" class="bg-green-500 hover:bg-green-600 px-3 py-1 rounded text-sm">Easy</button>
+                                                        <button onclick="rateCard(this, 'medium')" class="bg-yellow-500 hover:bg-yellow-600 px-3 py-1 rounded text-sm">Medium</button>
+                                                        <button onclick="rateCard(this, 'hard')" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">Hard</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                        </div>
+                                    </div>
+                                
+                                {% elif activity.type == 'reflection' %}
+                                    <div class="reflection-activity">
+                                        <p class="text-gray-700 mb-4">{{ activity.description }}</p>
+                                        <textarea class="reflection-input w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+                                                  rows="4" 
+                                                  placeholder="Write your thoughts here..."
+                                                  data-min-words="{{ activity.min_words|default:10 }}"></textarea>
+                                        <div class="mt-2 flex justify-between items-center">
+                                            <span class="word-count text-xs text-gray-500">0 words</span>
+                                            <span class="min-words-hint text-xs text-gray-400">Minimum {{ activity.min_words|default:10 }} words</span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                                
+                                <div class="mt-4 flex justify-between items-center">
+                                    <div class="activity-difficulty hidden">
+                                        <span class="text-xs text-gray-500 mr-2">How difficult was this?</span>
+                                        <div class="inline-flex space-x-1">
+                                            <button onclick="setDifficulty(this, 'easy')" class="difficulty-btn px-2 py-1 text-xs rounded border hover:bg-gray-50">Easy</button>
+                                            <button onclick="setDifficulty(this, 'medium')" class="difficulty-btn px-2 py-1 text-xs rounded border hover:bg-gray-50">Medium</button>
+                                            <button onclick="setDifficulty(this, 'hard')" class="difficulty-btn px-2 py-1 text-xs rounded border hover:bg-gray-50">Hard</button>
+                                        </div>
+                                    </div>
+                                    <button onclick="completeActivity({{ forloop.counter0 }})" 
+                                            class="activity-complete-btn bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                                        Complete Activity
+                                    </button>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% if lesson.status == 'active' %}
+                        <div class="mt-8 text-center">
+                            <button onclick="completeLesson()" 
+                                    class="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition-colors">
+                                Complete Lesson
+                            </button>
+                            <button onclick="skipLesson()" 
+                                    class="ml-4 text-gray-600 hover:text-gray-800 px-4 py-2 rounded-lg font-medium transition-colors">
+                                Skip for Now
+                            </button>
+                        </div>
+                        {% endif %}
+                    {% else %}
+                        <div class="text-center py-8">
+                            <p class="text-gray-600">No activities available for this lesson.</p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+
+        <!-- Focus Areas -->
+        {% if lesson.priority_concepts %}
+        <div class="bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold text-gray-900 mb-4">Focus Areas</h2>
+            <div class="flex flex-wrap gap-2">
+                {% for concept in lesson.priority_concepts %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-indigo-100 text-indigo-800">
+                        {{ concept }}
+                    </span>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+// Lesson tracking variables
+let completedActivities = 0;
+const totalActivities = {{ activities|length|default:0 }};
+let lessonStartTime = null;
+let activityTimers = {};
+let lessonTimer = null;
+let correctAnswers = 0;
+let totalQuestions = 0;
+let activityScores = {};
+
+// Initialize lesson when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    {% if lesson.status == 'active' %}
+        initializeLessonTimer();
+        initializeActivityTracking();
+        updateProgressDisplay();
+    {% endif %}
+    
+    // Initialize reflection word counters
+    document.querySelectorAll('.reflection-input').forEach(textarea => {
+        textarea.addEventListener('input', updateWordCount);
+        updateWordCount.call(textarea);
+    });
+    
+    // Initialize quiz question handlers
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', handleQuizAnswer);
+    });
+});
+
+function initializeLessonTimer() {
+    lessonStartTime = new Date();
+    lessonTimer = setInterval(updateLessonTimer, 1000);
+}
+
+function updateLessonTimer() {
+    if (!lessonStartTime) return;
+    
+    const now = new Date();
+    const elapsed = Math.floor((now - lessonStartTime) / 1000);
+    const minutes = Math.floor(elapsed / 60);
+    const seconds = elapsed % 60;
+    
+    const timerElement = document.getElementById('lesson-timer');
+    if (timerElement) {
+        timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+    }
+}
+
+function initializeActivityTracking() {
+    document.querySelectorAll('.activity-item').forEach((activity, index) => {
+        const activityIndex = activity.dataset.activityIndex;
+        activityTimers[activityIndex] = {
+            startTime: null,
+            totalTime: 0,
+            isActive: false
+        };
+        
+        // Add click listener to start timing when activity is focused
+        activity.addEventListener('click', () => startActivityTimer(activityIndex));
+    });
+}
+
+function startActivityTimer(activityIndex) {
+    const timer = activityTimers[activityIndex];
+    if (!timer.isActive) {
+        timer.startTime = new Date();
+        timer.isActive = true;
+        
+        // Update activity timer display
+        const activityElement = document.querySelector(`[data-activity-index="${activityIndex}"]`);
+        const timerElement = activityElement.querySelector('.activity-timer');
+        
+        const updateTimer = setInterval(() => {
+            if (!timer.isActive) {
+                clearInterval(updateTimer);
+                return;
+            }
+            
+            const elapsed = Math.floor((new Date() - timer.startTime) / 1000);
+            const minutes = Math.floor(elapsed / 60);
+            const seconds = elapsed % 60;
+            timerElement.textContent = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }, 1000);
+    }
+}
+
+function stopActivityTimer(activityIndex) {
+    const timer = activityTimers[activityIndex];
+    if (timer.isActive && timer.startTime) {
+        timer.totalTime += Math.floor((new Date() - timer.startTime) / 1000);
+        timer.isActive = false;
+        timer.startTime = null;
+    }
+    return timer.totalTime;
+}
+
+function handleQuizAnswer(event) {
+    const radio = event.target;
+    const questionItem = radio.closest('.question-item');
+    const isCorrect = radio.dataset.correct === 'true';
+    const feedbackElement = questionItem.querySelector('.question-feedback');
+    const feedbackContent = feedbackElement.querySelector('.feedback-content');
+    
+    // Show feedback
+    feedbackElement.classList.remove('hidden');
+    if (isCorrect) {
+        feedbackContent.className = 'feedback-content p-3 rounded-lg bg-green-100 text-green-800';
+        feedbackContent.innerHTML = '<div class="flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>Correct! Well done.</div>';
+        correctAnswers++;
+    } else {
+        feedbackContent.className = 'feedback-content p-3 rounded-lg bg-red-100 text-red-800';
+        feedbackContent.innerHTML = '<div class="flex items-center"><svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>Incorrect. Try reviewing the concept again.</div>';
+    }
+    
+    totalQuestions++;
+    updatePerformanceMetrics();
+    
+    // Disable other options for this question
+    questionItem.querySelectorAll('input[type="radio"]').forEach(r => {
+        if (r !== radio) r.disabled = true;
+    });
+}
+
+function updatePerformanceMetrics() {
+    const currentScore = totalQuestions > 0 ? Math.round((correctAnswers / totalQuestions) * 100) : 0;
+    const avgTime = completedActivities > 0 ? Math.round(Object.values(activityTimers).reduce((sum, timer) => sum + timer.totalTime, 0) / completedActivities) : 0;
+    
+    const scoreElement = document.getElementById('current-score');
+    const correctElement = document.getElementById('correct-answers');
+    const timeElement = document.getElementById('time-per-activity');
+    
+    if (scoreElement) scoreElement.textContent = `${currentScore}%`;
+    if (correctElement) correctElement.textContent = correctAnswers;
+    if (timeElement) timeElement.textContent = `${avgTime}s`;
+}
+
+function updateProgressDisplay() {
+    const progressBar = document.getElementById('progress-bar');
+    const completedElement = document.getElementById('completed-activities');
+    
+    if (progressBar && totalActivities > 0) {
+        const progress = (completedActivities / totalActivities) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+    
+    if (completedElement) {
+        completedElement.textContent = completedActivities;
+    }
+}
+
+function validateActivityCompletion(activityIndex) {
+    const activityElement = document.querySelector(`[data-activity-index="${activityIndex}"]`);
+    const activityType = activityElement.dataset.activityType;
+    
+    switch (activityType) {
+        case 'quiz':
+            // Check if all questions are answered
+            const questions = activityElement.querySelectorAll('.question-item');
+            for (let question of questions) {
+                const answered = question.querySelector('input[type="radio"]:checked');
+                if (!answered) {
+                    alert('Please answer all questions before completing this activity.');
+                    return false;
+                }
+            }
+            break;
+            
+        case 'reflection':
+            // Check minimum word count
+            const textarea = activityElement.querySelector('.reflection-input');
+            const minWords = parseInt(textarea.dataset.minWords) || 10;
+            const wordCount = textarea.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+            if (wordCount < minWords) {
+                alert(`Please write at least ${minWords} words for your reflection.`);
+                return false;
+            }
+            break;
+            
+        case 'flashcard':
+            // Check if all cards have been rated
+            const cards = activityElement.querySelectorAll('.flashcard');
+            for (let card of cards) {
+                if (!card.dataset.rated) {
+                    alert('Please review and rate all flashcards before completing this activity.');
+                    return false;
+                }
+            }
+            break;
+    }
+    
+    return true;
+}
+
+function completeActivity(activityIndex) {
+    if (!validateActivityCompletion(activityIndex)) {
+        return;
+    }
+    
+    const activityElement = document.querySelector(`[data-activity-index="${activityIndex}"]`);
+    const activityType = activityElement.dataset.activityType;
+    const concept = activityElement.dataset.concept;
+    const timeSpent = stopActivityTimer(activityIndex);
+    
+    // Calculate activity score
+    let activityScore = calculateActivityScore(activityElement, activityType);
+    activityScores[activityIndex] = activityScore;
+    
+    // Get student responses
+    const studentData = getActivityData(activityElement, activityType);
+    
+    // Record progress
+    fetch(`/learning/api/lesson/{{ lesson.id }}/progress/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            activity_index: activityIndex,
+            activity_type: activityType,
+            concept: concept,
+            question_text: studentData.question_text,
+            student_answer: studentData.student_answer,
+            correct_answer: studentData.correct_answer,
+            is_correct: studentData.is_correct,
+            time_spent_seconds: timeSpent,
+            difficulty_rating: studentData.difficulty_rating
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            markActivityCompleted(activityElement, activityScore);
+            completedActivities++;
+            updateProgressDisplay();
+            
+            // Show difficulty rating options
+            const difficultyDiv = activityElement.querySelector('.activity-difficulty');
+            if (difficultyDiv) {
+                difficultyDiv.classList.remove('hidden');
+            }
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while recording progress.');
+    });
+}
+
+function calculateActivityScore(activityElement, activityType) {
+    switch (activityType) {
+        case 'quiz':
+            const questions = activityElement.querySelectorAll('.question-item');
+            let correct = 0;
+            questions.forEach(question => {
+                const selectedRadio = question.querySelector('input[type="radio"]:checked');
+                if (selectedRadio && selectedRadio.dataset.correct === 'true') {
+                    correct++;
+                }
+            });
+            return questions.length > 0 ? (correct / questions.length) * 100 : 100;
+            
+        case 'flashcard':
+            const cards = activityElement.querySelectorAll('.flashcard');
+            let totalDifficulty = 0;
+            cards.forEach(card => {
+                const rating = card.dataset.difficulty || 'medium';
+                totalDifficulty += rating === 'easy' ? 100 : rating === 'medium' ? 75 : 50;
+            });
+            return cards.length > 0 ? totalDifficulty / cards.length : 100;
+            
+        case 'reflection':
+            const textarea = activityElement.querySelector('.reflection-input');
+            const minWords = parseInt(textarea.dataset.minWords) || 10;
+            const wordCount = textarea.value.trim().split(/\s+/).filter(word => word.length > 0).length;
+            return Math.min(100, (wordCount / minWords) * 100);
+            
+        default:
+            return 100; // Reading activities get full score for completion
+    }
+}
+
+function getActivityData(activityElement, activityType) {
+    const data = {
+        question_text: '',
+        student_answer: '',
+        correct_answer: '',
+        is_correct: null,
+        difficulty_rating: ''
+    };
+    
+    switch (activityType) {
+        case 'quiz':
+            const questions = activityElement.querySelectorAll('.question-item');
+            const answers = [];
+            questions.forEach((question, index) => {
+                const selectedRadio = question.querySelector('input[type="radio"]:checked');
+                if (selectedRadio) {
+                    answers.push({
+                        question: question.querySelector('p').textContent,
+                        answer: selectedRadio.nextElementSibling.textContent,
+                        correct: selectedRadio.dataset.correct === 'true'
+                    });
+                }
+            });
+            data.student_answer = JSON.stringify(answers);
+            data.is_correct = answers.every(a => a.correct);
+            break;
+            
+        case 'reflection':
+            const textarea = activityElement.querySelector('.reflection-input');
+            data.student_answer = textarea.value;
+            data.is_correct = true; // Reflections are always considered correct
+            break;
+            
+        case 'flashcard':
+            const cards = activityElement.querySelectorAll('.flashcard');
+            const ratings = [];
+            cards.forEach(card => {
+                ratings.push(card.dataset.difficulty || 'medium');
+            });
+            data.student_answer = JSON.stringify(ratings);
+            data.is_correct = true;
+            break;
+    }
+    
+    return data;
+}
+
+function markActivityCompleted(activityElement, score) {
+    // Update visual state
+    activityElement.classList.add('opacity-75', 'bg-green-50', 'border-green-200');
+    
+    // Update status indicator
+    const statusElement = activityElement.querySelector('.activity-status');
+    statusElement.innerHTML = '<svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>';
+    statusElement.classList.remove('border-gray-300');
+    statusElement.classList.add('border-green-600', 'bg-green-600');
+    
+    // Update button
+    const button = activityElement.querySelector('.activity-complete-btn');
+    button.textContent = `Completed (${Math.round(score)}%)`;
+    button.disabled = true;
+    button.classList.remove('bg-green-600', 'hover:bg-green-700');
+    button.classList.add('bg-gray-400', 'cursor-not-allowed');
+}
+
+function completeLesson() {
+    if (completedActivities < totalActivities) {
+        if (!confirm(`You have completed ${completedActivities} out of ${totalActivities} activities. Are you sure you want to finish the lesson?`)) {
+            return;
+        }
+    }
+    
+    // Calculate overall performance score
+    const activityScoreValues = Object.values(activityScores);
+    const performanceScore = activityScoreValues.length > 0 
+        ? Math.round(activityScoreValues.reduce((sum, score) => sum + score, 0) / activityScoreValues.length)
+        : 0;
+    
+    // Calculate XP based on performance and completion
+    const completionBonus = Math.round((completedActivities / totalActivities) * 10);
+    const performanceBonus = Math.round(performanceScore / 10);
+    const xpEarned = Math.max(5, completionBonus + performanceBonus);
+    
+    // Stop lesson timer
+    if (lessonTimer) {
+        clearInterval(lessonTimer);
+    }
+    
+    fetch(`/learning/api/lesson/{{ lesson.id }}/complete/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({
+            performance_score: performanceScore,
+            xp_earned: xpEarned
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            showCompletionModal(data.performance_score, data.xp_earned, data.time_spent);
+        } else {
+            alert('Error completing lesson: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while completing the lesson.');
+    });
+}
+
+function showCompletionModal(score, xp, timeSpent) {
+    const modal = document.createElement('div');
+    modal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+    modal.innerHTML = `
+        <div class="bg-white rounded-lg p-8 max-w-md mx-4 text-center">
+            <div class="mb-6">
+                <svg class="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+                <h2 class="text-2xl font-bold text-gray-900 mb-2">Lesson Complete!</h2>
+                <p class="text-gray-600">Great job on completing today's lesson.</p>
+            </div>
+            
+            <div class="grid grid-cols-3 gap-4 mb-6">
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-blue-600">${Math.round(score)}%</div>
+                    <div class="text-xs text-gray-500">Score</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-green-600">+${xp}</div>
+                    <div class="text-xs text-gray-500">XP Earned</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-2xl font-bold text-purple-600">${timeSpent}</div>
+                    <div class="text-xs text-gray-500">Minutes</div>
+                </div>
+            </div>
+            
+            <button onclick="window.location.href='{% url "learning:daily_lesson" %}'" 
+                    class="bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 rounded-lg font-medium transition-colors">
+                Continue Learning
+            </button>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function skipLesson() {
+    if (confirm('Are you sure you want to skip this lesson? You won\'t earn any XP.')) {
+        fetch(`/learning/api/lesson/{{ lesson.id }}/skip/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.href = '{% url "learning:daily_lesson" %}';
+            } else {
+                alert('Error skipping lesson: ' + data.error);
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while skipping the lesson.');
+        });
+    }
+}
+
+function flipCard(card) {
+    const front = card.querySelector('.front');
+    const back = card.querySelector('.back');
+    
+    if (front.classList.contains('hidden')) {
+        front.classList.remove('hidden');
+        back.classList.add('hidden');
+    } else {
+        front.classList.add('hidden');
+        back.classList.remove('hidden');
+    }
+}
+
+function rateCard(button, difficulty) {
+    const card = button.closest('.flashcard');
+    card.dataset.difficulty = difficulty;
+    card.dataset.rated = 'true';
+    
+    // Update button states
+    const buttons = card.querySelectorAll('button');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-green-600', 'bg-yellow-600', 'bg-red-600');
+        btn.classList.add('bg-gray-400');
+    });
+    
+    button.classList.remove('bg-gray-400');
+    if (difficulty === 'easy') button.classList.add('bg-green-600');
+    else if (difficulty === 'medium') button.classList.add('bg-yellow-600');
+    else button.classList.add('bg-red-600');
+}
+
+function setDifficulty(button, difficulty) {
+    const activityElement = button.closest('.activity-item');
+    activityElement.dataset.difficultyRating = difficulty;
+    
+    // Update button states
+    const buttons = activityElement.querySelectorAll('.difficulty-btn');
+    buttons.forEach(btn => {
+        btn.classList.remove('bg-blue-100', 'text-blue-800', 'border-blue-300');
+        btn.classList.add('border-gray-300', 'text-gray-700');
+    });
+    
+    button.classList.remove('border-gray-300', 'text-gray-700');
+    button.classList.add('bg-blue-100', 'text-blue-800', 'border-blue-300');
+}
+
+function updateWordCount() {
+    const textarea = this;
+    const words = textarea.value.trim().split(/\s+/).filter(word => word.length > 0);
+    const wordCount = words.length;
+    const wordCountElement = textarea.parentElement.querySelector('.word-count');
+    
+    if (wordCountElement) {
+        wordCountElement.textContent = `${wordCount} words`;
+        
+        const minWords = parseInt(textarea.dataset.minWords) || 10;
+        if (wordCount >= minWords) {
+            wordCountElement.classList.remove('text-red-500');
+            wordCountElement.classList.add('text-green-500');
+        } else {
+            wordCountElement.classList.remove('text-green-500');
+            wordCountElement.classList.add('text-red-500');
+        }
+    }
+}
+
+function startLesson(lessonId) {
+    fetch(`/learning/api/lesson/${lessonId}/start/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        }
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            location.reload();
+        } else {
+            alert('Error starting lesson: ' + data.error);
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while starting the lesson.');
+    });
+}
+</script>
+{% endblock %}
