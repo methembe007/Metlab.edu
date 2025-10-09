@@ -1889,3 +1889,103 @@ WARNING 2025-10-09 17:46:32,818 ai_services 10600 13784 OpenAI not available or 
 WARNING 2025-10-09 17:46:32,820 ai_services 10600 13784 OpenAI not available or API key not configured
 WARNING 2025-10-09 17:46:32,820 ai_services 10600 13784 OpenAI not available or API key not configured
 WARNING 2025-10-09 17:46:32,822 ai_services 10600 13784 OpenAI not available or API key not configured
+INFO 2025-10-09 17:46:37,377 basehttp 10600 3916 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 17:46:37,465 basehttp 10600 3916 "GET /accounts/login/ HTTP/1.1" 200 4146
+INFO 2025-10-09 17:46:37,697 basehttp 10600 3916 "GET /static/css/output.css HTTP/1.1" 200 59590
+INFO 2025-10-09 18:18:24,326 basehttp 10600 16812 "POST /accounts/login/ HTTP/1.1" 200 4376
+INFO 2025-10-09 18:18:24,343 basehttp 10600 16812 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-10-09 18:35:04,283 basehttp 10600 17128 "GET /accounts/register/ HTTP/1.1" 200 7777
+INFO 2025-10-09 18:35:04,299 basehttp 10600 17128 "GET /static/css/output.css HTTP/1.1" 304 0
+WARNING 2025-10-09 18:58:31,208 ai_services 14136 12952 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:58:31,209 ai_services 14136 12952 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:58:31,209 ai_services 14136 12952 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:58:31,210 ai_services 14136 12952 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:58:31,210 ai_services 14136 12952 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:59:02,527 ai_services 472 16172 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:59:02,528 ai_services 472 16172 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:59:02,528 ai_services 472 16172 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:59:02,528 ai_services 472 16172 OpenAI not available or API key not configured
+WARNING 2025-10-09 18:59:02,529 ai_services 472 16172 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:01:39,137 ai_services 16252 12672 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:01:39,137 ai_services 16252 12672 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:01:39,137 ai_services 16252 12672 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:01:39,138 ai_services 16252 12672 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:01:39,138 ai_services 16252 12672 OpenAI not available or API key not configured
+ERROR 2025-10-09 19:01:39,283 log 16252 12672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-10-09 19:01:39,324 log 16252 12672 Internal Server Error: /health/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\monitoring_middleware.py", line 45, in process_response
+    'user_id': request.user.id if request.user.is_authenticated else None,
+                                  ^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+ERROR 2025-10-09 19:01:41,189 log 16252 12672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-10-09 19:01:41,234 log 16252 12672 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\monitoring_middleware.py", line 45, in process_response
+    'user_id': request.user.id if request.user.is_authenticated else None,
+                                  ^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+ERROR 2025-10-09 19:01:42,780 log 16252 12672 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 119, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 202, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+ERROR 2025-10-09 19:01:42,804 log 16252 12672 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 122, in __call__
+    response = self.process_response(request, response)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\monitoring_middleware.py", line 45, in process_response
+    'user_id': request.user.id if request.user.is_authenticated else None,
+                                  ^^^^^^^^^^^^
+AttributeError: 'WSGIRequest' object has no attribute 'user'
+WARNING 2025-10-09 19:13:15,305 ai_services 15684 12788 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:13:15,306 ai_services 15684 12788 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:13:15,306 ai_services 15684 12788 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:13:15,307 ai_services 15684 12788 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:13:15,307 ai_services 15684 12788 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:18:07,917 ai_services 13880 17188 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:18:07,920 ai_services 13880 17188 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:18:07,920 ai_services 13880 17188 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:18:07,921 ai_services 13880 17188 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:18:07,921 ai_services 13880 17188 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:21:11,776 ai_services 14796 16068 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:21:11,776 ai_services 14796 16068 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:21:11,777 ai_services 14796 16068 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:21:11,782 ai_services 14796 16068 OpenAI not available or API key not configured
+WARNING 2025-10-09 19:21:11,783 ai_services 14796 16068 OpenAI not available or API key not configured
