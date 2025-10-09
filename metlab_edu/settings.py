@@ -28,6 +28,27 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Security Settings
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_HSTS_SECONDS = 31536000 if not DEBUG else 0  # 1 year in production
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+SECURE_SSL_REDIRECT = False  # Set to True in production with HTTPS
+SESSION_COOKIE_SECURE = False  # Set to True in production with HTTPS
+CSRF_COOKIE_SECURE = False  # Set to True in production with HTTPS
+SESSION_COOKIE_HTTPONLY = True
+CSRF_COOKIE_HTTPONLY = True
+SESSION_COOKIE_SAMESITE = 'Lax'
+CSRF_COOKIE_SAMESITE = 'Lax'
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+SESSION_COOKIE_AGE = 3600  # 1 hour
+
+# CSRF Protection
+CSRF_FAILURE_VIEW = 'accounts.views.csrf_failure'
+CSRF_TRUSTED_ORIGINS = []  # Add your domains in production
+
 
 # Application definition
 
@@ -44,17 +65,23 @@ INSTALLED_APPS = [
     'learning',
     'gamification',
     'community',
+    'services',
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'metlab_edu.monitoring_middleware.CorrelationIDMiddleware',
+    'metlab_edu.monitoring_middleware.PerformanceMonitoringMiddleware',
+    'metlab_edu.security_middleware.RateLimitMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'metlab_edu.security_middleware.SecurityMiddleware',
     'accounts.middleware.RoleBasedAccessMiddleware',
+    'metlab_edu.monitoring_middleware.UserActivityMiddleware',
 ]
 
 ROOT_URLCONF = 'metlab_edu.urls'
@@ -148,6 +175,24 @@ FILE_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 DATA_UPLOAD_MAX_MEMORY_SIZE = 10 * 1024 * 1024  # 10MB
 FILE_UPLOAD_PERMISSIONS = 0o644
 
+# File Security Settings
+ALLOWED_FILE_EXTENSIONS = ['.pdf', '.txt', '.doc', '.docx', '.png', '.jpg', '.jpeg']
+MAX_FILE_SIZE = 25 * 1024 * 1024  # 25MB
+VIRUS_SCAN_ENABLED = True
+
+# Rate Limiting Settings
+RATE_LIMIT_ENABLE = True
+RATE_LIMIT_PER_MINUTE = 60
+RATE_LIMIT_PER_HOUR = 1000
+RATE_LIMIT_PER_DAY = 10000
+
+# Data Privacy Settings
+DATA_RETENTION_DAYS = 365 * 2  # 2 years
+GDPR_COMPLIANCE = True
+COPPA_COMPLIANCE = True
+PRIVACY_POLICY_VERSION = '1.0'
+TERMS_OF_SERVICE_VERSION = '1.0'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
@@ -164,6 +209,110 @@ DEFAULT_FROM_EMAIL = 'noreply@metlab.edu'
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/accounts/dashboard/'
 LOGOUT_REDIRECT_URL = '/accounts/login/'
+
+# Cache Configuration - fallback to local memory cache if Redis not available
+try:
+    import django_redis
+    REDIS_AVAILABLE = True
+except ImportError:
+    REDIS_AVAILABLE = False
+
+if REDIS_AVAILABLE:
+    # Redis Cache Configuration
+    CACHES = {
+        'default': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/1',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'SERIALIZER': 'django_redis.serializers.json.JSONSerializer',
+                'COMPRESSOR': 'django_redis.compressors.zlib.ZlibCompressor',
+                'CONNECTION_POOL_KWARGS': {
+                    'max_connections': 50,
+                    'retry_on_timeout': True,
+                },
+            },
+            'KEY_PREFIX': 'metlab_edu',
+            'TIMEOUT': 300,  # 5 minutes default timeout
+        },
+        'sessions': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/2',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+            },
+            'KEY_PREFIX': 'metlab_sessions',
+            'TIMEOUT': 3600,  # 1 hour for sessions
+        },
+        'ai_cache': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/3',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'SERIALIZER': 'django_redis.serializers.json.JSONSerializer',
+            },
+            'KEY_PREFIX': 'metlab_ai',
+            'TIMEOUT': 86400,  # 24 hours for AI results
+        },
+        'analytics': {
+            'BACKEND': 'django_redis.cache.RedisCache',
+            'LOCATION': 'redis://127.0.0.1:6379/4',
+            'OPTIONS': {
+                'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+                'SERIALIZER': 'django_redis.serializers.json.JSONSerializer',
+            },
+            'KEY_PREFIX': 'metlab_analytics',
+            'TIMEOUT': 1800,  # 30 minutes for analytics
+        },
+    }
+    
+    # Use Redis for sessions
+    SESSION_ENGINE = 'django.contrib.sessions.backends.cache'
+    SESSION_CACHE_ALIAS = 'sessions'
+else:
+    # Fallback to local memory cache
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'metlab_edu_default',
+            'TIMEOUT': 300,
+            'OPTIONS': {
+                'MAX_ENTRIES': 1000,
+            }
+        },
+        'sessions': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'metlab_edu_sessions',
+            'TIMEOUT': 3600,
+            'OPTIONS': {
+                'MAX_ENTRIES': 500,
+            }
+        },
+        'ai_cache': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'metlab_edu_ai',
+            'TIMEOUT': 86400,
+            'OPTIONS': {
+                'MAX_ENTRIES': 200,
+            }
+        },
+        'analytics': {
+            'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+            'LOCATION': 'metlab_edu_analytics',
+            'TIMEOUT': 1800,
+            'OPTIONS': {
+                'MAX_ENTRIES': 300,
+            }
+        },
+    }
+    
+    # Use database sessions as fallback
+    SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+
+# Cache settings
+CACHE_MIDDLEWARE_ALIAS = 'default'
+CACHE_MIDDLEWARE_SECONDS = 300
+CACHE_MIDDLEWARE_KEY_PREFIX = 'metlab'
 
 # Celery Configuration
 CELERY_BROKER_URL = 'redis://localhost:6379/0'
@@ -190,6 +339,10 @@ LOGGING = {
             'format': '{levelname} {message}',
             'style': '{',
         },
+        'json': {
+            'format': '{{"timestamp": "{asctime}", "level": "{levelname}", "logger": "{name}", "message": "{message}"}}',
+            'style': '{',
+        },
     },
     'handlers': {
         'file': {
@@ -202,6 +355,24 @@ LOGGING = {
             'level': 'INFO',
             'class': 'logging.StreamHandler',
             'formatter': 'simple',
+        },
+        'performance_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'performance.log',
+            'formatter': 'json',
+        },
+        'error_file': {
+            'level': 'ERROR',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'errors.log',
+            'formatter': 'json',
+        },
+        'activity_file': {
+            'level': 'INFO',
+            'class': 'logging.FileHandler',
+            'filename': BASE_DIR / 'logs' / 'activity.log',
+            'formatter': 'json',
         },
     },
     'root': {
@@ -217,6 +388,31 @@ LOGGING = {
         'content': {
             'handlers': ['console', 'file'],
             'level': 'INFO',
+            'propagate': False,
+        },
+        'monitoring': {
+            'handlers': ['file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'performance': {
+            'handlers': ['performance_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'errors': {
+            'handlers': ['error_file'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'activity': {
+            'handlers': ['activity_file'],
+            'level': 'INFO',
+            'propagate': False,
+        },
+        'alerts': {
+            'handlers': ['console', 'error_file'],
+            'level': 'CRITICAL',
             'propagate': False,
         },
     },

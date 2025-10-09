@@ -1,0 +1,12 @@
+{"timestamp": "2025-10-09 14:16:06,744", "level": "INFO", "logger": "activity", "message": "Activity: page_view"}
+{"timestamp": "2025-10-09 14:16:07,791", "level": "INFO", "logger": "activity", "message": "Activity: test_activity"}
+{"timestamp": "2025-10-09 14:20:56,117", "level": "INFO", "logger": "activity", "message": "Activity: login"}
+{"timestamp": "2025-10-09 14:20:56,148", "level": "INFO", "logger": "activity", "message": "Activity: content_upload"}
+{"timestamp": "2025-10-09 14:20:56,173", "level": "INFO", "logger": "activity", "message": "Activity: login"}
+{"timestamp": "2025-10-09 14:20:56,194", "level": "INFO", "logger": "activity", "message": "Activity: lesson_complete"}
+{"timestamp": "2025-10-09 14:20:56,216", "level": "INFO", "logger": "activity", "message": "Activity: dashboard_view"}
+{"timestamp": "2025-10-09 14:20:56,236", "level": "INFO", "logger": "activity", "message": "Activity: login"}
+{"timestamp": "2025-10-09 14:20:56,255", "level": "INFO", "logger": "activity", "message": "Activity: lesson_complete"}
+{"timestamp": "2025-10-09 14:20:56,276", "level": "INFO", "logger": "activity", "message": "Activity: lesson_complete"}
+{"timestamp": "2025-10-09 14:20:56,298", "level": "INFO", "logger": "activity", "message": "Activity: quiz_attempt"}
+{"timestamp": "2025-10-09 14:20:56,319", "level": "INFO", "logger": "activity", "message": "Activity: content_upload"}

@@ -1,0 +1,343 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Monitoring Dashboard - Metlab.edu{% endblock %}
+
+{% block extra_css %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<style>
+    .health-indicator {
+        padding: 1rem;
+        border-radius: 0.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .health-good {
+        background-color: #d1fae5;
+        border-left: 4px solid #10b981;
+    }
+
+    .health-warning {
+        background-color: #fef3c7;
+        border-left: 4px solid #f59e0b;
+    }
+
+    .health-critical {
+        background-color: #fee2e2;
+        border-left: 4px solid #ef4444;
+    }
+
+    .metric-card {
+        background: white;
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        margin-bottom: 1rem;
+    }
+
+    .chart-container {
+        position: relative;
+        height: 300px;
+        margin: 1rem 0;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">System Monitoring Dashboard</h1>
+        <div class="flex space-x-4">
+            <select id="timeRange" class="border border-gray-300 rounded-md px-3 py-2">
+                <option value="1" {% if time_range==1 %}selected{% endif %}>Last Hour</option>
+                <option value="6" {% if time_range==6 %}selected{% endif %}>Last 6 Hours</option>
+                <option value="24" {% if time_range==24 %}selected{% endif %}>Last 24 Hours</option>
+                <option value="168" {% if time_range==168 %}selected{% endif %}>Last Week</option>
+            </select>
+            <button id="refreshBtn" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+                Refresh
+            </button>
+        </div>
+    </div>
+
+    <!-- System Health Overview -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="health-indicator health-{{ health_indicators.ai_processing_health }}">
+            <h3 class="font-semibold text-gray-900">AI Processing</h3>
+            <p class="text-2xl font-bold">{{ performance_stats.success_rate|floatformat:1 }}%</p>
+            <p class="text-sm text-gray-600">Success Rate</p>
+        </div>
+
+        <div class="health-indicator health-{{ health_indicators.error_rate_health }}">
+            <h3 class="font-semibold text-gray-900">Error Rate</h3>
+            <p class="text-2xl font-bold">{{ error_stats.total_errors }}</p>
+            <p class="text-sm text-gray-600">Errors ({{ time_range }}h)</p>
+        </div>
+
+        <div class="health-indicator health-{{ health_indicators.user_activity_health }}">
+            <h3 class="font-semibold text-gray-900">Active Users</h3>
+            <p class="text-2xl font-bold">{{ active_users }}</p>
+            <p class="text-sm text-gray-600">Last {{ time_range }} hours</p>
+        </div>
+
+        <div class="health-indicator health-good">
+            <h3 class="font-semibold text-gray-900">Total Activities</h3>
+            <p class="text-2xl font-bold">{{ total_activities }}</p>
+            <p class="text-sm text-gray-600">User Actions</p>
+        </div>
+    </div>
+
+    <!-- Charts Section -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+        <!-- Performance Chart -->
+        <div class="metric-card">
+            <h3 class="text-lg font-semibold mb-4">Performance Metrics</h3>
+            <div class="chart-container">
+                <canvas id="performanceChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Error Chart -->
+        <div class="metric-card">
+            <h3 class="text-lg font-semibold mb-4">Error Rate</h3>
+            <div class="chart-container">
+                <canvas id="errorChart"></canvas>
+            </div>
+        </div>
+
+        <!-- User Activity Chart -->
+        <div class="metric-card">
+            <h3 class="text-lg font-semibold mb-4">User Activity</h3>
+            <div class="chart-container">
+                <canvas id="activityChart"></canvas>
+            </div>
+        </div>
+
+        <!-- AI Processing Chart -->
+        <div class="metric-card">
+            <h3 class="text-lg font-semibold mb-4">AI Processing Times</h3>
+            <div class="chart-container">
+                <canvas id="aiChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Alerts -->
+    <div class="metric-card">
+        <div class="flex justify-between items-center mb-4">
+            <h3 class="text-lg font-semibold">Recent Alerts</h3>
+            <a href="{% url 'services:alerts_list' %}" class="text-blue-600 hover:text-blue-800">View All</a>
+        </div>
+
+        {% if recent_alerts %}
+        <div class="space-y-3">
+            {% for alert in recent_alerts %}
+            <div class="flex items-center justify-between p-3 border border-gray-200 rounded-md">
+                <div class="flex items-center space-x-3">
+                    <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium
+                            {% if alert.severity == 'critical' %}bg-red-100 text-red-800
+                            {% elif alert.severity == 'high' %}bg-orange-100 text-orange-800
+                            {% elif alert.severity == 'medium' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-blue-100 text-blue-800{% endif %}">
+                        {{ alert.get_severity_display }}
+                    </span>
+                    <div>
+                        <p class="font-medium text-gray-900">{{ alert.title }}</p>
+                        <p class="text-sm text-gray-600">{{ alert.description|truncatechars:100 }}</p>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <p class="text-sm text-gray-500">{{ alert.timestamp|timesince }} ago</p>
+                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs
+                            {% if alert.status == 'open' %}bg-red-100 text-red-800
+                            {% elif alert.status == 'acknowledged' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-green-100 text-green-800{% endif %}">
+                        {{ alert.get_status_display }}
+                    </span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <p class="text-gray-500 text-center py-4">No recent alerts</p>
+        {% endif %}
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <a href="{% url 'services:logs_viewer' %}?type=performance"
+            class="block p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Performance Logs</h3>
+            <p class="text-gray-600">View detailed performance metrics and timing data</p>
+        </a>
+
+        <a href="{% url 'services:logs_viewer' %}?type=errors"
+            class="block p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">Error Logs</h3>
+            <p class="text-gray-600">Browse system errors and exceptions</p>
+        </a>
+
+        <a href="{% url 'services:logs_viewer' %}?type=activity"
+            class="block p-6 bg-white border border-gray-200 rounded-lg hover:bg-gray-50">
+            <h3 class="text-lg font-semibold text-gray-900 mb-2">User Activity</h3>
+            <p class="text-gray-600">Monitor user interactions and behavior</p>
+        </a>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const timeRange = {{ time_range }
+    };
+
+    // Initialize charts
+    initializeCharts(timeRange);
+
+    // Handle time range changes
+    document.getElementById('timeRange').addEventListener('change', function () {
+        const newRange = this.value;
+        window.location.href = `?hours=${newRange}`;
+    });
+
+    // Handle refresh button
+    document.getElementById('refreshBtn').addEventListener('click', function () {
+        window.location.reload();
+    });
+
+    // Auto-refresh every 30 seconds
+    setInterval(function () {
+        updateCharts(timeRange);
+    }, 30000);
+});
+
+    function initializeCharts(hours) {
+        // Performance Chart
+        fetch(`/services/api/performance-metrics/?hours=${hours}`)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('performanceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.performance_data.map(d => d.hour),
+                        datasets: [{
+                            label: 'Avg Response Time (s)',
+                            data: data.performance_data.map(d => d.avg_duration),
+                            borderColor: 'rgb(59, 130, 246)',
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+
+        // Error Chart
+        fetch(`/services/api/error-metrics/?hours=${hours}`)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('errorChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.error_data.map(d => d.hour),
+                        datasets: [{
+                            label: 'Errors',
+                            data: data.error_data.map(d => d.count),
+                            backgroundColor: 'rgba(239, 68, 68, 0.8)',
+                            borderColor: 'rgb(239, 68, 68)',
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+
+        // User Activity Chart
+        fetch(`/services/api/user-activity/?hours=${hours}`)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('activityChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.activity_data.map(d => d.hour),
+                        datasets: [{
+                            label: 'Activities',
+                            data: data.activity_data.map(d => d.activities),
+                            borderColor: 'rgb(16, 185, 129)',
+                            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                            tension: 0.1
+                        }, {
+                            label: 'Unique Users',
+                            data: data.activity_data.map(d => d.unique_users),
+                            borderColor: 'rgb(245, 158, 11)',
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+
+        // AI Processing Chart
+        fetch(`/services/api/ai-processing-metrics/?hours=${hours}`)
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('aiChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: data.processing_timeline.map(d => d.time),
+                        datasets: [{
+                            label: 'Avg Processing Time (s)',
+                            data: data.processing_timeline.map(d => d.avg_time),
+                            borderColor: 'rgb(139, 92, 246)',
+                            backgroundColor: 'rgba(139, 92, 246, 0.1)',
+                            tension: 0.1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            });
+    }
+
+    function updateCharts(hours) {
+        // This would update the charts with fresh data
+        // For now, just reload the page
+        // In production, you'd update each chart individually
+    }
+</script>
+{% endblock %}

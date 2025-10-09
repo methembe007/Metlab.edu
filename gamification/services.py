@@ -11,6 +11,11 @@ from .models import (
     VirtualCurrency, CoinTransaction, XPTransaction
 )
 from accounts.models import StudentProfile
+from services.cache_service import (
+    LeaderboardCacheService, StudentCacheService,
+    CacheInvalidationService
+)
+from services.query_optimization import QueryOptimizer, BulkOperationOptimizer
 
 
 class XPCalculationService:
@@ -183,6 +188,9 @@ class XPCalculationService:
         # Update student's total XP
         student_profile.total_xp += final_xp
         student_profile.save()
+        
+        # Invalidate student caches
+        CacheInvalidationService.invalidate_student_caches(student_profile.id)
         
         # Create XP transaction record
         XPTransaction.objects.create(
@@ -587,16 +595,31 @@ class LeaderboardService:
     @classmethod
     def get_top_students(cls, leaderboard_type='weekly', limit=10, subject='', include_private=False):
         """Get top students from leaderboard with privacy controls"""
-        queryset = Leaderboard.objects.filter(
-            leaderboard_type=leaderboard_type,
-            subject=subject
-        ).select_related('student__user')
+        # Check cache first
+        cached_leaderboard = LeaderboardCacheService.get_cached_leaderboard(
+            leaderboard_type, subject, limit
+        )
+        if cached_leaderboard and not include_private:
+            return cached_leaderboard
+        
+        # Use optimized query
+        queryset = QueryOptimizer.optimize_leaderboard_query(
+            leaderboard_type, subject, limit
+        )
         
         # Filter out students who don't want to appear on leaderboards
         if not include_private:
             queryset = queryset.filter(student__leaderboard_visible=True)
         
-        return queryset.order_by('rank')[:limit]
+        results = list(queryset)
+        
+        # Cache the results
+        if not include_private:
+            LeaderboardCacheService.cache_leaderboard(
+                leaderboard_type, results, subject, limit
+            )
+        
+        return results
     
     @classmethod
     def get_student_rank(cls, student_profile, leaderboard_type='weekly', subject=''):

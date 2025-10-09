@@ -812,3 +812,1080 @@ WARNING 2025-10-09 09:03:16,428 ai_services 16736 11512 OpenAI not available or 
 WARNING 2025-10-09 09:03:16,429 ai_services 16736 11512 OpenAI not available or API key not configured
 WARNING 2025-10-09 09:03:16,429 ai_services 16736 11512 OpenAI not available or API key not configured
 WARNING 2025-10-09 09:03:16,429 ai_services 16736 11512 OpenAI not available or API key not configured
+INFO 2025-10-09 09:03:22,588 basehttp 16736 14228 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 09:03:22,762 basehttp 16736 14228 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 09:03:22,985 basehttp 16736 14228 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-09 09:03:23,597 log 16736 16224 Not Found: /favicon.ico
+WARNING 2025-10-09 09:03:23,626 basehttp 16736 16224 "GET /favicon.ico HTTP/1.1" 404 3301
+INFO 2025-10-09 09:04:10,205 basehttp 16736 16224 "POST /accounts/login/ HTTP/1.1" 200 4361
+WARNING 2025-10-09 09:04:10,255 basehttp 16736 16224 "GET /static/css/output.css HTTP/1.1" 404 1856
+WARNING 2025-10-09 13:32:25,555 ai_services 12520 13132 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:25,556 ai_services 12520 13132 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:25,557 ai_services 12520 13132 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:25,557 ai_services 12520 13132 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:25,557 ai_services 12520 13132 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:44,775 ai_services 17368 10768 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:44,776 ai_services 17368 10768 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:44,776 ai_services 17368 10768 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:44,777 ai_services 17368 10768 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:32:44,777 ai_services 17368 10768 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:33:06,544 ai_services 11852 12448 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:33:06,545 ai_services 11852 12448 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:33:06,545 ai_services 11852 12448 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:33:06,545 ai_services 11852 12448 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:33:06,545 ai_services 11852 12448 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:35:26,742 ai_services 15460 2836 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:35:26,743 ai_services 15460 2836 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:35:26,744 ai_services 15460 2836 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:35:26,744 ai_services 15460 2836 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:35:26,745 ai_services 15460 2836 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:04,592 ai_services 10352 11400 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:04,592 ai_services 10352 11400 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:04,593 ai_services 10352 11400 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:04,593 ai_services 10352 11400 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:04,594 ai_services 10352 11400 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:48,433 ai_services 4172 11804 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:48,433 ai_services 4172 11804 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:48,434 ai_services 4172 11804 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:48,434 ai_services 4172 11804 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:50:48,434 ai_services 4172 11804 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:51:11,533 ai_services 14652 8844 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:51:11,534 ai_services 14652 8844 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:51:11,534 ai_services 14652 8844 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:51:11,535 ai_services 14652 8844 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:51:11,535 ai_services 14652 8844 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:07,849 ai_services 4864 3040 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:07,849 ai_services 4864 3040 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:07,850 ai_services 4864 3040 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:07,850 ai_services 4864 3040 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:07,851 ai_services 4864 3040 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:34,082 ai_services 1060 14776 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:34,083 ai_services 1060 14776 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:34,084 ai_services 1060 14776 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:34,084 ai_services 1060 14776 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:55:34,084 ai_services 1060 14776 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,628 ai_services 12504 12896 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,629 ai_services 12504 12896 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,630 ai_services 12504 12896 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,630 ai_services 12504 12896 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,631 ai_services 12504 12896 OpenAI not available or API key not configured
+WARNING 2025-10-09 13:57:00,638 ai_services 12504 12896 OpenAI not available or API key not configured
+INFO 2025-10-09 13:57:00,640 ai_services 12504 12896 Using cached concept extraction results
+WARNING 2025-10-09 14:14:00,779 ai_services 4788 13308 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:00,780 ai_services 4788 13308 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:00,781 ai_services 4788 13308 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:00,783 ai_services 4788 13308 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:00,785 ai_services 4788 13308 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:27,931 ai_services 6100 12984 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:27,932 ai_services 6100 12984 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:27,932 ai_services 6100 12984 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:27,933 ai_services 6100 12984 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:14:27,933 ai_services 6100 12984 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:15:50,480 ai_services 11652 7636 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:15:50,481 ai_services 11652 7636 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:15:50,482 ai_services 11652 7636 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:15:50,483 ai_services 11652 7636 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:15:50,484 ai_services 11652 7636 OpenAI not available or API key not configured
+ERROR 2025-10-09 14:15:55,165 log 11652 7636 Internal Server Error: /services/monitoring/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\services\analytics_views.py", line 69, in monitoring_dashboard
+    return render(request, 'services/monitoring_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+WARNING 2025-10-09 14:19:26,724 ai_services 2284 2232 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:19:26,726 ai_services 2284 2232 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:19:26,727 ai_services 2284 2232 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:19:26,729 ai_services 2284 2232 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:19:26,729 ai_services 2284 2232 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:20:54,666 ai_services 13676 14764 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:20:54,667 ai_services 13676 14764 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:20:54,667 ai_services 13676 14764 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:20:54,668 ai_services 13676 14764 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:20:54,669 ai_services 13676 14764 OpenAI not available or API key not configured
+INFO 2025-10-09 14:29:16,232 autoreload 11080 14536 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:29:16,322 ai_services 11080 14536 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:29:16,322 ai_services 11080 14536 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:29:16,323 ai_services 11080 14536 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:29:16,323 ai_services 11080 14536 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:29:16,323 ai_services 11080 14536 OpenAI not available or API key not configured
+ERROR 2025-10-09 14:29:22,510 log 11080 12116 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:29:22,546 basehttp 11080 12116 "GET / HTTP/1.1" 500 93912
+WARNING 2025-10-09 14:29:22,896 log 11080 12116 Not Found: /favicon.ico
+WARNING 2025-10-09 14:29:22,900 basehttp 11080 12116 "GET /favicon.ico HTTP/1.1" 404 3453
+ERROR 2025-10-09 14:36:59,694 log 11080 8624 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:36:59,723 basehttp 11080 8624 "GET / HTTP/1.1" 500 94049
+ERROR 2025-10-09 14:37:00,885 log 11080 8624 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:37:00,912 basehttp 11080 8624 "GET / HTTP/1.1" 500 94049
+INFO 2025-10-09 14:46:01,368 autoreload 11080 14536 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 14:46:04,123 autoreload 2488 4864 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:46:04,241 ai_services 2488 4864 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:04,242 ai_services 2488 4864 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:04,244 ai_services 2488 4864 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:04,245 ai_services 2488 4864 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:04,245 ai_services 2488 4864 OpenAI not available or API key not configured
+INFO 2025-10-09 14:46:34,964 autoreload 2488 4864 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 14:46:37,686 autoreload 6816 16056 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:46:37,763 ai_services 6816 16056 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:37,763 ai_services 6816 16056 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:37,764 ai_services 6816 16056 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:37,764 ai_services 6816 16056 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:46:37,765 ai_services 6816 16056 OpenAI not available or API key not configured
+ERROR 2025-10-09 14:46:43,996 log 6816 13992 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:46:44,027 basehttp 6816 13992 "GET / HTTP/1.1" 500 93844
+INFO 2025-10-09 14:49:54,927 autoreload 6816 16056 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2025-10-09 14:49:57,778 autoreload 16928 11728 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:49:57,853 ai_services 16928 11728 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:49:57,854 ai_services 16928 11728 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:49:57,854 ai_services 16928 11728 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:49:57,855 ai_services 16928 11728 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:49:57,855 ai_services 16928 11728 OpenAI not available or API key not configured
+ERROR 2025-10-09 14:50:09,701 log 16928 10316 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:50:09,747 basehttp 16928 10316 "GET / HTTP/1.1" 500 93981
+ERROR 2025-10-09 14:50:11,077 log 16928 10316 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:50:11,109 basehttp 16928 10316 "GET / HTTP/1.1" 500 93981
+ERROR 2025-10-09 14:50:12,235 log 16928 10316 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:50:12,264 basehttp 16928 10316 "GET / HTTP/1.1" 500 93981
+INFO 2025-10-09 14:53:01,264 autoreload 16928 11728 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2025-10-09 14:53:03,251 autoreload 10936 12196 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:53:03,321 ai_services 10936 12196 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:53:03,322 ai_services 10936 12196 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:53:03,322 ai_services 10936 12196 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:53:03,323 ai_services 10936 12196 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:53:03,323 ai_services 10936 12196 OpenAI not available or API key not configured
+INFO 2025-10-09 14:58:50,060 autoreload 10936 12196 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 14:58:52,699 autoreload 14384 13444 Watching for file changes with StatReloader
+WARNING 2025-10-09 14:58:52,751 ai_services 14384 13444 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:58:52,753 ai_services 14384 13444 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:58:52,755 ai_services 14384 13444 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:58:52,756 ai_services 14384 13444 OpenAI not available or API key not configured
+WARNING 2025-10-09 14:58:52,758 ai_services 14384 13444 OpenAI not available or API key not configured
+ERROR 2025-10-09 14:59:16,482 log 14384 17148 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:59:16,520 basehttp 14384 17148 "GET / HTTP/1.1" 500 93976
+ERROR 2025-10-09 14:59:17,866 log 14384 17148 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 14:59:17,922 basehttp 14384 17148 "GET / HTTP/1.1" 500 93976
+INFO 2025-10-09 15:01:14,913 autoreload 15644 16264 Watching for file changes with StatReloader
+WARNING 2025-10-09 15:01:14,996 ai_services 15644 16264 OpenAI not available or API key not configured
+WARNING 2025-10-09 15:01:14,996 ai_services 15644 16264 OpenAI not available or API key not configured
+WARNING 2025-10-09 15:01:14,996 ai_services 15644 16264 OpenAI not available or API key not configured
+WARNING 2025-10-09 15:01:14,997 ai_services 15644 16264 OpenAI not available or API key not configured
+WARNING 2025-10-09 15:01:14,997 ai_services 15644 16264 OpenAI not available or API key not configured
+ERROR 2025-10-09 15:01:20,354 log 15644 15956 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 15:01:20,390 basehttp 15644 15956 "GET / HTTP/1.1" 500 93839
+INFO 2025-10-09 16:10:09,602 autoreload 11052 16664 Watching for file changes with StatReloader
+WARNING 2025-10-09 16:10:09,730 ai_services 11052 16664 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:10:09,738 ai_services 11052 16664 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:10:09,743 ai_services 11052 16664 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:10:09,744 ai_services 11052 16664 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:10:09,754 ai_services 11052 16664 OpenAI not available or API key not configured
+ERROR 2025-10-09 16:10:20,302 log 11052 13544 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 25, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:10:20,390 basehttp 11052 13544 "GET / HTTP/1.1" 500 93838
+WARNING 2025-10-09 16:10:21,099 log 11052 13544 Not Found: /favicon.ico
+WARNING 2025-10-09 16:10:21,100 basehttp 11052 13544 "GET /favicon.ico HTTP/1.1" 404 3453
+INFO 2025-10-09 16:11:45,047 autoreload 11052 16664 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 16:11:47,252 autoreload 708 17080 Watching for file changes with StatReloader
+INFO 2025-10-09 16:12:03,893 autoreload 708 17080 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 16:12:05,741 autoreload 2280 14112 Watching for file changes with StatReloader
+WARNING 2025-10-09 16:12:05,833 ai_services 2280 14112 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:12:05,833 ai_services 2280 14112 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:12:05,834 ai_services 2280 14112 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:12:05,834 ai_services 2280 14112 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:12:05,835 ai_services 2280 14112 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:12:12,307 log 2280 6636 Not Found: /
+WARNING 2025-10-09 16:12:12,308 basehttp 2280 6636 "GET / HTTP/1.1" 404 3246
+ERROR 2025-10-09 16:12:38,990 log 2280 6636 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'home' not found. 'home' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:12:39,018 basehttp 2280 6636 "GET /accounts/login/ HTTP/1.1" 500 152061
+INFO 2025-10-09 16:13:02,793 autoreload 2280 14112 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 16:13:05,071 autoreload 6568 16196 Watching for file changes with StatReloader
+WARNING 2025-10-09 16:13:05,167 ai_services 6568 16196 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:13:05,168 ai_services 6568 16196 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:13:05,169 ai_services 6568 16196 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:13:05,171 ai_services 6568 16196 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:13:05,173 ai_services 6568 16196 OpenAI not available or API key not configured
+ERROR 2025-10-09 16:13:09,459 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:13:09,504 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 165480
+ERROR 2025-10-09 16:13:12,373 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:13:12,398 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 165480
+ERROR 2025-10-09 16:13:13,774 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:13:13,806 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 165480
+ERROR 2025-10-09 16:13:15,057 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:13:15,091 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 165480
+ERROR 2025-10-09 16:15:58,645 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 81, in reverse
+    extra, resolver = resolver.namespace_dict[ns]
+                      ~~~~~~~~~~~~~~~~~~~~~~~^^^^
+KeyError: 'account'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 92, in reverse
+    raise NoReverseMatch("%s is not a registered namespace" % key)
+django.urls.exceptions.NoReverseMatch: 'account' is not a registered namespace
+ERROR 2025-10-09 16:15:58,678 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 167814
+ERROR 2025-10-09 16:16:27,209 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:16:27,251 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 165391
+ERROR 2025-10-09 16:16:48,194 log 6568 16308 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 103, in login_view
+    return render(request, 'accounts/login.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'register' not found. 'register' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:16:48,222 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 500 167514
+INFO 2025-10-09 16:18:04,982 basehttp 6568 16308 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:18:05,031 basehttp 6568 16308 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:19:05,696 basehttp 6568 15316 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:19:05,754 basehttp 6568 15316 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:19:06,861 basehttp 6568 9744 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:19:06,902 basehttp 6568 9744 "GET /static/css/output.css HTTP/1.1" 404 1856
+ERROR 2025-10-09 16:19:30,096 log 6568 8964 Internal Server Error: /accounts/register/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 65, in register_view
+    return render(request, 'accounts/register.html', {'form': form})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:19:30,130 basehttp 6568 8964 "GET /accounts/register/ HTTP/1.1" 500 168630
+INFO 2025-10-09 16:20:22,526 basehttp 6568 8964 "GET /accounts/register/ HTTP/1.1" 200 7777
+WARNING 2025-10-09 16:20:22,568 basehttp 6568 8964 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:39,218 basehttp 6568 15364 "GET /accounts/register/ HTTP/1.1" 200 7777
+WARNING 2025-10-09 16:22:39,272 basehttp 6568 15364 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:43,058 basehttp 6568 15592 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:22:43,119 basehttp 6568 15592 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:47,373 basehttp 6568 13792 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:22:47,436 basehttp 6568 13792 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:48,550 basehttp 6568 6100 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:22:48,611 basehttp 6568 6100 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:49,434 basehttp 6568 12376 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:22:49,503 basehttp 6568 12376 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:22:50,077 basehttp 6568 14292 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:22:50,129 basehttp 6568 14292 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:26:14,122 basehttp 6568 11420 "GET /accounts/login/ HTTP/1.1" 200 4153
+INFO 2025-10-09 16:26:15,209 basehttp 6568 11420 "GET /accounts/login/ HTTP/1.1" 200 4153
+INFO 2025-10-09 16:26:16,040 basehttp 6568 11420 "GET /accounts/login/ HTTP/1.1" 200 4153
+ERROR 2025-10-09 16:40:15,435 log 6568 4532 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 26, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:40:15,462 basehttp 6568 4532 "GET / HTTP/1.1" 500 93967
+INFO 2025-10-09 16:40:24,846 basehttp 6568 4532 "GET /accounts/login/ HTTP/1.1" 200 4153
+INFO 2025-10-09 16:40:26,159 basehttp 6568 4532 "GET /accounts/login/ HTTP/1.1" 200 4153
+INFO 2025-10-09 16:40:50,656 autoreload 11460 9996 Watching for file changes with StatReloader
+WARNING 2025-10-09 16:40:50,707 ai_services 11460 9996 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:40:50,707 ai_services 11460 9996 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:40:50,708 ai_services 11460 9996 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:40:50,708 ai_services 11460 9996 OpenAI not available or API key not configured
+WARNING 2025-10-09 16:40:50,708 ai_services 11460 9996 OpenAI not available or API key not configured
+ERROR 2025-10-09 16:41:03,206 log 11460 9672 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 26, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 16:41:03,244 basehttp 11460 9672 "GET / HTTP/1.1" 500 93801
+INFO 2025-10-09 16:41:28,143 basehttp 11460 9672 "GET /accounts/login/ HTTP/1.1" 200 4153
+INFO 2025-10-09 16:41:35,248 basehttp 11460 9672 "GET /accounts/register/ HTTP/1.1" 200 7784
+INFO 2025-10-09 16:43:43,405 basehttp 11460 9672 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:43:43,462 basehttp 11460 9672 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:43:44,979 basehttp 11460 9084 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:43:45,018 basehttp 11460 9084 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 16:43:45,993 basehttp 11460 12036 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 16:43:46,043 basehttp 11460 12036 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 17:07:50,887 autoreload 7156 5308 Watching for file changes with StatReloader
+WARNING 2025-10-09 17:07:51,200 ai_services 7156 5308 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:07:51,201 ai_services 7156 5308 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:07:51,201 ai_services 7156 5308 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:07:51,202 ai_services 7156 5308 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:07:51,202 ai_services 7156 5308 OpenAI not available or API key not configured
+ERROR 2025-10-09 17:08:09,380 log 7156 1620 Internal Server Error: /
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\urls.py", line 27, in home_redirect
+    return redirect('login')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'login' not found. 'login' is not a valid view function or pattern name.
+ERROR 2025-10-09 17:08:09,405 basehttp 7156 1620 "GET / HTTP/1.1" 500 93840
+WARNING 2025-10-09 17:08:09,746 log 7156 1620 Not Found: /favicon.ico
+WARNING 2025-10-09 17:08:09,748 basehttp 7156 1620 "GET /favicon.ico HTTP/1.1" 404 4136
+INFO 2025-10-09 17:09:26,390 autoreload 7156 5308 C:\Users\methe\Metlab.edu\metlab_edu\urls.py changed, reloading.
+INFO 2025-10-09 17:09:28,501 autoreload 1672 8536 Watching for file changes with StatReloader
+WARNING 2025-10-09 17:09:28,681 ai_services 1672 8536 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:09:28,681 ai_services 1672 8536 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:09:28,682 ai_services 1672 8536 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:09:28,682 ai_services 1672 8536 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:09:28,683 ai_services 1672 8536 OpenAI not available or API key not configured
+INFO 2025-10-09 17:09:35,038 basehttp 1672 640 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 17:09:35,179 basehttp 1672 640 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 17:09:35,226 basehttp 1672 640 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 17:11:27,907 basehttp 1672 9276 "POST /accounts/login/ HTTP/1.1" 200 4380
+WARNING 2025-10-09 17:11:27,977 basehttp 1672 9276 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 17:12:35,124 basehttp 1672 5808 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 17:12:35,196 basehttp 1672 5808 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 17:12:35,240 basehttp 1672 5808 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 17:12:37,488 basehttp 1672 14624 "GET /accounts/login/ HTTP/1.1" 200 4146
+WARNING 2025-10-09 17:12:37,551 basehttp 1672 14624 "GET /static/css/output.css HTTP/1.1" 404 1856
+INFO 2025-10-09 17:46:32,636 autoreload 10600 13784 Watching for file changes with StatReloader
+WARNING 2025-10-09 17:46:32,818 ai_services 10600 13784 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:46:32,818 ai_services 10600 13784 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:46:32,820 ai_services 10600 13784 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:46:32,820 ai_services 10600 13784 OpenAI not available or API key not configured
+WARNING 2025-10-09 17:46:32,822 ai_services 10600 13784 OpenAI not available or API key not configured

@@ -1,0 +1,313 @@
+{% extends 'base.html' %}
+
+{% block title %}Privacy Settings - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-6 py-4 border-b border-gray-200">
+            <h1 class="text-2xl font-bold text-gray-900">Privacy Settings</h1>
+            <p class="mt-1 text-sm text-gray-600">
+                Manage your privacy preferences and data rights
+            </p>
+        </div>
+
+        <!-- Privacy Consents -->
+        <div class="px-6 py-4">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Privacy Consents</h2>
+            <div class="space-y-4">
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Data Processing</h3>
+                        <p class="text-sm text-gray-600">Allow processing of your personal data for core platform functionality</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer consent-toggle" 
+                               data-consent-type="data_processing"
+                               {% if consents.data_processing %}checked{% endif %}>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Analytics and Tracking</h3>
+                        <p class="text-sm text-gray-600">Allow collection of usage analytics to improve the platform</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer consent-toggle" 
+                               data-consent-type="analytics"
+                               {% if consents.analytics %}checked{% endif %}>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Marketing Communications</h3>
+                        <p class="text-sm text-gray-600">Receive promotional emails and updates about new features</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer consent-toggle" 
+                               data-consent-type="marketing"
+                               {% if consents.marketing %}checked{% endif %}>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+
+                <div class="flex items-center justify-between p-4 border border-gray-200 rounded-lg">
+                    <div>
+                        <h3 class="text-sm font-medium text-gray-900">Third Party Services</h3>
+                        <p class="text-sm text-gray-600">Allow integration with third-party services for enhanced functionality</p>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer">
+                        <input type="checkbox" class="sr-only peer consent-toggle" 
+                               data-consent-type="third_party"
+                               {% if consents.third_party %}checked{% endif %}>
+                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <!-- COPPA Compliance -->
+        {% if coppa_compliance %}
+        <div class="px-6 py-4 border-t border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">COPPA Compliance</h2>
+            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-blue-800">
+                            Child Account Protection
+                        </h3>
+                        <div class="mt-2 text-sm text-blue-700">
+                            <p>This account is protected under COPPA regulations.</p>
+                            {% if coppa_compliance.parent_consent_given %}
+                                <p class="mt-1 text-green-700">✓ Parent consent verified</p>
+                            {% else %}
+                                <p class="mt-1 text-orange-700">⚠ Awaiting parent consent verification</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- Data Rights -->
+        <div class="px-6 py-4 border-t border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Your Data Rights</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-gray-900 mb-2">Export Your Data</h3>
+                    <p class="text-sm text-gray-600 mb-4">Download a copy of all your personal data</p>
+                    <button onclick="requestDataExport()" 
+                            class="w-full bg-blue-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Request Data Export
+                    </button>
+                </div>
+
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-gray-900 mb-2">Delete Your Data</h3>
+                    <p class="text-sm text-gray-600 mb-4">Request permanent deletion of your account and data</p>
+                    <button onclick="requestDataDeletion()" 
+                            class="w-full bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500">
+                        Request Data Deletion
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recent Requests -->
+        {% if deletion_requests or export_requests %}
+        <div class="px-6 py-4 border-t border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900 mb-4">Recent Requests</h2>
+            
+            {% if deletion_requests %}
+            <div class="mb-4">
+                <h3 class="text-sm font-medium text-gray-700 mb-2">Deletion Requests</h3>
+                <div class="space-y-2">
+                    {% for request in deletion_requests %}
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-900">{{ request.requested_at|date:"M d, Y" }}</p>
+                            <p class="text-xs text-gray-600">Status: {{ request.get_status_display }}</p>
+                        </div>
+                        <span class="px-2 py-1 text-xs font-medium rounded-full
+                            {% if request.status == 'completed' %}bg-green-100 text-green-800
+                            {% elif request.status == 'processing' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ request.get_status_display }}
+                        </span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            {% if export_requests %}
+            <div>
+                <h3 class="text-sm font-medium text-gray-700 mb-2">Export Requests</h3>
+                <div class="space-y-2">
+                    {% for request in export_requests %}
+                    <div class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                        <div>
+                            <p class="text-sm text-gray-900">{{ request.requested_at|date:"M d, Y" }}</p>
+                            <p class="text-xs text-gray-600">Status: {{ request.get_status_display }}</p>
+                        </div>
+                        {% if request.status == 'ready' %}
+                        <a href="{% url 'accounts:download_data_export' request.id %}" 
+                           class="px-3 py-1 bg-green-600 text-white text-xs font-medium rounded-md hover:bg-green-700">
+                            Download
+                        </a>
+                        {% else %}
+                        <span class="px-2 py-1 text-xs font-medium rounded-full
+                            {% if request.status == 'downloaded' %}bg-green-100 text-green-800
+                            {% elif request.status == 'processing' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ request.get_status_display }}
+                        </span>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+        </div>
+        {% endif %}
+
+        <!-- Footer -->
+        <div class="px-6 py-4 border-t border-gray-200 bg-gray-50">
+            <p class="text-xs text-gray-600">
+                Privacy Policy Version: {{ privacy_policy_version }} | 
+                <a href="#" class="text-blue-600 hover:text-blue-800">View Privacy Policy</a> | 
+                <a href="{% url 'accounts:audit_log' %}" class="text-blue-600 hover:text-blue-800">View Activity Log</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<!-- Data Deletion Modal -->
+<div id="deletionModal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+    <div class="flex items-center justify-center min-h-screen p-4">
+        <div class="bg-white rounded-lg max-w-md w-full p-6">
+            <h3 class="text-lg font-medium text-gray-900 mb-4">Request Data Deletion</h3>
+            <p class="text-sm text-gray-600 mb-4">
+                This will permanently delete your account and all associated data. This action cannot be undone.
+            </p>
+            <textarea id="deletionReason" placeholder="Reason for deletion (optional)" 
+                      class="w-full p-3 border border-gray-300 rounded-md mb-4"></textarea>
+            <div class="flex space-x-3">
+                <button onclick="confirmDataDeletion()" 
+                        class="flex-1 bg-red-600 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-red-700">
+                    Confirm Deletion
+                </button>
+                <button onclick="closeModal('deletionModal')" 
+                        class="flex-1 bg-gray-300 text-gray-700 px-4 py-2 rounded-md text-sm font-medium hover:bg-gray-400">
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// CSRF token
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+// Handle consent toggles
+document.querySelectorAll('.consent-toggle').forEach(toggle => {
+    toggle.addEventListener('change', function() {
+        const consentType = this.dataset.consentType;
+        const granted = this.checked;
+        
+        fetch('{% url "accounts:update_consent" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken
+            },
+            body: JSON.stringify({
+                consent_type: consentType,
+                granted: granted
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (!data.success) {
+                // Revert toggle on error
+                this.checked = !granted;
+                alert('Failed to update consent. Please try again.');
+            }
+        })
+        .catch(error => {
+            // Revert toggle on error
+            this.checked = !granted;
+            alert('Failed to update consent. Please try again.');
+        });
+    });
+});
+
+function requestDataExport() {
+    if (confirm('Request a data export? You will receive an email when it\'s ready.')) {
+        fetch('{% url "accounts:request_data_export" %}', {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': csrfToken
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert('Data export requested successfully. You will receive an email when it\'s ready.');
+                location.reload();
+            } else {
+                alert(data.error || 'Failed to request data export.');
+            }
+        })
+        .catch(error => {
+            alert('Failed to request data export. Please try again.');
+        });
+    }
+}
+
+function requestDataDeletion() {
+    document.getElementById('deletionModal').classList.remove('hidden');
+}
+
+function confirmDataDeletion() {
+    const reason = document.getElementById('deletionReason').value;
+    
+    const formData = new FormData();
+    formData.append('reason', reason);
+    formData.append('csrfmiddlewaretoken', csrfToken);
+    
+    fetch('{% url "accounts:request_data_deletion" %}', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            alert('Data deletion requested successfully. You will receive confirmation via email.');
+            closeModal('deletionModal');
+            location.reload();
+        } else {
+            alert(data.error || 'Failed to request data deletion.');
+        }
+    })
+    .catch(error => {
+        alert('Failed to request data deletion. Please try again.');
+    });
+}
+
+function closeModal(modalId) {
+    document.getElementById(modalId).classList.add('hidden');
+}
+</script>
+{% endblock %}

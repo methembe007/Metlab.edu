@@ -19,20 +19,31 @@ from django.urls import path, include
 from django.shortcuts import redirect
 from django.conf import settings
 from django.conf.urls.static import static
+from .health_check import health_check, readiness_check, liveness_check, metrics
+
 
 def home_redirect(request):
     """Redirect home page to login"""
-    return redirect('login')
+    return redirect('accounts:login')
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home_redirect, name='home'),
     path('accounts/', include('accounts.urls')),
     path('content/', include('content.urls')),
     path('learning/', include('learning.urls')),
     path('gamification/', include('gamification.urls')),
     path('community/', include('community.urls')),
-    path('', home_redirect, name='home'),
+    path('services/', include('services.urls')),
+    
+    # Health check endpoints for monitoring
+    path('health/', health_check, name='health_check'),
+    path('ready/', readiness_check, name='readiness_check'),
+    path('alive/', liveness_check, name='liveness_check'),
+    path('metrics/', metrics, name='metrics'),
 ]
+
 
 # Serve media files during development
 if settings.DEBUG:

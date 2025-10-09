@@ -1,0 +1,180 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}System Logs - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="flex justify-between items-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-900">System Logs</h1>
+        <a href="{% url 'services:monitoring_dashboard' %}" 
+           class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700">
+            Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Log Type Selector -->
+    <div class="bg-white p-6 rounded-lg shadow mb-6">
+        <div class="flex space-x-4">
+            {% for type_value, type_label in log_types %}
+            <a href="?type={{ type_value }}" 
+               class="px-4 py-2 rounded-md text-sm font-medium
+                      {% if log_type == type_value %}
+                      bg-blue-600 text-white
+                      {% else %}
+                      bg-gray-100 text-gray-700 hover:bg-gray-200
+                      {% endif %}">
+                {{ type_label }}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Logs Display -->
+    <div class="bg-white rounded-lg shadow">
+        {% if page_obj %}
+            <div class="divide-y divide-gray-200">
+                {% for log in page_obj %}
+                <div class="p-4 hover:bg-gray-50">
+                    {% if log_type == 'performance' %}
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <span class="text-sm font-medium text-gray-900">{{ log.operation }}</span>
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium
+                                        {% if log.duration < 1 %}bg-green-100 text-green-800
+                                        {% elif log.duration < 5 %}bg-yellow-100 text-yellow-800
+                                        {% else %}bg-red-100 text-red-800{% endif %}">
+                                        {{ log.duration|floatformat:3 }}s
+                                    </span>
+                                    {% if log.user %}
+                                    <span class="text-xs text-gray-500">User: {{ log.user.username }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    {{ log.timestamp|date:"M d, Y H:i:s" }} | ID: {{ log.correlation_id|slice:":8" }}
+                                </div>
+                            </div>
+                        </div>
+                        {% if log.metadata %}
+                        <div class="mt-2 p-2 bg-gray-50 rounded text-xs">
+                            <pre>{{ log.metadata|pprint }}</pre>
+                        </div>
+                        {% endif %}
+                    
+                    {% elif log_type == 'errors' %}
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">
+                                        {{ log.error_type }}
+                                    </span>
+                                    {% if log.user %}
+                                    <span class="text-xs text-gray-500">User: {{ log.user.username }}</span>
+                                    {% endif %}
+                                    {% if log.request_path %}
+                                    <span class="text-xs text-gray-500">Path: {{ log.request_path }}</span>
+                                    {% endif %}
+                                </div>
+                                <p class="text-sm text-gray-900 mb-2">{{ log.error_message }}</p>
+                                <div class="text-xs text-gray-500">
+                                    {{ log.timestamp|date:"M d, Y H:i:s" }} | ID: {{ log.correlation_id|slice:":8" }}
+                                </div>
+                            </div>
+                            <div class="ml-4">
+                                <span class="inline-flex items-center px-2 py-1 rounded-full text-xs
+                                    {% if log.resolved %}bg-green-100 text-green-800
+                                    {% else %}bg-red-100 text-red-800{% endif %}">
+                                    {% if log.resolved %}Resolved{% else %}Open{% endif %}
+                                </span>
+                            </div>
+                        </div>
+                        {% if log.stack_trace %}
+                        <div class="mt-2 p-2 bg-gray-50 rounded text-xs">
+                            <pre class="whitespace-pre-wrap">{{ log.stack_trace|truncatechars:500 }}</pre>
+                        </div>
+                        {% endif %}
+                    
+                    {% elif log_type == 'activity' %}
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center space-x-3 mb-2">
+                                    <span class="text-sm font-medium text-gray-900">{{ log.activity_type }}</span>
+                                    <span class="text-xs text-gray-500">User: {{ log.user.username }}</span>
+                                    {% if log.ip_address %}
+                                    <span class="text-xs text-gray-500">IP: {{ log.ip_address }}</span>
+                                    {% endif %}
+                                </div>
+                                <div class="text-xs text-gray-500">
+                                    {{ log.timestamp|date:"M d, Y H:i:s" }} | ID: {{ log.correlation_id|slice:":8" }}
+                                </div>
+                            </div>
+                        </div>
+                        {% if log.metadata %}
+                        <div class="mt-2 p-2 bg-gray-50 rounded text-xs">
+                            <pre>{{ log.metadata|pprint }}</pre>
+                        </div>
+                        {% endif %}
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+            <div class="px-6 py-4 border-t border-gray-200">
+                <div class="flex items-center justify-between">
+                    <div class="text-sm text-gray-700">
+                        Showing {{ page_obj.start_index }} to {{ page_obj.end_index }} of {{ page_obj.paginator.count }} logs
+                    </div>
+                    
+                    <div class="flex space-x-2">
+                        {% if page_obj.has_previous %}
+                        <a href="?type={{ log_type }}&page={{ page_obj.previous_page_number }}"
+                           class="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                            Previous
+                        </a>
+                        {% endif %}
+                        
+                        {% for num in page_obj.paginator.page_range %}
+                        {% if page_obj.number == num %}
+                        <span class="px-3 py-2 bg-blue-600 text-white rounded-md text-sm">{{ num }}</span>
+                        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a href="?type={{ log_type }}&page={{ num }}"
+                           class="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                            {{ num }}
+                        </a>
+                        {% endif %}
+                        {% endfor %}
+                        
+                        {% if page_obj.has_next %}
+                        <a href="?type={{ log_type }}&page={{ page_obj.next_page_number }}"
+                           class="px-3 py-2 border border-gray-300 rounded-md text-sm hover:bg-gray-50">
+                            Next
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+        {% else %}
+            <div class="p-8 text-center">
+                <p class="text-gray-500">No logs found.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Auto-refresh every 30 seconds for real-time monitoring
+    setInterval(function() {
+        // Only refresh if we're on the first page to avoid disrupting navigation
+        const urlParams = new URLSearchParams(window.location.search);
+        if (!urlParams.has('page') || urlParams.get('page') === '1') {
+            window.location.reload();
+        }
+    }, 30000);
+});
+</script>
+{% endblock %}

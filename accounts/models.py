@@ -230,3 +230,224 @@ class ParentProfile(models.Model):
     class Meta:
         verbose_name = "Parent Profile"
         verbose_name_plural = "Parent Profiles"
+
+# Privacy and Compliance Models
+
+class PrivacyConsent(models.Model):
+    """Track user privacy consents for GDPR compliance"""
+    
+    CONSENT_TYPES = [
+        ('data_processing', 'Data Processing'),
+        ('marketing', 'Marketing Communications'),
+        ('analytics', 'Analytics and Tracking'),
+        ('third_party', 'Third Party Services'),
+        ('cookies', 'Cookies and Tracking'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='privacy_consents')
+    consent_type = models.CharField(max_length=50, choices=CONSENT_TYPES)
+    granted = models.BooleanField(default=False)
+    granted_at = models.DateTimeField(null=True, blank=True)
+    withdrawn_at = models.DateTimeField(null=True, blank=True)
+    ip_address = models.GenericIPAddressField()
+    user_agent = models.TextField()
+    privacy_policy_version = models.CharField(max_length=10, default='1.0')
+    
+    class Meta:
+        unique_together = ['user', 'consent_type']
+        indexes = [
+            models.Index(fields=['user', 'consent_type']),
+            models.Index(fields=['granted_at']),
+        ]
+    
+    def __str__(self):
+        return f"{self.user.username} - {self.consent_type} - {'Granted' if self.granted else 'Withdrawn'}"
+    
+    def grant_consent(self, ip_address, user_agent):
+        """Grant consent with tracking information"""
+        from django.utils import timezone
+        self.granted = True
+        self.granted_at = timezone.now()
+        self.withdrawn_at = None
+        self.ip_address = ip_address
+        self.user_agent = user_agent
+        self.save()
+    
+    def withdraw_consent(self):
+        """Withdraw consent"""
+        from django.utils import timezone
+        self.granted = False
+        self.withdrawn_at = timezone.now()
+        self.save()
+
+
+class DataRetentionPolicy(models.Model):
+    """Define data retention policies for different data types"""
+    
+    DATA_TYPES = [
+        ('user_profile', 'User Profile Data'),
+        ('learning_data', 'Learning Progress Data'),
+        ('uploaded_content', 'Uploaded Content'),
+        ('analytics_data', 'Analytics Data'),
+        ('communication_logs', 'Communication Logs'),
+        ('session_data', 'Session Data'),
+    ]
+    
+    data_type = models.CharField(max_length=50, choices=DATA_TYPES, unique=True)
+    retention_days = models.IntegerField(help_text="Number of days to retain this data type")
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    def __str__(self):
+        return f"{self.data_type} - {self.retention_days} days"
+    
+    @property
+    def retention_period(self):
+        """Get retention period as timedelta"""
+        from datetime import timedelta
+        return timedelta(days=self.retention_days)
+
+
+class DataDeletionRequest(models.Model):
+    """Track user requests for data deletion (Right to be Forgotten)"""
+    
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('completed', 'Completed'),
+        ('rejected', 'Rejected'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='deletion_requests')
+    request_type = models.CharField(max_length=50, default='full_deletion')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    processed_at = models.DateTimeField(null=True, blank=True)
+    processed_by = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True, related_name='processed_deletions')
+    reason = models.TextField(blank=True)
+    notes = models.TextField(blank=True)
+    
+    class Meta:
+        ordering = ['-requested_at']
+    
+    def __str__(self):
+        return f"Deletion request for {self.user.username} - {self.status}"
+    
+    def mark_completed(self, processed_by=None):
+        """Mark the deletion request as completed"""
+        from django.utils import timezone
+        self.status = 'completed'
+        self.processed_at = timezone.now()
+        self.processed_by = processed_by
+        self.save()
+
+
+class DataExportRequest(models.Model):
+    """Track user requests for data export (Right to Data Portability)"""
+    
+    STATUS_CHOICES = [
+        ('pending', 'Pending'),
+        ('processing', 'Processing'),
+        ('ready', 'Ready for Download'),
+        ('downloaded', 'Downloaded'),
+        ('expired', 'Expired'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='export_requests')
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')
+    requested_at = models.DateTimeField(auto_now_add=True)
+    processed_at = models.DateTimeField(null=True, blank=True)
+    expires_at = models.DateTimeField(null=True, blank=True)
+    download_url = models.URLField(blank=True)
+    file_size = models.BigIntegerField(null=True, blank=True)
+    download_count = models.IntegerField(default=0)
+    
+    class Meta:
+        ordering = ['-requested_at']
+    
+    def __str__(self):
+        return f"Export request for {self.user.username} - {self.status}"
+    
+    def mark_ready(self, download_url, file_size):
+        """Mark the export as ready for download"""
+        from django.utils import timezone
+        from datetime import timedelta
+        self.status = 'ready'
+        self.processed_at = timezone.now()
+        self.expires_at = timezone.now() + timedelta(days=7)  # Expires in 7 days
+        self.download_url = download_url
+        self.file_size = file_size
+        self.save()
+    
+    def record_download(self):
+        """Record a download of the export file"""
+        self.download_count += 1
+        if self.download_count == 1:
+            self.status = 'downloaded'
+        self.save()
+
+
+class AuditLog(models.Model):
+    """Audit log for tracking data access and modifications"""
+    
+    ACTION_TYPES = [
+        ('create', 'Create'),
+        ('read', 'Read'),
+        ('update', 'Update'),
+        ('delete', 'Delete'),
+        ('export', 'Export'),
+        ('login', 'Login'),
+        ('logout', 'Logout'),
+    ]
+    
+    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+    action = models.CharField(max_length=20, choices=ACTION_TYPES)
+    resource_type = models.CharField(max_length=100)
+    resource_id = models.CharField(max_length=100, blank=True)
+    ip_address = models.GenericIPAddressField()
+    user_agent = models.TextField()
+    timestamp = models.DateTimeField(auto_now_add=True)
+    details = models.JSONField(default=dict, blank=True)
+    
+    class Meta:
+        ordering = ['-timestamp']
+        indexes = [
+            models.Index(fields=['user', 'timestamp']),
+            models.Index(fields=['action', 'timestamp']),
+            models.Index(fields=['resource_type', 'timestamp']),
+        ]
+    
+    def __str__(self):
+        username = self.user.username if self.user else 'Anonymous'
+        return f"{username} - {self.action} - {self.resource_type} - {self.timestamp}"
+
+
+class COPPACompliance(models.Model):
+    """Track COPPA compliance for users under 13"""
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='coppa_compliance')
+    is_under_13 = models.BooleanField(default=False)
+    parent_email = models.EmailField(blank=True)
+    parent_consent_given = models.BooleanField(default=False)
+    parent_consent_date = models.DateTimeField(null=True, blank=True)
+    verification_token = models.CharField(max_length=100, blank=True)
+    verification_sent_at = models.DateTimeField(null=True, blank=True)
+    
+    def __str__(self):
+        return f"COPPA Compliance for {self.user.username}"
+    
+    def send_parent_verification(self):
+        """Send parent verification email"""
+        from django.utils import timezone
+        # Implementation would send email to parent
+        self.verification_sent_at = timezone.now()
+        self.save()
+    
+    def verify_parent_consent(self):
+        """Mark parent consent as verified"""
+        from django.utils import timezone
+        self.parent_consent_given = True
+        self.parent_consent_date = timezone.now()
+        self.save()

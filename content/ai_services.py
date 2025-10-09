@@ -18,6 +18,8 @@ from django.conf import settings
 from django.utils import timezone
 
 from .models import UploadedContent, GeneratedSummary, GeneratedQuiz, Flashcard
+from services.cache_service import AICacheService, cache_result
+from services.monitoring import monitor_ai_processing, monitoring
 
 logger = logging.getLogger(__name__)
 
@@ -134,10 +136,21 @@ class ConceptExtractor:
         if not text.strip():
             return []
         
+        # Check cache first
+        cached_concepts = AICacheService.get_cached_concept_extraction(text)
+        if cached_concepts is not None:
+            logger.info("Using cached concept extraction results")
+            return cached_concepts[:max_concepts]
+        
+        # Generate new concepts
         if self.openai_service.is_available():
-            return self._extract_with_ai(text, max_concepts)
+            concepts = self._extract_with_ai(text, max_concepts)
         else:
-            return self._extract_with_fallback(text, max_concepts)
+            concepts = self._extract_with_fallback(text, max_concepts)
+        
+        # Cache the results
+        AICacheService.cache_concept_extraction(text, concepts)
+        return concepts
     
     def _extract_with_ai(self, text: str, max_concepts: int) -> List[str]:
         """Extract concepts using AI"""
@@ -192,6 +205,8 @@ class SummaryGenerator:
     def __init__(self):
         self.openai_service = OpenAIService()
     
+    @cache_result(timeout=86400, cache_alias='ai_cache', key_prefix='summary')
+    @monitor_ai_processing
     def generate_summary(self, text: str, summary_type: SummaryType) -> str:
         """
         Generate summary of specified type
@@ -263,6 +278,8 @@ class QuizGenerator:
     def __init__(self):
         self.openai_service = OpenAIService()
     
+    @cache_result(timeout=86400, cache_alias='ai_cache', key_prefix='quiz')
+    @monitor_ai_processing
     def generate_quiz(self, text: str, num_questions: int = 5, difficulty: str = "medium") -> List[QuizQuestion]:
         """
         Generate quiz questions from text content
@@ -371,6 +388,8 @@ class FlashcardGenerator:
         self.openai_service = OpenAIService()
         self.concept_extractor = ConceptExtractor()
     
+    @cache_result(timeout=86400, cache_alias='ai_cache', key_prefix='flashcards')
+    @monitor_ai_processing
     def generate_flashcards(self, text: str, num_cards: int = 10) -> List[FlashcardData]:
         """
         Generate flashcards from text content

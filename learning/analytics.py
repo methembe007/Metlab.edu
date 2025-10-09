@@ -11,6 +11,10 @@ from collections import defaultdict, Counter
 from .models import LearningSession, WeaknessAnalysis, PersonalizedRecommendation
 from accounts.models import StudentProfile
 from content.models import UploadedContent
+from services.cache_service import (
+    StudentCacheService, WeaknessCacheService, 
+    RecommendationCacheService, cache_result
+)
 
 
 class PerformanceAnalyticsEngine:
@@ -19,6 +23,13 @@ class PerformanceAnalyticsEngine:
     @staticmethod
     def analyze_learning_patterns(student_profile, days=30):
         """Analyze learning patterns and identify trends"""
+        # Check cache first
+        cached_analytics = StudentCacheService.get_cached_student_analytics(
+            student_profile.id, days
+        )
+        if cached_analytics:
+            return cached_analytics
+        
         cutoff_date = timezone.now() - timedelta(days=days)
         
         sessions = LearningSession.objects.filter(
@@ -63,7 +74,7 @@ class PerformanceAnalyticsEngine:
         # Difficulty progression
         difficulty_progression = PerformanceAnalyticsEngine._analyze_difficulty_progression(sessions)
         
-        return {
+        analytics_data = {
             'total_sessions': sessions.count(),
             'learning_velocity': round(learning_velocity, 2),
             'consistency_score': round(consistency_score, 2),
@@ -73,6 +84,13 @@ class PerformanceAnalyticsEngine:
             'subject_distribution': subject_distribution,
             'difficulty_progression': difficulty_progression
         }
+        
+        # Cache the results
+        StudentCacheService.cache_student_analytics(
+            student_profile.id, analytics_data, days
+        )
+        
+        return analytics_data
     
     @staticmethod
     def _calculate_improvement_trend(sessions):
@@ -168,6 +186,13 @@ class WeaknessIdentificationEngine:
     @staticmethod
     def identify_weaknesses(student_profile, threshold=60.0):
         """Identify concepts where student shows weakness"""
+        # Check cache first
+        cached_weaknesses = WeaknessCacheService.get_cached_student_weaknesses(
+            student_profile.id
+        )
+        if cached_weaknesses:
+            return cached_weaknesses
+        
         # Get all learning sessions for the student
         sessions = LearningSession.objects.filter(
             student=student_profile,
@@ -211,6 +236,12 @@ class WeaknessIdentificationEngine:
         
         # Sort by weakness score (highest first)
         weaknesses.sort(key=lambda x: x['weakness_score'], reverse=True)
+        
+        # Cache the results
+        WeaknessCacheService.cache_student_weaknesses(
+            student_profile.id, weaknesses
+        )
+        
         return weaknesses
     
     @staticmethod

@@ -11,6 +11,7 @@ from django.db.models import Q
 from django.utils import timezone
 
 from accounts.decorators import role_required
+from metlab_edu.rate_limiting import upload_rate_limit, api_rate_limit
 from .models import UploadedContent, GeneratedSummary, GeneratedQuiz, Flashcard
 from .forms import ContentUploadForm
 from .tasks import process_uploaded_content
@@ -20,6 +21,7 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @role_required(['student', 'teacher'])
+@upload_rate_limit(rate='20/h')  # 20 uploads per hour
 def upload_content(request):
     """View for uploading content files"""
     if request.method == 'POST':

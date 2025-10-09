@@ -9,8 +9,13 @@ from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes, force_str
 from django.contrib.auth.tokens import default_token_generator
 from django.template.loader import render_to_string
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import requires_csrf_token
 from django.db import transaction
+from metlab_edu.rate_limiting import login_rate_limit
+import logging
+
+logger = logging.getLogger(__name__)
 from .models import User, StudentProfile, TeacherProfile, ParentProfile
 from .forms import CustomUserCreationForm, CustomAuthenticationForm
 from .decorators import student_required, teacher_required, parent_required, profile_required
@@ -60,6 +65,7 @@ def register_view(request):
     return render(request, 'accounts/register.html', {'form': form})
 
 
+@login_rate_limit(rate='5/m')  # 5 login attempts per minute
 def login_view(request):
     """Custom login view with role-based redirect"""
     if request.user.is_authenticated:
@@ -273,3 +279,21 @@ def teacher_dashboard(request):
 def parent_dashboard(request):
     """Parent dashboard view - redirect to learning parent dashboard"""
     return redirect('learning:parent_dashboard')
+
+@requires_csrf_token
+def csrf_failure(request, reason=""):
+    """
+    Custom CSRF failure view to handle CSRF token failures gracefully
+    """
+    logger.warning(f"CSRF failure for user {request.user}: {reason}")
+    
+    if request.is_ajax():
+        return JsonResponse({
+            'error': 'CSRF token missing or incorrect. Please refresh the page and try again.',
+            'code': 'CSRF_FAILURE'
+        }, status=403)
+    
+    return render(request, 'accounts/csrf_failure.html', {
+        'reason': reason,
+        'title': 'Security Error'
+    }, status=403)

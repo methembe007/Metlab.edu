@@ -13,6 +13,12 @@ from .analytics import (
 )
 from accounts.models import StudentProfile
 from content.models import UploadedContent
+from services.query_optimization import QueryOptimizer, monitor_queries
+from services.cache_service import (
+    StudentCacheService, WeaknessCacheService, 
+    RecommendationCacheService, DailyLessonCacheService,
+    CacheInvalidationService
+)
 
 
 class LearningSessionService:
@@ -92,22 +98,27 @@ class LearningSessionService:
             return None
     
     @staticmethod
+    @monitor_queries("get_student_sessions")
     def get_student_sessions(student_profile, limit=10):
         """Get recent learning sessions for a student"""
-        return LearningSession.objects.filter(
-            student=student_profile
-        ).order_by('-start_time')[:limit]
+        return QueryOptimizer.optimize_learning_session_queries(
+            student_profile
+        )[:limit]
     
     @staticmethod
+    @monitor_queries("get_session_statistics")
     def get_session_statistics(student_profile, days=30):
         """Get learning session statistics for a student"""
-        from datetime import timedelta
+        # Check cache first
+        cache_key = f"session_stats_{student_profile.id}_{days}"
+        cached_stats = StudentCacheService.get_cached_student_analytics(
+            student_profile.id, days
+        )
+        if cached_stats and 'session_statistics' in cached_stats:
+            return cached_stats['session_statistics']
         
-        cutoff_date = timezone.now() - timedelta(days=days)
-        sessions = LearningSession.objects.filter(
-            student=student_profile,
-            start_time__gte=cutoff_date,
-            status='completed'
+        sessions = QueryOptimizer.optimize_student_analytics_query(
+            student_profile, days
         )
         
         stats = sessions.aggregate(
@@ -123,6 +134,13 @@ class LearningSessionService:
             stats['overall_accuracy'] = (stats['total_correct'] / stats['total_questions']) * 100
         else:
             stats['overall_accuracy'] = 0
+        
+        # Cache the statistics
+        StudentCacheService.cache_student_analytics(
+            student_profile.id, 
+            {'session_statistics': stats}, 
+            days
+        )
         
         return stats
 
