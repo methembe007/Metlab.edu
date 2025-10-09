@@ -12,6 +12,10 @@ def role_required(required_role):
         @role_required('student')
         def student_view(request):
             ...
+        
+        @role_required(['student', 'teacher'])
+        def multi_role_view(request):
+            ...
     """
     def decorator(view_func):
         @wraps(view_func)
@@ -19,14 +23,19 @@ def role_required(required_role):
         def _wrapped_view(request, *args, **kwargs):
             if not hasattr(request.user, 'role'):
                 messages.error(request, 'User role not found.')
-                return redirect('login')
+                return redirect('accounts:login')
             
-            if request.user.role != required_role:
-                messages.error(
-                    request, 
-                    f'Access denied. {required_role.title()} account required.'
-                )
-                return redirect('dashboard')
+            # Handle both single role and list of roles
+            allowed_roles = required_role if isinstance(required_role, list) else [required_role]
+            
+            if request.user.role not in allowed_roles:
+                if len(allowed_roles) == 1:
+                    role_text = f'{allowed_roles[0].title()} account required.'
+                else:
+                    role_text = f'One of the following account types required: {", ".join([r.title() for r in allowed_roles])}'
+                
+                messages.error(request, f'Access denied. {role_text}')
+                return redirect('accounts:dashboard')
             
             return view_func(request, *args, **kwargs)
         return _wrapped_view
@@ -61,16 +70,16 @@ def profile_required(view_func):
         try:
             if user.role == 'student' and not hasattr(user, 'student_profile'):
                 messages.error(request, 'Student profile not found.')
-                return redirect('dashboard')
+                return redirect('accounts:dashboard')
             elif user.role == 'teacher' and not hasattr(user, 'teacher_profile'):
                 messages.error(request, 'Teacher profile not found.')
-                return redirect('dashboard')
+                return redirect('accounts:dashboard')
             elif user.role == 'parent' and not hasattr(user, 'parent_profile'):
                 messages.error(request, 'Parent profile not found.')
-                return redirect('dashboard')
+                return redirect('accounts:dashboard')
         except AttributeError:
             messages.error(request, 'User profile error.')
-            return redirect('login')
+            return redirect('accounts:login')
         
         return view_func(request, *args, **kwargs)
     return _wrapped_view

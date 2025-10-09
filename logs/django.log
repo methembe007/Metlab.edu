@@ -1989,3 +1989,506 @@ WARNING 2025-10-09 19:21:11,776 ai_services 14796 16068 OpenAI not available or 
 WARNING 2025-10-09 19:21:11,777 ai_services 14796 16068 OpenAI not available or API key not configured
 WARNING 2025-10-09 19:21:11,782 ai_services 14796 16068 OpenAI not available or API key not configured
 WARNING 2025-10-09 19:21:11,783 ai_services 14796 16068 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:49:17,238 ai_services 15288 13096 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:49:17,240 ai_services 15288 13096 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:49:17,241 ai_services 15288 13096 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:49:17,242 ai_services 15288 13096 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:49:17,243 ai_services 15288 13096 OpenAI not available or API key not configured
+ERROR 2025-10-09 21:49:19,675 log 15288 13096 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 31, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 43, in achievements_view
+    return render(request, 'gamification/achievements.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-09 21:49:21,705 log 15288 13096 Internal Server Error: /content/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 27, in _wrapped_view
+    f'Access denied. {required_role.title()} account required.'
+                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'title'
+ERROR 2025-10-09 21:49:31,407 log 15288 13096 Internal Server Error: /accounts/login/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\Metlab.edu\metlab_edu\rate_limiting.py", line 44, in wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 72, in login_view
+    return redirect('dashboard')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+WARNING 2025-10-09 21:49:37,263 log 15288 13096 Not Found: /nonexistent-page/
+ERROR 2025-10-09 21:49:37,272 log 15288 13096 Internal Server Error: /content/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 27, in _wrapped_view
+    f'Access denied. {required_role.title()} account required.'
+                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'title'
+ERROR 2025-10-09 21:49:41,303 log 15288 13096 Internal Server Error: /content/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 27, in _wrapped_view
+    f'Access denied. {required_role.title()} account required.'
+                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'title'
+ERROR 2025-10-09 21:49:45,274 log 15288 13096 Internal Server Error: /community/study-groups/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 31, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\community\views.py", line 891, in study_groups
+    return render(request, 'community/study_groups.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-09 21:49:51,249 log 15288 13096 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 31, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 43, in achievements_view
+    return render(request, 'gamification/achievements.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-09 21:49:53,300 log 15288 13096 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 31, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 43, in achievements_view
+    return render(request, 'gamification/achievements.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-09 21:49:55,299 log 15288 13096 Internal Server Error: /content/library/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 27, in _wrapped_view
+    f'Access denied. {required_role.title()} account required.'
+                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'title'
+ERROR 2025-10-09 21:50:02,938 log 15288 13096 Internal Server Error: /content/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 27, in _wrapped_view
+    f'Access denied. {required_role.title()} account required.'
+                      ^^^^^^^^^^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'title'
+ERROR 2025-10-09 21:50:04,785 log 15288 13096 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 31, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 43, in achievements_view
+    return render(request, 'gamification/achievements.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 107, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\test\utils.py", line 114, in instrumented_test_render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 327, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1016, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 977, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 480, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+WARNING 2025-10-09 21:55:01,939 ai_services 14276 9140 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:55:01,940 ai_services 14276 9140 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:55:01,941 ai_services 14276 9140 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:55:01,941 ai_services 14276 9140 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:55:01,942 ai_services 14276 9140 OpenAI not available or API key not configured
+ERROR 2025-10-09 21:55:04,206 log 14276 9140 Internal Server Error: /accounts/dashboard/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 59, in _view_wrapper
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 175, in dashboard_view
+    return redirect('student_dashboard')
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 51, in redirect
+    resolve_url(to, *args, **kwargs),
+    ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 184, in resolve_url
+    return reverse(to, args=args, kwargs=kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 98, in reverse
+    resolved_url = resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 831, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'student_dashboard' not found. 'student_dashboard' is not a valid view function or pattern name.
+WARNING 2025-10-09 21:57:17,024 ai_services 8964 9772 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:57:17,026 ai_services 8964 9772 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:57:17,028 ai_services 8964 9772 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:57:17,029 ai_services 8964 9772 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:57:17,030 ai_services 8964 9772 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:49,794 ai_services 14156 7164 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:49,794 ai_services 14156 7164 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:49,795 ai_services 14156 7164 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:49,795 ai_services 14156 7164 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:49,796 ai_services 14156 7164 OpenAI not available or API key not configured
+WARNING 2025-10-09 21:59:58,050 log 14156 7164 Not Found: /nonexistent-page/
+WARNING 2025-10-09 22:00:00,052 security_middleware 14156 7164 File signature doesn't match extension: .pdf
+WARNING 2025-10-09 22:00:00,053 security_middleware 14156 7164 Malicious file upload attempt: test.pdf
+WARNING 2025-10-09 22:00:00,058 log 14156 7164 Bad Request: /content/upload/
+WARNING 2025-10-09 22:02:06,233 ai_services 15272 12928 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:02:06,234 ai_services 15272 12928 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:02:06,235 ai_services 15272 12928 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:02:06,235 ai_services 15272 12928 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:02:06,236 ai_services 15272 12928 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:02:14,985 log 15272 12928 Not Found: /nonexistent-page/
+WARNING 2025-10-09 22:02:17,089 security_middleware 15272 12928 File signature doesn't match extension: .pdf
+WARNING 2025-10-09 22:02:17,090 security_middleware 15272 12928 Malicious file upload attempt: test.pdf
+WARNING 2025-10-09 22:02:17,096 log 15272 12928 Bad Request: /content/upload/
+WARNING 2025-10-09 22:03:14,331 ai_services 12984 6996 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:03:14,332 ai_services 12984 6996 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:03:14,332 ai_services 12984 6996 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:03:14,333 ai_services 12984 6996 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:03:14,334 ai_services 12984 6996 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:03:23,406 log 12984 6996 Not Found: /nonexistent-page/
+WARNING 2025-10-09 22:03:25,600 security_middleware 12984 6996 File signature doesn't match extension: .pdf
+WARNING 2025-10-09 22:03:25,600 security_middleware 12984 6996 Malicious file upload attempt: test.pdf
+WARNING 2025-10-09 22:03:25,605 log 12984 6996 Bad Request: /content/upload/
+INFO 2025-10-09 22:06:32,217 autoreload 7308 9640 Watching for file changes with StatReloader
+WARNING 2025-10-09 22:06:32,387 ai_services 7308 9640 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:06:32,388 ai_services 7308 9640 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:06:32,388 ai_services 7308 9640 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:06:32,388 ai_services 7308 9640 OpenAI not available or API key not configured
+WARNING 2025-10-09 22:06:32,389 ai_services 7308 9640 OpenAI not available or API key not configured
+INFO 2025-10-09 22:06:39,595 basehttp 7308 2288 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 22:06:39,707 basehttp 7308 2288 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:06:39,870 basehttp 7308 5552 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:06:40,077 basehttp 7308 5092 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 9406
+INFO 2025-10-09 22:06:40,085 basehttp 7308 10168 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 14887
+WARNING 2025-10-09 22:06:40,331 log 7308 10168 Not Found: /favicon.ico
+WARNING 2025-10-09 22:06:40,334 basehttp 7308 10168 "GET /favicon.ico HTTP/1.1" 404 4136
+INFO 2025-10-09 22:06:44,147 basehttp 7308 8316 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-10-09 22:06:56,339 basehttp 7308 8316 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:06:56,375 basehttp 7308 8316 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:07:01,366 basehttp 7308 8316 "POST /accounts/login/ HTTP/1.1" 200 5115
+INFO 2025-10-09 22:07:39,237 basehttp 7308 8316 "POST /accounts/login/ HTTP/1.1" 200 5114
+INFO 2025-10-09 22:07:39,261 basehttp 7308 8316 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:08:01,857 basehttp 7308 8316 "GET / HTTP/1.1" 302 0
+INFO 2025-10-09 22:08:01,931 basehttp 7308 8316 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:08:01,976 basehttp 7308 8316 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:08:05,090 basehttp 7308 8316 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:08:06,935 basehttp 7308 8316 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:09:52,121 basehttp 7308 8316 "POST /accounts/login/ HTTP/1.1" 200 5093
+INFO 2025-10-09 22:09:52,147 basehttp 7308 1760 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:09:52,152 basehttp 7308 8316 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:12:19,202 basehttp 7308 8316 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-10-09 22:12:19,219 basehttp 7308 1760 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:12:19,251 basehttp 7308 8316 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:13:40,413 basehttp 7308 8316 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:13:40,459 basehttp 7308 8316 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2025-10-09 22:14:24,825 log 7308 8316 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-09 22:14:24,828 basehttp 7308 8316 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4247
+INFO 2025-10-09 22:25:12,499 basehttp 7308 10588 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-10-09 22:25:12,534 basehttp 7308 11784 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-09 22:25:12,535 basehttp 7308 10588 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:26:27,944 basehttp 7308 10588 "GET /accounts/register/ HTTP/1.1" 200 8512
+WARNING 2025-10-09 22:28:00,024 log 7308 10588 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-09 22:28:00,028 basehttp 7308 10588 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4247

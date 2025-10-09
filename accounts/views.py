@@ -24,7 +24,7 @@ from .decorators import student_required, teacher_required, parent_required, pro
 def register_view(request):
     """User registration view with role-based profile creation"""
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('accounts:dashboard')
     
     if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
@@ -69,7 +69,7 @@ def register_view(request):
 def login_view(request):
     """Custom login view with role-based redirect"""
     if request.user.is_authenticated:
-        return redirect('dashboard')
+        return redirect('accounts:dashboard')
     
     if request.method == 'POST':
         form = CustomAuthenticationForm(request, data=request.POST)
@@ -94,7 +94,7 @@ def login_view(request):
                 if next_url:
                     return redirect(next_url)
                 
-                return redirect('dashboard')
+                return redirect('accounts:dashboard')
             else:
                 messages.error(request, 'Invalid username or password.')
     else:
@@ -172,11 +172,11 @@ def dashboard_view(request):
     user = request.user
     
     if user.role == 'student':
-        return redirect('student_dashboard')
+        return redirect('accounts:student_dashboard')
     elif user.role == 'teacher':
-        return redirect('teacher_dashboard')
+        return redirect('accounts:teacher_dashboard')
     elif user.role == 'parent':
-        return redirect('parent_dashboard')
+        return redirect('accounts:parent_dashboard')
     else:
         messages.error(request, 'Invalid user role.')
         return redirect('login')
