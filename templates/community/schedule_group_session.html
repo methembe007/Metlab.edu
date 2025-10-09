@@ -1,0 +1,155 @@
+{% extends 'base.html' %}
+
+{% block title %}Schedule Group Session - {{ study_group.name }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Schedule Group Session</h1>
+            <p class="mt-2 text-gray-600">Schedule a study session for <strong>{{ study_group.name }}</strong></p>
+        </div>
+
+        <!-- Form -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+            <form method="post" class="p-6 space-y-6">
+                {% csrf_token %}
+                
+                <!-- Session Title -->
+                <div>
+                    <label for="title" class="block text-sm font-medium text-gray-700 mb-2">
+                        Session Title <span class="text-red-500">*</span>
+                    </label>
+                    <input type="text" 
+                           id="title" 
+                           name="title" 
+                           required
+                           maxlength="200"
+                           placeholder="Enter a descriptive title for the session"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="mt-1 text-sm text-gray-500">Choose a clear title that describes what you'll be studying</p>
+                </div>
+
+                <!-- Scheduled Time -->
+                <div>
+                    <label for="scheduled_time" class="block text-sm font-medium text-gray-700 mb-2">
+                        Date & Time <span class="text-red-500">*</span>
+                    </label>
+                    <input type="datetime-local" 
+                           id="scheduled_time" 
+                           name="scheduled_time" 
+                           required
+                           min="{{ now|date:'Y-m-d\TH:i' }}"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="mt-1 text-sm text-gray-500">Select when the study session will take place</p>
+                </div>
+
+                <!-- Duration -->
+                <div>
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
+                        Duration (minutes)
+                    </label>
+                    <select id="duration" 
+                            name="duration" 
+                            class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        <option value="30">30 minutes</option>
+                        <option value="45">45 minutes</option>
+                        <option value="60" selected>1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                        <option value="180">3 hours</option>
+                    </select>
+                    <p class="mt-1 text-sm text-gray-500">How long will the session last?</p>
+                </div>
+
+                <!-- Topic -->
+                <div>
+                    <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">
+                        Topic/Focus
+                    </label>
+                    <input type="text" 
+                           id="topic" 
+                           name="topic" 
+                           maxlength="200"
+                           placeholder="e.g., Chapter 5: Calculus Integration"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    <p class="mt-1 text-sm text-gray-500">Specific topic or chapter you'll be focusing on</p>
+                </div>
+
+                <!-- Description -->
+                <div>
+                    <label for="description" class="block text-sm font-medium text-gray-700 mb-2">
+                        Description/Agenda
+                    </label>
+                    <textarea id="description" 
+                              name="description" 
+                              rows="4"
+                              placeholder="Describe what you plan to cover in this session, any materials needed, or agenda items..."
+                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                    <p class="mt-1 text-sm text-gray-500">Help group members prepare for the session</p>
+                </div>
+
+                <!-- Group Info -->
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <h3 class="text-sm font-medium text-blue-900 mb-2">Session Details</h3>
+                    <div class="text-sm text-blue-800 space-y-1">
+                        <p><strong>Group:</strong> {{ study_group.name }}</p>
+                        <p><strong>Subject:</strong> {{ study_group.subject.name }}</p>
+                        <p><strong>Members:</strong> {{ study_group.memberships.count }} will be invited</p>
+                        <p><strong>Study Room:</strong> A virtual study room will be created automatically</p>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="flex justify-between pt-6 border-t border-gray-200">
+                    <a href="{% url 'community:study_group_detail' study_group.id %}" 
+                       class="bg-gray-200 text-gray-700 px-6 py-2 rounded-md hover:bg-gray-300 transition-colors">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        Schedule Session
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Tips -->
+        <div class="mt-8 bg-green-50 border border-green-200 rounded-lg p-6">
+            <h3 class="text-lg font-medium text-green-900 mb-3">Tips for Effective Group Study Sessions</h3>
+            <ul class="space-y-2 text-sm text-green-800">
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">•</span>
+                    Set a clear agenda and share it with the group beforehand
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">•</span>
+                    Choose a specific topic or chapter to keep the session focused
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">•</span>
+                    Schedule sessions at least 24 hours in advance to give members time to prepare
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">•</span>
+                    Keep sessions between 1-2 hours for optimal engagement
+                </li>
+                <li class="flex items-start">
+                    <span class="text-green-600 mr-2">•</span>
+                    Use the group chat to share materials and coordinate before the session
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Set minimum datetime to current time
+    const now = new Date();
+    now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+    document.getElementById('scheduled_time').min = now.toISOString().slice(0, 16);
+});
+</script>
+{% endblock %}

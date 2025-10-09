@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+
+{% block title %}Partner Requests{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Partner Requests</h1>
+        <p class="text-gray-600">Manage your study partner requests</p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Received Requests -->
+        <div class="bg-white rounded-lg shadow-sm border">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-semibold text-gray-900">Received Requests</h2>
+                <p class="text-sm text-gray-600 mt-1">Students who want to be your study partner</p>
+            </div>
+            
+            <div class="divide-y">
+                {% for request in received_requests %}
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                                    <span class="text-blue-600 font-semibold">
+                                        {{ request.requester.user.first_name|first|default:request.requester.user.username|first|upper }}
+                                    </span>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="font-medium text-gray-900">
+                                        {% if request.requester.show_real_name and request.requester.user.get_full_name %}
+                                            {{ request.requester.user.get_full_name }}
+                                        {% else %}
+                                            {{ request.requester.user.username }}
+                                        {% endif %}
+                                    </h3>
+                                    <p class="text-sm text-gray-500">Level {{ request.requester.level }}</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                                {{ request.subject.name }}
+                            </span>
+                        </div>
+                        
+                        {% if request.message %}
+                            <div class="mt-3 p-3 bg-gray-50 rounded-md">
+                                <p class="text-sm text-gray-700">{{ request.message }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xs text-gray-500">{{ request.created_at|timesince }} ago</span>
+                            <div class="flex space-x-2">
+                                <form method="post" action="{% url 'community:respond_to_partner_request' request.id %}" class="inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="decline">
+                                    <button type="submit" class="px-3 py-1 text-sm text-gray-600 hover:text-gray-800">
+                                        Decline
+                                    </button>
+                                </form>
+                                <form method="post" action="{% url 'community:respond_to_partner_request' request.id %}" class="inline">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="action" value="accept">
+                                    <button type="submit" class="px-3 py-1 bg-green-600 text-white text-sm rounded hover:bg-green-700">
+                                        Accept
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="p-6 text-center">
+                        <svg class="mx-auto h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2M4 13h2m13-8l-4 4m0 0l-4-4m4 4V3" />
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-500">No pending requests</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Sent Requests -->
+        <div class="bg-white rounded-lg shadow-sm border">
+            <div class="p-6 border-b">
+                <h2 class="text-xl font-semibold text-gray-900">Sent Requests</h2>
+                <p class="text-sm text-gray-600 mt-1">Requests you've sent to other students</p>
+            </div>
+            
+            <div class="divide-y">
+                {% for request in sent_requests %}
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-gray-100 rounded-full flex items-center justify-center">
+                                    <span class="text-gray-600 font-semibold">
+                                        {{ request.requested.user.first_name|first|default:request.requested.user.username|first|upper }}
+                                    </span>
+                                </div>
+                                <div class="ml-3">
+                                    <h3 class="font-medium text-gray-900">
+                                        {% if request.requested.show_real_name and request.requested.user.get_full_name %}
+                                            {{ request.requested.user.get_full_name }}
+                                        {% else %}
+                                            {{ request.requested.user.username }}
+                                        {% endif %}
+                                    </h3>
+                                    <p class="text-sm text-gray-500">Level {{ request.requested.level }}</p>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full">
+                                {{ request.subject.name }}
+                            </span>
+                        </div>
+                        
+                        {% if request.message %}
+                            <div class="mt-3 p-3 bg-gray-50 rounded-md">
+                                <p class="text-sm text-gray-700">{{ request.message }}</p>
+                            </div>
+                        {% endif %}
+                        
+                        <div class="mt-4 flex items-center justify-between">
+                            <span class="text-xs text-gray-500">{{ request.created_at|timesince }} ago</span>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 text-xs rounded-full">Pending</span>
+                                <form method="post" action="{% url 'community:cancel_partner_request' request.id %}" class="inline">
+                                    {% csrf_token %}
+                                    <button type="submit" class="px-3 py-1 text-sm text-red-600 hover:text-red-800">
+                                        Cancel
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="p-6 text-center">
+                        <svg class="mx-auto h-8 w-8 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                        </svg>
+                        <p class="mt-2 text-sm text-gray-500">No sent requests</p>
+                        <a href="{% url 'community:study_partner_recommendations' %}" class="mt-2 text-sm text-blue-600 hover:text-blue-800">
+                            Find study partners →
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

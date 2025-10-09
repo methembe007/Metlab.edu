@@ -211,6 +211,72 @@
                     </a>
                 </div>
             </div>
+            
+            <!-- Study Partners Card -->
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-teal-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Study Partners</h3>
+                        <p class="text-sm text-gray-600">Find compatible study partners</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'community:study_partner_recommendations' %}" class="block w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-200 text-center">
+                        Find Partners
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Study Groups Card -->
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-cyan-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Study Groups</h3>
+                        <p class="text-sm text-gray-600">Join collaborative study groups</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'community:study_groups' %}" class="block w-full bg-cyan-600 text-white py-2 px-4 rounded-md hover:bg-cyan-700 transition duration-200 text-center">
+                        Browse Groups
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Tutoring Card -->
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Find Tutors</h3>
+                        <p class="text-sm text-gray-600">Get personalized help</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'community:tutor_recommendations' %}" class="block w-full bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700 transition duration-200 text-center">
+                        Browse Tutors
+                    </a>
+                </div>
+            </div>
         </div>
         <!-- Weakness Reminders Section -->
         {% if weak_topics %}

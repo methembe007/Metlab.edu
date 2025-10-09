@@ -1,0 +1,328 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ session.title }} - Group Session{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div class="flex justify-between items-start">
+                <div class="flex-1">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <h1 class="text-2xl font-bold text-gray-900">{{ session.title }}</h1>
+                        <span class="bg-{{ session.status|default:'blue' }}-100 text-{{ session.status|default:'blue' }}-800 text-sm px-2 py-1 rounded-full">
+                            {{ session.get_status_display }}
+                        </span>
+                    </div>
+                    
+                    <div class="flex items-center space-x-6 text-sm text-gray-600 mb-4">
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                            </svg>
+                            {{ session.scheduled_time|date:"M d, Y \a\t H:i" }}
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            {{ session.duration_minutes }} minutes
+                        </span>
+                        <span class="flex items-center">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                            </svg>
+                            {{ study_group.name }}
+                        </span>
+                    </div>
+                    
+                    {% if session.topic %}
+                        <div class="mb-3">
+                            <span class="text-sm font-medium text-gray-700">Topic: </span>
+                            <span class="text-sm text-gray-600">{{ session.topic }}</span>
+                        </div>
+                    {% endif %}
+                    
+                    {% if session.description %}
+                        <div class="mb-4">
+                            <h3 class="text-sm font-medium text-gray-700 mb-2">Description</h3>
+                            <p class="text-sm text-gray-600">{{ session.description|linebreaks }}</p>
+                        </div>
+                    {% endif %}
+                    
+                    <div class="text-sm text-gray-500">
+                        Created by {{ session.created_by.user.get_full_name|default:session.created_by.user.username }}
+                        on {{ session.created_at|date:"M d, Y" }}
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    {% if session.status == 'scheduled' and student_attendance %}
+                        {% if student_attendance.status == 'invited' %}
+                            <button onclick="updateAttendance('confirmed')" 
+                                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                Confirm Attendance
+                            </button>
+                            <button onclick="updateAttendance('cancelled')" 
+                                    class="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+                                Can't Attend
+                            </button>
+                        {% elif student_attendance.status == 'confirmed' %}
+                            <span class="bg-green-100 text-green-800 px-4 py-2 rounded-lg">
+                                ✓ Confirmed
+                            </span>
+                            <button onclick="updateAttendance('cancelled')" 
+                                    class="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+                                Cancel
+                            </button>
+                        {% elif student_attendance.status == 'cancelled' %}
+                            <span class="bg-red-100 text-red-800 px-4 py-2 rounded-lg">
+                                Cancelled
+                            </span>
+                            <button onclick="updateAttendance('confirmed')" 
+                                    class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                Confirm Attendance
+                            </button>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if session.status == 'scheduled' or session.status == 'in_progress' %}
+                        <a href="#" 
+                           onclick="joinStudyRoom()"
+                           class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                            Join Study Room
+                        </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'community:study_group_detail' study_group.id %}" 
+                       class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                        Back to Group
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Session Summary (if completed) -->
+                {% if session.session_summary %}
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">Session Summary</h2>
+                        </div>
+                        <div class="p-4">
+                            <p class="text-gray-700">{{ session.session_summary|linebreaks }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Study Room Info -->
+                {% if session.status == 'scheduled' or session.status == 'in_progress' %}
+                    <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                        <h3 class="text-lg font-medium text-blue-900 mb-3">Virtual Study Room</h3>
+                        <div class="space-y-3 text-sm text-blue-800">
+                            <p>A virtual study room will be available for this session. You can join the room to:</p>
+                            <ul class="list-disc list-inside space-y-1 ml-4">
+                                <li>Video chat with other participants</li>
+                                <li>Share your screen for presentations</li>
+                                <li>Use collaborative whiteboard tools</li>
+                                <li>Share files and resources</li>
+                            </ul>
+                            <div class="mt-4 p-3 bg-blue-100 rounded-md">
+                                <p class="font-medium">Room ID: {{ session.room_id }}</p>
+                                <p class="text-xs mt-1">Share this ID with participants if they need to join manually</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Session Guidelines -->
+                <div class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Study Session Guidelines</h3>
+                    <ul class="space-y-2 text-sm text-gray-700">
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Join the session on time to make the most of your study time
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Come prepared with materials and questions related to the topic
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Be respectful and supportive of other group members
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Use mute when not speaking to minimize background noise
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-gray-500 mr-2">•</span>
+                            Share resources and help explain concepts to others
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Attendance -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">
+                            Attendance ({{ attendance_records.count }})
+                        </h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        {% for attendance in attendance_records %}
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                        {{ attendance.student.user.first_name|first|default:attendance.student.user.username|first|upper }}
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">
+                                            {{ attendance.student.user.get_full_name|default:attendance.student.user.username }}
+                                            {% if attendance.student.id == student.id %}(You){% endif %}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div>
+                                    {% if attendance.status == 'confirmed' %}
+                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                                            Confirmed
+                                        </span>
+                                    {% elif attendance.status == 'cancelled' %}
+                                        <span class="bg-red-100 text-red-800 text-xs px-2 py-1 rounded-full">
+                                            Can't Attend
+                                        </span>
+                                    {% elif attendance.status == 'attended' %}
+                                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">
+                                            Attended
+                                        </span>
+                                    {% elif attendance.status == 'missed' %}
+                                        <span class="bg-gray-100 text-gray-800 text-xs px-2 py-1 rounded-full">
+                                            Missed
+                                        </span>
+                                    {% else %}
+                                        <span class="bg-yellow-100 text-yellow-800 text-xs px-2 py-1 rounded-full">
+                                            Invited
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Session Details -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Session Details</h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Group</span>
+                            <span class="text-sm font-medium text-gray-900">{{ study_group.name }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Subject</span>
+                            <span class="text-sm font-medium text-gray-900">{{ study_group.subject.name }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Duration</span>
+                            <span class="text-sm font-medium text-gray-900">{{ session.duration_minutes }} min</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Status</span>
+                            <span class="text-sm font-medium text-gray-900">{{ session.get_status_display }}</span>
+                        </div>
+                        {% if session.room_id %}
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Room ID</span>
+                                <span class="text-sm font-medium text-gray-900 font-mono">{{ session.room_id|truncatechars:12 }}</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Quick Actions</h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <a href="{% url 'community:study_group_detail' study_group.id %}" 
+                           class="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            View Group Chat
+                        </a>
+                        <a href="{% url 'community:my_study_groups' %}" 
+                           class="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                            My Study Groups
+                        </a>
+                        {% if session.created_by.id == student.id %}
+                            <button onclick="alert('Session management features coming soon!')" 
+                                    class="block w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 rounded-md transition-colors">
+                                Edit Session
+                            </button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function updateAttendance(status) {
+    fetch(`/community/group-sessions/{{ session.id }}/attendance/`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+        },
+        body: JSON.stringify({ status: status })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error updating attendance: ' + data.error);
+        } else {
+            // Reload page to show updated status
+            location.reload();
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('Failed to update attendance');
+    });
+}
+
+function joinStudyRoom() {
+    // This would integrate with a video conferencing service like WebRTC
+    alert('Study room feature will be integrated with video conferencing service. Room ID: {{ session.room_id }}');
+    
+    // For now, we'll just show the room ID
+    // In a real implementation, this would:
+    // 1. Open a video conference room
+    // 2. Update attendance status to 'attended'
+    // 3. Track join/leave times
+}
+
+// Add CSRF token to all forms
+document.addEventListener('DOMContentLoaded', function() {
+    // Add CSRF token as a meta tag for JavaScript access
+    if (!document.querySelector('meta[name="csrf-token"]')) {
+        const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]');
+        if (csrfToken) {
+            const meta = document.createElement('meta');
+            meta.name = 'csrf-token';
+            meta.content = csrfToken.value;
+            document.head.appendChild(meta);
+        }
+    }
+});
+</script>
+{% endblock %}

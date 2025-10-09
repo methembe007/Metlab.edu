@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}Schedule Study Session{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-2xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Schedule Study Session</h1>
+            <p class="text-gray-600">Plan a study session with your partner</p>
+        </div>
+
+        <!-- Partner Info -->
+        <div class="bg-white rounded-lg shadow-sm border p-6 mb-6">
+            <div class="flex items-center">
+                <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                    <span class="text-blue-600 font-semibold text-lg">
+                        {{ partner.user.first_name|first|default:partner.user.username|first|upper }}
+                    </span>
+                </div>
+                <div class="ml-4">
+                    <h2 class="text-lg font-semibold text-gray-900">
+                        Study Session with 
+                        {% if partner.show_real_name and partner.user.get_full_name %}
+                            {{ partner.user.get_full_name }}
+                        {% else %}
+                            {{ partner.user.username }}
+                        {% endif %}
+                    </h2>
+                    <p class="text-gray-600">{{ partnership.subject.name }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scheduling Form -->
+        <div class="bg-white rounded-lg shadow-sm border">
+            <form method="post" class="p-6">
+                {% csrf_token %}
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                    <div>
+                        <label for="scheduled_time" class="block text-sm font-medium text-gray-700 mb-2">
+                            Date & Time
+                        </label>
+                        <input type="datetime-local" 
+                               name="scheduled_time" 
+                               id="scheduled_time" 
+                               required
+                               min="{{ now|date:'Y-m-d\TH:i' }}"
+                               class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+                    
+                    <div>
+                        <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">
+                            Duration (minutes)
+                        </label>
+                        <select name="duration" id="duration" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option value="30">30 minutes</option>
+                            <option value="60" selected>1 hour</option>
+                            <option value="90">1.5 hours</option>
+                            <option value="120">2 hours</option>
+                            <option value="180">3 hours</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="mb-6">
+                    <label for="topic" class="block text-sm font-medium text-gray-700 mb-2">
+                        Topic/Focus (Optional)
+                    </label>
+                    <input type="text" 
+                           name="topic" 
+                           id="topic" 
+                           placeholder="e.g., Chapter 5: Calculus derivatives"
+                           class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+                
+                <div class="mb-6">
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">
+                        Notes/Agenda (Optional)
+                    </label>
+                    <textarea name="notes" 
+                              id="notes" 
+                              rows="4" 
+                              placeholder="Add any notes, agenda items, or materials to bring..."
+                              class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                </div>
+                
+                <!-- Session Guidelines -->
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+                    <h3 class="text-sm font-medium text-blue-900 mb-2">Study Session Tips</h3>
+                    <ul class="text-sm text-blue-800 space-y-1">
+                        <li>• Come prepared with specific questions or topics to discuss</li>
+                        <li>• Bring your study materials and notes</li>
+                        <li>• Be respectful of your partner's time and learning style</li>
+                        <li>• Consider using video chat for remote sessions</li>
+                    </ul>
+                </div>
+                
+                <div class="flex justify-end space-x-4">
+                    <a href="{% url 'community:my_study_partners' %}" 
+                       class="px-4 py-2 text-gray-700 hover:text-gray-900">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        Schedule Session
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+// Set minimum datetime to current time
+document.addEventListener('DOMContentLoaded', function() {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    
+    const minDateTime = `${year}-${month}-${day}T${hours}:${minutes}`;
+    document.getElementById('scheduled_time').min = minDateTime;
+});
+</script>
+{% endblock %}

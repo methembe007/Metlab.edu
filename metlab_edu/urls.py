@@ -30,6 +30,7 @@ urlpatterns = [
     path('content/', include('content.urls')),
     path('learning/', include('learning.urls')),
     path('gamification/', include('gamification.urls')),
+    path('community/', include('community.urls')),
     path('', home_redirect, name='home'),
 ]
 

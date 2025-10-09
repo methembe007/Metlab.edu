@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Book Session with {{ tutor.user.get_full_name|default:tutor.user.username }}{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="{% url 'community:tutor_detail' tutor.id %}"
+                class="text-blue-600 hover:text-blue-800 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to Profile
+            </a>
+        </div>
+
+        <!-- Booking Form -->
+        <div class="bg-white rounded-lg shadow-sm p-8">
+            <div class="mb-6">
+                <h1 class="text-2xl font-bold text-gray-900 mb-2">Book a Session</h1>
+                <p class="text-gray-600">Schedule a tutoring session with {{
+                    tutor.user.get_full_name|default:tutor.user.username }}</p>
+            </div>
+
+            <!-- Tutor Info -->
+            <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                <div class="flex items-center">
+                    <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-blue-600 font-semibold text-lg">
+                            {{ tutor.user.first_name.0|default:tutor.user.username.0|upper }}
+                        </span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="font-medium text-gray-900">{{ tutor.user.get_full_name|default:tutor.user.username }}
+                        </h3>
+                        <p class="text-sm text-gray-600">${{ tutor.hourly_rate }}/hour • {{
+                            tutor.get_experience_level_display }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <form method="post" id="booking-form">
+                {% csrf_token %}
+
+                <!-- Subject Selection -->
+                <div class="mb-6">
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                    <select name="subject" id="subject" required
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="">Select a subject</option>
+                        {% for subject in subjects %}
+                        <option value="{{ subject.id }}">{{ subject.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Date and Time Selection -->
+                <div class="mb-6">
+                    <label for="scheduled_time" class="block text-sm font-medium text-gray-700 mb-2">Date and
+                        Time</label>
+                    <input type="datetime-local" name="scheduled_time" id="scheduled_time" required
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                    <p class="mt-1 text-sm text-gray-500">Select a date and time when the tutor is available</p>
+                </div>
+
+                <!-- Duration -->
+                <div class="mb-6">
+                    <label for="duration" class="block text-sm font-medium text-gray-700 mb-2">Duration</label>
+                    <select name="duration" id="duration"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="30">30 minutes</option>
+                        <option value="60" selected>1 hour</option>
+                        <option value="90">1.5 hours</option>
+                        <option value="120">2 hours</option>
+                    </select>
+                </div>
+
+                <!-- Notes -->
+                <div class="mb-6">
+                    <label for="notes" class="block text-sm font-medium text-gray-700 mb-2">Additional Notes
+                        (Optional)</label>
+                    <textarea name="notes" id="notes" rows="4"
+                        class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500"
+                        placeholder="Any specific topics you'd like to focus on or questions you have..."></textarea>
+                </div>
+
+                <!-- Cost Calculation -->
+                <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm font-medium text-gray-700">Estimated Cost:</span>
+                        <span class="text-lg font-bold text-blue-600" id="estimated-cost">${{ tutor.hourly_rate
+                            }}</span>
+                    </div>
+                    <p class="text-xs text-gray-500 mt-1">Final cost will be calculated based on actual session duration
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <div class="flex space-x-4">
+                    <button type="submit"
+                        class="flex-1 bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 transition-colors font-medium">
+                        Send Booking Request
+                    </button>
+                    <a href="{% url 'community:tutor_detail' tutor.id %}"
+                        class="flex-1 bg-gray-200 text-gray-800 py-3 px-4 rounded-md hover:bg-gray-300 transition-colors font-medium text-center">
+                        Cancel
+                    </a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const durationSelect = document.getElementById('duration');
+        const estimatedCostSpan = document.getElementById('estimated-cost');
+        const hourlyRate = parseFloat('{{ tutor.hourly_rate }}');
+
+        function updateCost() {
+            const duration = parseInt(durationSelect.value);
+            const hours = duration / 60;
+            const cost = (hourlyRate * hours).toFixed(2);
+            estimatedCostSpan.textContent = '$' + cost;
+        }
+
+        durationSelect.addEventListener('change', updateCost);
+
+        // Set minimum datetime to current time
+        const now = new Date();
+        now.setMinutes(now.getMinutes() - now.getTimezoneOffset());
+        document.getElementById('scheduled_time').min = now.toISOString().slice(0, 16);
+    });
+</script>
+{% endblock %}

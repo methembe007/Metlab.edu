@@ -1,0 +1,137 @@
+[
+  {
+    "model": "community.subject",
+    "pk": 1,
+    "fields": {
+      "name": "Mathematics",
+      "description": "Algebra, Geometry, Calculus, Statistics, and other mathematical topics",
+      "category": "STEM"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 2,
+    "fields": {
+      "name": "Physics",
+      "description": "Classical mechanics, thermodynamics, electromagnetism, quantum physics",
+      "category": "STEM"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 3,
+    "fields": {
+      "name": "Chemistry",
+      "description": "Organic, inorganic, physical chemistry, and biochemistry",
+      "category": "STEM"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 4,
+    "fields": {
+      "name": "Biology",
+      "description": "Cell biology, genetics, ecology, anatomy, and physiology",
+      "category": "STEM"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 5,
+    "fields": {
+      "name": "Computer Science",
+      "description": "Programming, algorithms, data structures, software engineering",
+      "category": "STEM"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 6,
+    "fields": {
+      "name": "English Literature",
+      "description": "Reading comprehension, writing, literary analysis, grammar",
+      "category": "Humanities"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 7,
+    "fields": {
+      "name": "History",
+      "description": "World history, American history, European history, ancient civilizations",
+      "category": "Humanities"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 8,
+    "fields": {
+      "name": "Spanish",
+      "description": "Spanish language learning, grammar, conversation, literature",
+      "category": "Languages"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 9,
+    "fields": {
+      "name": "French",
+      "description": "French language learning, grammar, conversation, culture",
+      "category": "Languages"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 10,
+    "fields": {
+      "name": "Economics",
+      "description": "Microeconomics, macroeconomics, business principles, finance",
+      "category": "Social Sciences"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 11,
+    "fields": {
+      "name": "Psychology",
+      "description": "Cognitive psychology, behavioral psychology, developmental psychology",
+      "category": "Social Sciences"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 12,
+    "fields": {
+      "name": "Art",
+      "description": "Drawing, painting, sculpture, art history, digital art",
+      "category": "Arts"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 13,
+    "fields": {
+      "name": "Music",
+      "description": "Music theory, instrument instruction, composition, music history",
+      "category": "Arts"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 14,
+    "fields": {
+      "name": "Geography",
+      "description": "Physical geography, human geography, cartography, environmental science",
+      "category": "Social Sciences"
+    }
+  },
+  {
+    "model": "community.subject",
+    "pk": 15,
+    "fields": {
+      "name": "Philosophy",
+      "description": "Logic, ethics, metaphysics, political philosophy, critical thinking",
+      "category": "Humanities"
+    }
+  }
+]

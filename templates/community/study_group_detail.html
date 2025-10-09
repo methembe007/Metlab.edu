@@ -1,0 +1,357 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ study_group.name }} - Study Group{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div class="flex justify-between items-start">
+                <div class="flex-1">
+                    <div class="flex items-center space-x-3 mb-2">
+                        <h1 class="text-2xl font-bold text-gray-900">{{ study_group.name }}</h1>
+                        <span class="bg-blue-100 text-blue-800 text-sm px-2 py-1 rounded-full">
+                            {{ study_group.subject.name }}
+                        </span>
+                        {% if study_group.status != 'active' %}
+                            <span class="bg-gray-100 text-gray-800 text-sm px-2 py-1 rounded-full">
+                                {{ study_group.get_status_display }}
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    {% if study_group.description %}
+                        <p class="text-gray-600 mb-4">{{ study_group.description }}</p>
+                    {% endif %}
+                    
+                    <div class="flex items-center space-x-6 text-sm text-gray-500">
+                        <span>Created by {{ study_group.created_by.user.get_full_name|default:study_group.created_by.user.username }}</span>
+                        <span>{{ members.count }}/{{ study_group.max_members }} members</span>
+                        <span>{{ study_group.created_at|date:"M d, Y" }}</span>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    {% if is_member %}
+                        {% if membership.role == 'admin' %}
+                            <a href="{% url 'community:schedule_group_session' study_group.id %}" 
+                               class="bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+                                Schedule Session
+                            </a>
+                        {% endif %}
+                        <form method="post" action="{% url 'community:leave_study_group' study_group.id %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    onclick="return confirm('Are you sure you want to leave this study group?')"
+                                    class="bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors">
+                                Leave Group
+                            </button>
+                        </form>
+                    {% elif can_join %}
+                        <form method="post" action="{% url 'community:join_study_group' study_group.id %}" class="inline">
+                            {% csrf_token %}
+                            <button type="submit" 
+                                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+                                {% if study_group.requires_approval %}Request to Join{% else %}Join Group{% endif %}
+                            </button>
+                        </form>
+                    {% endif %}
+                    
+                    <a href="{% url 'community:study_groups' %}" 
+                       class="bg-gray-200 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-300 transition-colors">
+                        Back to Groups
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            <!-- Main Content -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Chat Section (only for members) -->
+                {% if is_member %}
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">Group Chat</h2>
+                        </div>
+                        
+                        <!-- Messages Container -->
+                        <div id="messages-container" class="h-96 overflow-y-auto p-4 space-y-3">
+                            {% for message in messages %}
+                                <div class="flex items-start space-x-3 {% if message.sender and message.sender.id == student.id %}flex-row-reverse space-x-reverse{% endif %}">
+                                    {% if message.message_type == 'system' %}
+                                        <div class="w-full text-center">
+                                            <span class="bg-gray-100 text-gray-600 text-sm px-3 py-1 rounded-full">
+                                                {{ message.content }}
+                                            </span>
+                                        </div>
+                                    {% else %}
+                                        <div class="flex-shrink-0">
+                                            <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                                {{ message.sender.user.first_name|first|default:message.sender.user.username|first|upper }}
+                                            </div>
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <div class="flex items-center space-x-2 mb-1">
+                                                <span class="text-sm font-medium text-gray-900">
+                                                    {{ message.sender.user.get_full_name|default:message.sender.user.username }}
+                                                </span>
+                                                <span class="text-xs text-gray-500">
+                                                    {{ message.created_at|date:"M d, H:i" }}
+                                                </span>
+                                            </div>
+                                            <div class="bg-gray-100 rounded-lg px-3 py-2 {% if message.sender.id == student.id %}bg-blue-100{% endif %}">
+                                                <p class="text-sm text-gray-900">{{ message.content }}</p>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% empty %}
+                                <div class="text-center text-gray-500 py-8">
+                                    <p>No messages yet. Start the conversation!</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        
+                        <!-- Message Input -->
+                        <div class="p-4 border-t border-gray-200">
+                            <form id="message-form" class="flex space-x-3">
+                                {% csrf_token %}
+                                <input type="text" 
+                                       id="message-input" 
+                                       placeholder="Type your message..."
+                                       class="flex-1 px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <button type="submit" 
+                                        class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                                    Send
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Upcoming Sessions -->
+                {% if upcoming_sessions %}
+                    <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                        <div class="p-4 border-b border-gray-200">
+                            <h2 class="text-lg font-semibold text-gray-900">Upcoming Sessions</h2>
+                        </div>
+                        <div class="p-4 space-y-3">
+                            {% for session in upcoming_sessions %}
+                                <div class="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                    <div>
+                                        <h3 class="font-medium text-gray-900">{{ session.title }}</h3>
+                                        <p class="text-sm text-gray-600">{{ session.scheduled_time|date:"M d, Y \a\t H:i" }}</p>
+                                        {% if session.topic %}
+                                            <p class="text-sm text-gray-500">Topic: {{ session.topic }}</p>
+                                        {% endif %}
+                                    </div>
+                                    <a href="{% url 'community:group_session_detail' session.id %}" 
+                                       class="text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                        View Details
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Members -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Members ({{ members.count }})</h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        {% for member in members %}
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                                        {{ member.student.user.first_name|first|default:member.student.user.username|first|upper }}
+                                    </div>
+                                    <div>
+                                        <p class="text-sm font-medium text-gray-900">
+                                            {{ member.student.user.get_full_name|default:member.student.user.username }}
+                                        </p>
+                                        <p class="text-xs text-gray-500">
+                                            Joined {{ member.joined_at|date:"M d, Y" }}
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    {% if member.role == 'admin' %}
+                                        <span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded-full">
+                                            Admin
+                                        </span>
+                                    {% elif member.role == 'moderator' %}
+                                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
+                                            Moderator
+                                        </span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+
+                <!-- Group Stats -->
+                <div class="bg-white rounded-lg shadow-sm border border-gray-200">
+                    <div class="p-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Group Stats</h2>
+                    </div>
+                    <div class="p-4 space-y-3">
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Total Sessions</span>
+                            <span class="text-sm font-medium text-gray-900">{{ study_group.total_sessions }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Created</span>
+                            <span class="text-sm font-medium text-gray-900">{{ study_group.created_at|date:"M d, Y" }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-sm text-gray-600">Visibility</span>
+                            <span class="text-sm font-medium text-gray-900">
+                                {% if study_group.is_public %}Public{% else %}Private{% endif %}
+                            </span>
+                        </div>
+                        {% if study_group.requires_approval %}
+                            <div class="flex justify-between">
+                                <span class="text-sm text-gray-600">Approval</span>
+                                <span class="text-sm font-medium text-gray-900">Required</span>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if is_member %}
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const messageForm = document.getElementById('message-form');
+    const messageInput = document.getElementById('message-input');
+    const messagesContainer = document.getElementById('messages-container');
+    const groupId = parseInt('{{ study_group.id }}');
+    let lastMessageTime = null;
+
+    // Auto-scroll to bottom of messages
+    function scrollToBottom() {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // Initial scroll to bottom
+    scrollToBottom();
+
+    // Send message
+    messageForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const content = messageInput.value.trim();
+        if (!content) return;
+
+        fetch(`/community/study-groups/${groupId}/send-message/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+            },
+            body: JSON.stringify({ content: content })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.error) {
+                alert('Error sending message: ' + data.error);
+            } else {
+                messageInput.value = '';
+                // Message will be added by polling
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Failed to send message');
+        });
+    });
+
+    // Poll for new messages
+    function pollMessages() {
+        let url = `/community/study-groups/${groupId}/messages/`;
+        if (lastMessageTime) {
+            url += `?after=${lastMessageTime}`;
+        }
+
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            if (data.messages && data.messages.length > 0) {
+                data.messages.forEach(message => {
+                    addMessageToChat(message);
+                    lastMessageTime = message.created_at;
+                });
+                scrollToBottom();
+            }
+        })
+        .catch(error => {
+            console.error('Error polling messages:', error);
+        });
+    }
+
+    // Add message to chat
+    function addMessageToChat(message) {
+        const messageDiv = document.createElement('div');
+        const studentId = parseInt('{{ student.id }}');
+        const isOwnMessage = message.sender && message.sender.id === studentId;
+        
+        if (message.message_type === 'system') {
+            messageDiv.innerHTML = `
+                <div class="w-full text-center">
+                    <span class="bg-gray-100 text-gray-600 text-sm px-3 py-1 rounded-full">
+                        ${message.content}
+                    </span>
+                </div>
+            `;
+        } else {
+            const senderInitial = message.sender.name.charAt(0).toUpperCase();
+            const messageTime = new Date(message.created_at).toLocaleString('en-US', {
+                month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit'
+            });
+            
+            messageDiv.className = `flex items-start space-x-3 ${isOwnMessage ? 'flex-row-reverse space-x-reverse' : ''}`;
+            messageDiv.innerHTML = `
+                <div class="flex-shrink-0">
+                    <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center text-white text-sm font-medium">
+                        ${senderInitial}
+                    </div>
+                </div>
+                <div class="flex-1 min-w-0">
+                    <div class="flex items-center space-x-2 mb-1">
+                        <span class="text-sm font-medium text-gray-900">
+                            ${message.sender.name}
+                        </span>
+                        <span class="text-xs text-gray-500">
+                            ${messageTime}
+                        </span>
+                    </div>
+                    <div class="bg-gray-100 rounded-lg px-3 py-2 ${isOwnMessage ? 'bg-blue-100' : ''}">
+                        <p class="text-sm text-gray-900">${message.content}</p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        messagesContainer.appendChild(messageDiv);
+    }
+
+    // Set up polling interval
+    setInterval(pollMessages, 3000); // Poll every 3 seconds
+    
+    // Initial poll to get latest messages
+    setTimeout(pollMessages, 1000);
+});
+</script>
+{% endif %}
+{% endblock %}

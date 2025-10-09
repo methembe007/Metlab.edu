@@ -41,6 +41,12 @@
                                 </a>
                             {% endif %}
                             {% if user_role == 'student' %}
+                                <a href="{% url 'community:tutor_recommendations' %}" class="text-gray-700 hover:text-blue-600">
+                                    Find Tutors
+                                </a>
+                                <a href="{% url 'community:my_bookings' %}" class="text-gray-700 hover:text-blue-600">
+                                    My Bookings
+                                </a>
                                 <a href="{% url 'gamification:achievements' %}" class="text-gray-700 hover:text-blue-600">
                                     Achievements
                                 </a>

@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block title %}Study Session Details{% endblock %}
+
+{% block content %}
+<div class="container mx-auto px-4 py-8">
+    <div class="max-w-4xl mx-auto">
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900 mb-2">Study Session Details</h1>
+            <p class="text-gray-600">{{ partnership.subject.name }} session</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <!-- Main Session Info -->
+            <div class="lg:col-span-2 space-y-6">
+                <!-- Session Overview -->
+                <div class="bg-white rounded-lg shadow-sm border">
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h2 class="text-xl font-semibold text-gray-900">Session Overview</h2>
+                            <span class="px-3 py-1 rounded-full text-sm font-medium
+                                {% if session.status == 'scheduled' %}bg-blue-100 text-blue-800
+                                {% elif session.status == 'in_progress' %}bg-green-100 text-green-800
+                                {% elif session.status == 'completed' %}bg-gray-100 text-gray-800
+                                {% elif session.status == 'cancelled' %}bg-red-100 text-red-800
+                                {% else %}bg-yellow-100 text-yellow-800{% endif %}">
+                                {{ session.get_status_display }}
+                            </span>
+                        </div>
+                        
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-gray-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Date & Time</p>
+                                    <p class="font-medium">{{ session.scheduled_time|date:"M d, Y g:i A" }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <svg class="w-5 h-5 text-gray-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd"></path>
+                                </svg>
+                                <div>
+                                    <p class="text-sm text-gray-500">Duration</p>
+                                    <p class="font-medium">{{ session.duration_minutes }} minutes</p>
+                                </div>
+                            </div>
+                            
+                            {% if session.topic %}
+                                <div class="flex items-center md:col-span-2">
+                                    <svg class="w-5 h-5 text-gray-400 mr-3" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4zm2 6a1 1 0 011-1h6a1 1 0 110 2H7a1 1 0 01-1-1zm1 3a1 1 0 100 2h6a1 1 0 100-2H7z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <div>
+                                        <p class="text-sm text-gray-500">Topic</p>
+                                        <p class="font-medium">{{ session.topic }}</p>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Session Notes -->
+                {% if session.notes %}
+                    <div class="bg-white rounded-lg shadow-sm border">
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Session Notes</h3>
+                            <div class="prose prose-sm max-w-none">
+                                <p class="text-gray-700">{{ session.notes|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Session Summary (for completed sessions) -->
+                {% if session.status == 'completed' and session.session_summary %}
+                    <div class="bg-white rounded-lg shadow-sm border">
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-3">Session Summary</h3>
+                            <div class="prose prose-sm max-w-none">
+                                <p class="text-gray-700">{{ session.session_summary|linebreaks }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+                <!-- Actions -->
+                {% if session.status == 'scheduled' %}
+                    <div class="bg-white rounded-lg shadow-sm border">
+                        <div class="p-6">
+                            <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Actions</h3>
+                            <div class="flex flex-wrap gap-3">
+                                <button class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500">
+                                    Join Session
+                                </button>
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    Send Message
+                                </button>
+                                <button class="px-4 py-2 text-gray-700 border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-500">
+                                    Reschedule
+                                </button>
+                                <button class="px-4 py-2 text-red-700 border border-red-300 rounded-md hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-red-500">
+                                    Cancel Session
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Sidebar -->
+            <div class="space-y-6">
+                <!-- Study Partner Info -->
+                <div class="bg-white rounded-lg shadow-sm border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Study Partner</h3>
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                <span class="text-blue-600 font-semibold text-lg">
+                                    {{ partner.user.first_name|first|default:partner.user.username|first|upper }}
+                                </span>
+                            </div>
+                            <div class="ml-3">
+                                <h4 class="font-medium text-gray-900">
+                                    {% if partner.show_real_name and partner.user.get_full_name %}
+                                        {{ partner.user.get_full_name }}
+                                    {% else %}
+                                        {{ partner.user.username }}
+                                    {% endif %}
+                                </h4>
+                                <p class="text-sm text-gray-500">Level {{ partner.level }}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4 pt-4 border-t">
+                            <div class="flex items-center justify-between text-sm">
+                                <span class="text-gray-500">Current Streak</span>
+                                <span class="font-medium">{{ partner.current_streak }} days</span>
+                            </div>
+                            <div class="flex items-center justify-between text-sm mt-2">
+                                <span class="text-gray-500">Total XP</span>
+                                <span class="font-medium">{{ partner.total_xp }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="mt-4">
+                            <button class="w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                Send Message
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Partnership Stats -->
+                <div class="bg-white rounded-lg shadow-sm border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Partnership Stats</h3>
+                        
+                        <div class="space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Subject</span>
+                                <span class="text-sm font-medium">{{ partnership.subject.name }}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Total Sessions</span>
+                                <span class="text-sm font-medium">{{ partnership.total_sessions }}</span>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm text-gray-500">Partnership Since</span>
+                                <span class="text-sm font-medium">{{ partnership.created_at|date:"M Y" }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="bg-white rounded-lg shadow-sm border">
+                    <div class="p-6">
+                        <h3 class="text-lg font-semibold text-gray-900 mb-4">Quick Links</h3>
+                        
+                        <div class="space-y-2">
+                            <a href="{% url 'community:my_study_partners' %}" 
+                               class="block text-sm text-blue-600 hover:text-blue-800">
+                                ← Back to My Partners
+                            </a>
+                            <a href="{% url 'community:my_study_sessions' %}" 
+                               class="block text-sm text-blue-600 hover:text-blue-800">
+                                View All Sessions
+                            </a>
+                            <a href="{% url 'community:schedule_study_session' partnership.id %}" 
+                               class="block text-sm text-blue-600 hover:text-blue-800">
+                                Schedule Another Session
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

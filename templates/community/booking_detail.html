@@ -1,0 +1,219 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Booking Details - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Back Button -->
+        <div class="mb-6">
+            <a href="{% url 'community:my_bookings' %}" class="text-blue-600 hover:text-blue-800 flex items-center">
+                <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Back to My Bookings
+            </a>
+        </div>
+
+        <!-- Booking Details -->
+        <div class="bg-white rounded-lg shadow-sm p-8">
+            <div class="flex justify-between items-start mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 mb-2">Booking Details</h1>
+                    <p class="text-gray-600">Booking #{{ booking.id }}</p>
+                </div>
+                
+                <!-- Status Badge -->
+                <div>
+                    {% if booking.status == 'pending' %}
+                        <span class="bg-yellow-100 text-yellow-800 text-sm font-medium px-3 py-1 rounded-full">
+                            Pending Confirmation
+                        </span>
+                    {% elif booking.status == 'confirmed' %}
+                        <span class="bg-green-100 text-green-800 text-sm font-medium px-3 py-1 rounded-full">
+                            Confirmed
+                        </span>
+                    {% elif booking.status == 'in_progress' %}
+                        <span class="bg-blue-100 text-blue-800 text-sm font-medium px-3 py-1 rounded-full">
+                            In Progress
+                        </span>
+                    {% elif booking.status == 'completed' %}
+                        <span class="bg-gray-100 text-gray-800 text-sm font-medium px-3 py-1 rounded-full">
+                            Completed
+                        </span>
+                    {% elif booking.status == 'cancelled' %}
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">
+                            Cancelled
+                        </span>
+                    {% elif booking.status == 'no_show' %}
+                        <span class="bg-red-100 text-red-800 text-sm font-medium px-3 py-1 rounded-full">
+                            No Show
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Tutor Information -->
+            <div class="bg-gray-50 rounded-lg p-6 mb-6">
+                <h2 class="text-lg font-semibold text-gray-900 mb-4">Tutor Information</h2>
+                <div class="flex items-center">
+                    <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                        <span class="text-blue-600 font-bold text-xl">
+                            {{ booking.tutor.user.first_name.0|default:booking.tutor.user.username.0|upper }}
+                        </span>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">
+                            {{ booking.tutor.user.get_full_name|default:booking.tutor.user.username }}
+                        </h3>
+                        <p class="text-gray-600">{{ booking.tutor.get_experience_level_display }}</p>
+                        <div class="flex items-center mt-1">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= booking.tutor.rating %}
+                                    <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ml-2 text-sm text-gray-600">
+                                {{ booking.tutor.rating|floatformat:1 }} ({{ booking.tutor.total_reviews }} reviews)
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Session Details -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">Session Information</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Subject:</span>
+                            <span class="font-medium">{{ booking.subject.name }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Date:</span>
+                            <span class="font-medium">{{ booking.scheduled_time|date:"M j, Y" }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Time:</span>
+                            <span class="font-medium">{{ booking.scheduled_time|time:"g:i A" }}</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Duration:</span>
+                            <span class="font-medium">{{ booking.duration_minutes }} minutes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 rounded-lg p-4">
+                    <h3 class="font-medium text-gray-900 mb-2">Payment Information</h3>
+                    <div class="space-y-2 text-sm">
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Hourly Rate:</span>
+                            <span class="font-medium">${{ booking.tutor.hourly_rate }}/hr</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-gray-600">Duration:</span>
+                            <span class="font-medium">{{ booking.duration_minutes|floatformat:0 }} min</span>
+                        </div>
+                        <div class="border-t border-gray-200 pt-2 mt-2">
+                            <div class="flex justify-between">
+                                <span class="text-gray-900 font-medium">Total Cost:</span>
+                                <span class="text-lg font-bold text-gray-900">${{ booking.total_cost }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Notes -->
+            {% if booking.notes %}
+                <div class="bg-gray-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-medium text-gray-900 mb-2">Your Notes</h3>
+                    <p class="text-gray-700">{{ booking.notes }}</p>
+                </div>
+            {% endif %}
+
+            <!-- Session Notes (for completed sessions) -->
+            {% if booking.session_notes and booking.status == 'completed' %}
+                <div class="bg-blue-50 rounded-lg p-4 mb-6">
+                    <h3 class="font-medium text-gray-900 mb-2">Session Summary</h3>
+                    <p class="text-gray-700">{{ booking.session_notes }}</p>
+                </div>
+            {% endif %}
+
+            <!-- Review Section -->
+            {% if booking.status == 'completed' %}
+                {% if booking.review %}
+                    <div class="bg-green-50 rounded-lg p-4 mb-6">
+                        <h3 class="font-medium text-gray-900 mb-2">Your Review</h3>
+                        <div class="flex items-center mb-2">
+                            {% for i in "12345" %}
+                                {% if forloop.counter <= booking.review.rating %}
+                                    <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                {% else %}
+                                    <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
+                                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                    </svg>
+                                {% endif %}
+                            {% endfor %}
+                            <span class="ml-2 text-sm font-medium">{{ booking.review.rating }}/5 stars</span>
+                        </div>
+                        <p class="text-gray-700">{{ booking.review.comment }}</p>
+                        {% if booking.review.would_recommend %}
+                            <div class="mt-2">
+                                <span class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded">
+                                    You recommended this tutor
+                                </span>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                        <div class="flex items-center">
+                            <svg class="w-5 h-5 text-yellow-400 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clip-rule="evenodd"></path>
+                            </svg>
+                            <div>
+                                <h3 class="text-sm font-medium text-yellow-800">Review Pending</h3>
+                                <p class="text-sm text-yellow-700 mt-1">Help other students by sharing your experience with this tutor.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+            {% endif %}
+
+            <!-- Actions -->
+            <div class="flex flex-col sm:flex-row gap-3">
+                {% if booking.status in 'pending,confirmed' %}
+                    <a href="{% url 'community:cancel_booking' booking.id %}" 
+                       class="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors text-center">
+                        Cancel Booking
+                    </a>
+                {% endif %}
+
+                {% if booking.status == 'completed' and not booking.review %}
+                    <a href="{% url 'community:review_tutor' booking.id %}" 
+                       class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors text-center">
+                        Write Review
+                    </a>
+                {% endif %}
+
+                <a href="{% url 'community:tutor_detail' booking.tutor.id %}" 
+                   class="bg-gray-200 text-gray-800 px-6 py-3 rounded-md hover:bg-gray-300 transition-colors text-center">
+                   View Tutor Profile
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

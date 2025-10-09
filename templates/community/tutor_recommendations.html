@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Tutors - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">Find Your Perfect Tutor</h1>
+            <p class="mt-2 text-gray-600">AI-powered recommendations based on your learning profile</p>
+        </div>
+
+        <!-- Filters -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-8">
+            <form method="get" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                <div>
+                    <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">Subject</label>
+                    <select name="subject" id="subject" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="">All Subjects</option>
+                        {% for subject in subjects %}
+                            <option value="{{ subject.name }}" {% if current_filters.subject == subject.name %}selected{% endif %}>
+                                {{ subject.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="experience" class="block text-sm font-medium text-gray-700 mb-2">Experience Level</label>
+                    <select name="experience" id="experience" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="">Any Experience</option>
+                        {% for value, label in experience_levels %}
+                            <option value="{{ value }}" {% if current_filters.experience == value %}selected{% endif %}>
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <div>
+                    <label for="min_rating" class="block text-sm font-medium text-gray-700 mb-2">Minimum Rating</label>
+                    <select name="min_rating" id="min_rating" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="0">Any Rating</option>
+                        <option value="3" {% if current_filters.min_rating == "3" %}selected{% endif %}>3+ Stars</option>
+                        <option value="4" {% if current_filters.min_rating == "4" %}selected{% endif %}>4+ Stars</option>
+                        <option value="4.5" {% if current_filters.min_rating == "4.5" %}selected{% endif %}>4.5+ Stars</option>
+                    </select>
+                </div>
+
+                <div>
+                    <label for="max_rate" class="block text-sm font-medium text-gray-700 mb-2">Max Hourly Rate</label>
+                    <select name="max_rate" id="max_rate" class="w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500">
+                        <option value="">Any Rate</option>
+                        <option value="25" {% if current_filters.max_rate == "25" %}selected{% endif %}>Under $25</option>
+                        <option value="50" {% if current_filters.max_rate == "50" %}selected{% endif %}>Under $50</option>
+                        <option value="75" {% if current_filters.max_rate == "75" %}selected{% endif %}>Under $75</option>
+                        <option value="100" {% if current_filters.max_rate == "100" %}selected{% endif %}>Under $100</option>
+                    </select>
+                </div>
+
+                <div class="md:col-span-4">
+                    <button type="submit" class="bg-blue-600 text-white px-6 py-2 rounded-md hover:bg-blue-700 transition-colors">
+                        Apply Filters
+                    </button>
+                    <a href="{% url 'community:tutor_recommendations' %}" class="ml-3 text-gray-600 hover:text-gray-800">
+                        Clear Filters
+                    </a>
+                </div>
+            </form>
+        </div>
+
+        <!-- Results -->
+        {% if page_obj %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for item in page_obj %}
+                    {% with tutor=item.tutor compatibility_score=item.compatibility_score %}
+                        <div class="bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow">
+                            <div class="p-6">
+                                <!-- Compatibility Score -->
+                                <div class="flex justify-between items-start mb-4">
+                                    <div class="flex items-center">
+                                        <div class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                                            <span class="text-blue-600 font-semibold text-lg">
+                                                {{ tutor.user.first_name.0|default:tutor.user.username.0|upper }}
+                                            </span>
+                                        </div>
+                                        <div class="ml-3">
+                                            <h3 class="text-lg font-semibold text-gray-900">
+                                                {{ tutor.user.get_full_name|default:tutor.user.username }}
+                                            </h3>
+                                            <p class="text-sm text-gray-600">{{ tutor.get_experience_level_display }}</p>
+                                        </div>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="bg-green-100 text-green-800 text-xs font-medium px-2 py-1 rounded-full">
+                                            {{ compatibility_score|floatformat:0 }}% Match
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Rating and Reviews -->
+                                <div class="flex items-center mb-3">
+                                    <div class="flex items-center">
+                                        {% for i in "12345" %}
+                                            {% if forloop.counter <= tutor.rating %}
+                                                <svg class="w-4 h-4 text-yellow-400 fill-current" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                                </svg>
+                                            {% else %}
+                                                <svg class="w-4 h-4 text-gray-300 fill-current" viewBox="0 0 20 20">
+                                                    <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/>
+                                                </svg>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <span class="ml-2 text-sm text-gray-600">
+                                            {{ tutor.rating|floatformat:1 }} ({{ tutor.total_reviews }} reviews)
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <!-- Subjects -->
+                                <div class="mb-4">
+                                    <div class="flex flex-wrap gap-1">
+                                        {% for subject in tutor.subjects.all|slice:":3" %}
+                                            <span class="bg-blue-100 text-blue-800 text-xs font-medium px-2 py-1 rounded">
+                                                {{ subject.name }}
+                                            </span>
+                                        {% endfor %}
+                                        {% if tutor.subjects.count > 3 %}
+                                            <span class="text-xs text-gray-500">+{{ tutor.subjects.count|add:"-3" }} more</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+
+                                <!-- Bio Preview -->
+                                <p class="text-sm text-gray-600 mb-4 line-clamp-3">
+                                    {{ tutor.bio|truncatewords:20 }}
+                                </p>
+
+                                <!-- Rate and Actions -->
+                                <div class="flex justify-between items-center">
+                                    <div class="text-lg font-semibold text-gray-900">
+                                        ${{ tutor.hourly_rate }}/hr
+                                    </div>
+                                    <div class="space-x-2">
+                                        <a href="{% url 'community:tutor_detail' tutor.id %}" 
+                                           class="bg-blue-600 text-white px-4 py-2 rounded-md text-sm hover:bg-blue-700 transition-colors">
+                                            View Profile
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endwith %}
+                {% endfor %}
+            </div>
+
+            <!-- Pagination -->
+            {% if page_obj.has_other_pages %}
+                <div class="mt-8 flex justify-center">
+                    <nav class="flex items-center space-x-2">
+                        {% if page_obj.has_previous %}
+                            <a href="?page={{ page_obj.previous_page_number }}{% for key, value in current_filters.items %}{% if value %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                               class="px-3 py-2 text-sm text-gray-600 hover:text-gray-800">
+                                Previous
+                            </a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="px-3 py-2 text-sm bg-blue-600 text-white rounded">{{ num }}</span>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a href="?page={{ num }}{% for key, value in current_filters.items %}{% if value %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                                   class="px-3 py-2 text-sm text-gray-600 hover:text-gray-800">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}{% for key, value in current_filters.items %}{% if value %}&{{ key }}={{ value }}{% endif %}{% endfor %}" 
+                               class="px-3 py-2 text-sm text-gray-600 hover:text-gray-800">
+                                Next
+                            </a>
+                        {% endif %}
+                    </nav>
+                </div>
+            {% endif %}
+        {% else %}
+            <div class="text-center py-12">
+                <div class="text-gray-400 text-6xl mb-4">🔍</div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No tutors found</h3>
+                <p class="text-gray-600">Try adjusting your filters to see more results.</p>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
