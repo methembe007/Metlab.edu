@@ -1,619 +1,683 @@
 """
-Comprehensive system validation script for the AI Learning Platform.
-Validates all components, data flows, and integrations are working correctly.
+Comprehensive system validation for Metlab.edu AI Learning Platform
+Validates all system components and generates deployment readiness report
 """
 
 import os
 import sys
-import django
-import subprocess
 import time
 import json
+import subprocess
 from datetime import datetime
 from pathlib import Path
 
+# Add project root to Python path
+project_root = Path(__file__).parent.parent
+sys.path.insert(0, str(project_root))
+
 # Setup Django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'metlab_edu.settings')
+import django
 django.setup()
 
-from django.core.management import execute_from_command_line
-from django.test.utils import get_runner
 from django.conf import settings
+from django.core.management import call_command
 from django.db import connection
 from django.core.cache import cache
+from django.contrib.auth import get_user_model
+from io import StringIO
+
+User = get_user_model()
 
 
 class SystemValidator:
     """Comprehensive system validation"""
     
     def __init__(self):
-        self.results = []
-        self.start_time = time.time()
-        self.validation_report = {
+        self.results = {
             'timestamp': datetime.now().isoformat(),
-            'system_info': self.get_system_info(),
-            'validations': []
+            'overall_status': 'UNKNOWN',
+            'categories': {},
+            'recommendations': [],
+            'deployment_ready': False
         }
     
-    def get_system_info(self):
-        """Get system information"""
-        return {
-            'python_version': sys.version,
-            'django_version': django.get_version(),
-            'database_engine': settings.DATABASES['default']['ENGINE'],
-            'cache_backend': settings.CACHES['default']['BACKEND'],
-            'debug_mode': settings.DEBUG,
-            'installed_apps': list(settings.INSTALLED_APPS)
-        }
-    
-    def log_validation(self, name, success, details, duration=0):
-        """Log validation result"""
-        result = {
-            'name': name,
-            'success': success,
-            'details': details,
-            'duration': duration,
-            'timestamp': datetime.now().isoformat()
-        }
-        self.results.append(result)
-        self.validation_report['validations'].append(result)
+    def validate_database_integrity(self):
+        """Validate database setup and integrity"""
+        print("\n" + "="*60)
+        print("VALIDATING: Database Integrity")
+        print("="*60)
         
-        status = "✅ PASS" if success else "❌ FAIL"
-        print(f"{status} {name} ({duration:.2f}s)")
-        if not success:
-            print(f"   Details: {details}")
-    
-    def validate_database_connectivity(self):
-        """Validate database connectivity and basic operations"""
-        print("\n🗄️  Validating Database Connectivity")
+        checks = []
         
-        start_time = time.time()
+        # Test 1: Database connection
         try:
-            # Test basic connection
             with connection.cursor() as cursor:
                 cursor.execute("SELECT 1")
                 result = cursor.fetchone()
-            
-            if result[0] != 1:
-                raise Exception("Database query returned unexpected result")
-            
-            # Test table creation (migrations)
-            from django.core.management import call_command
-            call_command('migrate', verbosity=0, interactive=False)
-            
-            # Test model operations
-            from django.contrib.auth import get_user_model
-            User = get_user_model()
-            
-            # Create test user
-            test_user = User.objects.create_user(
-                username='validation_test_user',
-                email='test@validation.com',
-                password='testpass123',
-                role='student'
-            )
-            
-            # Verify user was created
-            retrieved_user = User.objects.get(username='validation_test_user')
-            if retrieved_user.email != 'test@validation.com':
-                raise Exception("User data integrity check failed")
-            
-            # Clean up
-            test_user.delete()
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Database Connectivity",
-                True,
-                "Database connection, migrations, and basic operations successful",
-                duration
-            )
-            
+            checks.append({
+                'name': 'Database Connection',
+                'status': 'PASS',
+                'details': 'Database connection successful'
+            })
+            print("  ✅ Database connection successful")
         except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Database Connectivity",
-                False,
-                f"Database validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_cache_system(self):
-        """Validate cache system functionality"""
-        print("\n💾 Validating Cache System")
+            checks.append({
+                'name': 'Database Connection',
+                'status': 'FAIL',
+                'details': f'Database connection failed: {e}'
+            })
+            print(f"  ❌ Database connection failed: {e}")
         
-        start_time = time.time()
+        # Test 2: Migration status
         try:
-            # Test default cache
-            cache.set('validation_test_key', 'validation_test_value', 30)
-            cached_value = cache.get('validation_test_key')
+            from django.db.migrations.executor import MigrationExecutor
+            executor = MigrationExecutor(connection)
+            plan = executor.migration_plan(executor.loader.graph.leaf_nodes())
             
-            if cached_value != 'validation_test_value':
-                raise Exception("Cache set/get operation failed")
-            
-            # Test cache deletion
-            cache.delete('validation_test_key')
-            deleted_value = cache.get('validation_test_key')
-            
-            if deleted_value is not None:
-                raise Exception("Cache deletion failed")
-            
-            # Test cache with different backends if available
-            cache_backends_tested = ['default']
-            
-            for cache_name in ['ai_cache', 'analytics', 'sessions']:
-                if cache_name in settings.CACHES:
-                    from django.core.cache import caches
-                    specific_cache = caches[cache_name]
-                    specific_cache.set(f'validation_{cache_name}', 'test', 30)
-                    value = specific_cache.get(f'validation_{cache_name}')
-                    if value == 'test':
-                        cache_backends_tested.append(cache_name)
-                    specific_cache.delete(f'validation_{cache_name}')
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Cache System",
-                True,
-                f"Cache operations successful on backends: {', '.join(cache_backends_tested)}",
-                duration
-            )
-            
+            if not plan:
+                checks.append({
+                    'name': 'Database Migrations',
+                    'status': 'PASS',
+                    'details': 'All migrations applied'
+                })
+                print("  ✅ All migrations applied")
+            else:
+                checks.append({
+                    'name': 'Database Migrations',
+                    'status': 'FAIL',
+                    'details': f'{len(plan)} pending migrations'
+                })
+                print(f"  ❌ {len(plan)} pending migrations")
         except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Cache System",
-                False,
-                f"Cache validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_static_files(self):
-        """Validate static files configuration and collection"""
-        print("\n📁 Validating Static Files")
+            checks.append({
+                'name': 'Database Migrations',
+                'status': 'FAIL',
+                'details': f'Migration check failed: {e}'
+            })
+            print(f"  ❌ Migration check failed: {e}")
         
-        start_time = time.time()
+        # Test 3: Core tables exist
         try:
-            # Check static files settings
-            if not settings.STATIC_URL:
-                raise Exception("STATIC_URL not configured")
-            
-            # Check if static files directories exist
-            static_dirs = settings.STATICFILES_DIRS if hasattr(settings, 'STATICFILES_DIRS') else []
-            
-            for static_dir in static_dirs:
-                if not os.path.exists(static_dir):
-                    raise Exception(f"Static files directory does not exist: {static_dir}")
-            
-            # Test static files collection
-            from django.core.management import call_command
-            from io import StringIO
-            
-            out = StringIO()
-            call_command('collectstatic', '--noinput', '--verbosity=0', stdout=out)
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Static Files",
-                True,
-                f"Static files configuration and collection successful",
-                duration
-            )
-            
-        except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Static Files",
-                False,
-                f"Static files validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_media_files(self):
-        """Validate media files configuration"""
-        print("\n🖼️  Validating Media Files")
-        
-        start_time = time.time()
-        try:
-            # Check media files settings
-            if not settings.MEDIA_URL:
-                raise Exception("MEDIA_URL not configured")
-            
-            if not settings.MEDIA_ROOT:
-                raise Exception("MEDIA_ROOT not configured")
-            
-            # Create media directory if it doesn't exist
-            media_root = Path(settings.MEDIA_ROOT)
-            media_root.mkdir(parents=True, exist_ok=True)
-            
-            # Test file upload simulation
-            test_file_path = media_root / 'validation_test.txt'
-            with open(test_file_path, 'w') as f:
-                f.write('Validation test file')
-            
-            # Verify file was created
-            if not test_file_path.exists():
-                raise Exception("Test file creation failed")
-            
-            # Clean up
-            test_file_path.unlink()
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Media Files",
-                True,
-                f"Media files configuration and operations successful",
-                duration
-            )
-            
-        except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Media Files",
-                False,
-                f"Media files validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_app_models(self):
-        """Validate all app models and relationships"""
-        print("\n🏗️  Validating App Models")
-        
-        start_time = time.time()
-        try:
-            from django.apps import apps
-            
-            # Get all models
-            all_models = apps.get_models()
-            model_count = len(all_models)
-            
-            # Test model creation for key models
-            test_models = []
-            
-            # Test User model
-            from django.contrib.auth import get_user_model
-            User = get_user_model()
-            user = User.objects.create_user(
-                username='model_test_user',
-                email='model@test.com',
-                password='testpass123',
-                role='student'
-            )
-            test_models.append(('User', user))
-            
-            # Test StudentProfile
-            from accounts.models import StudentProfile
-            student_profile = StudentProfile.objects.create(
-                user=user,
-                learning_preferences={'style': 'visual'},
-                current_streak=0,
-                total_xp=0
-            )
-            test_models.append(('StudentProfile', student_profile))
-            
-            # Test UploadedContent
-            from content.models import UploadedContent
-            content = UploadedContent.objects.create(
-                user=user,
-                title='Model Test Content',
-                subject='Testing',
-                file_size=1024,
-                processed=True
-            )
-            test_models.append(('UploadedContent', content))
-            
-            # Test LearningSession
-            from learning.models import LearningSession
-            session = LearningSession.objects.create(
-                student=student_profile,
-                content=content,
-                start_time=django.utils.timezone.now()
-            )
-            test_models.append(('LearningSession', session))
-            
-            # Test Achievement
-            from gamification.models import Achievement
-            achievement = Achievement.objects.create(
-                name='Model Test Achievement',
-                description='Test achievement',
-                badge_icon='test',
-                xp_requirement=0
-            )
-            test_models.append(('Achievement', achievement))
-            
-            # Clean up test models
-            for model_name, model_instance in reversed(test_models):
-                model_instance.delete()
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "App Models",
-                True,
-                f"All {model_count} models validated, key model operations successful",
-                duration
-            )
-            
-        except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "App Models",
-                False,
-                f"Model validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_url_routing(self):
-        """Validate URL routing for all apps"""
-        print("\n🛣️  Validating URL Routing")
-        
-        start_time = time.time()
-        try:
-            from django.urls import reverse
-            from django.test import Client
-            
-            client = Client()
-            
-            # Test key URLs
-            test_urls = [
-                ('health_check', 'Health Check'),
-                ('readiness_check', 'Readiness Check'),
-                ('liveness_check', 'Liveness Check'),
-                ('accounts:login', 'Login Page'),
+            expected_tables = [
+                'auth_user', 'accounts_studentprofile', 'accounts_teacherprofile',
+                'content_uploadedcontent', 'learning_learningsession',
+                'gamification_achievement', 'community_studygroup'
             ]
             
-            successful_urls = []
-            failed_urls = []
+            with connection.cursor() as cursor:
+                cursor.execute("""
+                    SELECT name FROM sqlite_master 
+                    WHERE type='table' AND name NOT LIKE 'sqlite_%'
+                """)
+                existing_tables = [row[0] for row in cursor.fetchall()]
             
-            for url_name, description in test_urls:
-                try:
-                    url = reverse(url_name)
-                    response = client.get(url)
-                    if response.status_code in [200, 302, 403]:  # Accept redirects and forbidden
-                        successful_urls.append(description)
-                    else:
-                        failed_urls.append(f"{description} (status: {response.status_code})")
-                except Exception as e:
-                    failed_urls.append(f"{description} (error: {str(e)})")
+            missing_tables = [t for t in expected_tables if t not in existing_tables]
             
-            if failed_urls:
-                raise Exception(f"Failed URLs: {', '.join(failed_urls)}")
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "URL Routing",
-                True,
-                f"URL routing successful for: {', '.join(successful_urls)}",
-                duration
-            )
-            
+            if not missing_tables:
+                checks.append({
+                    'name': 'Core Tables',
+                    'status': 'PASS',
+                    'details': f'All {len(expected_tables)} core tables exist'
+                })
+                print(f"  ✅ All {len(expected_tables)} core tables exist")
+            else:
+                checks.append({
+                    'name': 'Core Tables',
+                    'status': 'FAIL',
+                    'details': f'Missing tables: {missing_tables}'
+                })
+                print(f"  ❌ Missing tables: {missing_tables}")
         except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "URL Routing",
-                False,
-                f"URL routing validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_security_settings(self):
-        """Validate security settings and middleware"""
-        print("\n🔒 Validating Security Settings")
+            checks.append({
+                'name': 'Core Tables',
+                'status': 'FAIL',
+                'details': f'Table check failed: {e}'
+            })
+            print(f"  ❌ Table check failed: {e}")
         
-        start_time = time.time()
+        # Test 4: Sample data integrity
         try:
-            security_checks = []
-            
-            # Check CSRF protection
-            if 'django.middleware.csrf.CsrfViewMiddleware' in settings.MIDDLEWARE:
-                security_checks.append("CSRF Protection")
-            
-            # Check security middleware
-            if 'django.middleware.security.SecurityMiddleware' in settings.MIDDLEWARE:
-                security_checks.append("Security Middleware")
-            
-            # Check authentication middleware
-            if 'django.contrib.auth.middleware.AuthenticationMiddleware' in settings.MIDDLEWARE:
-                security_checks.append("Authentication Middleware")
-            
-            # Check custom security middleware
-            if 'metlab_edu.security_middleware.SecurityMiddleware' in settings.MIDDLEWARE:
-                security_checks.append("Custom Security Middleware")
-            
-            # Check rate limiting
-            if 'metlab_edu.security_middleware.RateLimitMiddleware' in settings.MIDDLEWARE:
-                security_checks.append("Rate Limiting")
-            
-            # Check security headers
-            security_headers = []
-            if hasattr(settings, 'SECURE_BROWSER_XSS_FILTER') and settings.SECURE_BROWSER_XSS_FILTER:
-                security_headers.append("XSS Filter")
-            
-            if hasattr(settings, 'SECURE_CONTENT_TYPE_NOSNIFF') and settings.SECURE_CONTENT_TYPE_NOSNIFF:
-                security_headers.append("Content Type NoSniff")
-            
-            if hasattr(settings, 'X_FRAME_OPTIONS') and settings.X_FRAME_OPTIONS:
-                security_headers.append("X-Frame-Options")
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Security Settings",
-                True,
-                f"Security features active: {', '.join(security_checks + security_headers)}",
-                duration
-            )
-            
+            user_count = User.objects.count()
+            checks.append({
+                'name': 'Sample Data',
+                'status': 'PASS',
+                'details': f'{user_count} users in database'
+            })
+            print(f"  ✅ Database contains {user_count} users")
         except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Security Settings",
-                False,
-                f"Security validation failed: {str(e)}",
-                duration
-            )
-    
-    def validate_logging_system(self):
-        """Validate logging system configuration"""
-        print("\n📝 Validating Logging System")
+            checks.append({
+                'name': 'Sample Data',
+                'status': 'FAIL',
+                'details': f'Data check failed: {e}'
+            })
+            print(f"  ❌ Data check failed: {e}")
         
-        start_time = time.time()
-        try:
-            import logging
-            
-            # Test different loggers
-            loggers_tested = []
-            
-            # Test main Django logger
-            django_logger = logging.getLogger('django')
-            django_logger.info('Validation test message for Django logger')
-            loggers_tested.append('django')
-            
-            # Test custom loggers
-            for logger_name in ['content', 'monitoring', 'performance', 'errors', 'activity']:
-                try:
-                    logger = logging.getLogger(logger_name)
-                    logger.info(f'Validation test message for {logger_name} logger')
-                    loggers_tested.append(logger_name)
-                except Exception:
-                    pass  # Logger might not be configured
-            
-            # Check log files exist
-            log_files = []
-            logs_dir = Path(settings.BASE_DIR) / 'logs'
-            if logs_dir.exists():
-                for log_file in logs_dir.glob('*.log'):
-                    log_files.append(log_file.name)
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Logging System",
-                True,
-                f"Loggers tested: {', '.join(loggers_tested)}, Log files: {', '.join(log_files)}",
-                duration
-            )
-            
-        except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Logging System",
-                False,
-                f"Logging validation failed: {str(e)}",
-                duration
-            )
-    
-    def run_integration_tests(self):
-        """Run integration tests"""
-        print("\n🧪 Running Integration Tests")
-        
-        start_time = time.time()
-        try:
-            # Run data flow tests
-            from tests.test_data_flow import run_data_flow_tests
-            data_flow_success = run_data_flow_tests()
-            
-            if not data_flow_success:
-                raise Exception("Data flow tests failed")
-            
-            duration = time.time() - start_time
-            self.log_validation(
-                "Integration Tests",
-                True,
-                "All integration tests passed successfully",
-                duration
-            )
-            
-        except Exception as e:
-            duration = time.time() - start_time
-            self.log_validation(
-                "Integration Tests",
-                False,
-                f"Integration tests failed: {str(e)}",
-                duration
-            )
-    
-    def validate_complete_system(self):
-        """Run complete system validation"""
-        print("METLAB.EDU - COMPLETE SYSTEM VALIDATION")
-        print("=" * 80)
-        print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
-        print()
-        
-        # Run all validations
-        self.validate_database_connectivity()
-        self.validate_cache_system()
-        self.validate_static_files()
-        self.validate_media_files()
-        self.validate_app_models()
-        self.validate_url_routing()
-        self.validate_security_settings()
-        self.validate_logging_system()
-        self.run_integration_tests()
-        
-        # Generate summary
-        total_duration = time.time() - self.start_time
-        passed_validations = sum(1 for r in self.results if r['success'])
-        total_validations = len(self.results)
-        
-        print("\n" + "=" * 80)
-        print("SYSTEM VALIDATION SUMMARY")
-        print("=" * 80)
-        
-        print(f"Total Validations: {total_validations}")
-        print(f"Passed: {passed_validations}")
-        print(f"Failed: {total_validations - passed_validations}")
-        print(f"Success Rate: {(passed_validations/total_validations)*100:.1f}%")
-        print(f"Total Duration: {total_duration:.2f} seconds")
-        print()
-        
-        # Show failed validations
-        failed_validations = [r for r in self.results if not r['success']]
-        if failed_validations:
-            print("FAILED VALIDATIONS:")
-            for validation in failed_validations:
-                print(f"❌ {validation['name']}: {validation['details']}")
-            print()
-        
-        # Overall status
-        all_passed = passed_validations == total_validations
-        
-        if all_passed:
-            print("🎉 SYSTEM VALIDATION PASSED - ALL COMPONENTS INTEGRATED SUCCESSFULLY")
-            print("✅ The AI Learning Platform is ready for deployment")
-        else:
-            print("⚠️  SYSTEM VALIDATION FAILED - REVIEW ISSUES BEFORE DEPLOYMENT")
-            print("❌ Some components need attention before the system is ready")
-        
-        # Save validation report
-        self.validation_report['summary'] = {
-            'total_validations': total_validations,
-            'passed_validations': passed_validations,
-            'failed_validations': total_validations - passed_validations,
-            'success_rate': (passed_validations/total_validations)*100,
-            'total_duration': total_duration,
-            'overall_success': all_passed
+        self.results['categories']['database'] = {
+            'status': 'PASS' if all(c['status'] == 'PASS' for c in checks) else 'FAIL',
+            'checks': checks
         }
+    
+    def validate_application_configuration(self):
+        """Validate application configuration"""
+        print("\n" + "="*60)
+        print("VALIDATING: Application Configuration")
+        print("="*60)
         
-        report_filename = f"system_validation_report_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-        with open(report_filename, 'w') as f:
-            json.dump(self.validation_report, f, indent=2)
+        checks = []
         
-        print(f"\nDetailed validation report saved to: {report_filename}")
-        print("=" * 80)
+        # Test 1: Django apps
+        try:
+            from django.apps import apps
+            expected_apps = ['accounts', 'content', 'learning', 'gamification', 'community', 'services']
+            loaded_apps = [app.label for app in apps.get_app_configs()]
+            
+            missing_apps = [app for app in expected_apps if app not in loaded_apps]
+            
+            if not missing_apps:
+                checks.append({
+                    'name': 'Django Apps',
+                    'status': 'PASS',
+                    'details': f'All {len(expected_apps)} apps loaded'
+                })
+                print(f"  ✅ All {len(expected_apps)} Django apps loaded")
+            else:
+                checks.append({
+                    'name': 'Django Apps',
+                    'status': 'FAIL',
+                    'details': f'Missing apps: {missing_apps}'
+                })
+                print(f"  ❌ Missing apps: {missing_apps}")
+        except Exception as e:
+            checks.append({
+                'name': 'Django Apps',
+                'status': 'FAIL',
+                'details': f'App check failed: {e}'
+            })
+            print(f"  ❌ App check failed: {e}")
         
-        return all_passed
+        # Test 2: Static files configuration
+        try:
+            static_configured = bool(settings.STATIC_ROOT or settings.STATICFILES_DIRS)
+            if static_configured:
+                checks.append({
+                    'name': 'Static Files',
+                    'status': 'PASS',
+                    'details': f'Static files configured: {settings.STATIC_ROOT}'
+                })
+                print("  ✅ Static files properly configured")
+            else:
+                checks.append({
+                    'name': 'Static Files',
+                    'status': 'FAIL',
+                    'details': 'Static files not configured'
+                })
+                print("  ❌ Static files not configured")
+        except Exception as e:
+            checks.append({
+                'name': 'Static Files',
+                'status': 'FAIL',
+                'details': f'Static files check failed: {e}'
+            })
+            print(f"  ❌ Static files check failed: {e}")
+        
+        # Test 3: Media files configuration
+        try:
+            media_configured = bool(settings.MEDIA_ROOT and settings.MEDIA_URL)
+            if media_configured:
+                checks.append({
+                    'name': 'Media Files',
+                    'status': 'PASS',
+                    'details': f'Media files configured: {settings.MEDIA_ROOT}'
+                })
+                print("  ✅ Media files properly configured")
+            else:
+                checks.append({
+                    'name': 'Media Files',
+                    'status': 'FAIL',
+                    'details': 'Media files not configured'
+                })
+                print("  ❌ Media files not configured")
+        except Exception as e:
+            checks.append({
+                'name': 'Media Files',
+                'status': 'FAIL',
+                'details': f'Media files check failed: {e}'
+            })
+            print(f"  ❌ Media files check failed: {e}")
+        
+        # Test 4: Cache configuration
+        try:
+            cache.set('validation_test', 'test_value', 30)
+            cached_value = cache.get('validation_test')
+            cache.delete('validation_test')
+            
+            if cached_value == 'test_value':
+                checks.append({
+                    'name': 'Cache Backend',
+                    'status': 'PASS',
+                    'details': 'Cache operations successful'
+                })
+                print("  ✅ Cache backend working correctly")
+            else:
+                checks.append({
+                    'name': 'Cache Backend',
+                    'status': 'FAIL',
+                    'details': 'Cache operations failed'
+                })
+                print("  ❌ Cache operations failed")
+        except Exception as e:
+            checks.append({
+                'name': 'Cache Backend',
+                'status': 'FAIL',
+                'details': f'Cache check failed: {e}'
+            })
+            print(f"  ❌ Cache check failed: {e}")
+        
+        # Test 5: Security settings
+        security_checks = []
+        
+        if getattr(settings, 'SECRET_KEY', None):
+            security_checks.append('Secret key configured')
+        else:
+            security_checks.append('❌ Secret key missing')
+        
+        if getattr(settings, 'DEBUG', True) == False:
+            security_checks.append('Debug mode disabled')
+        else:
+            security_checks.append('⚠️ Debug mode enabled')
+        
+        if getattr(settings, 'ALLOWED_HOSTS', []):
+            security_checks.append('Allowed hosts configured')
+        else:
+            security_checks.append('⚠️ Allowed hosts not configured')
+        
+        checks.append({
+            'name': 'Security Settings',
+            'status': 'PASS' if '❌' not in str(security_checks) else 'WARN',
+            'details': '; '.join(security_checks)
+        })
+        print(f"  ✅ Security settings: {len(security_checks)} checks")
+        
+        self.results['categories']['configuration'] = {
+            'status': 'PASS' if all(c['status'] in ['PASS', 'WARN'] for c in checks) else 'FAIL',
+            'checks': checks
+        }
+    
+    def validate_file_system_setup(self):
+        """Validate file system setup"""
+        print("\n" + "="*60)
+        print("VALIDATING: File System Setup")
+        print("="*60)
+        
+        checks = []
+        
+        # Test 1: Required directories
+        required_dirs = [
+            ('Media Root', settings.MEDIA_ROOT),
+            ('Static Root', settings.STATIC_ROOT),
+            ('Logs Directory', 'logs'),
+        ]
+        
+        for name, path in required_dirs:
+            if path and os.path.exists(path):
+                checks.append({
+                    'name': name,
+                    'status': 'PASS',
+                    'details': f'Directory exists: {path}'
+                })
+                print(f"  ✅ {name} exists: {path}")
+            else:
+                checks.append({
+                    'name': name,
+                    'status': 'FAIL',
+                    'details': f'Directory missing: {path}'
+                })
+                print(f"  ❌ {name} missing: {path}")
+        
+        # Test 2: File permissions
+        try:
+            test_file = os.path.join(settings.MEDIA_ROOT, 'test_write.txt')
+            with open(test_file, 'w') as f:
+                f.write('test')
+            os.remove(test_file)
+            
+            checks.append({
+                'name': 'File Permissions',
+                'status': 'PASS',
+                'details': 'Write permissions verified'
+            })
+            print("  ✅ File write permissions verified")
+        except Exception as e:
+            checks.append({
+                'name': 'File Permissions',
+                'status': 'FAIL',
+                'details': f'Write permission failed: {e}'
+            })
+            print(f"  ❌ Write permission failed: {e}")
+        
+        # Test 3: Static files collection
+        try:
+            output = StringIO()
+            call_command('collectstatic', '--noinput', '--dry-run', stdout=output)
+            
+            checks.append({
+                'name': 'Static Files Collection',
+                'status': 'PASS',
+                'details': 'Static files can be collected'
+            })
+            print("  ✅ Static files collection verified")
+        except Exception as e:
+            checks.append({
+                'name': 'Static Files Collection',
+                'status': 'FAIL',
+                'details': f'Static collection failed: {e}'
+            })
+            print(f"  ❌ Static collection failed: {e}")
+        
+        self.results['categories']['filesystem'] = {
+            'status': 'PASS' if all(c['status'] == 'PASS' for c in checks) else 'FAIL',
+            'checks': checks
+        }
+    
+    def validate_performance_benchmarks(self):
+        """Validate performance benchmarks"""
+        print("\n" + "="*60)
+        print("VALIDATING: Performance Benchmarks")
+        print("="*60)
+        
+        checks = []
+        
+        # Test 1: Database query performance
+        try:
+            start_time = time.time()
+            list(User.objects.all()[:100])  # Force evaluation
+            query_time = time.time() - start_time
+            
+            if query_time < 1.0:
+                checks.append({
+                    'name': 'Database Query Performance',
+                    'status': 'PASS',
+                    'details': f'Query completed in {query_time:.3f}s'
+                })
+                print(f"  ✅ Database query performance: {query_time:.3f}s")
+            else:
+                checks.append({
+                    'name': 'Database Query Performance',
+                    'status': 'WARN',
+                    'details': f'Query took {query_time:.3f}s (>1s)'
+                })
+                print(f"  ⚠️ Database query performance: {query_time:.3f}s (slow)")
+        except Exception as e:
+            checks.append({
+                'name': 'Database Query Performance',
+                'status': 'FAIL',
+                'details': f'Query performance test failed: {e}'
+            })
+            print(f"  ❌ Query performance test failed: {e}")
+        
+        # Test 2: Cache performance
+        try:
+            start_time = time.time()
+            for i in range(100):
+                cache.set(f'perf_test_{i}', f'value_{i}', 60)
+                cache.get(f'perf_test_{i}')
+            cache_time = time.time() - start_time
+            
+            # Cleanup
+            for i in range(100):
+                cache.delete(f'perf_test_{i}')
+            
+            if cache_time < 1.0:
+                checks.append({
+                    'name': 'Cache Performance',
+                    'status': 'PASS',
+                    'details': f'100 cache ops in {cache_time:.3f}s'
+                })
+                print(f"  ✅ Cache performance: {cache_time:.3f}s for 100 ops")
+            else:
+                checks.append({
+                    'name': 'Cache Performance',
+                    'status': 'WARN',
+                    'details': f'100 cache ops took {cache_time:.3f}s (>1s)'
+                })
+                print(f"  ⚠️ Cache performance: {cache_time:.3f}s (slow)")
+        except Exception as e:
+            checks.append({
+                'name': 'Cache Performance',
+                'status': 'FAIL',
+                'details': f'Cache performance test failed: {e}'
+            })
+            print(f"  ❌ Cache performance test failed: {e}")
+        
+        # Test 3: Memory usage
+        try:
+            import psutil
+            process = psutil.Process()
+            memory_mb = process.memory_info().rss / 1024 / 1024
+            
+            if memory_mb < 500:
+                checks.append({
+                    'name': 'Memory Usage',
+                    'status': 'PASS',
+                    'details': f'Memory usage: {memory_mb:.1f}MB'
+                })
+                print(f"  ✅ Memory usage: {memory_mb:.1f}MB")
+            else:
+                checks.append({
+                    'name': 'Memory Usage',
+                    'status': 'WARN',
+                    'details': f'Memory usage: {memory_mb:.1f}MB (high)'
+                })
+                print(f"  ⚠️ Memory usage: {memory_mb:.1f}MB (high)")
+        except Exception as e:
+            checks.append({
+                'name': 'Memory Usage',
+                'status': 'FAIL',
+                'details': f'Memory check failed: {e}'
+            })
+            print(f"  ❌ Memory check failed: {e}")
+        
+        self.results['categories']['performance'] = {
+            'status': 'PASS' if all(c['status'] in ['PASS', 'WARN'] for c in checks) else 'FAIL',
+            'checks': checks
+        }
+    
+    def validate_security_configuration(self):
+        """Validate security configuration"""
+        print("\n" + "="*60)
+        print("VALIDATING: Security Configuration")
+        print("="*60)
+        
+        checks = []
+        
+        # Test 1: Authentication settings
+        auth_checks = []
+        
+        if hasattr(settings, 'AUTH_PASSWORD_VALIDATORS') and settings.AUTH_PASSWORD_VALIDATORS:
+            auth_checks.append('Password validators configured')
+        else:
+            auth_checks.append('❌ Password validators missing')
+        
+        if getattr(settings, 'SESSION_COOKIE_SECURE', False):
+            auth_checks.append('Secure session cookies')
+        else:
+            auth_checks.append('⚠️ Session cookies not secure')
+        
+        if getattr(settings, 'CSRF_COOKIE_SECURE', False):
+            auth_checks.append('Secure CSRF cookies')
+        else:
+            auth_checks.append('⚠️ CSRF cookies not secure')
+        
+        checks.append({
+            'name': 'Authentication Security',
+            'status': 'PASS' if '❌' not in str(auth_checks) else 'WARN',
+            'details': '; '.join(auth_checks)
+        })
+        print(f"  ✅ Authentication security: {len(auth_checks)} checks")
+        
+        # Test 2: HTTPS settings
+        https_checks = []
+        
+        if getattr(settings, 'SECURE_SSL_REDIRECT', False):
+            https_checks.append('SSL redirect enabled')
+        else:
+            https_checks.append('⚠️ SSL redirect disabled')
+        
+        if getattr(settings, 'SECURE_HSTS_SECONDS', 0) > 0:
+            https_checks.append('HSTS enabled')
+        else:
+            https_checks.append('⚠️ HSTS disabled')
+        
+        checks.append({
+            'name': 'HTTPS Configuration',
+            'status': 'WARN' if '⚠️' in str(https_checks) else 'PASS',
+            'details': '; '.join(https_checks)
+        })
+        print(f"  ⚠️ HTTPS configuration: {len(https_checks)} checks")
+        
+        # Test 3: File upload security
+        try:
+            max_upload_size = getattr(settings, 'FILE_UPLOAD_MAX_MEMORY_SIZE', 0)
+            allowed_extensions = getattr(settings, 'ALLOWED_UPLOAD_EXTENSIONS', [])
+            
+            upload_checks = []
+            if max_upload_size > 0:
+                upload_checks.append(f'Max upload size: {max_upload_size} bytes')
+            else:
+                upload_checks.append('⚠️ No upload size limit')
+            
+            if allowed_extensions:
+                upload_checks.append(f'File type restrictions: {len(allowed_extensions)} types')
+            else:
+                upload_checks.append('⚠️ No file type restrictions')
+            
+            checks.append({
+                'name': 'File Upload Security',
+                'status': 'WARN' if '⚠️' in str(upload_checks) else 'PASS',
+                'details': '; '.join(upload_checks)
+            })
+            print(f"  ⚠️ File upload security: {len(upload_checks)} checks")
+        except Exception as e:
+            checks.append({
+                'name': 'File Upload Security',
+                'status': 'FAIL',
+                'details': f'Upload security check failed: {e}'
+            })
+            print(f"  ❌ Upload security check failed: {e}")
+        
+        self.results['categories']['security'] = {
+            'status': 'PASS' if all(c['status'] in ['PASS', 'WARN'] for c in checks) else 'FAIL',
+            'checks': checks
+        }
+    
+    def run_comprehensive_validation(self):
+        """Run all validation checks"""
+        print("="*80)
+        print("METLAB.EDU COMPREHENSIVE SYSTEM VALIDATION")
+        print("="*80)
+        print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+        
+        start_time = time.time()
+        
+        # Run all validation categories
+        self.validate_database_integrity()
+        self.validate_application_configuration()
+        self.validate_file_system_setup()
+        self.validate_performance_benchmarks()
+        self.validate_security_configuration()
+        
+        # Calculate overall status
+        total_duration = time.time() - start_time
+        
+        category_statuses = [cat['status'] for cat in self.results['categories'].values()]
+        
+        if all(status == 'PASS' for status in category_statuses):
+            self.results['overall_status'] = 'PASS'
+            self.results['deployment_ready'] = True
+        elif any(status == 'FAIL' for status in category_statuses):
+            self.results['overall_status'] = 'FAIL'
+            self.results['deployment_ready'] = False
+        else:
+            self.results['overall_status'] = 'WARN'
+            self.results['deployment_ready'] = True  # Warnings don't block deployment
+        
+        # Generate recommendations
+        self.generate_recommendations()
+        
+        # Print summary
+        print("\n" + "="*80)
+        print("VALIDATION SUMMARY")
+        print("="*80)
+        
+        for category, data in self.results['categories'].items():
+            status_icon = "✅" if data['status'] == 'PASS' else "⚠️" if data['status'] == 'WARN' else "❌"
+            print(f"{status_icon} {category.upper()}: {data['status']}")
+        
+        print(f"\nOverall Status: {self.results['overall_status']}")
+        print(f"Deployment Ready: {'YES' if self.results['deployment_ready'] else 'NO'}")
+        print(f"Validation Duration: {total_duration:.2f}s")
+        
+        if self.results['recommendations']:
+            print(f"\nRecommendations:")
+            for rec in self.results['recommendations']:
+                print(f"  • {rec}")
+        
+        return self.results
+    
+    def generate_recommendations(self):
+        """Generate deployment recommendations"""
+        recommendations = []
+        
+        for category, data in self.results['categories'].items():
+            for check in data['checks']:
+                if check['status'] == 'FAIL':
+                    recommendations.append(f"Fix {category} issue: {check['name']}")
+                elif check['status'] == 'WARN':
+                    recommendations.append(f"Consider improving {category}: {check['name']}")
+        
+        # General recommendations
+        if self.results['overall_status'] == 'FAIL':
+            recommendations.append("Address all FAIL status items before deployment")
+        
+        if any('⚠️' in str(cat) for cat in self.results['categories'].values()):
+            recommendations.append("Review security settings for production deployment")
+        
+        self.results['recommendations'] = recommendations
+    
+    def save_report(self, filename=None):
+        """Save validation report to file"""
+        if not filename:
+            timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+            filename = f'system_validation_report_{timestamp}.json'
+        
+        with open(filename, 'w') as f:
+            json.dump(self.results, f, indent=2)
+        
+        print(f"\nValidation report saved to: {filename}")
+        return filename
 
 
 def main():
     """Main validation function"""
     validator = SystemValidator()
-    success = validator.validate_complete_system()
+    results = validator.run_comprehensive_validation()
+    
+    # Save report
+    report_file = validator.save_report()
     
     # Exit with appropriate code
-    sys.exit(0 if success else 1)
+    exit_code = 0 if results['deployment_ready'] else 1
+    
+    print("\n" + "="*80)
+    if results['deployment_ready']:
+        print("🎉 SYSTEM VALIDATION PASSED - READY FOR DEPLOYMENT")
+    else:
+        print("⚠️ SYSTEM VALIDATION FAILED - REVIEW ISSUES BEFORE DEPLOYMENT")
+    print("="*80)
+    
+    return exit_code
 
 
 if __name__ == '__main__':
-    main()
-
-
-# Import Django utilities
-import django.utils.timezone
+    sys.exit(main())

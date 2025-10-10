@@ -23,7 +23,7 @@ def setup_django():
 def run_integration_tests():
     """Run all integration tests and return results"""
     print("=" * 80)
-    print("METLAB.EDU - COMPREHENSIVE INTEGRATION TEST SUITE")
+    print("METLAB.EDU - COMPREHENSIVE SYSTEM TEST SUITE")
     print("=" * 80)
     print(f"Started at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
     print()
@@ -31,7 +31,7 @@ def run_integration_tests():
     # Setup test environment
     setup_django()
     
-    # Test categories to run
+    # Test categories to run - now includes comprehensive system testing
     test_categories = [
         {
             'name': 'Database Migrations',
@@ -47,6 +47,31 @@ def run_integration_tests():
             'name': 'System Health Checks',
             'command': ['python', 'manage.py', 'check'],
             'description': 'Run Django system checks'
+        },
+        {
+            'name': 'Load Testing',
+            'command': ['python', 'manage.py', 'test', 'tests.test_load_testing', '-v', '2'],
+            'description': 'Test system performance under concurrent user load'
+        },
+        {
+            'name': 'Failure Scenarios',
+            'command': ['python', 'manage.py', 'test', 'tests.test_failure_scenarios', '-v', '2'],
+            'description': 'Test system behavior under various failure conditions'
+        },
+        {
+            'name': 'Data Integrity',
+            'command': ['python', 'manage.py', 'test', 'tests.test_data_integrity', '-v', '2'],
+            'description': 'Validate data consistency and backup/recovery procedures'
+        },
+        {
+            'name': 'Security Penetration',
+            'command': ['python', 'manage.py', 'test', 'tests.test_security_penetration', '-v', '2'],
+            'description': 'Conduct security penetration testing'
+        },
+        {
+            'name': 'Cross-Browser Mobile',
+            'command': ['python', 'manage.py', 'test', 'tests.test_cross_browser_mobile', '-v', '2'],
+            'description': 'Test cross-browser and mobile compatibility'
         },
         {
             'name': 'Integration Tests',

@@ -2492,3 +2492,14 @@ INFO 2025-10-09 22:25:12,535 basehttp 7308 10588 "GET /static/css/mobile-optimiz
 INFO 2025-10-09 22:26:27,944 basehttp 7308 10588 "GET /accounts/register/ HTTP/1.1" 200 8512
 WARNING 2025-10-09 22:28:00,024 log 7308 10588 Not Found: /.well-known/appspecific/com.chrome.devtools.json
 WARNING 2025-10-09 22:28:00,028 basehttp 7308 10588 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4247
+INFO 2025-10-09 22:33:13,028 basehttp 7308 17124 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-09 22:33:13,095 basehttp 7308 7644 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:33:13,096 basehttp 7308 17124 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-10-09 22:33:13,200 basehttp 7308 11764 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 14887
+WARNING 2025-10-09 22:33:13,488 log 7308 7644 Not Found: /.well-known/appspecific/com.chrome.devtools.json
+WARNING 2025-10-09 22:33:13,491 basehttp 7308 7644 "GET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1" 404 4247
+WARNING 2025-10-10 16:37:49,421 ai_services 6620 6276 OpenAI not available or API key not configured
+WARNING 2025-10-10 16:37:49,424 ai_services 6620 6276 OpenAI not available or API key not configured
+WARNING 2025-10-10 16:37:49,424 ai_services 6620 6276 OpenAI not available or API key not configured
+WARNING 2025-10-10 16:37:49,425 ai_services 6620 6276 OpenAI not available or API key not configured
+WARNING 2025-10-10 16:37:49,425 ai_services 6620 6276 OpenAI not available or API key not configured

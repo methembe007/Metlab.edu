@@ -1,0 +1,142 @@
+{
+  "timestamp": "2025-10-10T16:37:22.873784",
+  "overall_status": "FAIL",
+  "categories": {
+    "database": {
+      "status": "FAIL",
+      "checks": [
+        {
+          "name": "Database Connection",
+          "status": "PASS",
+          "details": "Database connection successful"
+        },
+        {
+          "name": "Database Migrations",
+          "status": "PASS",
+          "details": "All migrations applied"
+        },
+        {
+          "name": "Core Tables",
+          "status": "FAIL",
+          "details": "Missing tables: ['auth_user']"
+        },
+        {
+          "name": "Sample Data",
+          "status": "PASS",
+          "details": "9 users in database"
+        }
+      ]
+    },
+    "configuration": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "Django Apps",
+          "status": "PASS",
+          "details": "All 6 apps loaded"
+        },
+        {
+          "name": "Static Files",
+          "status": "PASS",
+          "details": "Static files configured: None"
+        },
+        {
+          "name": "Media Files",
+          "status": "PASS",
+          "details": "Media files configured: C:\\Users\\methe\\Metlab.edu\\media"
+        },
+        {
+          "name": "Cache Backend",
+          "status": "PASS",
+          "details": "Cache operations successful"
+        },
+        {
+          "name": "Security Settings",
+          "status": "PASS",
+          "details": "Secret key configured; \u26a0\ufe0f Debug mode enabled; \u26a0\ufe0f Allowed hosts not configured"
+        }
+      ]
+    },
+    "filesystem": {
+      "status": "FAIL",
+      "checks": [
+        {
+          "name": "Media Root",
+          "status": "PASS",
+          "details": "Directory exists: C:\\Users\\methe\\Metlab.edu\\media"
+        },
+        {
+          "name": "Static Root",
+          "status": "FAIL",
+          "details": "Directory missing: None"
+        },
+        {
+          "name": "Logs Directory",
+          "status": "PASS",
+          "details": "Directory exists: logs"
+        },
+        {
+          "name": "File Permissions",
+          "status": "PASS",
+          "details": "Write permissions verified"
+        },
+        {
+          "name": "Static Files Collection",
+          "status": "FAIL",
+          "details": "Static collection failed: You're using the staticfiles app without having set the STATIC_ROOT setting to a filesystem path."
+        }
+      ]
+    },
+    "performance": {
+      "status": "FAIL",
+      "checks": [
+        {
+          "name": "Database Query Performance",
+          "status": "PASS",
+          "details": "Query completed in 0.002s"
+        },
+        {
+          "name": "Cache Performance",
+          "status": "PASS",
+          "details": "100 cache ops in 0.009s"
+        },
+        {
+          "name": "Memory Usage",
+          "status": "FAIL",
+          "details": "Memory check failed: No module named 'psutil'"
+        }
+      ]
+    },
+    "security": {
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "Authentication Security",
+          "status": "PASS",
+          "details": "Password validators configured; \u26a0\ufe0f Session cookies not secure; \u26a0\ufe0f CSRF cookies not secure"
+        },
+        {
+          "name": "HTTPS Configuration",
+          "status": "WARN",
+          "details": "\u26a0\ufe0f SSL redirect disabled; \u26a0\ufe0f HSTS disabled"
+        },
+        {
+          "name": "File Upload Security",
+          "status": "WARN",
+          "details": "Max upload size: 10485760 bytes; \u26a0\ufe0f No file type restrictions"
+        }
+      ]
+    }
+  },
+  "recommendations": [
+    "Fix database issue: Core Tables",
+    "Fix filesystem issue: Static Root",
+    "Fix filesystem issue: Static Files Collection",
+    "Fix performance issue: Memory Usage",
+    "Consider improving security: HTTPS Configuration",
+    "Consider improving security: File Upload Security",
+    "Address all FAIL status items before deployment",
+    "Review security settings for production deployment"
+  ],
+  "deployment_ready": false
+}
