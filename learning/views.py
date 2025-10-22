@@ -839,7 +839,7 @@ def practice_concept_view(request):
                 return redirect('content:upload')
         else:
             messages.error(request, 'No concept specified for practice.')
-            return redirect('student_dashboard')
+            return redirect('accounts:student_dashboard')
             
     except StudentProfile.DoesNotExist:
         return render(request, 'learning/no_profile.html')

@@ -560,7 +560,7 @@ def enroll_in_class(request):
     """Allow students to enroll in a class using invitation code"""
     if not hasattr(request.user, 'student_profile'):
         messages.error(request, 'Only students can enroll in classes.')
-        return redirect('student_dashboard')
+        return redirect('accounts:student_dashboard')
     
     student_profile = request.user.student_profile
     
@@ -597,7 +597,7 @@ def enroll_in_class(request):
                     )
                     messages.success(request, f'Successfully enrolled in "{teacher_class.name}"!')
                 
-                return redirect('student_dashboard')
+                return redirect('accounts:student_dashboard')
                 
             except TeacherClass.DoesNotExist:
                 messages.error(request, 'Invalid invitation code. Please check with your teacher.')

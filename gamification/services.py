@@ -724,8 +724,8 @@ class LeaderboardService:
         # Calculate XP based on lesson scores
         total_xp = 0
         for lesson in queryset:
-            if lesson.score:
-                total_xp += int(lesson.score * 0.1)  # Convert score to XP
+            if lesson.performance_score:
+                total_xp += int(lesson.performance_score * 0.1)  # Convert score to XP
         
         return total_xp
     

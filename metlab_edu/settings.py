@@ -71,7 +71,6 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'metlab_edu.monitoring_middleware.CorrelationIDMiddleware',
-    'metlab_edu.monitoring_middleware.PerformanceMonitoringMiddleware',
     'metlab_edu.security_middleware.RateLimitMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -79,6 +78,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'metlab_edu.monitoring_middleware.PerformanceMonitoringMiddleware',
     'metlab_edu.security_middleware.SecurityMiddleware',
     'accounts.middleware.RoleBasedAccessMiddleware',
     'metlab_edu.monitoring_middleware.UserActivityMiddleware',
@@ -203,7 +203,7 @@ AUTH_USER_MODEL = 'accounts.User'
 
 # Email Configuration (for development)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'noreply@metlab.edu'
+DEFAULT_FROM_EMAIL = 'ndlovumethembe06@gmail.com'
 
 # Login/Logout URLs
 LOGIN_URL = '/accounts/login/'
@@ -213,8 +213,12 @@ LOGOUT_REDIRECT_URL = '/accounts/login/'
 # Cache Configuration - fallback to local memory cache if Redis not available
 try:
     import django_redis
+    import redis
+    # Test Redis connection
+    r = redis.Redis(host='127.0.0.1', port=6379, db=0, socket_connect_timeout=1)
+    r.ping()
     REDIS_AVAILABLE = True
-except ImportError:
+except (ImportError, redis.ConnectionError, redis.TimeoutError, Exception):
     REDIS_AVAILABLE = False
 
 if REDIS_AVAILABLE:
@@ -315,8 +319,14 @@ CACHE_MIDDLEWARE_SECONDS = 300
 CACHE_MIDDLEWARE_KEY_PREFIX = 'metlab'
 
 # Celery Configuration
-CELERY_BROKER_URL = 'redis://localhost:6379/0'
-CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+if REDIS_AVAILABLE:
+    CELERY_BROKER_URL = 'redis://localhost:6379/0'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+else:
+    # Fallback to database for Celery when Redis is not available
+    CELERY_BROKER_URL = 'django://'
+    CELERY_RESULT_BACKEND = 'django-db'
+
 CELERY_ACCEPT_CONTENT = ['json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'

@@ -42,7 +42,7 @@ class PerformanceMonitoringMiddleware(MiddlewareMixin):
                 'method': request.method,
                 'path': request.path,
                 'status_code': response.status_code,
-                'user_id': request.user.id if request.user.is_authenticated else None,
+                'user_id': getattr(request.user, 'id', None) if hasattr(request, 'user') and request.user.is_authenticated else None,
                 'user_agent': request.META.get('HTTP_USER_AGENT', ''),
                 'ip_address': self._get_client_ip(request)
             }
@@ -60,7 +60,7 @@ class PerformanceMonitoringMiddleware(MiddlewareMixin):
                     extra={
                         'duration': duration,
                         'request_path': request.path,
-                        'user_id': request.user.id if request.user.is_authenticated else None
+                        'user_id': getattr(request.user, 'id', None) if hasattr(request, 'user') and request.user.is_authenticated else None
                     }
                 )
         
@@ -75,7 +75,7 @@ class PerformanceMonitoringMiddleware(MiddlewareMixin):
                 'method': request.method,
                 'path': request.path,
                 'duration': duration,
-                'user_id': request.user.id if request.user.is_authenticated else None,
+                'user_id': getattr(request.user, 'id', None) if hasattr(request, 'user') and request.user.is_authenticated else None,
                 'ip_address': self._get_client_ip(request)
             }
             
@@ -98,7 +98,7 @@ class UserActivityMiddleware(MiddlewareMixin):
     
     def process_response(self, request, response):
         """Log user activity."""
-        if request.user.is_authenticated and response.status_code < 400:
+        if hasattr(request, 'user') and request.user.is_authenticated and response.status_code < 400:
             activity_type = self._determine_activity_type(request)
             if activity_type:
                 metadata = {

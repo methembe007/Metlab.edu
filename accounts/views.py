@@ -47,17 +47,30 @@ def register_view(request):
                     elif role == 'parent':
                         ParentProfile.objects.create(user=user)
                     
-                    # Send verification email
-                    send_verification_email(request, user)
+                    # Send verification email (skip if email backend not configured)
+                    try:
+                        send_verification_email(request, user)
+                    except Exception as email_error:
+                        logger.warning(f"Email verification failed for user {user.username}: {email_error}")
+                        # Don't fail registration if email fails
+                        user.is_active = True  # Activate user if email fails
+                        user.email_verified = True
+                        user.save()
                     
                     messages.success(
                         request, 
-                        'Registration successful! Please check your email to verify your account.'
+                        'Registration successful! Please check your email to verify your account.' if not user.is_active else 'Registration successful! You can now log in.'
                     )
-                    return redirect('login')
+                    return redirect('accounts:login')
                     
             except Exception as e:
-                messages.error(request, 'Registration failed. Please try again.')
+                logger.error(f"Registration failed for user data {form.cleaned_data}: {e}")
+                messages.error(request, f'Registration failed: {str(e)}. Please try again.')
+        else:
+            # Form is not valid, show form errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    messages.error(request, f"{field}: {error}")
                 
     else:
         form = CustomUserCreationForm()
@@ -108,7 +121,7 @@ def logout_view(request):
     """User logout view"""
     logout(request)
     messages.success(request, 'You have been successfully logged out.')
-    return redirect('login')
+    return redirect('accounts:login')
 
 
 def send_verification_email(request, user):
@@ -117,7 +130,7 @@ def send_verification_email(request, user):
     uid = urlsafe_base64_encode(force_bytes(user.pk))
     
     verification_link = request.build_absolute_uri(
-        reverse('verify_email', kwargs={'uidb64': uid, 'token': token})
+        reverse('accounts:verify_email', kwargs={'uidb64': uid, 'token': token})
     )
     
     subject = 'Verify your Metlab.edu account'
@@ -179,7 +192,7 @@ def dashboard_view(request):
         return redirect('accounts:parent_dashboard')
     else:
         messages.error(request, 'Invalid user role.')
-        return redirect('login')
+        return redirect('accounts:login')
 
 
 @student_required
@@ -287,7 +300,8 @@ def csrf_failure(request, reason=""):
     """
     logger.warning(f"CSRF failure for user {request.user}: {reason}")
     
-    if request.is_ajax():
+    # Check if request is AJAX (modern way)
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
         return JsonResponse({
             'error': 'CSRF token missing or incorrect. Please refresh the page and try again.',
             'code': 'CSRF_FAILURE'

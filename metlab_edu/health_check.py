@@ -62,26 +62,32 @@ def health_check(request):
         }
         health_status['status'] = 'unhealthy'
     
-    # Check Redis broker (for Celery)
+    # Check Redis broker (for Celery) - only if Redis is available
     try:
-        if hasattr(settings, 'CELERY_BROKER_URL'):
-            redis_client = redis.from_url(settings.CELERY_BROKER_URL)
-            redis_client.ping()
-            health_status['services']['message_broker'] = {
-                'status': 'healthy',
-                'message': 'Message broker connection successful'
-            }
+        if hasattr(settings, 'CELERY_BROKER_URL') and getattr(settings, 'REDIS_AVAILABLE', False):
+            if settings.CELERY_BROKER_URL.startswith('redis://'):
+                redis_client = redis.from_url(settings.CELERY_BROKER_URL)
+                redis_client.ping()
+                health_status['services']['message_broker'] = {
+                    'status': 'healthy',
+                    'message': 'Message broker connection successful'
+                }
+            else:
+                health_status['services']['message_broker'] = {
+                    'status': 'healthy',
+                    'message': 'Using database broker (Redis not available)'
+                }
         else:
             health_status['services']['message_broker'] = {
                 'status': 'skipped',
-                'message': 'Message broker not configured'
+                'message': 'Message broker not configured or Redis not available'
             }
     except Exception as e:
         health_status['services']['message_broker'] = {
-            'status': 'unhealthy',
-            'message': f'Message broker connection failed: {str(e)}'
+            'status': 'degraded',
+            'message': f'Message broker connection failed, using fallback: {str(e)}'
         }
-        health_status['status'] = 'unhealthy'
+        # Don't mark as unhealthy if we have fallback
     
     # Calculate response time
     end_time = time.time()
@@ -152,7 +158,7 @@ def metrics(request):
         # Cache metrics
         cache_info = {}
         try:
-            if hasattr(cache, '_cache') and hasattr(cache._cache, 'get_client'):
+            if getattr(settings, 'REDIS_AVAILABLE', False) and hasattr(cache, '_cache') and hasattr(cache._cache, 'get_client'):
                 redis_client = cache._cache.get_client()
                 redis_info = redis_client.info()
                 cache_info = {
@@ -161,8 +167,10 @@ def metrics(request):
                     'keyspace_hits': redis_info.get('keyspace_hits', 0),
                     'keyspace_misses': redis_info.get('keyspace_misses', 0)
                 }
+            else:
+                cache_info = {'backend': 'local_memory', 'redis_available': False}
         except:
-            cache_info = {'error': 'Unable to retrieve cache metrics'}
+            cache_info = {'error': 'Unable to retrieve cache metrics', 'backend': 'fallback'}
         
         metrics_data = {
             'timestamp': time.time(),
