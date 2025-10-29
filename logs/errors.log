@@ -52,3 +52,17 @@
 {"timestamp": "2025-10-22 18:29:33,799", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
 {"timestamp": "2025-10-22 18:38:06,163", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
 {"timestamp": "2025-10-22 20:39:57,097", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
+{"timestamp": "2025-10-22 20:44:56,134", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
+{"timestamp": "2025-10-22 20:45:07,000", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
+{"timestamp": "2025-10-22 20:45:48,543", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
+{"timestamp": "2025-10-22 20:46:05,677", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 14:59:12,890", "level": "ERROR", "logger": "errors", "message": "Error: FieldError"}
+{"timestamp": "2025-10-23 15:04:39,878", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 15:29:21,677", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
+{"timestamp": "2025-10-23 15:29:56,488", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
+{"timestamp": "2025-10-23 15:31:59,910", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
+{"timestamp": "2025-10-23 16:20:44,097", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 16:33:39,560", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 16:33:47,401", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 16:33:57,708", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-10-23 16:34:04,168", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}

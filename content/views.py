@@ -34,7 +34,20 @@ def upload_content(request):
                 uploaded_content.save()
                 
                 # Queue the content for processing
-                process_uploaded_content.delay(uploaded_content.id)
+                try:
+                    from .tasks import process_uploaded_content
+                    process_uploaded_content.delay(uploaded_content.id)
+                except Exception as e:
+                    # Fallback to synchronous processing if Celery is not available
+                    logger.warning(f"Celery task failed, processing synchronously: {e}")
+                    try:
+                        from .tasks import process_uploaded_content
+                        process_uploaded_content(uploaded_content.id)
+                    except Exception as sync_error:
+                        logger.error(f"Synchronous processing also failed: {sync_error}")
+                        # Mark content as failed
+                        uploaded_content.processed = False
+                        uploaded_content.save()
                 
                 messages.success(
                     request, 

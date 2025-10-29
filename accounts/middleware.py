@@ -42,6 +42,6 @@ class RoleBasedAccessMiddleware(MiddlewareMixin):
                         request, 
                         f'Access denied. {role.title()} account required.'
                     )
-                    return redirect('dashboard')
+                    return redirect('accounts:dashboard')
         
         return None

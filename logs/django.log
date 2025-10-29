@@ -5114,3 +5114,1410 @@ INFO 2025-10-22 20:43:23,386 ai_services 19748 14588 OpenAI client initialized s
 INFO 2025-10-22 20:43:23,386 ai_services 19748 14588 OpenAI client initialized successfully
 INFO 2025-10-22 20:43:23,386 ai_services 19748 14588 OpenAI client initialized successfully
 INFO 2025-10-22 20:43:23,387 ai_services 19748 14588 OpenAI client initialized successfully
+ERROR 2025-10-22 20:44:56,364 log 3508 18772 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 25, in achievements_view
+    achievement_progress = AchievementService.get_student_achievements(
+        student_profile,
+        include_progress=True
+    )
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 351, in get_student_achievements
+    progress = cls._calculate_achievement_progress(student_profile, achievement)
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 457, in _calculate_achievement_progress
+    perfect_scores = DailyLesson.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student_profile,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+        status='completed',
+        ^^^^^^^^^^^^^^^^^^^
+        score=100
+        ^^^^^^^^^
+    ).exists()
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'score' into field. Choices are: completed_at, content_structure, created_at, description, difficulty_level, estimated_duration_minutes, id, lesson_date, lesson_type, performance_score, priority_concepts, progress_entries, related_content, related_weaknesses, started_at, status, student, student_id, time_spent_minutes, title, updated_at, xp_earned
+ERROR 2025-10-22 20:44:56,425 basehttp 3508 18772 "GET /gamification/achievements/ HTTP/1.1" 500 149420
+INFO 2025-10-22 20:44:58,970 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-22 20:45:07,196 log 3508 18772 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 25, in achievements_view
+    achievement_progress = AchievementService.get_student_achievements(
+        student_profile,
+        include_progress=True
+    )
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 351, in get_student_achievements
+    progress = cls._calculate_achievement_progress(student_profile, achievement)
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 457, in _calculate_achievement_progress
+    perfect_scores = DailyLesson.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student_profile,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+        status='completed',
+        ^^^^^^^^^^^^^^^^^^^
+        score=100
+        ^^^^^^^^^
+    ).exists()
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'score' into field. Choices are: completed_at, content_structure, created_at, description, difficulty_level, estimated_duration_minutes, id, lesson_date, lesson_type, performance_score, priority_concepts, progress_entries, related_content, related_weaknesses, started_at, status, student, student_id, time_spent_minutes, title, updated_at, xp_earned
+ERROR 2025-10-22 20:45:07,238 basehttp 3508 18772 "GET /gamification/achievements/ HTTP/1.1" 500 149283
+INFO 2025-10-22 20:45:23,408 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:24,968 basehttp 3508 18772 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-22 20:45:25,290 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:26,581 basehttp 3508 18772 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-22 20:45:26,878 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:29,486 basehttp 3508 18772 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-22 20:45:29,640 basehttp 3508 18772 "GET /accounts/dashboard/student/ HTTP/1.1" 200 28862
+INFO 2025-10-22 20:45:29,953 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:36,105 basehttp 3508 18772 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-22 20:45:36,424 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:38,587 basehttp 3508 18772 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-22 20:45:38,862 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:45:46,329 basehttp 3508 18772 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-22 20:45:46,628 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-22 20:45:48,769 log 3508 18772 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 25, in achievements_view
+    achievement_progress = AchievementService.get_student_achievements(
+        student_profile,
+        include_progress=True
+    )
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 351, in get_student_achievements
+    progress = cls._calculate_achievement_progress(student_profile, achievement)
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 457, in _calculate_achievement_progress
+    perfect_scores = DailyLesson.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student_profile,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+        status='completed',
+        ^^^^^^^^^^^^^^^^^^^
+        score=100
+        ^^^^^^^^^
+    ).exists()
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'score' into field. Choices are: completed_at, content_structure, created_at, description, difficulty_level, estimated_duration_minutes, id, lesson_date, lesson_type, performance_score, priority_concepts, progress_entries, related_content, related_weaknesses, started_at, status, student, student_id, time_spent_minutes, title, updated_at, xp_earned
+ERROR 2025-10-22 20:45:48,806 basehttp 3508 18772 "GET /gamification/achievements/ HTTP/1.1" 500 149283
+ERROR 2025-10-22 20:46:05,844 log 3508 18772 Internal Server Error: /gamification/shop/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 458, in shop_view
+    return render(request, 'gamification/shop.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-22 20:46:05,891 basehttp 3508 18772 "GET /gamification/shop/ HTTP/1.1" 500 272734
+INFO 2025-10-22 20:46:16,574 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:46:21,370 basehttp 3508 18772 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-22 20:46:21,511 basehttp 3508 18772 "GET /accounts/dashboard/student/ HTTP/1.1" 200 28862
+INFO 2025-10-22 20:46:22,130 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:46:52,107 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:47:22,051 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:47:27,850 query_optimization 3508 18772 Operation 'get_session_statistics': 1 queries in 0.020s
+INFO 2025-10-22 20:47:27,853 query_optimization 3508 18772 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-22 20:47:27,926 basehttp 3508 18772 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-22 20:47:28,360 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:47:40,337 basehttp 3508 18772 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-22 20:47:40,603 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:47:52,047 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:48:22,096 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:48:52,100 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:49:22,040 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:49:52,101 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:50:22,035 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:50:33,004 basehttp 3508 18772 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-22 20:50:33,409 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:50:52,045 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:50:52,915 basehttp 3508 18772 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-22 20:50:53,206 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:51:07,807 basehttp 3508 18772 "GET /learning/enroll/ HTTP/1.1" 200 11042
+INFO 2025-10-22 20:51:08,238 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:51:22,123 basehttp 3508 13400 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-22 20:51:22,173 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:51:52,042 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:22,048 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:29,187 basehttp 3508 18772 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-22 20:52:29,545 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:36,127 query_optimization 3508 18772 Operation 'get_session_statistics': 0 queries in 0.000s
+INFO 2025-10-22 20:52:36,132 query_optimization 3508 18772 Operation 'get_student_sessions': 0 queries in 0.004s
+INFO 2025-10-22 20:52:36,213 basehttp 3508 18772 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-22 20:52:36,539 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:42,802 basehttp 3508 18772 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-22 20:52:43,091 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:54,943 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:52:57,358 basehttp 3508 18772 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-10-22 20:52:57,651 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:53:04,746 basehttp 3508 18772 "GET /learning/enroll/ HTTP/1.1" 200 11042
+INFO 2025-10-22 20:53:04,993 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:53:22,128 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:53:23,718 basehttp 3508 18772 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-22 20:53:24,099 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:53:46,334 basehttp 3508 18772 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-22 20:53:46,476 basehttp 3508 18772 "GET /accounts/dashboard/student/ HTTP/1.1" 200 28862
+INFO 2025-10-22 20:53:46,805 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:53:48,084 basehttp 3508 18772 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-22 20:53:48,376 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:54:18,368 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:54:48,414 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:55:18,363 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:55:28,716 basehttp 3508 18772 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-22 20:55:28,835 basehttp 3508 18772 "GET /accounts/dashboard/student/ HTTP/1.1" 200 28862
+INFO 2025-10-22 20:55:29,190 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:55:59,114 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:56:29,102 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:56:38,265 basehttp 3508 18772 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-22 20:56:38,660 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:56:57,151 basehttp 3508 18772 "GET /learning/enroll/ HTTP/1.1" 200 11042
+INFO 2025-10-22 20:56:57,465 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:05,627 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:15,407 basehttp 3508 18772 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-22 20:57:15,967 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:30,519 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:32,986 basehttp 3508 18772 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-10-22 20:57:33,334 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:44,551 query_optimization 3508 18772 Operation 'get_session_statistics': 0 queries in 0.000s
+INFO 2025-10-22 20:57:44,555 query_optimization 3508 18772 Operation 'get_student_sessions': 0 queries in 0.002s
+INFO 2025-10-22 20:57:44,634 basehttp 3508 18772 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-22 20:57:45,197 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:57:59,160 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:58:00,959 basehttp 3508 18772 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-22 20:58:01,257 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:58:31,265 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:59:01,299 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:59:31,242 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:59:33,580 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 20:59:59,106 basehttp 3508 18772 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 21:00:29,419 basehttp 3508 17220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 21:00:29,442 basehttp 3508 18772 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-22 21:08:31,898 basehttp 3508 20044 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-22 21:08:31,945 basehttp 3508 16736 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-23 14:58:41,722 autoreload 21468 21356 Watching for file changes with StatReloader
+INFO 2025-10-23 14:58:43,016 ai_services 21468 21356 OpenAI client initialized successfully
+INFO 2025-10-23 14:58:43,017 ai_services 21468 21356 OpenAI client initialized successfully
+INFO 2025-10-23 14:58:43,017 ai_services 21468 21356 OpenAI client initialized successfully
+INFO 2025-10-23 14:58:43,017 ai_services 21468 21356 OpenAI client initialized successfully
+INFO 2025-10-23 14:58:43,018 ai_services 21468 21356 OpenAI client initialized successfully
+INFO 2025-10-23 14:58:48,867 basehttp 21468 10444 "GET / HTTP/1.1" 302 0
+INFO 2025-10-23 14:58:48,969 basehttp 21468 10444 "GET /accounts/login/ HTTP/1.1" 200 4881
+WARNING 2025-10-23 14:58:49,632 log 21468 10444 Not Found: /favicon.ico
+WARNING 2025-10-23 14:58:49,633 basehttp 21468 10444 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-10-23 14:58:53,867 basehttp 21468 10444 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-23 14:58:53,930 basehttp 21468 10444 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 14:58:54,080 basehttp 21468 10444 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29419
+INFO 2025-10-23 14:58:54,419 basehttp 21468 10444 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 14:59:13,094 log 21468 10444 Internal Server Error: /gamification/achievements/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 25, in achievements_view
+    achievement_progress = AchievementService.get_student_achievements(
+        student_profile,
+        include_progress=True
+    )
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 351, in get_student_achievements
+    progress = cls._calculate_achievement_progress(student_profile, achievement)
+  File "C:\Users\methe\Metlab.edu\gamification\services.py", line 457, in _calculate_achievement_progress
+    perfect_scores = DailyLesson.objects.filter(
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        student=student_profile,
+        ^^^^^^^^^^^^^^^^^^^^^^^^
+        status='completed',
+        ^^^^^^^^^^^^^^^^^^^
+        score=100
+        ^^^^^^^^^
+    ).exists()
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1436, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1454, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\query.py", line 1461, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1546, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1577, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ~~~~~~~~~~~~~~~~~^
+        child,
+        ^^^^^^
+    ...<6 lines>...
+        summarize=summarize,
+        ^^^^^^^^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1427, in build_filter
+    lookups, parts, reffed_expression = self.solve_lookup_type(arg, summarize)
+                                        ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1237, in solve_lookup_type
+    _, field, _, lookup_parts = self.names_to_path(lookup_splitted, self.get_meta())
+                                ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\db\models\sql\query.py", line 1726, in names_to_path
+    raise FieldError(
+    ...<2 lines>...
+    )
+django.core.exceptions.FieldError: Cannot resolve keyword 'score' into field. Choices are: completed_at, content_structure, created_at, description, difficulty_level, estimated_duration_minutes, id, lesson_date, lesson_type, performance_score, priority_concepts, progress_entries, related_content, related_weaknesses, started_at, status, student, student_id, time_spent_minutes, title, updated_at, xp_earned
+ERROR 2025-10-23 14:59:13,129 basehttp 21468 10444 "GET /gamification/achievements/ HTTP/1.1" 500 149869
+INFO 2025-10-23 15:00:19,686 autoreload 21468 21356 C:\Users\methe\Metlab.edu\gamification\services.py changed, reloading.
+INFO 2025-10-23 15:00:34,786 autoreload 20612 19184 Watching for file changes with StatReloader
+INFO 2025-10-23 15:00:35,867 ai_services 20612 19184 OpenAI client initialized successfully
+INFO 2025-10-23 15:00:35,868 ai_services 20612 19184 OpenAI client initialized successfully
+INFO 2025-10-23 15:00:35,869 ai_services 20612 19184 OpenAI client initialized successfully
+INFO 2025-10-23 15:00:35,869 ai_services 20612 19184 OpenAI client initialized successfully
+INFO 2025-10-23 15:00:35,870 ai_services 20612 19184 OpenAI client initialized successfully
+INFO 2025-10-23 15:01:10,639 ai_services 20464 17376 OpenAI client initialized successfully
+INFO 2025-10-23 15:01:10,639 ai_services 20464 17376 OpenAI client initialized successfully
+INFO 2025-10-23 15:01:10,640 ai_services 20464 17376 OpenAI client initialized successfully
+INFO 2025-10-23 15:01:10,640 ai_services 20464 17376 OpenAI client initialized successfully
+INFO 2025-10-23 15:01:10,640 ai_services 20464 17376 OpenAI client initialized successfully
+INFO 2025-10-23 15:02:33,377 ai_services 17968 13400 OpenAI client initialized successfully
+INFO 2025-10-23 15:02:33,378 ai_services 17968 13400 OpenAI client initialized successfully
+INFO 2025-10-23 15:02:33,378 ai_services 17968 13400 OpenAI client initialized successfully
+INFO 2025-10-23 15:02:33,379 ai_services 17968 13400 OpenAI client initialized successfully
+INFO 2025-10-23 15:02:33,379 ai_services 17968 13400 OpenAI client initialized successfully
+ERROR 2025-10-23 15:02:33,567 log 17968 13400 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2025-10-23 15:03:25,616 basehttp 20612 15084 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:03:26,129 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:03:26,163 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:03:56,169 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:19,109 basehttp 20612 15084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:04:19,305 basehttp 20612 15084 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-23 15:04:19,827 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:28,495 basehttp 20612 15084 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:04:28,802 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:32,741 basehttp 20612 15084 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:04:33,343 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:35,483 basehttp 20612 15084 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:04:35,837 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:37,620 basehttp 20612 15084 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:04:38,012 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:04:38,057 basehttp 20612 15084 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 15:04:40,060 log 20612 15084 Internal Server Error: /gamification/shop/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\gamification\views.py", line 458, in shop_view
+    return render(request, 'gamification/shop.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'dashboard' not found. 'dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-23 15:04:40,118 basehttp 20612 15084 "GET /gamification/shop/ HTTP/1.1" 500 273043
+INFO 2025-10-23 15:05:29,083 autoreload 20612 19184 C:\Users\methe\Metlab.edu\accounts\middleware.py changed, reloading.
+INFO 2025-10-23 15:05:47,147 autoreload 5672 640 Watching for file changes with StatReloader
+INFO 2025-10-23 15:05:48,041 ai_services 5672 640 OpenAI client initialized successfully
+INFO 2025-10-23 15:05:48,042 ai_services 5672 640 OpenAI client initialized successfully
+INFO 2025-10-23 15:05:48,043 ai_services 5672 640 OpenAI client initialized successfully
+INFO 2025-10-23 15:05:48,043 ai_services 5672 640 OpenAI client initialized successfully
+INFO 2025-10-23 15:05:48,044 ai_services 5672 640 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:15,968 ai_services 16760 9788 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:15,968 ai_services 16760 9788 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:15,971 ai_services 16760 9788 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:15,972 ai_services 16760 9788 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:15,973 ai_services 16760 9788 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:37,141 ai_services 15276 19692 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:37,142 ai_services 15276 19692 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:37,142 ai_services 15276 19692 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:37,143 ai_services 15276 19692 OpenAI client initialized successfully
+INFO 2025-10-23 15:07:37,143 ai_services 15276 19692 OpenAI client initialized successfully
+INFO 2025-10-23 15:08:27,697 ai_services 18984 1160 OpenAI client initialized successfully
+INFO 2025-10-23 15:08:27,698 ai_services 18984 1160 OpenAI client initialized successfully
+INFO 2025-10-23 15:08:27,698 ai_services 18984 1160 OpenAI client initialized successfully
+INFO 2025-10-23 15:08:27,699 ai_services 18984 1160 OpenAI client initialized successfully
+INFO 2025-10-23 15:08:27,700 ai_services 18984 1160 OpenAI client initialized successfully
+INFO 2025-10-23 15:09:18,026 ai_services 13612 8496 OpenAI client initialized successfully
+INFO 2025-10-23 15:09:18,033 ai_services 13612 8496 OpenAI client initialized successfully
+INFO 2025-10-23 15:09:18,036 ai_services 13612 8496 OpenAI client initialized successfully
+INFO 2025-10-23 15:09:18,048 ai_services 13612 8496 OpenAI client initialized successfully
+INFO 2025-10-23 15:09:18,050 ai_services 13612 8496 OpenAI client initialized successfully
+ERROR 2025-10-23 15:09:18,177 log 13612 8496 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 150, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2025-10-23 15:10:11,485 basehttp 5672 1404 "GET /gamification/shop/ HTTP/1.1" 200 37460
+INFO 2025-10-23 15:10:12,084 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:10:31,116 basehttp 5672 1404 "GET /gamification/shop/?category=theme HTTP/1.1" 200 21335
+INFO 2025-10-23 15:10:31,397 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:10:40,975 basehttp 5672 1404 "GET /gamification/shop/?category=hint HTTP/1.1" 200 19565
+INFO 2025-10-23 15:10:41,308 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:10:49,580 basehttp 5672 1404 "GET /gamification/shop/?category=customization HTTP/1.1" 200 19553
+INFO 2025-10-23 15:10:49,864 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:10:56,113 basehttp 5672 1404 "GET /gamification/shop/?category=power_up HTTP/1.1" 200 19529
+INFO 2025-10-23 15:10:56,436 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:06,758 basehttp 5672 1404 "GET /gamification/shop/?category=avatar HTTP/1.1" 200 19567
+INFO 2025-10-23 15:11:07,312 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:11,074 basehttp 5672 1404 "GET /gamification/shop/?category=badge HTTP/1.1" 200 18001
+INFO 2025-10-23 15:11:11,574 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:25,489 basehttp 5672 1404 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:11:26,044 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:26,092 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:27,793 basehttp 5672 1404 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:11:28,173 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:29,721 basehttp 5672 1404 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:11:30,023 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:31,185 basehttp 5672 1404 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:11:31,342 basehttp 5672 1404 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-23 15:11:31,659 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:11:49,687 basehttp 5672 1404 "POST /learning/api/lesson/7/start/ HTTP/1.1" 200 95
+INFO 2025-10-23 15:11:49,843 basehttp 5672 1404 "GET /learning/lesson/7/ HTTP/1.1" 200 47300
+INFO 2025-10-23 15:11:50,175 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:12:20,164 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:12:21,942 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:12:31,652 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:13:02,161 basehttp 5672 1404 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:13:32,207 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:14:02,171 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:14:32,176 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:14:42,191 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:14:42,422 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:14:44,769 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:14:44,994 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:14:59,442 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:14:59,741 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:15,534 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:15:15,786 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:18,294 basehttp 5672 17424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:15:18,600 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:20,504 basehttp 5672 17424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:15:20,858 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:23,288 basehttp 5672 17424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:15:23,549 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:25,303 basehttp 5672 17424 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:15:25,678 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:25,715 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:55,613 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:56,265 basehttp 5672 17424 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:15:56,668 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:56,701 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:15:58,571 basehttp 5672 17424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:15:58,806 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:01,036 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:16:01,454 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:02,516 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:16:02,643 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:16:02,926 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:19,285 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:16:19,590 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:31,804 basehttp 5672 17424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:16:32,159 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:33,989 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:16:34,282 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:35,817 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:16:35,943 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:16:36,296 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:16:54,358 basehttp 5672 17424 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-10-23 15:16:54,701 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:17:01,214 basehttp 5672 17424 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-23 15:17:01,513 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:17:14,296 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:17:14,433 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:17:14,808 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:17:20,570 basehttp 5672 17424 "GET /learning/enroll/ HTTP/1.1" 200 11042
+INFO 2025-10-23 15:17:20,846 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:17:34,120 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:17:34,658 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:05,232 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:34,598 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:42,643 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:18:42,786 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:18:43,039 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:48,221 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:18:48,662 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:52,560 basehttp 5672 17424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:18:53,059 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:55,062 basehttp 5672 17424 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:18:55,626 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:18:55,685 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:19:18,617 basehttp 5672 17424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:19:19,190 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:19:32,693 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:19:33,049 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:19:41,305 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:19:41,428 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:19:41,830 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:19:53,905 basehttp 5672 17424 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:19:54,412 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:19:54,457 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:20:24,362 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:20:50,849 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:20:51,017 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:20:51,470 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:21:21,481 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:21:51,420 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:02,950 basehttp 5672 17424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:22:03,114 basehttp 5672 17424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:22:03,404 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:07,709 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:22:08,174 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:17,442 basehttp 5672 17424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:22:18,069 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:19,053 basehttp 5672 17424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:22:19,435 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:20,814 basehttp 5672 17424 "GET /content/library/ HTTP/1.1" 200 15394
+INFO 2025-10-23 15:22:21,169 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:22:45,351 basehttp 5672 17424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-23 15:22:45,869 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:23:15,802 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 15:23:34,936 views 5672 17424 Upload failed for user methembe: 'No such transport: django'
+INFO 2025-10-23 15:23:35,003 basehttp 5672 17424 "POST /content/upload/ HTTP/1.1" 200 58
+INFO 2025-10-23 15:23:52,998 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:24:16,229 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:24:45,787 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:25:16,205 basehttp 5672 17424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:25:26,256 autoreload 5672 640 C:\Users\methe\Metlab.edu\metlab_edu\settings.py changed, reloading.
+INFO 2025-10-23 15:25:46,313 autoreload 13440 19268 Watching for file changes with StatReloader
+INFO 2025-10-23 15:25:47,390 ai_services 13440 19268 OpenAI client initialized successfully
+INFO 2025-10-23 15:25:47,391 ai_services 13440 19268 OpenAI client initialized successfully
+INFO 2025-10-23 15:25:47,392 ai_services 13440 19268 OpenAI client initialized successfully
+INFO 2025-10-23 15:25:47,393 ai_services 13440 19268 OpenAI client initialized successfully
+INFO 2025-10-23 15:25:47,394 ai_services 13440 19268 OpenAI client initialized successfully
+INFO 2025-10-23 15:25:47,975 basehttp 13440 16956 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:25:56,136 autoreload 13440 19268 C:\Users\methe\Metlab.edu\content\views.py changed, reloading.
+INFO 2025-10-23 15:26:14,984 autoreload 16500 10704 Watching for file changes with StatReloader
+INFO 2025-10-23 15:26:15,925 ai_services 16500 10704 OpenAI client initialized successfully
+INFO 2025-10-23 15:26:15,926 ai_services 16500 10704 OpenAI client initialized successfully
+INFO 2025-10-23 15:26:15,926 ai_services 16500 10704 OpenAI client initialized successfully
+INFO 2025-10-23 15:26:15,927 ai_services 16500 10704 OpenAI client initialized successfully
+INFO 2025-10-23 15:26:15,928 ai_services 16500 10704 OpenAI client initialized successfully
+INFO 2025-10-23 15:26:16,441 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:27:09,668 ai_services 18832 2528 OpenAI client initialized successfully
+INFO 2025-10-23 15:27:09,669 ai_services 18832 2528 OpenAI client initialized successfully
+INFO 2025-10-23 15:27:09,669 ai_services 18832 2528 OpenAI client initialized successfully
+INFO 2025-10-23 15:27:09,670 ai_services 18832 2528 OpenAI client initialized successfully
+INFO 2025-10-23 15:27:09,671 ai_services 18832 2528 OpenAI client initialized successfully
+INFO 2025-10-23 15:27:17,189 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:27:51,624 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:28:12,551 ai_services 104 11000 OpenAI client initialized successfully
+INFO 2025-10-23 15:28:12,552 ai_services 104 11000 OpenAI client initialized successfully
+INFO 2025-10-23 15:28:12,553 ai_services 104 11000 OpenAI client initialized successfully
+INFO 2025-10-23 15:28:12,554 ai_services 104 11000 OpenAI client initialized successfully
+INFO 2025-10-23 15:28:12,555 ai_services 104 11000 OpenAI client initialized successfully
+INFO 2025-10-23 15:28:16,243 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:28:43,266 basehttp 16500 14868 "GET /content/upload/ HTTP/1.1" 200 20387
+INFO 2025-10-23 15:28:44,042 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-10-23 15:29:05,134 connection 16500 14868 No hostname was supplied. Reverting to default 'localhost'
+INFO 2025-10-23 15:29:05,237 tasks 16500 14868 Starting processing for content: uploads/44/2025/10/Christian_vs_Agnostic_dialogue_WqlNIe2.docx
+ERROR 2025-10-23 15:29:05,238 services 16500 14868 Error extracting text from uploads/44/2025/10/Christian_vs_Agnostic_dialogue_WqlNIe2.docx: python-docx not installed. Cannot process DOCX files.
+ERROR 2025-10-23 15:29:05,268 services 16500 14868 Content processing failed for uploads/44/2025/10/Christian_vs_Agnostic_dialogue_WqlNIe2.docx: Failed to extract text: python-docx not installed. Cannot process DOCX files.
+ERROR 2025-10-23 15:29:05,270 tasks 16500 14868 Processing failed for content: uploads/44/2025/10/Christian_vs_Agnostic_dialogue_WqlNIe2.docx
+INFO 2025-10-23 15:29:05,378 trace 16500 14868 Task content.tasks.process_uploaded_content[e6425dff-79f6-46aa-9554-fca13aa6bfd2] succeeded in 0.16978949995245785s: {'success': False, 'content_id': 7, 'filename': 'uploads/44/2025/10/Christian_vs_Agnostic_dialogue_WqlNIe2.docx', 'error': 'Failed to extract text: python-docx not installed. Cannot process DOCX files.'}
+INFO 2025-10-23 15:29:05,445 basehttp 16500 14868 "POST /content/upload/ HTTP/1.1" 200 164
+INFO 2025-10-23 15:29:07,124 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 20158
+INFO 2025-10-23 15:29:07,448 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:29:18,864 basehttp 16500 14868 "GET /content/detail/7/ HTTP/1.1" 200 12585
+INFO 2025-10-23 15:29:19,145 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 15:29:21,806 log 16500 14868 Internal Server Error: /content/delete/7/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\content\views.py", line 213, in delete_content
+    return render(request, 'content/delete_confirm.html', {'content': content})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: content/delete_confirm.html
+ERROR 2025-10-23 15:29:21,842 basehttp 16500 14868 "GET /content/delete/7/ HTTP/1.1" 500 106773
+INFO 2025-10-23 15:29:40,869 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:29:41,155 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:29:43,452 basehttp 16500 14868 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-23 15:29:43,698 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 15:29:56,604 log 16500 14868 Internal Server Error: /content/delete/6/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\content\views.py", line 213, in delete_content
+    return render(request, 'content/delete_confirm.html', {'content': content})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: content/delete_confirm.html
+ERROR 2025-10-23 15:29:56,639 basehttp 16500 14868 "GET /content/delete/6/ HTTP/1.1" 500 106692
+INFO 2025-10-23 15:30:04,307 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:30:04,622 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:30:43,283 basehttp 16500 14868 "GET /content/library/?search=&status=failed&type=docx HTTP/1.1" 200 17043
+INFO 2025-10-23 15:30:43,561 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:30:47,039 basehttp 16500 14868 "GET /content/detail/7/ HTTP/1.1" 200 12585
+INFO 2025-10-23 15:30:47,297 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:30:51,244 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:30:51,527 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:30:58,446 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:30:58,736 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:30:59,879 basehttp 16500 14868 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:31:00,081 basehttp 16500 14868 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:31:00,368 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:31:05,396 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:31:05,692 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:31:14,840 basehttp 16500 14868 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-23 15:31:15,089 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:31:17,053 basehttp 16500 14868 "GET /content/download/6/ HTTP/1.1" 200 13721
+INFO 2025-10-23 15:31:45,096 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:31:52,372 basehttp 16500 14868 "GET /content/library/ HTTP/1.1" 200 19875
+INFO 2025-10-23 15:31:52,678 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:31:57,834 basehttp 16500 14868 "GET /content/detail/7/ HTTP/1.1" 200 12585
+INFO 2025-10-23 15:31:58,076 basehttp 16500 14868 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+ERROR 2025-10-23 15:32:00,007 log 16500 14868 Internal Server Error: /content/delete/7/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\content\views.py", line 213, in delete_content
+    return render(request, 'content/delete_confirm.html', {'content': content})
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: content/delete_confirm.html
+ERROR 2025-10-23 15:32:00,048 basehttp 16500 14868 "GET /content/delete/7/ HTTP/1.1" 500 106773
+INFO 2025-10-23 15:34:11,148 ai_services 18568 19600 OpenAI client initialized successfully
+INFO 2025-10-23 15:34:11,148 ai_services 18568 19600 OpenAI client initialized successfully
+INFO 2025-10-23 15:34:11,149 ai_services 18568 19600 OpenAI client initialized successfully
+INFO 2025-10-23 15:34:11,150 ai_services 18568 19600 OpenAI client initialized successfully
+INFO 2025-10-23 15:34:11,150 ai_services 18568 19600 OpenAI client initialized successfully
+INFO 2025-10-23 15:37:33,207 ai_services 11176 2280 OpenAI client initialized successfully
+INFO 2025-10-23 15:37:33,208 ai_services 11176 2280 OpenAI client initialized successfully
+INFO 2025-10-23 15:37:33,209 ai_services 11176 2280 OpenAI client initialized successfully
+INFO 2025-10-23 15:37:33,210 ai_services 11176 2280 OpenAI client initialized successfully
+INFO 2025-10-23 15:37:33,211 ai_services 11176 2280 OpenAI client initialized successfully
+INFO 2025-10-23 15:39:29,311 basehttp 16500 19960 "GET /content/delete/7/ HTTP/1.1" 200 11764
+INFO 2025-10-23 15:39:29,993 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:39:50,717 basehttp 16500 19960 "POST /content/delete/7/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:39:50,827 basehttp 16500 19960 "GET /content/library/ HTTP/1.1" 200 17284
+INFO 2025-10-23 15:39:51,125 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:40:19,279 basehttp 16500 19960 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-23 15:40:19,657 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:40:49,648 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:41:00,168 basehttp 16500 19960 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-23 15:41:04,740 basehttp 16500 19960 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:41:04,913 basehttp 16500 19960 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:41:05,206 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:41:09,020 query_optimization 16500 19960 Operation 'get_session_statistics': 1 queries in 0.017s
+INFO 2025-10-23 15:41:09,023 query_optimization 16500 19960 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-23 15:41:09,133 basehttp 16500 19960 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-23 15:41:09,662 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:41:26,509 basehttp 16500 19960 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:41:26,672 basehttp 16500 19960 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:41:26,976 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:41:42,522 basehttp 16500 19960 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-23 15:41:42,890 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:42:12,863 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:42:42,902 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:43:12,881 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:43:42,918 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:44:12,864 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:44:19,926 basehttp 16500 19960 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-23 15:44:20,299 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:44:23,794 basehttp 16500 19960 "GET /content/delete/6/ HTTP/1.1" 200 11737
+INFO 2025-10-23 15:44:24,091 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:44:29,874 basehttp 16500 19960 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-23 15:44:30,190 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:45:09,412 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:45:39,410 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:46:09,451 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:46:39,461 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:47:09,412 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:47:39,426 basehttp 16500 19960 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:52:46,863 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:52:47,085 basehttp 16500 3476 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-23 15:55:39,437 basehttp 16500 3476 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:55:39,465 basehttp 16500 1976 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-23 15:55:41,258 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:55:51,323 basehttp 16500 1976 "GET /learning/lesson/7/ HTTP/1.1" 200 47300
+INFO 2025-10-23 15:55:51,754 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:56:14,409 basehttp 16500 1976 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:56:14,600 basehttp 16500 1976 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:56:14,964 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:56:37,966 basehttp 16500 1976 "GET /gamification/shop/ HTTP/1.1" 200 37460
+INFO 2025-10-23 15:56:38,365 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:56:48,493 basehttp 16500 1976 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-23 15:56:48,798 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:56:48,861 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:57:05,513 basehttp 16500 1976 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:57:05,814 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:57:11,650 basehttp 16500 1976 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:57:12,010 basehttp 16500 1976 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:57:12,328 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:57:43,068 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:57:54,884 basehttp 16500 1976 "GET /learning/lesson/7/ HTTP/1.1" 200 47300
+INFO 2025-10-23 15:57:55,219 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:58:25,227 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:58:38,670 basehttp 16500 1976 "GET /learning/daily-lesson/ HTTP/1.1" 200 11550
+INFO 2025-10-23 15:58:38,997 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:58:49,587 basehttp 16500 1976 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:58:49,807 basehttp 16500 1976 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:58:50,220 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:58:58,314 basehttp 16500 1976 "GET /content/library/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:58:58,572 basehttp 16500 1976 "GET /accounts/login/?next=/content/library/ HTTP/1.1" 200 4881
+INFO 2025-10-23 15:59:04,955 basehttp 16500 1976 "POST /accounts/login/?next=/content/library/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:59:05,054 basehttp 16500 1976 "GET /content/library/ HTTP/1.1" 200 17203
+INFO 2025-10-23 15:59:05,316 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:12,039 basehttp 16500 1976 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 15:59:12,196 basehttp 16500 1976 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 15:59:12,533 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:42,467 basehttp 16500 1976 "GET /gamification/shop/ HTTP/1.1" 200 37460
+INFO 2025-10-23 15:59:42,588 basehttp 16500 3476 - Broken pipe from ('127.0.0.1', 52655)
+INFO 2025-10-23 15:59:42,820 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:46,205 basehttp 16500 1976 "GET /gamification/shop/?category=avatar HTTP/1.1" 200 19567
+INFO 2025-10-23 15:59:46,469 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:48,780 basehttp 16500 1976 "GET /gamification/shop/?category=power_up HTTP/1.1" 200 19529
+INFO 2025-10-23 15:59:49,046 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:51,409 basehttp 16500 1976 "GET /gamification/shop/?category=all HTTP/1.1" 200 37460
+INFO 2025-10-23 15:59:51,710 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:53,649 basehttp 16500 1976 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-23 15:59:53,998 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 15:59:58,010 basehttp 16500 1976 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-23 15:59:58,338 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:00:08,620 basehttp 16500 1976 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-23 16:00:08,957 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:00:27,951 basehttp 16500 1976 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:00:28,117 basehttp 16500 1976 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29226
+INFO 2025-10-23 16:00:28,516 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:00:59,012 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:01:29,017 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:01:59,020 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:02:29,014 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:02:59,038 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:03:29,223 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:03:59,020 basehttp 16500 1976 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:04:10,476 basehttp 16500 1976 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:04:10,603 basehttp 16500 1976 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-10-23 16:04:16,943 basehttp 16500 1976 "GET /accounts/register/ HTTP/1.1" 200 8390
+INFO 2025-10-23 16:06:19,751 basehttp 16500 1976 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:06:19,803 basehttp 16500 1976 "GET /accounts/login/ HTTP/1.1" 200 5130
+INFO 2025-10-23 16:06:29,108 basehttp 16500 1976 "POST /accounts/login/ HTTP/1.1" 200 5095
+INFO 2025-10-23 16:08:23,338 basehttp 16500 1976 "POST /accounts/login/ HTTP/1.1" 200 5095
+INFO 2025-10-23 16:09:00,549 basehttp 16500 1976 "POST /accounts/login/ HTTP/1.1" 200 5095
+INFO 2025-10-23 16:17:11,315 ai_services 8044 14052 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:11,319 ai_services 8044 14052 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:11,322 ai_services 8044 14052 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:11,323 ai_services 8044 14052 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:11,340 ai_services 8044 14052 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:45,557 ai_services 9264 22048 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:45,563 ai_services 9264 22048 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:45,564 ai_services 9264 22048 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:45,564 ai_services 9264 22048 OpenAI client initialized successfully
+INFO 2025-10-23 16:17:45,565 ai_services 9264 22048 OpenAI client initialized successfully
+INFO 2025-10-23 16:18:22,852 ai_services 15488 3912 OpenAI client initialized successfully
+INFO 2025-10-23 16:18:22,853 ai_services 15488 3912 OpenAI client initialized successfully
+INFO 2025-10-23 16:18:22,854 ai_services 15488 3912 OpenAI client initialized successfully
+INFO 2025-10-23 16:18:22,855 ai_services 15488 3912 OpenAI client initialized successfully
+INFO 2025-10-23 16:18:22,856 ai_services 15488 3912 OpenAI client initialized successfully
+INFO 2025-10-23 16:19:21,477 basehttp 16500 17592 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:19:21,566 basehttp 16500 17592 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:19:21,674 basehttp 16500 17592 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11587
+INFO 2025-10-23 16:19:50,916 basehttp 16500 17592 "GET /content/upload/ HTTP/1.1" 200 18554
+INFO 2025-10-23 16:19:53,177 basehttp 16500 17592 "GET /content/library/ HTTP/1.1" 200 13784
+INFO 2025-10-23 16:19:59,319 basehttp 16500 17592 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:19:59,407 basehttp 16500 17592 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+ERROR 2025-10-23 16:20:44,365 log 16500 17592 Internal Server Error: /learning/teacher/classes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 277, in class_management
+    return render(request, 'learning/class_management.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'teacher_content_dashboard' not found. 'teacher_content_dashboard' is not a valid view function or pattern name.
+ERROR 2025-10-23 16:20:44,414 basehttp 16500 17592 "GET /learning/teacher/classes/ HTTP/1.1" 500 177337
+INFO 2025-10-23 16:25:35,094 autoreload 16500 10704 C:\Users\methe\Metlab.edu\learning\teacher_views.py changed, reloading.
+INFO 2025-10-23 16:25:47,718 autoreload 21028 20920 Watching for file changes with StatReloader
+INFO 2025-10-23 16:25:48,541 ai_services 21028 20920 OpenAI client initialized successfully
+INFO 2025-10-23 16:25:48,542 ai_services 21028 20920 OpenAI client initialized successfully
+INFO 2025-10-23 16:25:48,543 ai_services 21028 20920 OpenAI client initialized successfully
+INFO 2025-10-23 16:25:48,543 ai_services 21028 20920 OpenAI client initialized successfully
+INFO 2025-10-23 16:25:48,544 ai_services 21028 20920 OpenAI client initialized successfully
+INFO 2025-10-23 16:26:27,362 ai_services 16264 3704 OpenAI client initialized successfully
+INFO 2025-10-23 16:26:27,363 ai_services 16264 3704 OpenAI client initialized successfully
+INFO 2025-10-23 16:26:27,364 ai_services 16264 3704 OpenAI client initialized successfully
+INFO 2025-10-23 16:26:27,365 ai_services 16264 3704 OpenAI client initialized successfully
+INFO 2025-10-23 16:26:27,365 ai_services 16264 3704 OpenAI client initialized successfully
+INFO 2025-10-23 16:27:03,908 ai_services 19752 21820 OpenAI client initialized successfully
+INFO 2025-10-23 16:27:03,909 ai_services 19752 21820 OpenAI client initialized successfully
+INFO 2025-10-23 16:27:03,910 ai_services 19752 21820 OpenAI client initialized successfully
+INFO 2025-10-23 16:27:03,911 ai_services 19752 21820 OpenAI client initialized successfully
+INFO 2025-10-23 16:27:03,912 ai_services 19752 21820 OpenAI client initialized successfully
+ERROR 2025-10-23 16:33:39,798 log 21028 18096 Internal Server Error: /learning/teacher/classes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 277, in class_management
+    return render(request, 'learning/class_management.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-10-23 16:33:39,852 basehttp 21028 18096 "GET /learning/teacher/classes/ HTTP/1.1" 500 177558
+ERROR 2025-10-23 16:33:47,595 log 21028 18096 Internal Server Error: /learning/teacher/classes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 277, in class_management
+    return render(request, 'learning/class_management.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-10-23 16:33:47,634 basehttp 21028 18096 "GET /learning/teacher/classes/ HTTP/1.1" 500 177421
+ERROR 2025-10-23 16:33:57,913 log 21028 18096 Internal Server Error: /learning/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 58, in teacher_content_dashboard
+    return render(request, 'learning/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'upload_content' not found. 'upload_content' is not a valid view function or pattern name.
+ERROR 2025-10-23 16:33:57,941 basehttp 21028 18096 "GET /learning/teacher/ HTTP/1.1" 500 185738
+ERROR 2025-10-23 16:34:04,367 log 21028 18096 Internal Server Error: /learning/teacher/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 111, in upload_content
+    return render(request, 'learning/upload_content.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 24, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 175, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 157, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 167, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 63, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 321, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1005, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 966, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 471, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 828, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-10-23 16:34:04,412 basehttp 21028 18096 "GET /learning/teacher/upload/ HTTP/1.1" 500 200343
+INFO 2025-10-23 16:34:33,558 basehttp 21028 18096 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:34:33,622 basehttp 21028 18096 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-10-23 16:34:44,819 basehttp 21028 18096 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:34:44,898 basehttp 21028 18096 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-23 16:34:45,097 basehttp 21028 18096 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29426
+INFO 2025-10-23 16:34:45,506 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:35:15,476 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:35:45,517 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:36:15,511 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:36:45,518 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:37:15,483 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:37:45,482 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:38:15,520 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:38:45,528 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:39:15,470 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:39:45,492 basehttp 21028 7600 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-23 16:39:45,525 basehttp 21028 18096 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-23 16:40:15,479 basehttp 21028 18096 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:10:48,973 autoreload 16072 15416 Watching for file changes with StatReloader
+INFO 2025-10-24 15:10:51,246 ai_services 16072 15416 OpenAI client initialized successfully
+INFO 2025-10-24 15:10:51,246 ai_services 16072 15416 OpenAI client initialized successfully
+INFO 2025-10-24 15:10:51,247 ai_services 16072 15416 OpenAI client initialized successfully
+INFO 2025-10-24 15:10:51,247 ai_services 16072 15416 OpenAI client initialized successfully
+INFO 2025-10-24 15:10:51,248 ai_services 16072 15416 OpenAI client initialized successfully
+INFO 2025-10-24 15:10:56,953 basehttp 16072 7664 "GET / HTTP/1.1" 302 0
+INFO 2025-10-24 15:10:57,048 basehttp 16072 7664 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-24 15:10:57,131 basehttp 16072 7664 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-10-24 15:10:57,143 basehttp 16072 13856 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-24 15:10:57,309 basehttp 16072 7664 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 14778
+WARNING 2025-10-24 15:10:57,773 log 16072 7664 Not Found: /favicon.ico
+WARNING 2025-10-24 15:10:57,774 basehttp 16072 7664 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-10-24 15:11:08,804 basehttp 16072 4596 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-24 15:11:08,901 basehttp 16072 4596 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-24 15:11:09,158 basehttp 16072 4596 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29419
+INFO 2025-10-24 15:11:09,254 basehttp 16072 4596 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2025-10-24 15:11:09,749 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:11:16,641 basehttp 16072 4596 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-24 15:11:16,934 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:11:20,966 query_optimization 16072 4596 Operation 'get_session_statistics': 1 queries in 0.010s
+INFO 2025-10-24 15:11:20,972 query_optimization 16072 4596 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-24 15:11:21,095 basehttp 16072 4596 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-24 15:11:21,516 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:11:28,918 basehttp 16072 4596 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-24 15:11:29,199 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:11:40,219 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:12:10,263 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:12:40,260 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:13:10,205 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:13:40,279 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:14:10,220 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:14:40,242 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:15:23,234 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:15:34,658 basehttp 16072 4596 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-24 15:15:35,389 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:15:39,731 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:15:45,787 basehttp 16072 4596 "POST /learning/api/lesson/8/start/ HTTP/1.1" 200 95
+INFO 2025-10-24 15:15:45,966 basehttp 16072 4596 "GET /learning/lesson/8/ HTTP/1.1" 200 47300
+INFO 2025-10-24 15:15:46,364 basehttp 16072 4596 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-24 15:16:09,660 basehttp 16072 4596 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-24 17:38:42,803 basehttp 16072 20220 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-24 17:38:42,833 basehttp 16072 14688 "GET /learning/api/recommendations/ HTTP/1.1" 302 0
+INFO 2025-10-24 17:38:42,869 basehttp 16072 20220 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-24 17:38:42,902 basehttp 16072 14688 "GET /accounts/login/?next=/learning/api/recommendations/ HTTP/1.1" 200 4881
+INFO 2025-10-24 17:38:51,527 basehttp 16072 14688 "GET /learning/analytics/ HTTP/1.1" 302 0
+INFO 2025-10-24 17:38:51,578 basehttp 16072 14688 "GET /accounts/login/?next=/learning/analytics/ HTTP/1.1" 200 4881
+INFO 2025-10-24 17:38:51,669 basehttp 16072 14688 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-10-29 19:05:48,512 autoreload 19340 19928 Watching for file changes with StatReloader
+INFO 2025-10-29 19:05:49,262 ai_services 19340 19928 OpenAI client initialized successfully
+INFO 2025-10-29 19:05:49,262 ai_services 19340 19928 OpenAI client initialized successfully
+INFO 2025-10-29 19:05:49,262 ai_services 19340 19928 OpenAI client initialized successfully
+INFO 2025-10-29 19:05:49,263 ai_services 19340 19928 OpenAI client initialized successfully
+INFO 2025-10-29 19:05:49,263 ai_services 19340 19928 OpenAI client initialized successfully

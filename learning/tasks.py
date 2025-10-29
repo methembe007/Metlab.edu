@@ -80,8 +80,18 @@ def generate_daily_recommendations():
             # Only generate new recommendations if they have fewer than 3 active ones
             if recent_recommendations < 3:
                 # Trigger individual student analytics update
-                result = update_student_analytics.delay(student.id)
-                total_processed += 1
+                try:
+                    result = update_student_analytics.delay(student.id)
+                    total_processed += 1
+                except Exception as e:
+                    # Fallback to synchronous processing
+                    logger.warning(f"Celery task failed for student {student.id}, processing synchronously: {e}")
+                    try:
+                        update_student_analytics(student.id)
+                        total_processed += 1
+                    except Exception as sync_error:
+                        logger.error(f"Synchronous processing failed for student {student.id}: {sync_error}")
+                        continue
         
         except Exception as e:
             continue  # Skip problematic students

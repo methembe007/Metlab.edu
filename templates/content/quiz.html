@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+
+{% block title %}Quiz - {{ content.title }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ content.title }} - Quiz</h1>
+                    <p class="text-gray-600 mt-1">Test your knowledge with AI-generated questions</p>
+                </div>
+                <a href="{% url 'content:detail' content.id %}" 
+                   class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-200">
+                    ← Back to Content
+                </a>
+            </div>
+        </div>
+
+        {% if quiz %}
+        <!-- Quiz Content -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <div class="mb-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-lg font-semibold text-gray-900">Quiz Questions</h2>
+                    <span class="text-sm text-gray-500">{{ quiz.questions|length }} questions</span>
+                </div>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-md p-4 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">Quiz Instructions</h3>
+                            <div class="mt-2 text-sm text-blue-700">
+                                <p>Answer all questions to test your understanding of the content. Take your time and think carefully about each answer.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form id="quiz-form" method="post">
+                {% csrf_token %}
+                <div class="space-y-6">
+                    {% for question in quiz.questions %}
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <h3 class="text-lg font-medium text-gray-900 mb-3">
+                            Question {{ forloop.counter }}: {{ question.question }}
+                        </h3>
+                        
+                        {% if question.type == 'multiple_choice' %}
+                        <div class="space-y-2">
+                            {% for option in question.options %}
+                            <label class="flex items-center">
+                                <input type="radio" name="question_{{ forloop.parentloop.counter0 }}" 
+                                       value="{{ forloop.counter0 }}" 
+                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <span class="ml-2 text-gray-700">{{ option }}</span>
+                            </label>
+                            {% endfor %}
+                        </div>
+                        {% elif question.type == 'true_false' %}
+                        <div class="space-y-2">
+                            <label class="flex items-center">
+                                <input type="radio" name="question_{{ forloop.counter0 }}" 
+                                       value="true" 
+                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <span class="ml-2 text-gray-700">True</span>
+                            </label>
+                            <label class="flex items-center">
+                                <input type="radio" name="question_{{ forloop.counter0 }}" 
+                                       value="false" 
+                                       class="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300">
+                                <span class="ml-2 text-gray-700">False</span>
+                            </label>
+                        </div>
+                        {% else %}
+                        <textarea name="question_{{ forloop.counter0 }}" 
+                                  rows="3" 
+                                  class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                  placeholder="Enter your answer here..."></textarea>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+
+                <div class="mt-8 flex justify-end space-x-4">
+                    <a href="{% url 'content:detail' content.id %}" 
+                       class="px-6 py-2 border border-gray-300 rounded-md text-gray-700 hover:bg-gray-50 transition duration-200">
+                        Cancel
+                    </a>
+                    <button type="submit" 
+                            class="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition duration-200">
+                        Submit Quiz
+                    </button>
+                </div>
+            </form>
+        </div>
+        {% else %}
+        <!-- No Quiz Available -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 mb-4">
+                <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a9 9 0 117.072 0l-.548.547A3.374 3.374 0 0014.846 21H9.154a3.374 3.374 0 00-2.548-1.146l-.548-.547z"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Quiz Available</h3>
+            <p class="text-gray-600 mb-4">A quiz hasn't been generated for this content yet.</p>
+            <a href="{% url 'content:detail' content.id %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">
+                Back to Content
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('quiz-form');
+    if (form) {
+        form.addEventListener('submit', function(e) {
+            const submitButton = form.querySelector('button[type="submit"]');
+            submitButton.disabled = true;
+            submitButton.innerHTML = 'Submitting...';
+        });
+    }
+});
+</script>
+{% endblock %}

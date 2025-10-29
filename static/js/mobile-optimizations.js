@@ -305,7 +305,7 @@ class MobileOptimizations {
             const skipLink = document.createElement('a');
             skipLink.href = '#main-content';
             skipLink.className = 'skip-link sr-only-mobile focus:not-sr-only';
-            skipLink.textContent = 'Skip to main content';
+            skipLink.textContent = '';
             document.body.insertBefore(skipLink, document.body.firstChild);
 
             main.id = 'main-content';
@@ -319,7 +319,7 @@ class MobileOptimizations {
                 // Optimize video for mobile
                 video.preload = 'metadata';
                 video.controls = true;
-                
+
                 // Add mobile-specific video controls
                 this.addMobileVideoControls(video);
             }
@@ -330,7 +330,7 @@ class MobileOptimizations {
         const container = video.parentElement;
         if (!container.classList.contains('video-mobile-container')) {
             container.classList.add('video-mobile-container');
-            
+
             // Add fullscreen button for mobile
             const fullscreenBtn = document.createElement('button');
             fullscreenBtn.className = 'video-fullscreen-btn';
@@ -342,7 +342,7 @@ class MobileOptimizations {
                     video.webkitRequestFullscreen();
                 }
             });
-            
+
             container.appendChild(fullscreenBtn);
         }
     }
@@ -350,7 +350,7 @@ class MobileOptimizations {
     adjustLayoutForOrientation() {
         const orientation = window.orientation;
         document.body.classList.remove('portrait', 'landscape');
-        
+
         if (Math.abs(orientation) === 90) {
             document.body.classList.add('landscape');
         } else {
@@ -402,12 +402,12 @@ class CrossBrowserUtils {
 
     static requestAnimationFrameSafe(callback) {
         const raf = window.requestAnimationFrame ||
-                   window.webkitRequestAnimationFrame ||
-                   window.mozRequestAnimationFrame ||
-                   window.oRequestAnimationFrame ||
-                   window.msRequestAnimationFrame ||
-                   function(callback) { setTimeout(callback, 1000 / 60); };
-        
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.oRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback) { setTimeout(callback, 1000 / 60); };
+
         return raf(callback);
     }
 
@@ -422,7 +422,7 @@ class CrossBrowserUtils {
 }
 
 // Initialize mobile optimizations when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     MobileOptimizations.getInstance();
 });
 

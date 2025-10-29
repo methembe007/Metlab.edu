@@ -351,7 +351,7 @@ def bulk_content_distribution(request):
                 content_item.assigned_classes.add(*target_classes)
             
             messages.success(request, f'Successfully distributed {len(content_items)} content items to {len(target_classes)} classes.')
-            return redirect('teacher_content_dashboard')
+            return redirect('learning:teacher_content_dashboard')
     else:
         form = BulkContentDistributionForm(teacher=teacher_profile)
     
@@ -642,7 +642,7 @@ def bulk_assign_content(request):
             else:
                 messages.info(request, 'All selected content was already assigned to the selected classes.')
             
-            return redirect('teacher_content_dashboard')
+            return redirect('learning:teacher_content_dashboard')
     else:
         form = BulkContentDistributionForm(teacher=teacher_profile)
     

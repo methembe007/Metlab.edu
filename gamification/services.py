@@ -457,7 +457,7 @@ class AchievementService:
             perfect_scores = DailyLesson.objects.filter(
                 student=student_profile,
                 status='completed',
-                score=100
+                performance_score=100
             ).exists()
             progress = 100 if perfect_scores else 0
         

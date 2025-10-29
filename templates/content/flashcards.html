@@ -1,0 +1,276 @@
+{% extends 'base.html' %}
+
+{% block title %}Flashcards - {{ content.title }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto">
+        <!-- Header -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-6 mb-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">{{ content.title }} - Flashcards</h1>
+                    <p class="text-gray-600 mt-1">Review key concepts with interactive flashcards</p>
+                </div>
+                <a href="{% url 'content:detail' content.id %}" 
+                   class="bg-gray-100 text-gray-700 px-4 py-2 rounded-md hover:bg-gray-200 transition duration-200">
+                    ← Back to Content
+                </a>
+            </div>
+        </div>
+
+        {% if flashcards %}
+        <!-- Flashcard Controls -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-4 mb-6">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-4">
+                    <span class="text-sm text-gray-600">
+                        Card <span id="current-card">1</span> of {{ flashcards|length }}
+                    </span>
+                    <div class="flex items-center space-x-2">
+                        <button id="prev-btn" 
+                                class="px-3 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Previous
+                        </button>
+                        <button id="next-btn" 
+                                class="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 transition duration-200 disabled:opacity-50 disabled:cursor-not-allowed">
+                            Next
+                        </button>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button id="shuffle-btn" 
+                            class="px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition duration-200">
+                        Shuffle
+                    </button>
+                    <button id="reset-btn" 
+                            class="px-3 py-1 bg-gray-100 text-gray-700 rounded hover:bg-gray-200 transition duration-200">
+                        Reset
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Flashcard Container -->
+        <div class="relative">
+            <div id="flashcard-container" class="bg-white rounded-lg shadow-lg border border-gray-200 min-h-96 cursor-pointer">
+                {% for flashcard in flashcards %}
+                <div class="flashcard {% if forloop.first %}active{% endif %}" 
+                     data-index="{{ forloop.counter0 }}"
+                     style="{% if not forloop.first %}display: none;{% endif %}">
+                    <div class="flashcard-inner">
+                        <!-- Front Side -->
+                        <div class="flashcard-front p-8 flex items-center justify-center min-h-96">
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <span class="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full">
+                                        {{ flashcard.concept_tag|default:"Concept" }}
+                                    </span>
+                                </div>
+                                <h2 class="text-2xl font-bold text-gray-900 mb-4">{{ flashcard.front_text }}</h2>
+                                <p class="text-gray-600 text-sm">Click to reveal answer</p>
+                            </div>
+                        </div>
+                        
+                        <!-- Back Side -->
+                        <div class="flashcard-back p-8 flex items-center justify-center min-h-96" style="display: none;">
+                            <div class="text-center">
+                                <div class="mb-4">
+                                    <span class="inline-block px-3 py-1 bg-green-100 text-green-800 text-sm rounded-full">
+                                        Answer
+                                    </span>
+                                </div>
+                                <h2 class="text-xl font-semibold text-gray-900 mb-4">{{ flashcard.back_text }}</h2>
+                                <p class="text-gray-600 text-sm">Click to see question again</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <!-- Progress Bar -->
+            <div class="mt-4">
+                <div class="bg-gray-200 rounded-full h-2">
+                    <div id="progress-bar" 
+                         class="bg-blue-600 h-2 rounded-full transition-all duration-300" 
+                         style="width: {% widthratio 1 flashcards|length 100 %}%"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Study Options -->
+        <div class="mt-6 bg-white rounded-lg shadow-sm border border-gray-200 p-6">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Study Options</h3>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <button id="study-mode-btn" 
+                        class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
+                    <div class="text-center">
+                        <div class="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Study Mode</h4>
+                        <p class="text-sm text-gray-600">Auto-flip cards</p>
+                    </div>
+                </button>
+                
+                <button id="quiz-mode-btn" 
+                        class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
+                    <div class="text-center">
+                        <div class="w-8 h-8 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-4 h-4 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Quiz Mode</h4>
+                        <p class="text-sm text-gray-600">Test yourself</p>
+                    </div>
+                </button>
+                
+                <button id="review-mode-btn" 
+                        class="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition duration-200">
+                    <div class="text-center">
+                        <div class="w-8 h-8 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-4 h-4 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                            </svg>
+                        </div>
+                        <h4 class="font-medium text-gray-900">Review Mode</h4>
+                        <p class="text-sm text-gray-600">Spaced repetition</p>
+                    </div>
+                </button>
+            </div>
+        </div>
+        {% else %}
+        <!-- No Flashcards Available -->
+        <div class="bg-white rounded-lg shadow-sm border border-gray-200 p-8 text-center">
+            <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-gray-100 mb-4">
+                <svg class="h-6 w-6 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                </svg>
+            </div>
+            <h3 class="text-lg font-medium text-gray-900 mb-2">No Flashcards Available</h3>
+            <p class="text-gray-600 mb-4">Flashcards haven't been generated for this content yet.</p>
+            <a href="{% url 'content:detail' content.id %}" 
+               class="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition duration-200">
+                Back to Content
+            </a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const flashcards = document.querySelectorAll('.flashcard');
+    const totalCards = flashcards.length;
+    let currentIndex = 0;
+    let isFlipped = false;
+    
+    if (totalCards === 0) return;
+    
+    const currentCardSpan = document.getElementById('current-card');
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const shuffleBtn = document.getElementById('shuffle-btn');
+    const resetBtn = document.getElementById('reset-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const flashcardContainer = document.getElementById('flashcard-container');
+    
+    function updateCard() {
+        // Hide all cards
+        flashcards.forEach((card, index) => {
+            card.style.display = index === currentIndex ? 'block' : 'none';
+        });
+        
+        // Update UI
+        currentCardSpan.textContent = currentIndex + 1;
+        prevBtn.disabled = currentIndex === 0;
+        nextBtn.disabled = currentIndex === totalCards - 1;
+        
+        // Update progress bar
+        const progress = ((currentIndex + 1) / totalCards) * 100;
+        progressBar.style.width = progress + '%';
+        
+        // Reset flip state
+        isFlipped = false;
+        const currentCard = flashcards[currentIndex];
+        const front = currentCard.querySelector('.flashcard-front');
+        const back = currentCard.querySelector('.flashcard-back');
+        front.style.display = 'block';
+        back.style.display = 'none';
+    }
+    
+    function flipCard() {
+        const currentCard = flashcards[currentIndex];
+        const front = currentCard.querySelector('.flashcard-front');
+        const back = currentCard.querySelector('.flashcard-back');
+        
+        if (isFlipped) {
+            front.style.display = 'block';
+            back.style.display = 'none';
+        } else {
+            front.style.display = 'none';
+            back.style.display = 'block';
+        }
+        isFlipped = !isFlipped;
+    }
+    
+    // Event listeners
+    flashcardContainer.addEventListener('click', flipCard);
+    
+    prevBtn.addEventListener('click', function() {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCard();
+        }
+    });
+    
+    nextBtn.addEventListener('click', function() {
+        if (currentIndex < totalCards - 1) {
+            currentIndex++;
+            updateCard();
+        }
+    });
+    
+    shuffleBtn.addEventListener('click', function() {
+        // Simple shuffle by jumping to random card
+        currentIndex = Math.floor(Math.random() * totalCards);
+        updateCard();
+    });
+    
+    resetBtn.addEventListener('click', function() {
+        currentIndex = 0;
+        updateCard();
+    });
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        switch(e.key) {
+            case 'ArrowLeft':
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateCard();
+                }
+                break;
+            case 'ArrowRight':
+                if (currentIndex < totalCards - 1) {
+                    currentIndex++;
+                    updateCard();
+                }
+                break;
+            case ' ':
+            case 'Enter':
+                e.preventDefault();
+                flipCard();
+                break;
+        }
+    });
+    
+    // Initialize
+    updateCard();
+});
+</script>
+{% endblock %}
