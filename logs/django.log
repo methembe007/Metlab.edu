@@ -6521,3 +6521,468 @@ INFO 2025-10-29 19:05:49,262 ai_services 19340 19928 OpenAI client initialized s
 INFO 2025-10-29 19:05:49,262 ai_services 19340 19928 OpenAI client initialized successfully
 INFO 2025-10-29 19:05:49,263 ai_services 19340 19928 OpenAI client initialized successfully
 INFO 2025-10-29 19:05:49,263 ai_services 19340 19928 OpenAI client initialized successfully
+INFO 2025-10-29 19:05:59,172 basehttp 19340 8508 "GET / HTTP/1.1" 302 0
+INFO 2025-10-29 19:05:59,226 basehttp 19340 8508 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-29 19:05:59,287 basehttp 19340 8508 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-10-29 19:05:59,295 basehttp 19340 17516 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-29 19:05:59,296 basehttp 19340 8508 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2025-10-29 19:06:00,006 log 19340 8508 Not Found: /favicon.ico
+WARNING 2025-10-29 19:06:00,008 basehttp 19340 8508 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-10-29 19:06:11,375 basehttp 19340 8508 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:06:11,447 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:06:11,642 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29419
+INFO 2025-10-29 19:06:11,715 basehttp 19340 8508 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2025-10-29 19:06:11,896 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:06:41,902 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:06:46,846 basehttp 19340 8508 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-10-29 19:06:47,083 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:06:53,550 basehttp 19340 8508 "GET /community/study-groups/create/ HTTP/1.1" 200 14748
+INFO 2025-10-29 19:06:53,861 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:07:17,069 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:07:41,688 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:07:41,825 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:07:42,176 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:07:55,935 basehttp 19340 8508 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-29 19:07:56,210 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:21,350 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:08:21,448 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:08:21,762 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:25,290 basehttp 19340 8508 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-29 19:08:25,539 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:30,838 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:08:30,965 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:08:31,204 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:33,407 basehttp 19340 8508 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-29 19:08:33,670 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:40,941 basehttp 19340 8508 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-29 19:08:41,168 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:43,603 basehttp 19340 8508 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-29 19:08:43,805 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:43,851 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:08:48,204 basehttp 19340 8508 "GET /gamification/shop/ HTTP/1.1" 200 37460
+INFO 2025-10-29 19:08:48,451 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:04,785 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:09:04,932 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:09:05,210 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:24,442 query_optimization 19340 8508 Operation 'get_session_statistics': 1 queries in 0.004s
+INFO 2025-10-29 19:09:24,445 query_optimization 19340 8508 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-29 19:09:24,496 basehttp 19340 8508 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-29 19:09:24,787 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:37,086 basehttp 19340 8508 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-29 19:09:37,367 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:40,789 basehttp 19340 8508 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-29 19:09:41,118 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:43,383 basehttp 19340 8508 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-29 19:09:43,738 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:43,764 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:09:48,626 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:09:48,783 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:09:49,136 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:10:19,070 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:10:49,113 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:11:19,077 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:11:36,778 basehttp 19340 8508 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-29 19:11:37,077 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:11:42,486 basehttp 19340 8508 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-29 19:11:42,633 basehttp 19340 8508 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29219
+INFO 2025-10-29 19:11:42,958 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:12:12,921 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:12:42,909 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:13:13,697 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:13:43,691 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:14:13,685 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:14:43,690 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:15:13,693 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:16:03,674 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:16:43,676 basehttp 19340 8508 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-10-29 19:17:32,542 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:17:42,917 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:18:12,891 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:18:42,897 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:19:12,909 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:19:42,894 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:20:12,903 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:20:39,828 basehttp 19340 8508 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-29 19:20:40,223 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:20:53,320 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:20:58,697 basehttp 19340 8508 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-29 19:20:59,050 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:21:29,000 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:21:58,996 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:22:29,013 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:22:59,001 basehttp 19340 8508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:23:29,011 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:23:59,016 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:24:29,053 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:24:59,676 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:25:29,680 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:26:03,699 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:27:03,685 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:28:03,699 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:29:03,690 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:30:03,690 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:31:03,693 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:32:03,682 basehttp 19340 14900 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:33:03,679 basehttp 19340 6472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:47:56,911 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:48:03,673 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:49:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:50:03,743 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:51:03,740 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:52:03,683 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:53:03,675 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:54:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:55:03,743 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:56:03,739 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:57:03,685 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:58:03,692 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 19:59:03,686 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:00:03,696 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:01:03,683 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:02:03,683 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:03:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:04:03,677 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:05:03,687 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:06:03,680 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-29 20:07:03,686 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:07:03,714 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:08:03,689 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:08:03,711 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:09:03,737 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:09:03,757 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:10:03,746 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:10:03,769 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:11:03,735 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:11:03,765 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:12:03,673 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:12:03,698 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:13:03,689 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:13:03,716 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:14:03,672 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:14:03,694 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:15:03,695 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:15:03,723 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:16:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:16:03,716 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:17:03,680 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:17:03,712 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:18:03,676 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:18:03,701 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:19:03,671 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:19:03,691 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:20:03,684 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:20:03,718 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:21:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:21:03,724 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:22:03,667 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:22:03,691 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:23:03,688 basehttp 19340 18608 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:23:03,716 basehttp 19340 18608 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:44:26,645 basehttp 19340 2588 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:46:01,748 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:46:01,766 basehttp 19340 2588 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:46:01,802 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:46:29,682 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:46:29,719 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:46:59,697 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:46:59,737 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:48:00,691 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:48:00,735 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:49:01,692 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:49:01,742 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:50:02,687 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:50:02,736 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:51:03,699 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:51:03,747 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:51:29,029 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:51:29,084 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:51:59,020 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:51:59,066 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:52:29,018 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:52:29,064 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:52:59,712 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:52:59,769 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:53:29,755 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:53:29,805 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-29 20:53:59,007 basehttp 19340 14556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-10-29 20:53:59,044 basehttp 19340 14556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-10-31 18:00:51,814 autoreload 10592 8288 Watching for file changes with StatReloader
+INFO 2025-10-31 18:00:53,029 ai_services 10592 8288 OpenAI client initialized successfully
+INFO 2025-10-31 18:00:53,029 ai_services 10592 8288 OpenAI client initialized successfully
+INFO 2025-10-31 18:00:53,030 ai_services 10592 8288 OpenAI client initialized successfully
+INFO 2025-10-31 18:00:53,030 ai_services 10592 8288 OpenAI client initialized successfully
+INFO 2025-10-31 18:00:53,030 ai_services 10592 8288 OpenAI client initialized successfully
+WARNING 2025-10-31 18:00:58,910 log 10592 17468 Not Found: /ws/notifications/
+WARNING 2025-10-31 18:00:58,911 basehttp 10592 17468 "GET /ws/notifications/ HTTP/1.1" 404 3540
+INFO 2025-10-31 18:01:02,784 basehttp 10592 1472 "GET / HTTP/1.1" 302 0
+INFO 2025-10-31 18:01:02,872 basehttp 10592 1472 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-31 18:01:02,956 basehttp 10592 1472 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2025-10-31 18:01:03,668 log 10592 1472 Not Found: /projects/notifications/unread-count/
+WARNING 2025-10-31 18:01:03,670 basehttp 10592 1472 "GET /projects/notifications/unread-count/ HTTP/1.1" 404 3597
+WARNING 2025-10-31 18:01:07,155 log 10592 9792 Not Found: /ws/notifications/
+WARNING 2025-10-31 18:01:07,157 basehttp 10592 9792 "GET /ws/notifications/ HTTP/1.1" 404 3540
+INFO 2025-10-31 18:01:16,723 basehttp 10592 1472 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-31 18:01:16,817 basehttp 10592 1472 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 18:01:17,087 basehttp 10592 1472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29420
+INFO 2025-10-31 18:01:17,401 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:01:26,029 basehttp 10592 1472 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-31 18:01:26,335 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:01:46,909 query_optimization 10592 1472 Operation 'get_session_statistics': 1 queries in 0.015s
+INFO 2025-10-31 18:01:46,914 query_optimization 10592 1472 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-31 18:01:47,052 basehttp 10592 1472 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-31 18:01:47,580 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:01:54,249 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:01:56,547 basehttp 10592 1472 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-31 18:01:56,873 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:02,113 basehttp 10592 1472 "GET /content/detail/6/ HTTP/1.1" 200 12523
+INFO 2025-10-31 18:02:02,568 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:18,997 basehttp 10592 1472 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 18:02:19,150 basehttp 10592 1472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-10-31 18:02:19,703 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:27,960 basehttp 10592 1472 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-10-31 18:02:28,317 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:37,130 basehttp 10592 1472 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-31 18:02:37,501 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:39,636 basehttp 10592 1472 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-31 18:02:40,215 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:40,269 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:02:47,367 basehttp 10592 1472 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 18:02:47,521 basehttp 10592 1472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-10-31 18:02:47,893 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:03:18,696 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:03:42,653 basehttp 10592 1472 "POST /learning/api/lesson/10/start/ HTTP/1.1" 200 96
+INFO 2025-10-31 18:03:42,821 basehttp 10592 1472 "GET /learning/lesson/10/ HTTP/1.1" 200 47303
+INFO 2025-10-31 18:03:43,327 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 18:04:13,658 basehttp 10592 1472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:42:01,543 autoreload 16324 8600 Watching for file changes with StatReloader
+INFO 2025-10-31 19:42:03,193 ai_services 16324 8600 OpenAI client initialized successfully
+INFO 2025-10-31 19:42:03,193 ai_services 16324 8600 OpenAI client initialized successfully
+INFO 2025-10-31 19:42:03,193 ai_services 16324 8600 OpenAI client initialized successfully
+INFO 2025-10-31 19:42:03,194 ai_services 16324 8600 OpenAI client initialized successfully
+INFO 2025-10-31 19:42:03,195 ai_services 16324 8600 OpenAI client initialized successfully
+INFO 2025-10-31 19:42:29,160 basehttp 16324 18972 "GET / HTTP/1.1" 302 0
+INFO 2025-10-31 19:42:29,235 basehttp 16324 18972 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-10-31 19:42:29,320 basehttp 16324 2772 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-10-31 19:42:29,321 basehttp 16324 18972 "GET /static/css/output.css HTTP/1.1" 304 0
+WARNING 2025-10-31 19:42:30,042 log 16324 18972 Not Found: /favicon.ico
+WARNING 2025-10-31 19:42:30,044 basehttp 16324 18972 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-10-31 19:42:38,613 basehttp 16324 18972 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:42:38,688 basehttp 16324 18972 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:42:38,882 basehttp 16324 18972 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29427
+INFO 2025-10-31 19:42:39,182 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:09,181 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:27,496 basehttp 16324 18972 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:43:27,720 basehttp 16324 18972 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29227
+INFO 2025-10-31 19:43:28,050 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:30,484 basehttp 16324 18972 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-31 19:43:30,843 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:34,770 basehttp 16324 18972 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-10-31 19:43:35,070 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:37,469 basehttp 16324 18972 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-10-31 19:43:37,831 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:39,892 basehttp 16324 18972 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-10-31 19:43:40,236 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:44,135 basehttp 16324 18972 "GET /gamification/achievements/ HTTP/1.1" 200 44530
+INFO 2025-10-31 19:43:44,402 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:44,502 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:49,873 basehttp 16324 18972 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:43:50,106 basehttp 16324 18972 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29227
+INFO 2025-10-31 19:43:50,681 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:43:54,727 query_optimization 16324 18972 Operation 'get_session_statistics': 1 queries in 0.041s
+INFO 2025-10-31 19:43:54,728 query_optimization 16324 18972 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-10-31 19:43:54,809 basehttp 16324 18972 "GET /learning/analytics/ HTTP/1.1" 200 18472
+INFO 2025-10-31 19:43:55,244 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:44:03,694 basehttp 16324 18972 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:44:03,911 basehttp 16324 18972 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29227
+INFO 2025-10-31 19:44:04,417 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:44:10,408 basehttp 16324 18972 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-10-31 19:44:10,707 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:44:14,621 basehttp 16324 18972 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-10-31 19:44:14,824 basehttp 16324 18972 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29227
+INFO 2025-10-31 19:44:15,244 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:44:18,504 basehttp 16324 18972 "GET /learning/enroll/ HTTP/1.1" 200 11042
+INFO 2025-10-31 19:44:18,774 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:44:49,356 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:45:19,357 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:45:49,369 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:46:19,389 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:46:49,539 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:47:19,369 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:47:51,313 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:48:50,382 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-10-31 19:49:51,362 basehttp 16324 18972 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:10:56,470 autoreload 8324 14024 Watching for file changes with StatReloader
+INFO 2025-11-01 14:10:59,041 ai_services 8324 14024 OpenAI client initialized successfully
+INFO 2025-11-01 14:10:59,042 ai_services 8324 14024 OpenAI client initialized successfully
+INFO 2025-11-01 14:10:59,042 ai_services 8324 14024 OpenAI client initialized successfully
+INFO 2025-11-01 14:10:59,042 ai_services 8324 14024 OpenAI client initialized successfully
+INFO 2025-11-01 14:10:59,043 ai_services 8324 14024 OpenAI client initialized successfully
+INFO 2025-11-01 14:11:56,568 basehttp 8324 17472 "GET / HTTP/1.1" 302 0
+INFO 2025-11-01 14:11:56,662 basehttp 8324 17472 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-11-01 14:11:56,750 basehttp 8324 17472 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2025-11-01 14:11:57,416 log 8324 17472 Not Found: /favicon.ico
+WARNING 2025-11-01 14:11:57,418 basehttp 8324 17472 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-11-01 14:12:01,367 basehttp 8324 17472 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-01 14:12:01,476 basehttp 8324 17472 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-01 14:12:01,798 basehttp 8324 17472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29420
+INFO 2025-11-01 14:12:02,003 basehttp 8324 17472 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2025-11-01 14:12:02,109 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:12:32,118 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:13:03,002 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:13:32,982 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:14:02,992 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:14:26,831 basehttp 8324 17472 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-11-01 14:14:27,300 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:14:57,277 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:15:27,289 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:15:47,372 basehttp 8324 17472 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-01 14:15:47,547 basehttp 8324 17472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-01 14:15:48,050 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:15:57,655 basehttp 8324 17472 "POST /learning/api/lesson/11/start/ HTTP/1.1" 200 96
+INFO 2025-11-01 14:15:57,940 basehttp 8324 17472 "GET /learning/lesson/11/ HTTP/1.1" 200 47303
+INFO 2025-11-01 14:15:58,423 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:16:29,006 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:16:59,002 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:17:29,051 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:17:59,059 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:18:29,000 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:18:58,998 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:19:29,002 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:19:59,023 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:20:28,429 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:20:59,002 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:21:29,045 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:22:08,450 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:22:29,059 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:22:58,997 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:23:40,575 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:23:58,430 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:24:29,007 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:24:58,377 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:25:29,023 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:25:59,006 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:26:30,488 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:26:59,003 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:27:28,988 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:28:24,969 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:28:28,388 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:28:59,055 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:29:28,999 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:30:06,143 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:30:29,007 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:30:59,008 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:31:52,008 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:32:51,993 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:32:58,377 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:33:29,001 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:33:59,084 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:34:52,000 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:35:52,011 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:36:32,904 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:37:13,025 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:37:43,006 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:38:13,088 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:38:43,013 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:39:13,046 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:39:43,004 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:40:13,051 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:40:51,994 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:41:43,056 basehttp 8324 17472 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-11-01 14:44:33,972 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:44:42,199 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-11-01 14:44:42,995 log 8324 17472 Bad Request: /learning/api/lesson/11/start/
+WARNING 2025-11-01 14:44:42,997 basehttp 8324 17472 "POST /learning/api/lesson/11/start/ HTTP/1.1" 400 79
+WARNING 2025-11-01 14:44:46,864 log 8324 17472 Bad Request: /learning/api/lesson/11/start/
+WARNING 2025-11-01 14:44:46,865 basehttp 8324 17472 "POST /learning/api/lesson/11/start/ HTTP/1.1" 400 79
+INFO 2025-11-01 14:44:55,771 basehttp 8324 17472 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29227
+INFO 2025-11-01 14:44:56,325 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:45:03,244 basehttp 8324 17472 "GET /learning/lesson/11/ HTTP/1.1" 200 47303
+INFO 2025-11-01 14:45:03,553 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:45:34,000 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:46:04,003 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:46:33,987 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:47:04,000 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:47:34,022 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:48:04,002 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:48:52,012 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:49:52,057 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:50:52,037 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:51:16,796 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:51:33,570 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:52:03,671 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:52:05,367 basehttp 8324 17472 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:52:05,399 basehttp 8324 12372 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-11-01 14:52:26,319 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:52:56,350 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:53:27,013 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:53:35,954 basehttp 8324 12372 "GET /learning/lesson/11/ HTTP/1.1" 200 47303
+INFO 2025-11-01 14:53:36,502 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:54:07,001 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:54:37,002 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:55:06,993 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:55:37,001 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:56:06,462 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:56:37,033 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:57:07,109 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:57:52,024 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:58:51,995 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 14:59:40,846 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:00:06,469 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:00:37,011 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:01:06,988 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:01:37,002 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:02:52,007 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-01 15:03:11,688 basehttp 8324 12372 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-03 18:31:25,567 autoreload 5296 11376 Watching for file changes with StatReloader
+INFO 2025-11-03 18:31:28,047 ai_services 5296 11376 OpenAI client initialized successfully
+INFO 2025-11-03 18:31:28,048 ai_services 5296 11376 OpenAI client initialized successfully
+INFO 2025-11-03 18:31:28,048 ai_services 5296 11376 OpenAI client initialized successfully
+INFO 2025-11-03 18:31:28,048 ai_services 5296 11376 OpenAI client initialized successfully
+INFO 2025-11-03 18:31:28,049 ai_services 5296 11376 OpenAI client initialized successfully
+INFO 2025-11-03 18:31:32,318 basehttp 5296 15324 "GET / HTTP/1.1" 302 0
+INFO 2025-11-03 18:31:32,491 basehttp 5296 15324 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-11-03 18:31:32,598 basehttp 5296 15324 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-11-03 18:31:32,623 basehttp 5296 14768 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-11-03 18:31:32,623 basehttp 5296 15324 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+WARNING 2025-11-03 18:31:33,370 log 5296 15324 Not Found: /favicon.ico
+WARNING 2025-11-03 18:31:33,371 basehttp 5296 15324 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-11-03 18:31:40,801 basehttp 5296 15324 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-03 18:31:40,898 basehttp 5296 15324 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-03 18:31:41,081 basehttp 5296 15324 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29420
+INFO 2025-11-03 18:31:41,371 basehttp 5296 15324 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:47:06,954 autoreload 8620 11556 Watching for file changes with StatReloader
+INFO 2025-11-11 08:47:08,443 ai_services 8620 11556 OpenAI client initialized successfully
+INFO 2025-11-11 08:47:08,444 ai_services 8620 11556 OpenAI client initialized successfully
+INFO 2025-11-11 08:47:08,444 ai_services 8620 11556 OpenAI client initialized successfully
+INFO 2025-11-11 08:47:08,445 ai_services 8620 11556 OpenAI client initialized successfully
+INFO 2025-11-11 08:47:08,445 ai_services 8620 11556 OpenAI client initialized successfully
+INFO 2025-11-11 08:47:16,558 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:47:16,642 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-11-11 08:47:16,739 basehttp 8620 21424 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-11-11 08:47:16,755 basehttp 8620 21424 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2025-11-11 08:47:16,764 basehttp 8620 21424 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+INFO 2025-11-11 08:47:22,017 basehttp 8620 21424 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:47:22,116 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:47:22,309 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29420
+INFO 2025-11-11 08:47:22,411 basehttp 8620 21424 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2025-11-11 08:47:22,637 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:47:52,455 basehttp 8620 21424 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-11-11 08:47:52,870 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:48:01,763 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:01,836 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:01,904 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:02,025 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-11 08:48:02,412 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:48:09,782 basehttp 8620 21424 "GET /content/upload/ HTTP/1.1" 200 20164
+INFO 2025-11-11 08:48:10,204 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:48:27,355 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:27,424 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:27,512 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:48:27,646 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-11 08:48:28,175 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:48:34,446 basehttp 8620 21424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-11-11 08:48:34,916 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:49:04,914 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:49:35,416 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:50:05,428 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:50:35,416 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
