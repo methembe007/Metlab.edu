@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}Bulk Content Distribution - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">Bulk Content Distribution</h1>
+                    <p class="mt-2 text-gray-600">Distribute content to multiple classes at once</p>
+                </div>
+                <a href="{% url 'learning:teacher_content_dashboard' %}" class="text-blue-600 hover:text-blue-800">
+                    ← Back to Dashboard
+                </a>
+            </div>
+        </div>
+
+        <!-- Distribution Form -->
+        <div class="bg-white shadow-sm rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Distribute Content</h2>
+            <p class="text-gray-600">Bulk distribution interface coming soon. Use the "Bulk Assign Content" feature instead.</p>
+            <div class="mt-6">
+                <a href="{% url 'learning:bulk_assign_content' %}" 
+                   class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                    Go to Bulk Assign Content
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

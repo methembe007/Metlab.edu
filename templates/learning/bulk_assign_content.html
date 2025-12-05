@@ -173,12 +173,12 @@
                     </p>
                     <div class="mt-6 flex justify-center space-x-3">
                         {% if total_content == 0 %}
-                            <a href="{% url 'upload_content' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            <a href="{% url 'learning:upload_content' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                                 Upload Content
                             </a>
                         {% endif %}
                         {% if total_classes == 0 %}
-                            <a href="{% url 'create_class' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                            <a href="{% url 'learning:create_class' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
                                 Create Class
                             </a>
                         {% endif %}

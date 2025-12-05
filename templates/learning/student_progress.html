@@ -16,10 +16,10 @@
                     </p>
                 </div>
                 <div class="flex space-x-3">
-                    <a href="{% url 'class_detail' teacher_class.id %}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{% url 'learning:class_detail' teacher_class.id %}" class="text-blue-600 hover:text-blue-800">
                         ← Back to Class
                     </a>
-                    <a href="{% url 'class_analytics' teacher_class.id %}"
+                    <a href="{% url 'learning:class_analytics' teacher_class.id %}"
                         class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
                         View Analytics
                     </a>

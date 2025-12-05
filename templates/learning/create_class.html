@@ -8,7 +8,7 @@
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between mb-6">
                 <h1 class="text-2xl font-bold text-gray-900">Create New Class</h1>
-                <a href="{% url 'class_management' %}" class="text-blue-600 hover:text-blue-800">
+                <a href="{% url 'learning:class_management' %}" class="text-blue-600 hover:text-blue-800">
                     ← Back to Classes
                 </a>
             </div>
@@ -125,7 +125,7 @@
                 
                 <!-- Submit Button -->
                 <div class="flex justify-end space-x-3">
-                    <a href="{% url 'class_management' %}" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <a href="{% url 'learning:class_management' %}" class="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         Cancel
                     </a>
                     <button type="submit" class="bg-blue-600 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">

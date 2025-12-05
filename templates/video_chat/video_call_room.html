@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Video Call - {{ session.title }}{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/video_call.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="video-call-container">
+    <!-- Error Container -->
+    <div id="error-container" class="alert alert-danger" style="display: none;"></div>
+    
+    <!-- Video Grid -->
+    <div class="video-main">
+        <div id="video-grid" class="video-grid">
+            <!-- Local video -->
+            <div class="video-container local" data-peer-id="local">
+                <video id="local-video" autoplay muted playsinline></video>
+                <div id="local-video-placeholder" class="video-placeholder" style="display: none;">
+                    <div class="avatar">{{ user.get_full_name|slice:":2"|upper }}</div>
+                </div>
+                <div class="video-overlay">
+                    <div class="participant-name">You</div>
+                </div>
+            </div>
+            
+            <!-- Remote videos will be added dynamically -->
+        </div>
+        
+        <!-- Control Bar -->
+        <div class="control-bar">
+            <div class="control-group">
+                <button id="toggle-audio" class="btn btn-secondary control-btn" title="Mute/Unmute">
+                    <i class="fas fa-microphone"></i>
+                    <span class="btn-text">Mute</span>
+                </button>
+                
+                <button id="toggle-video" class="btn btn-secondary control-btn" title="Start/Stop Video">
+                    <i class="fas fa-video"></i>
+                    <span class="btn-text">Stop Video</span>
+                </button>
+                
+                <button id="toggle-screen-share" class="btn btn-secondary control-btn" title="Share Screen">
+                    <i class="fas fa-desktop"></i>
+                    <span class="btn-text">Share Screen</span>
+                </button>
+                
+                <!-- Connection Quality Indicator -->
+                <div id="connection-quality-indicator" class="connection-quality-display quality-unknown" title="Connection Quality">
+                    <div class="quality-bars">
+                        <div class="quality-bar"></div>
+                        <div class="quality-bar"></div>
+                        <div class="quality-bar"></div>
+                        <div class="quality-bar"></div>
+                    </div>
+                    <span class="quality-text">Connecting...</span>
+                </div>
+            </div>
+            
+            <div class="control-group">
+                <button id="toggle-participants" class="btn btn-secondary control-btn" title="Participants" onclick="videoCall.toggleParticipantList()">
+                    <i class="fas fa-users"></i>
+                    <span class="participant-count-badge" id="participant-count">1</span>
+                </button>
+                
+                <button id="leave-session" class="btn btn-danger control-btn" title="Leave Session">
+                    <i class="fas fa-phone-slash"></i>
+                    <span class="btn-text">Leave</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Participants Sidebar -->
+    <div id="participants-sidebar" class="participants-sidebar">
+        <div class="sidebar-header">
+            <h3>Participants</h3>
+            <button class="btn-close" onclick="videoCall.toggleParticipantList()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        <div id="participants-list" class="participants-list">
+            <!-- Participants will be added dynamically -->
+        </div>
+    </div>
+    
+    <!-- Keyboard Shortcuts Hint -->
+    <div id="keyboard-shortcuts-hint" class="keyboard-shortcuts-hint">
+        <div><kbd>Ctrl+D</kbd> Mute/Unmute</div>
+        <div><kbd>Ctrl+E</kbd> Video On/Off</div>
+        <div><kbd>Ctrl+S</kbd> Share Screen</div>
+        <div><kbd>Ctrl+P</kbd> Participants</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{% static 'js/video_call.js' %}"></script>
+<script>
+    // Initialize video call interface
+    let videoCall;
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        videoCall = new VideoCallInterface(
+            '{{ session.session_id }}',
+            '{{ user.id }}',
+            '{{ user.get_full_name|escapejs }}'
+        );
+        
+        videoCall.initialize().catch(error => {
+            console.error('Failed to initialize video call:', error);
+            alert('Failed to start video call: ' + error.message);
+        });
+    });
+</script>
+{% endblock %}

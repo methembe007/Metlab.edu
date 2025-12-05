@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ content.title }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ content.title }}</h1>
+                    <p class="mt-2 text-gray-600">Content Details and Generated Materials</p>
+                </div>
+                <a href="{% url 'learning:teacher_content_list' %}" class="text-blue-600 hover:text-blue-800">
+                    ← Back to Library
+                </a>
+            </div>
+        </div>
+
+        <!-- Content Info -->
+        <div class="bg-white shadow-sm rounded-lg p-6 mb-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Content Information</h2>
+            <dl class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Subject</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ content.subject|title }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">File Type</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ content.file_type|upper }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Uploaded</dt>
+                    <dd class="mt-1 text-sm text-gray-900">{{ content.uploaded_at|date:"F d, Y" }}</dd>
+                </div>
+                <div>
+                    <dt class="text-sm font-medium text-gray-500">Status</dt>
+                    <dd class="mt-1">
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium 
+                            {% if content.processing_status == 'completed' %}bg-green-100 text-green-800
+                            {% elif content.processing_status == 'processing' %}bg-yellow-100 text-yellow-800
+                            {% else %}bg-gray-100 text-gray-800{% endif %}">
+                            {{ content.get_processing_status_display }}
+                        </span>
+                    </dd>
+                </div>
+            </dl>
+        </div>
+
+        <!-- Generated Materials -->
+        <div class="bg-white shadow-sm rounded-lg p-6">
+            <h2 class="text-xl font-semibold text-gray-900 mb-4">Generated Materials</h2>
+            <p class="text-gray-600">AI-generated learning materials will appear here once processing is complete.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

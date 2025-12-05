@@ -66,6 +66,7 @@ INSTALLED_APPS = [
     'gamification',
     'community',
     'services',
+    'video_chat',
 ]
 
 MIDDLEWARE = [

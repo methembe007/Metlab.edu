@@ -61,7 +61,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'upload_content' %}" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:upload_content' %}" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 inline-block text-center">
                         Upload Materials
                     </a>
                 </div>
@@ -83,7 +83,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'class_management' %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:class_management' %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 inline-block text-center">
                         Manage Classes
                     </a>
                 </div>
@@ -105,7 +105,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'teacher_quiz_list' %}" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:teacher_quiz_list' %}" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 inline-block text-center">
                         Manage Quizzes
                     </a>
                 </div>
@@ -127,7 +127,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'teacher_content_list' %}" class="w-full bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:teacher_content_list' %}" class="w-full bg-orange-600 text-white py-2 px-4 rounded-md hover:bg-orange-700 transition duration-200 inline-block text-center">
                         View Library
                     </a>
                 </div>
@@ -149,7 +149,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'bulk_assign_content' %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:bulk_assign_content' %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 inline-block text-center">
                         Bulk Assign Content
                     </a>
                 </div>
@@ -171,7 +171,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'create_class' %}" class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-200 inline-block text-center">
+                    <a href="{% url 'learning:create_class' %}" class="w-full bg-teal-600 text-white py-2 px-4 rounded-md hover:bg-teal-700 transition duration-200 inline-block text-center">
                         Create New Class
                     </a>
                 </div>
@@ -206,7 +206,7 @@
                                                 Pending
                                             </span>
                                         {% endif %}
-                                        <a href="{% url 'teacher_content_detail' content.id %}" class="text-blue-600 hover:text-blue-800">
+                                        <a href="{% url 'learning:teacher_content_detail' content.id %}" class="text-blue-600 hover:text-blue-800">
                                             View
                                         </a>
                                     </div>
@@ -214,7 +214,7 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="{% url 'teacher_content_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                            <a href="{% url 'learning:teacher_content_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
                                 View all content →
                             </a>
                         </div>
@@ -224,7 +224,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                             </svg>
                             <p class="mt-2">No content uploaded yet</p>
-                            <a href="{% url 'upload_content' %}" class="mt-2 text-blue-600 hover:text-blue-800">
+                            <a href="{% url 'learning:upload_content' %}" class="mt-2 text-blue-600 hover:text-blue-800">
                                 Upload your first content
                             </a>
                         </div>
@@ -246,7 +246,7 @@
                                     </div>
                                     <div class="flex items-center space-x-2">
                                         <span class="text-xs text-gray-500">{{ class.invitation_code }}</span>
-                                        <a href="{% url 'class_detail' class.id %}" class="text-blue-600 hover:text-blue-800">
+                                        <a href="{% url 'learning:class_detail' class.id %}" class="text-blue-600 hover:text-blue-800">
                                             Manage
                                         </a>
                                     </div>
@@ -254,7 +254,7 @@
                             {% endfor %}
                         </div>
                         <div class="mt-4 text-center">
-                            <a href="{% url 'class_management' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                            <a href="{% url 'learning:class_management' %}" class="text-blue-600 hover:text-blue-800 text-sm">
                                 View all classes →
                             </a>
                         </div>
@@ -264,7 +264,7 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"></path>
                             </svg>
                             <p class="mt-2">No classes created yet</p>
-                            <a href="{% url 'create_class' %}" class="mt-2 text-blue-600 hover:text-blue-800">
+                            <a href="{% url 'learning:create_class' %}" class="mt-2 text-blue-600 hover:text-blue-800">
                                 Create your first class
                             </a>
                         </div>

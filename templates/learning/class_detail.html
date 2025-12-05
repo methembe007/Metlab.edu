@@ -18,10 +18,10 @@
                     {% endif %}
                 </div>
                 <div class="flex space-x-3">
-                    <a href="{% url 'class_management' %}" class="text-blue-600 hover:text-blue-800">
+                    <a href="{% url 'learning:class_management' %}" class="text-blue-600 hover:text-blue-800">
                         ← Back to Classes
                     </a>
-                    <a href="{% url 'class_analytics' teacher_class.id %}" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
+                    <a href="{% url 'learning:class_analytics' teacher_class.id %}" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
                         View Analytics
                     </a>
                 </div>
@@ -77,13 +77,13 @@
             <div class="px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
                 <div class="space-y-3">
-                    <a href="{% url 'student_progress' teacher_class.id %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center block">
+                    <a href="{% url 'learning:student_progress' teacher_class.id %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center block">
                         View Student Progress
                     </a>
-                    <a href="{% url 'bulk_assign_content' %}" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 text-center block">
+                    <a href="{% url 'learning:bulk_assign_content' %}" class="w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:bg-purple-700 transition duration-200 text-center block">
                         Assign Content
                     </a>
-                    <a href="{% url 'upload_content' %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 text-center block">
+                    <a href="{% url 'learning:upload_content' %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 text-center block">
                         Upload New Content
                     </a>
                 </div>
@@ -97,7 +97,7 @@
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Enrolled Students ({{ enrollments.count }})</h3>
                 {% if enrollments.count > 0 %}
-                    <a href="{% url 'student_progress' teacher_class.id %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                    <a href="{% url 'learning:student_progress' teacher_class.id %}" class="text-blue-600 hover:text-blue-800 text-sm">
                         View Detailed Progress →
                     </a>
                 {% endif %}
@@ -162,7 +162,7 @@
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         {% if enrollment.is_active %}
-                                            <form method="post" action="{% url 'remove_student' teacher_class.id enrollment.student.id %}" class="inline" onsubmit="return confirm('Are you sure you want to remove this student from the class?')">
+                                            <form method="post" action="{% url 'learning:remove_student' teacher_class.id enrollment.student.id %}" class="inline" onsubmit="return confirm('Are you sure you want to remove this student from the class?')">
                                                 {% csrf_token %}
                                                 <button type="submit" class="text-red-600 hover:text-red-900">Remove</button>
                                             </form>
@@ -190,7 +190,7 @@
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Assigned Content ({{ assigned_content.count }})</h3>
-                <a href="{% url 'bulk_assign_content' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                <a href="{% url 'learning:bulk_assign_content' %}" class="text-blue-600 hover:text-blue-800 text-sm">
                     Assign More Content →
                 </a>
             </div>
@@ -206,7 +206,7 @@
                             {% endif %}
                             <div class="flex justify-between items-center">
                                 <span class="text-xs text-gray-500">{{ content.created_at|date:"M d" }}</span>
-                                <a href="{% url 'teacher_content_detail' content.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
+                                <a href="{% url 'learning:teacher_content_detail' content.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
                                     View Details
                                 </a>
                             </div>
@@ -221,7 +221,7 @@
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No content assigned</h3>
                     <p class="mt-1 text-sm text-gray-500">Assign content to make it available to students in this class.</p>
                     <div class="mt-4">
-                        <a href="{% url 'bulk_assign_content' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <a href="{% url 'learning:bulk_assign_content' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Assign Content
                         </a>
                     </div>
@@ -235,7 +235,7 @@
         <div class="px-4 py-5 sm:p-6">
             <div class="flex items-center justify-between mb-4">
                 <h3 class="text-lg leading-6 font-medium text-gray-900">Active Quizzes ({{ assigned_quizzes.count }})</h3>
-                <a href="{% url 'teacher_quiz_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                <a href="{% url 'learning:teacher_quiz_list' %}" class="text-blue-600 hover:text-blue-800 text-sm">
                     Manage Quizzes →
                 </a>
             </div>
@@ -254,10 +254,10 @@
                                     </p>
                                 </div>
                                 <div class="flex space-x-2">
-                                    <a href="{% url 'quiz_analytics' quiz.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
+                                    <a href="{% url 'learning:quiz_analytics' quiz.id %}" class="text-blue-600 hover:text-blue-800 text-xs">
                                         Analytics
                                     </a>
-                                    <form method="post" action="{% url 'toggle_quiz_status' quiz.id %}" class="inline">
+                                    <form method="post" action="{% url 'learning:toggle_quiz_status' quiz.id %}" class="inline">
                                         {% csrf_token %}
                                         <button type="submit" class="text-gray-600 hover:text-gray-800 text-xs">
                                             {% if quiz.is_active %}Deactivate{% else %}Activate{% endif %}
@@ -276,7 +276,7 @@
                     <h3 class="mt-2 text-sm font-medium text-gray-900">No active quizzes</h3>
                     <p class="mt-1 text-sm text-gray-500">Create and assign quizzes to assess student understanding.</p>
                     <div class="mt-4">
-                        <a href="{% url 'teacher_quiz_list' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <a href="{% url 'learning:teacher_quiz_list' %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                             Manage Quizzes
                         </a>
                     </div>

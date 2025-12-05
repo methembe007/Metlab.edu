@@ -11,7 +11,7 @@
                 <a href="{% url 'learning:teacher_content_dashboard' %}" class="text-blue-600 hover:text-blue-800">
                     ← Back to Dashboard
                 </a>
-                <a href="{% url 'create_class' %}" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+                <a href="{% url 'learning:create_class' %}" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
                     Create New Class
                 </a>
             </div>
@@ -75,10 +75,10 @@
                             {% endif %}
                             
                             <div class="flex space-x-2">
-                                <a href="{% url 'class_detail' class.id %}" class="flex-1 bg-blue-600 text-white text-center py-2 px-3 rounded-md hover:bg-blue-700 transition duration-200 text-sm">
+                                <a href="{% url 'learning:class_detail' class.id %}" class="flex-1 bg-blue-600 text-white text-center py-2 px-3 rounded-md hover:bg-blue-700 transition duration-200 text-sm">
                                     Manage
                                 </a>
-                                <a href="{% url 'student_progress' class.id %}" class="flex-1 bg-green-600 text-white text-center py-2 px-3 rounded-md hover:bg-green-700 transition duration-200 text-sm">
+                                <a href="{% url 'learning:student_progress' class.id %}" class="flex-1 bg-green-600 text-white text-center py-2 px-3 rounded-md hover:bg-green-700 transition duration-200 text-sm">
                                     Progress
                                 </a>
                             </div>
@@ -94,7 +94,7 @@
                 <h3 class="mt-2 text-sm font-medium text-gray-900">No classes</h3>
                 <p class="mt-1 text-sm text-gray-500">Get started by creating your first class.</p>
                 <div class="mt-6">
-                    <a href="{% url 'create_class' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                    <a href="{% url 'learning:create_class' %}" class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                         <svg class="-ml-1 mr-2 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
                         </svg>

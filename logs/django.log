@@ -6986,3 +6986,1443 @@ INFO 2025-11-11 08:49:04,914 basehttp 8620 21424 "GET /gamification/api/check-ac
 INFO 2025-11-11 08:49:35,416 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
 INFO 2025-11-11 08:50:05,428 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
 INFO 2025-11-11 08:50:35,416 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:51:05,462 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:51:35,463 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:52:05,413 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:52:52,409 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:53:11,992 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:53:14,756 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:53:14,812 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:53:14,882 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:53:15,005 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-11 08:53:15,862 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:53:45,840 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:54:15,865 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:54:20,634 basehttp 8620 21424 "GET /community/tutors/ HTTP/1.1" 200 10976
+INFO 2025-11-11 08:54:20,952 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:54:23,839 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:54:23,900 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:54:23,964 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:54:24,091 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-11 08:54:24,570 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:54:29,939 basehttp 8620 21424 "GET /content/library/ HTTP/1.1" 200 17003
+INFO 2025-11-11 08:54:30,417 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:55:00,394 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:55:30,404 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:56:00,384 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:56:13,509 basehttp 8620 21424 "GET / HTTP/1.1" 302 0
+INFO 2025-11-11 08:56:13,572 basehttp 8620 21424 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:56:13,646 basehttp 8620 21424 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-11 08:56:13,760 basehttp 8620 21424 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-11-11 08:56:14,275 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:56:44,241 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:57:14,420 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:57:44,455 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:58:14,482 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:58:44,466 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:59:14,421 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 08:59:44,452 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 09:00:45,416 basehttp 8620 21424 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-11-11 09:01:14,416 basehttp 8620 21424 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-11-21 08:54:27,190 autoreload 9904 18732 Watching for file changes with StatReloader
+INFO 2025-11-21 08:54:29,211 ai_services 9904 18732 OpenAI client initialized successfully
+INFO 2025-11-21 08:54:29,212 ai_services 9904 18732 OpenAI client initialized successfully
+INFO 2025-11-21 08:54:29,212 ai_services 9904 18732 OpenAI client initialized successfully
+INFO 2025-11-21 08:54:29,213 ai_services 9904 18732 OpenAI client initialized successfully
+INFO 2025-11-21 08:54:29,213 ai_services 9904 18732 OpenAI client initialized successfully
+INFO 2025-11-21 08:54:46,131 basehttp 9904 16392 "GET / HTTP/1.1" 302 0
+INFO 2025-11-21 08:54:46,219 basehttp 9904 16392 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-11-21 08:54:46,464 basehttp 9904 16392 "GET /static/css/output.css HTTP/1.1" 200 59590
+INFO 2025-11-21 08:54:46,478 basehttp 9904 13280 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 9406
+INFO 2025-11-21 08:54:46,501 basehttp 9904 20820 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 14778
+WARNING 2025-11-21 08:54:46,613 log 9904 20820 Not Found: /favicon.ico
+WARNING 2025-11-21 08:54:46,614 basehttp 9904 20820 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-11-21 08:55:06,264 basehttp 9904 20820 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-11-21 08:55:14,391 basehttp 9904 20820 "POST /accounts/login/ HTTP/1.1" 200 5090
+INFO 2025-11-21 08:55:29,621 basehttp 9904 20820 "POST /accounts/login/ HTTP/1.1" 200 5090
+INFO 2025-11-21 08:55:49,399 basehttp 9904 20820 "GET /admin HTTP/1.1" 301 0
+INFO 2025-11-21 08:55:49,526 basehttp 9904 13280 "GET /admin/ HTTP/1.1" 302 0
+INFO 2025-11-21 08:55:49,619 basehttp 9904 13280 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4158
+INFO 2025-11-21 08:55:49,695 basehttp 9904 13280 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+INFO 2025-11-21 08:55:49,699 basehttp 9904 16392 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+INFO 2025-11-21 08:55:49,707 basehttp 9904 17876 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-11-21 08:55:49,707 basehttp 9904 5064 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-11-21 08:55:49,711 basehttp 9904 16932 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+INFO 2025-11-21 08:55:49,915 basehttp 9904 16932 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-11-21 08:55:49,918 basehttp 9904 5064 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-11-21 08:55:54,180 basehttp 9904 5064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4316
+INFO 2025-11-21 08:56:11,954 basehttp 9904 5064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4328
+INFO 2025-11-21 08:57:47,166 basehttp 9904 5064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4322
+INFO 2025-11-21 08:58:02,479 basehttp 9904 5064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4321
+INFO 2025-11-21 08:58:18,049 basehttp 9904 5064 "POST /admin/login/?next=/admin/ HTTP/1.1" 200 4322
+INFO 2025-11-21 09:00:06,100 ai_services 16892 17356 OpenAI client initialized successfully
+INFO 2025-11-21 09:00:06,100 ai_services 16892 17356 OpenAI client initialized successfully
+INFO 2025-11-21 09:00:06,101 ai_services 16892 17356 OpenAI client initialized successfully
+INFO 2025-11-21 09:00:06,101 ai_services 16892 17356 OpenAI client initialized successfully
+INFO 2025-11-21 09:00:06,102 ai_services 16892 17356 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:37,289 autoreload 2276 15220 Watching for file changes with StatReloader
+INFO 2025-11-21 09:01:38,383 ai_services 2276 15220 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:38,383 ai_services 2276 15220 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:38,384 ai_services 2276 15220 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:38,384 ai_services 2276 15220 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:38,385 ai_services 2276 15220 OpenAI client initialized successfully
+INFO 2025-11-21 09:01:49,251 basehttp 2276 11880 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:01:49,551 basehttp 2276 11880 "GET /admin/ HTTP/1.1" 200 30453
+INFO 2025-11-21 09:01:49,718 basehttp 2276 11880 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2025-11-21 09:01:49,845 basehttp 2276 14464 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2025-11-21 09:01:49,851 basehttp 2276 11880 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-11-21 09:01:49,863 basehttp 2276 2908 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2025-11-21 09:02:00,581 basehttp 2276 2908 "GET /admin/accounts/user/ HTTP/1.1" 200 35835
+INFO 2025-11-21 09:02:00,682 basehttp 2276 2908 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+INFO 2025-11-21 09:02:00,706 basehttp 2276 2908 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+INFO 2025-11-21 09:02:00,717 basehttp 2276 14464 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-11-21 09:02:00,719 basehttp 2276 17700 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-11-21 09:02:00,742 basehttp 2276 2908 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-11-21 09:02:00,757 basehttp 2276 11880 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-11-21 09:02:00,786 basehttp 2276 14464 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-11-21 09:02:00,823 basehttp 2276 16212 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-11-21 09:02:00,826 basehttp 2276 17700 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-11-21 09:02:00,826 basehttp 2276 1668 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+INFO 2025-11-21 09:02:00,831 basehttp 2276 2908 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-11-21 09:02:00,840 basehttp 2276 11880 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-11-21 09:02:00,883 basehttp 2276 11880 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-11-21 09:02:00,884 basehttp 2276 2908 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-11-21 09:02:00,909 basehttp 2276 2908 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-11-21 09:02:00,928 basehttp 2276 2908 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+WARNING 2025-11-21 09:02:46,740 views 2276 2908 CSRF failure for user met (): CSRF token from POST incorrect.
+WARNING 2025-11-21 09:02:46,762 log 2276 2908 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-11-21 09:02:46,801 basehttp 2276 2908 "POST /accounts/login/ HTTP/1.1" 403 7391
+WARNING 2025-11-21 09:03:06,306 views 2276 2908 CSRF failure for user met (): CSRF token from POST incorrect.
+WARNING 2025-11-21 09:03:06,313 log 2276 2908 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-11-21 09:03:06,356 basehttp 2276 2908 "POST /accounts/login/ HTTP/1.1" 403 7391
+INFO 2025-11-21 09:05:54,836 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:54,920 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:54,972 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,045 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,079 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,153 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,187 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,254 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,307 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,362 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,396 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,450 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,504 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,565 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,603 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,676 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,716 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,776 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,813 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:55,886 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,197 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,241 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,294 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,324 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,376 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,407 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,469 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,508 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,580 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,622 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,685 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,728 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,803 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,842 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,906 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:05:59,960 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:00,021 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:00,073 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:00,122 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:00,159 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:01,914 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:01,971 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,005 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,062 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,101 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,164 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,204 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,259 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,297 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,354 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,392 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,447 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,489 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,575 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,606 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,660 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,697 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,756 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,792 basehttp 2276 2908 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:02,856 basehttp 2276 2908 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:06:47,174 autoreload 18240 14696 Watching for file changes with StatReloader
+INFO 2025-11-21 09:06:48,798 ai_services 18240 14696 OpenAI client initialized successfully
+INFO 2025-11-21 09:06:48,799 ai_services 18240 14696 OpenAI client initialized successfully
+INFO 2025-11-21 09:06:48,800 ai_services 18240 14696 OpenAI client initialized successfully
+INFO 2025-11-21 09:06:48,803 ai_services 18240 14696 OpenAI client initialized successfully
+INFO 2025-11-21 09:06:48,804 ai_services 18240 14696 OpenAI client initialized successfully
+WARNING 2025-11-21 09:06:55,068 views 18240 16788 CSRF failure for user met (): CSRF token from POST incorrect.
+WARNING 2025-11-21 09:06:55,159 log 18240 16788 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-11-21 09:06:55,175 basehttp 18240 16788 "POST /accounts/login/ HTTP/1.1" 403 12423
+INFO 2025-11-21 09:07:01,690 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:01,773 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:01,818 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:01,890 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:01,935 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:01,991 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,031 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,096 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,141 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,201 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,244 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,313 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,366 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,420 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,459 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,534 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,570 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,634 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,668 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:02,721 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:09,930 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:09,979 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,038 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,069 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,132 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,176 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,238 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,273 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,333 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,370 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,435 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,478 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,569 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,605 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,679 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,728 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,789 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,825 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,888 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:10,932 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,367 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,424 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,460 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,519 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,559 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,636 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,674 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,735 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,773 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,839 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,875 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:13,945 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,007 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,074 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,121 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,185 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,229 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,312 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,347 basehttp 18240 16788 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:14,415 basehttp 18240 16788 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:07:55,994 autoreload 15380 16280 Watching for file changes with StatReloader
+INFO 2025-11-21 09:07:57,792 ai_services 15380 16280 OpenAI client initialized successfully
+INFO 2025-11-21 09:07:57,793 ai_services 15380 16280 OpenAI client initialized successfully
+INFO 2025-11-21 09:07:57,793 ai_services 15380 16280 OpenAI client initialized successfully
+INFO 2025-11-21 09:07:57,794 ai_services 15380 16280 OpenAI client initialized successfully
+INFO 2025-11-21 09:07:57,794 ai_services 15380 16280 OpenAI client initialized successfully
+INFO 2025-11-21 09:08:09,025 basehttp 15380 9660 "POST /admin/accounts/user/ HTTP/1.1" 200 51866
+INFO 2025-11-21 09:08:09,258 basehttp 15380 9660 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-11-21 09:08:21,626 basehttp 15380 9660 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:08:21,758 basehttp 15380 9660 "GET /admin/accounts/user/ HTTP/1.1" 200 35361
+INFO 2025-11-21 09:08:21,848 basehttp 15380 9660 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-11-21 09:09:11,611 basehttp 15380 9660 "GET / HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,652 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,710 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,741 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,794 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,830 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,880 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,911 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,965 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:11,999 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,053 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,086 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,137 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,168 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,219 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,253 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,314 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,348 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,459 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:12,507 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,427 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,480 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,514 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,568 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,600 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,650 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,681 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,732 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,761 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,809 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,839 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,887 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,918 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:37,967 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,004 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,064 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,098 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,155 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,200 basehttp 15380 9660 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:09:38,264 basehttp 15380 9660 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-11-21 09:11:40,389 basehttp 15380 9660 "GET /admin/auth/group/ HTTP/1.1" 200 26484
+INFO 2025-11-21 09:11:40,518 basehttp 15380 9660 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-11-21 09:12:32,004 basehttp 15380 9660 "GET /admin/accounts/user/ HTTP/1.1" 200 35227
+INFO 2025-11-21 09:12:32,119 basehttp 15380 9660 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 07:51:42,619 autoreload 13620 10496 Watching for file changes with StatReloader
+INFO 2025-12-04 07:51:45,441 ai_services 13620 10496 OpenAI client initialized successfully
+INFO 2025-12-04 07:51:45,441 ai_services 13620 10496 OpenAI client initialized successfully
+INFO 2025-12-04 07:51:45,442 ai_services 13620 10496 OpenAI client initialized successfully
+INFO 2025-12-04 07:51:45,442 ai_services 13620 10496 OpenAI client initialized successfully
+INFO 2025-12-04 07:51:45,442 ai_services 13620 10496 OpenAI client initialized successfully
+INFO 2025-12-04 07:51:49,920 basehttp 13620 6376 "GET / HTTP/1.1" 302 0
+INFO 2025-12-04 07:51:50,051 basehttp 13620 6376 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-12-04 07:51:50,478 basehttp 13620 16412 "GET /static/css/output.css HTTP/1.1" 200 59590
+INFO 2025-12-04 07:51:50,486 basehttp 13620 17120 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 14778
+INFO 2025-12-04 07:51:50,488 basehttp 13620 15028 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 9406
+WARNING 2025-12-04 07:51:50,825 log 13620 15028 Not Found: /favicon.ico
+WARNING 2025-12-04 07:51:50,828 basehttp 13620 15028 "GET /favicon.ico HTTP/1.1" 404 3522
+INFO 2025-12-04 07:51:59,409 basehttp 13620 15028 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 07:52:32,079 basehttp 13620 15028 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 07:52:36,074 basehttp 13620 15028 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 07:53:15,884 basehttp 13620 15028 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-12-04 07:53:28,706 basehttp 13620 15028 "POST /accounts/login/ HTTP/1.1" 200 5115
+INFO 2025-12-04 07:53:43,213 basehttp 13620 15028 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 07:54:03,608 basehttp 13620 15028 "GET / HTTP/1.1" 302 0
+INFO 2025-12-04 07:54:03,672 basehttp 13620 15028 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-12-04 07:54:13,485 basehttp 13620 15028 "GET /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:54:13,632 basehttp 13620 15028 "GET /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 200 4186
+INFO 2025-12-04 07:54:13,678 basehttp 13620 16412 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2025-12-04 07:54:13,682 basehttp 13620 17120 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+INFO 2025-12-04 07:54:13,705 basehttp 13620 15028 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+INFO 2025-12-04 07:54:13,724 basehttp 13620 10100 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2025-12-04 07:54:13,737 basehttp 13620 2664 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+INFO 2025-12-04 07:54:13,746 basehttp 13620 17120 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2025-12-04 07:54:13,749 basehttp 13620 12084 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2025-12-04 07:54:17,021 basehttp 13620 12084 "POST /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:54:17,240 basehttp 13620 12084 "GET /admin/accounts/user/ HTTP/1.1" 200 35227
+INFO 2025-12-04 07:54:17,329 basehttp 13620 12084 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+INFO 2025-12-04 07:54:17,331 basehttp 13620 15028 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2025-12-04 07:54:17,337 basehttp 13620 10100 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2025-12-04 07:54:17,345 basehttp 13620 16412 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+INFO 2025-12-04 07:54:17,375 basehttp 13620 12084 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+INFO 2025-12-04 07:54:17,376 basehttp 13620 2664 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2025-12-04 07:54:17,377 basehttp 13620 15028 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2025-12-04 07:54:17,377 basehttp 13620 10100 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2025-12-04 07:54:17,401 basehttp 13620 12084 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2025-12-04 07:54:17,403 basehttp 13620 2664 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2025-12-04 07:54:17,413 basehttp 13620 16412 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2025-12-04 07:54:17,417 basehttp 13620 12084 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2025-12-04 07:54:17,431 basehttp 13620 12084 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2025-12-04 07:54:17,433 basehttp 13620 17120 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 07:54:17,484 basehttp 13620 2664 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2025-12-04 07:54:17,484 basehttp 13620 16412 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+INFO 2025-12-04 07:54:17,484 basehttp 13620 12084 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2025-12-04 07:54:17,484 basehttp 13620 17120 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+WARNING 2025-12-04 07:56:42,133 views 13620 17120 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 07:56:42,179 log 13620 17120 Forbidden (CSRF token from POST incorrect.): /accounts/register/
+WARNING 2025-12-04 07:56:42,229 basehttp 13620 17120 "POST /accounts/register/ HTTP/1.1" 403 7391
+INFO 2025-12-04 07:56:49,956 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,040 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,094 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,171 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,221 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,297 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,350 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,424 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,477 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,559 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,624 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,696 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,742 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,816 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,866 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:50,965 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:51,014 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:51,107 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:51,165 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:51,249 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,498 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,555 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,631 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,672 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,748 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,799 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,880 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:52,944 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,034 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,183 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,270 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,312 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,387 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,439 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,522 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,572 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,651 basehttp 13620 17120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,701 basehttp 13620 17120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,832 basehttp 13620 17120 - Broken pipe from ('127.0.0.1', 49729)
+INFO 2025-12-04 07:56:53,871 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:56:53,919 basehttp 13620 12084 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4881
+INFO 2025-12-04 07:57:03,656 basehttp 13620 12084 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 07:57:46,155 basehttp 13620 12084 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:57:46,217 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 200 5130
+INFO 2025-12-04 07:57:55,810 basehttp 13620 12084 "POST /accounts/login/ HTTP/1.1" 200 5090
+INFO 2025-12-04 07:58:45,539 basehttp 13620 12084 "GET /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:58:45,602 basehttp 13620 12084 "GET /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 200 4186
+INFO 2025-12-04 07:58:52,895 basehttp 13620 12084 "POST /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 07:58:53,029 basehttp 13620 12084 "GET /admin/accounts/user/ HTTP/1.1" 200 35817
+INFO 2025-12-04 07:58:53,134 basehttp 13620 12084 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 08:00:00,361 basehttp 13620 12084 "POST /admin/accounts/user/ HTTP/1.1" 200 25000
+INFO 2025-12-04 08:00:00,475 basehttp 13620 12084 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2025-12-04 08:00:02,868 basehttp 13620 12084 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:03,006 basehttp 13620 12084 "GET /admin/accounts/user/ HTTP/1.1" 200 35361
+INFO 2025-12-04 08:00:03,090 basehttp 13620 12084 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-04 08:00:17,504 views 13620 12084 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:00:17,509 log 13620 12084 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:00:17,562 basehttp 13620 12084 "POST /accounts/login/ HTTP/1.1" 403 7391
+WARNING 2025-12-04 08:00:21,923 views 13620 12084 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:00:21,929 log 13620 12084 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:00:21,987 basehttp 13620 12084 "POST /accounts/login/ HTTP/1.1" 403 7391
+INFO 2025-12-04 08:00:24,532 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,623 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,676 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,758 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,806 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,893 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:24,948 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,019 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,066 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,157 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,229 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,302 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,348 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,419 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,465 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,540 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,589 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,665 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,713 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:25,789 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,032 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,112 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,205 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,257 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,338 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,385 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,457 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,504 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,595 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,665 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,739 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,796 basehttp 13620 12084 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,878 basehttp 13620 12084 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:27,945 basehttp 13620 12084 - Broken pipe from ('127.0.0.1', 64070)
+INFO 2025-12-04 08:00:28,000 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:00:28,052 basehttp 13620 15120 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4881
+INFO 2025-12-04 08:00:44,277 basehttp 13620 15120 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 08:01:09,081 basehttp 13620 15120 "POST /accounts/register/ HTTP/1.1" 200 9198
+INFO 2025-12-04 08:03:09,205 basehttp 13620 15120 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:03:09,281 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 200 5130
+INFO 2025-12-04 08:03:24,248 basehttp 13620 15120 "POST /accounts/login/ HTTP/1.1" 200 5111
+INFO 2025-12-04 08:03:39,326 basehttp 13620 15120 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 08:03:42,414 basehttp 13620 15120 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 08:03:50,742 basehttp 13620 15120 "GET /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:03:50,797 basehttp 13620 15120 "GET /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 200 4186
+INFO 2025-12-04 08:03:58,524 basehttp 13620 15120 "POST /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:03:58,664 basehttp 13620 15120 "GET /admin/accounts/user/ HTTP/1.1" 200 35864
+INFO 2025-12-04 08:03:58,761 basehttp 13620 15120 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 08:04:10,540 basehttp 13620 15120 "POST /admin/accounts/user/ HTTP/1.1" 200 25042
+INFO 2025-12-04 08:04:16,688 basehttp 13620 15120 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:16,816 basehttp 13620 15120 "GET /admin/accounts/user/ HTTP/1.1" 200 35361
+INFO 2025-12-04 08:04:16,905 basehttp 13620 15120 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2025-12-04 08:04:22,475 views 13620 15120 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:04:22,482 log 13620 15120 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:04:22,536 basehttp 13620 15120 "POST /accounts/login/ HTTP/1.1" 403 7391
+INFO 2025-12-04 08:04:25,180 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,273 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,329 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,397 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,444 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,520 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,569 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,643 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,693 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,772 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,823 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,893 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:25,942 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,014 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,063 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,137 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,182 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,256 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,304 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:26,376 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,658 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,714 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,781 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,829 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,915 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:27,973 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,046 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,103 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,178 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,237 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,321 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,364 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,448 basehttp 13620 15120 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,498 basehttp 13620 15120 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,548 basehttp 13620 15120 - Broken pipe from ('127.0.0.1', 49669)
+INFO 2025-12-04 08:04:28,580 basehttp 13620 4608 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:04:28,622 basehttp 13620 4608 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4881
+INFO 2025-12-04 08:04:33,370 basehttp 13620 4608 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 08:05:14,136 basehttp 13620 4608 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:05:14,199 basehttp 13620 4608 "GET /accounts/login/ HTTP/1.1" 200 5130
+INFO 2025-12-04 08:06:22,621 basehttp 13620 4608 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 08:07:07,795 basehttp 13620 4608 "GET /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:07:07,858 basehttp 13620 4608 "GET /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 200 4186
+INFO 2025-12-04 08:07:16,031 basehttp 13620 4608 "POST /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:07:16,178 basehttp 13620 4608 "GET /admin/accounts/user/ HTTP/1.1" 200 35834
+INFO 2025-12-04 08:07:16,273 basehttp 13620 4608 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 08:07:47,872 basehttp 13620 4608 "GET /admin/accounts/user/add/ HTTP/1.1" 200 29674
+INFO 2025-12-04 08:07:47,924 basehttp 13620 4608 "GET /static/admin/css/forms.css HTTP/1.1" 200 9090
+INFO 2025-12-04 08:07:47,953 basehttp 13620 9492 "GET /static/admin/js/prepopulate_init.js HTTP/1.1" 200 586
+INFO 2025-12-04 08:07:47,974 basehttp 13620 4608 "GET /static/admin/css/widgets.css HTTP/1.1" 200 11800
+INFO 2025-12-04 08:07:47,988 basehttp 13620 4608 "GET /static/admin/js/change_form.js HTTP/1.1" 200 606
+INFO 2025-12-04 08:07:48,006 basehttp 13620 9920 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2025-12-04 08:08:07,936 basehttp 13620 9920 "GET /admin/accounts/user/ HTTP/1.1" 200 35834
+WARNING 2025-12-04 08:08:48,693 views 13620 9920 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:08:48,699 log 13620 9920 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:08:48,763 basehttp 13620 9920 "POST /accounts/login/ HTTP/1.1" 403 7391
+WARNING 2025-12-04 08:08:51,682 views 13620 9920 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:08:51,688 log 13620 9920 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:08:51,731 basehttp 13620 9920 "POST /accounts/login/ HTTP/1.1" 403 7391
+WARNING 2025-12-04 08:08:55,406 views 13620 9920 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:08:55,411 log 13620 9920 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:08:55,457 basehttp 13620 9920 "POST /accounts/login/ HTTP/1.1" 403 7391
+WARNING 2025-12-04 08:08:57,122 views 13620 9920 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2025-12-04 08:08:57,124 log 13620 9920 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 08:08:57,155 basehttp 13620 9920 "POST /accounts/login/ HTTP/1.1" 403 7391
+INFO 2025-12-04 08:08:58,386 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,475 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,522 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,600 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,647 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,717 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,759 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,835 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,891 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:58,975 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,032 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,131 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,175 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,246 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,291 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,373 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,422 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,504 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,556 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:08:59,640 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:00,935 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:00,988 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,056 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,115 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,187 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,238 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,316 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,368 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,457 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,533 basehttp 13620 9920 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,610 basehttp 13620 9920 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,673 basehttp 13620 9920 - Broken pipe from ('127.0.0.1', 52016)
+INFO 2025-12-04 08:09:01,705 basehttp 13620 4608 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:01,748 basehttp 13620 4608 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 4881
+INFO 2025-12-04 08:09:15,284 basehttp 13620 4608 "POST /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:15,368 basehttp 13620 4608 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 08:09:15,467 basehttp 13620 4608 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11587
+ERROR 2025-12-04 08:09:30,462 log 13620 4608 Internal Server Error: /learning/teacher/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 111, in upload_content
+    return render(request, 'learning/upload_content.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 326, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-12-04 08:09:30,526 basehttp 13620 4608 "GET /learning/teacher/upload/ HTTP/1.1" 500 199911
+ERROR 2025-12-04 08:09:42,528 log 13620 4608 Internal Server Error: /learning/teacher/classes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 277, in class_management
+    return render(request, 'learning/class_management.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-12-04 08:09:42,561 basehttp 13620 4608 "GET /learning/teacher/classes/ HTTP/1.1" 500 176989
+ERROR 2025-12-04 08:09:48,205 log 13620 4608 Internal Server Error: /learning/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 58, in teacher_content_dashboard
+    return render(request, 'learning/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'upload_content' not found. 'upload_content' is not a valid view function or pattern name.
+ERROR 2025-12-04 08:09:48,240 basehttp 13620 4608 "GET /learning/teacher/ HTTP/1.1" 500 185306
+INFO 2025-12-04 10:37:37,718 basehttp 13620 9404 "GET /learning/teacher/upload/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:37:37,761 basehttp 13620 9404 "GET /accounts/login/?next=/learning/teacher/upload/ HTTP/1.1" 200 4881
+INFO 2025-12-04 10:37:41,973 basehttp 13620 9404 "POST /accounts/login/?next=/learning/teacher/upload/ HTTP/1.1" 302 0
+ERROR 2025-12-04 10:37:42,139 log 13620 9404 Internal Server Error: /learning/teacher/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 111, in upload_content
+    return render(request, 'learning/upload_content.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 326, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-12-04 10:37:42,182 basehttp 13620 9404 "GET /learning/teacher/upload/ HTTP/1.1" 500 200317
+WARNING 2025-12-04 10:37:49,423 views 13620 9404 CSRF failure for user Jameson (Teacher): CSRF token from POST incorrect.
+WARNING 2025-12-04 10:37:49,427 log 13620 9404 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2025-12-04 10:37:49,449 basehttp 13620 9404 "POST /accounts/login/?next=/learning/teacher/upload/ HTTP/1.1" 403 8345
+INFO 2025-12-04 10:37:53,736 basehttp 13620 9404 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:37:53,808 basehttp 13620 9404 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:37:53,893 basehttp 13620 9404 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+ERROR 2025-12-04 10:37:57,991 log 13620 9404 Internal Server Error: /learning/teacher/upload/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 111, in upload_content
+    return render(request, 'learning/upload_content.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 326, in render
+    return nodelist.render(context)
+           ~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'create_class' not found. 'create_class' is not a valid view function or pattern name.
+ERROR 2025-12-04 10:37:58,019 basehttp 13620 9404 "GET /learning/teacher/upload/ HTTP/1.1" 500 199911
+INFO 2025-12-04 10:44:45,830 ai_services 17404 676 OpenAI client initialized successfully
+INFO 2025-12-04 10:44:45,831 ai_services 17404 676 OpenAI client initialized successfully
+INFO 2025-12-04 10:44:45,832 ai_services 17404 676 OpenAI client initialized successfully
+INFO 2025-12-04 10:44:45,832 ai_services 17404 676 OpenAI client initialized successfully
+INFO 2025-12-04 10:44:45,833 ai_services 17404 676 OpenAI client initialized successfully
+ERROR 2025-12-04 10:44:45,926 exception 17404 676 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-04 10:44:45,993 log 17404 676 Bad Request: /learning/teacher/upload/
+INFO 2025-12-04 10:46:19,564 ai_services 16048 18604 OpenAI client initialized successfully
+INFO 2025-12-04 10:46:19,565 ai_services 16048 18604 OpenAI client initialized successfully
+INFO 2025-12-04 10:46:19,565 ai_services 16048 18604 OpenAI client initialized successfully
+INFO 2025-12-04 10:46:19,565 ai_services 16048 18604 OpenAI client initialized successfully
+INFO 2025-12-04 10:46:19,565 ai_services 16048 18604 OpenAI client initialized successfully
+INFO 2025-12-04 10:46:35,372 basehttp 13620 9948 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+ERROR 2025-12-04 10:46:56,028 log 13620 9948 Internal Server Error: /learning/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 58, in teacher_content_dashboard
+    return render(request, 'learning/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'upload_content' not found. 'upload_content' is not a valid view function or pattern name.
+ERROR 2025-12-04 10:46:56,056 basehttp 13620 9948 "GET /learning/teacher/ HTTP/1.1" 500 185438
+INFO 2025-12-04 10:47:08,706 basehttp 13620 9948 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+ERROR 2025-12-04 10:47:20,098 log 13620 9948 Internal Server Error: /learning/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 58, in teacher_content_dashboard
+    return render(request, 'learning/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 159, in render
+    return compiled_parent._render(context)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 65, in render
+    result = block.nodelist.render(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\defaulttags.py", line 479, in render
+    url = reverse(view_name, args=args, kwargs=kwargs, current_app=current_app)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\base.py", line 88, in reverse
+    return resolver._reverse_with_prefix(view, prefix, *args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\urls\resolvers.py", line 851, in _reverse_with_prefix
+    raise NoReverseMatch(msg)
+django.urls.exceptions.NoReverseMatch: Reverse for 'upload_content' not found. 'upload_content' is not a valid view function or pattern name.
+ERROR 2025-12-04 10:47:20,139 basehttp 13620 9948 "GET /learning/teacher/ HTTP/1.1" 500 185441
+INFO 2025-12-04 10:48:55,345 ai_services 5732 17536 OpenAI client initialized successfully
+INFO 2025-12-04 10:48:55,348 ai_services 5732 17536 OpenAI client initialized successfully
+INFO 2025-12-04 10:48:55,348 ai_services 5732 17536 OpenAI client initialized successfully
+INFO 2025-12-04 10:48:55,349 ai_services 5732 17536 OpenAI client initialized successfully
+INFO 2025-12-04 10:48:55,349 ai_services 5732 17536 OpenAI client initialized successfully
+INFO 2025-12-04 10:49:05,911 basehttp 13620 9948 "GET /learning/teacher/ HTTP/1.1" 200 17561
+ERROR 2025-12-04 10:49:16,599 log 13620 9948 Internal Server Error: /learning/teacher/quizzes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 261, in quiz_list
+    return render(request, 'learning/teacher_quiz_list.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: learning/teacher_quiz_list.html
+ERROR 2025-12-04 10:49:16,621 basehttp 13620 9948 "GET /learning/teacher/quizzes/ HTTP/1.1" 500 106861
+INFO 2025-12-04 10:49:40,876 basehttp 13620 9948 "GET /learning/teacher/bulk-assign/ HTTP/1.1" 200 10370
+INFO 2025-12-04 10:49:50,239 basehttp 13620 9948 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 11968
+INFO 2025-12-04 10:49:59,174 basehttp 13620 9948 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+ERROR 2025-12-04 10:50:05,940 log 13620 9948 Internal Server Error: /learning/teacher/content/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 132, in content_list
+    return render(request, 'learning/teacher_content_list.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: learning/teacher_content_list.html
+ERROR 2025-12-04 10:50:05,960 basehttp 13620 9948 "GET /learning/teacher/content/ HTTP/1.1" 500 106983
+ERROR 2025-12-04 10:50:13,694 log 13620 9948 Internal Server Error: /learning/teacher/quizzes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 261, in quiz_list
+    return render(request, 'learning/teacher_quiz_list.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: learning/teacher_quiz_list.html
+ERROR 2025-12-04 10:50:13,717 basehttp 13620 9948 "GET /learning/teacher/quizzes/ HTTP/1.1" 500 106861
+INFO 2025-12-04 10:50:55,313 ai_services 4732 14196 OpenAI client initialized successfully
+INFO 2025-12-04 10:50:55,314 ai_services 4732 14196 OpenAI client initialized successfully
+INFO 2025-12-04 10:50:55,314 ai_services 4732 14196 OpenAI client initialized successfully
+INFO 2025-12-04 10:50:55,314 ai_services 4732 14196 OpenAI client initialized successfully
+INFO 2025-12-04 10:50:55,315 ai_services 4732 14196 OpenAI client initialized successfully
+ERROR 2025-12-04 10:52:01,010 log 13620 9948 Internal Server Error: /learning/teacher/quizzes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 261, in quiz_list
+    return render(request, 'learning/teacher_quiz_list.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: learning/teacher_quiz_list.html
+ERROR 2025-12-04 10:52:01,051 basehttp 13620 9948 "GET /learning/teacher/quizzes/ HTTP/1.1" 500 106998
+ERROR 2025-12-04 10:52:03,058 log 13620 9948 Internal Server Error: /learning/teacher/quizzes/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\learning\teacher_views.py", line 261, in quiz_list
+    return render(request, 'learning/teacher_quiz_list.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 61, in render_to_string
+    template = get_template(template_name, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 19, in get_template
+    raise TemplateDoesNotExist(template_name, chain=chain)
+django.template.exceptions.TemplateDoesNotExist: learning/teacher_quiz_list.html
+ERROR 2025-12-04 10:52:03,085 basehttp 13620 9948 "GET /learning/teacher/quizzes/ HTTP/1.1" 500 106998
+INFO 2025-12-04 10:53:16,698 basehttp 13620 9948 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+INFO 2025-12-04 10:55:47,384 basehttp 13620 9948 "GET /learning/teacher/quizzes/ HTTP/1.1" 200 7874
+INFO 2025-12-04 10:55:52,861 basehttp 13620 9948 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+INFO 2025-12-04 10:56:54,155 basehttp 13620 9948 "GET /learning/teacher/content/ HTTP/1.1" 200 7326
+INFO 2025-12-04 10:56:56,683 basehttp 13620 9948 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+INFO 2025-12-04 10:57:12,653 basehttp 13620 9948 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:57:12,732 basehttp 13620 9948 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 10:57:17,819 basehttp 13620 9948 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 10:57:21,139 basehttp 13620 9948 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 10:57:31,946 basehttp 13620 9948 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:57:32,023 basehttp 13620 9948 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 10:57:39,295 basehttp 13620 9948 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 10:57:39,372 basehttp 13620 9948 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 10:57:41,394 basehttp 13620 9948 "GET /content/library/ HTTP/1.1" 200 13784
+INFO 2025-12-04 11:00:07,792 basehttp 13620 9948 "GET /content/upload/ HTTP/1.1" 200 18677
+INFO 2025-12-04 11:00:52,049 basehttp 13620 9948 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 11:00:52,103 basehttp 13620 9948 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 11:02:00,685 basehttp 13620 9700 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 11:02:03,861 basehttp 13620 9700 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 11:02:06,776 basehttp 13620 9700 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 11968
+INFO 2025-12-04 11:02:29,158 basehttp 13620 9700 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 11:02:29,227 basehttp 13620 9700 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 11:02:33,819 basehttp 13620 9700 "GET /content/library/ HTTP/1.1" 200 13784
+INFO 2025-12-04 11:06:49,064 basehttp 13620 9700 "GET /content/upload/ HTTP/1.1" 200 18677
+INFO 2025-12-04 11:06:50,980 basehttp 13620 9700 "GET /content/library/ HTTP/1.1" 200 13784
+INFO 2025-12-04 11:06:53,322 basehttp 13620 9700 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 11:06:53,397 basehttp 13620 9700 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-04 11:07:02,107 basehttp 13620 9700 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 11:07:06,946 basehttp 13620 9700 "GET /learning/teacher/bulk-assign/ HTTP/1.1" 200 10370
+INFO 2025-12-04 14:01:05,409 basehttp 13620 19996 "GET /learning/teacher/classes/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:01:05,456 basehttp 13620 19996 "GET /accounts/login/?next=/learning/teacher/classes/ HTTP/1.1" 200 4881
+INFO 2025-12-04 14:01:11,017 basehttp 13620 19996 "POST /accounts/login/?next=/learning/teacher/classes/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:01:11,060 basehttp 13620 19996 "GET /learning/teacher/classes/ HTTP/1.1" 200 8105
+INFO 2025-12-04 14:01:28,365 basehttp 13620 19996 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 11968
+INFO 2025-12-04 14:01:37,878 basehttp 13620 19996 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 14:01:40,145 basehttp 13620 19996 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 14:02:11,944 basehttp 13620 19996 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:02:11,986 basehttp 13620 19996 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 14:02:16,007 basehttp 13620 19996 "GET /accounts/register/ HTTP/1.1" 200 8512
+INFO 2025-12-04 14:03:42,335 basehttp 13620 19996 "POST /accounts/register/ HTTP/1.1" 200 8999
+INFO 2025-12-04 14:04:02,778 basehttp 13620 19996 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:04:02,812 basehttp 13620 19996 "GET /accounts/login/ HTTP/1.1" 200 5130
+INFO 2025-12-04 14:04:10,383 basehttp 13620 19996 "POST /accounts/login/ HTTP/1.1" 200 5092
+INFO 2025-12-04 14:09:40,275 basehttp 13620 20436 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:09:40,347 basehttp 13620 20436 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:09:40,424 basehttp 13620 20436 "GET /accounts/dashboard/parent/ HTTP/1.1" 302 0
+INFO 2025-12-04 14:09:40,477 basehttp 13620 20436 "GET /learning/parent/ HTTP/1.1" 200 10936
+INFO 2025-12-04 14:10:05,554 basehttp 13620 20436 "GET /learning/parent/notifications/ HTTP/1.1" 200 18609
+INFO 2025-12-04 14:11:04,913 basehttp 13620 20436 "GET /learning/parent/ HTTP/1.1" 200 10740
+INFO 2025-12-04 14:11:07,107 basehttp 13620 20436 "GET /learning/parent/link-child/ HTTP/1.1" 200 11242
+INFO 2025-12-04 14:13:57,581 basehttp 13620 20436 "GET /learning/parent/ HTTP/1.1" 200 10740
+INFO 2025-12-04 14:14:40,949 basehttp 13620 20436 "GET /learning/parent/link-child/ HTTP/1.1" 200 11242
+INFO 2025-12-04 17:19:35,891 basehttp 13620 17712 "GET /learning/parent/ HTTP/1.1" 302 0
+INFO 2025-12-04 17:19:35,937 basehttp 13620 17712 "GET /accounts/login/?next=/learning/parent/ HTTP/1.1" 200 4881
+INFO 2025-12-04 17:19:41,299 basehttp 13620 17712 "POST /accounts/login/?next=/learning/parent/ HTTP/1.1" 302 0
+INFO 2025-12-04 17:19:41,346 basehttp 13620 17712 "GET /learning/parent/ HTTP/1.1" 200 10936
+INFO 2025-12-04 17:19:56,805 basehttp 13620 17712 "GET /learning/parent/notifications/ HTTP/1.1" 200 18609
+INFO 2025-12-04 17:21:45,499 basehttp 13620 17712 "POST /learning/parent/notifications/ HTTP/1.1" 302 0
+INFO 2025-12-04 17:21:45,552 basehttp 13620 17712 "GET /learning/parent/ HTTP/1.1" 200 10959
+INFO 2025-12-04 17:21:58,987 basehttp 13620 17712 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 17:21:59,030 basehttp 13620 17712 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 17:22:11,057 basehttp 13620 17712 "POST /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 20:02:09,642 autoreload 17184 19252 Watching for file changes with StatReloader
+INFO 2025-12-04 20:02:10,842 ai_services 17184 19252 OpenAI client initialized successfully
+INFO 2025-12-04 20:02:10,843 ai_services 17184 19252 OpenAI client initialized successfully
+INFO 2025-12-04 20:02:10,843 ai_services 17184 19252 OpenAI client initialized successfully
+INFO 2025-12-04 20:02:10,843 ai_services 17184 19252 OpenAI client initialized successfully
+INFO 2025-12-04 20:02:10,844 ai_services 17184 19252 OpenAI client initialized successfully
+INFO 2025-12-04 20:02:21,954 basehttp 17184 20216 "GET / HTTP/1.1" 302 0
+INFO 2025-12-04 20:02:22,040 basehttp 17184 20216 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-12-04 20:02:36,054 basehttp 17184 20216 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:02:36,143 basehttp 17184 20216 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:02:36,248 basehttp 17184 20216 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11587
+INFO 2025-12-04 20:02:43,779 basehttp 17184 20216 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 20:02:47,661 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:03:04,073 basehttp 17184 20216 "GET /learning/teacher/quizzes/ HTTP/1.1" 200 7874
+INFO 2025-12-04 20:03:08,894 basehttp 17184 20216 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+INFO 2025-12-04 20:03:15,218 basehttp 17184 20216 "GET /learning/teacher/content/ HTTP/1.1" 200 7326
+INFO 2025-12-04 20:03:19,370 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:03:22,382 basehttp 17184 20216 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:03:22,446 basehttp 17184 20216 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 20:03:30,153 basehttp 17184 20216 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:03:30,237 basehttp 17184 20216 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:03:30,321 basehttp 17184 20216 "GET /accounts/dashboard/parent/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:03:30,389 basehttp 17184 20216 "GET /learning/parent/ HTTP/1.1" 200 10936
+INFO 2025-12-04 20:06:53,449 basehttp 17184 20216 "GET /learning/parent/link-child/ HTTP/1.1" 200 11242
+INFO 2025-12-04 20:07:32,093 basehttp 17184 20216 "GET /learning/parent/ HTTP/1.1" 200 10740
+INFO 2025-12-04 20:09:04,160 basehttp 17184 20216 "GET /learning/parent/link-child/ HTTP/1.1" 200 11242
+INFO 2025-12-04 20:09:18,349 basehttp 17184 20216 "GET /learning/parent/ HTTP/1.1" 200 10740
+INFO 2025-12-04 20:09:20,208 basehttp 17184 20216 "GET /learning/parent/notifications/ HTTP/1.1" 200 18637
+INFO 2025-12-04 20:09:40,623 basehttp 17184 20216 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:09:40,682 basehttp 17184 20216 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 20:09:53,469 basehttp 17184 20216 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:09:53,559 basehttp 17184 20216 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:09:53,648 basehttp 17184 20216 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11587
+INFO 2025-12-04 20:10:21,040 basehttp 17184 20216 "GET /learning/teacher/upload/ HTTP/1.1" 200 14690
+INFO 2025-12-04 20:11:34,068 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:11:55,718 basehttp 17184 20216 "GET /learning/teacher/content/ HTTP/1.1" 200 7326
+INFO 2025-12-04 20:12:03,859 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:12:06,162 basehttp 17184 20216 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 20:12:11,998 basehttp 17184 20216 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 11968
+INFO 2025-12-04 20:12:54,625 basehttp 17184 20216 "GET /learning/teacher/classes/ HTTP/1.1" 200 7906
+INFO 2025-12-04 20:12:57,885 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:13:00,880 basehttp 17184 20216 "GET /learning/teacher/quizzes/ HTTP/1.1" 200 7874
+INFO 2025-12-04 20:13:25,970 basehttp 17184 20216 "GET /learning/teacher/ HTTP/1.1" 200 17561
+INFO 2025-12-04 20:45:02,884 basehttp 17184 20988 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-04 20:45:02,954 basehttp 17184 20988 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-04 21:48:31,863 basehttp 17184 15220 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:48:31,947 basehttp 17184 15220 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:48:32,160 basehttp 17184 15220 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29420
+INFO 2025-12-04 21:48:32,416 basehttp 17184 15220 "GET /static/js/achievement_notifications.js HTTP/1.1" 200 8271
+INFO 2025-12-04 21:48:32,475 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:48:49,609 basehttp 17184 15220 "GET /learning/enroll/ HTTP/1.1" 200 11089
+INFO 2025-12-04 21:48:49,735 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:48:54,080 basehttp 17184 15220 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-12-04 21:48:54,248 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:49:24,248 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:49:54,266 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:50:01,683 basehttp 17184 15220 "GET /content/upload/ HTTP/1.1" 200 20287
+INFO 2025-12-04 21:50:01,831 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:50:11,040 basehttp 17184 15220 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-04 21:50:11,168 basehttp 17184 15220 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-12-04 21:50:11,306 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:50:34,727 basehttp 17184 15220 "GET /community/study-partners/ HTTP/1.1" 200 25689
+INFO 2025-12-04 21:50:34,903 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:51:05,768 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:51:35,778 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:52:05,788 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:52:35,781 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:53:05,810 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:53:35,789 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:54:05,784 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:55:06,794 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:56:07,838 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:57:08,787 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:58:09,853 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 21:59:10,851 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:00:11,792 basehttp 17184 15220 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:03:32,370 basehttp 17184 14820 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:04:12,790 basehttp 17184 14820 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:05:12,780 basehttp 17184 14820 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:06:12,850 basehttp 17184 14820 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:07:12,846 basehttp 17184 14820 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:12:05,443 basehttp 17184 6812 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:13:05,817 basehttp 17184 6812 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:14:06,785 basehttp 17184 6812 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:14:23,506 autoreload 17184 19252 C:\Users\methe\Metlab.edu\metlab_edu\settings.py changed, reloading.
+INFO 2025-12-04 22:14:37,670 autoreload 19928 18076 Watching for file changes with StatReloader
+INFO 2025-12-04 22:14:39,605 ai_services 19928 18076 OpenAI client initialized successfully
+INFO 2025-12-04 22:14:39,605 ai_services 19928 18076 OpenAI client initialized successfully
+INFO 2025-12-04 22:14:39,606 ai_services 19928 18076 OpenAI client initialized successfully
+INFO 2025-12-04 22:14:39,606 ai_services 19928 18076 OpenAI client initialized successfully
+INFO 2025-12-04 22:14:39,606 ai_services 19928 18076 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:16,725 ai_services 21716 19344 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:16,726 ai_services 21716 19344 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:16,726 ai_services 21716 19344 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:16,726 ai_services 21716 19344 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:16,727 ai_services 21716 19344 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:27,500 autoreload 19928 18076 C:\Users\methe\Metlab.edu\video_chat\models.py changed, reloading.
+INFO 2025-12-04 22:15:46,023 autoreload 16460 7644 Watching for file changes with StatReloader
+INFO 2025-12-04 22:15:48,140 ai_services 16460 7644 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:48,141 ai_services 16460 7644 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:48,142 ai_services 16460 7644 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:48,142 ai_services 16460 7644 OpenAI client initialized successfully
+INFO 2025-12-04 22:15:48,143 ai_services 16460 7644 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:08,870 basehttp 16460 5508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:16:13,621 ai_services 6780 19880 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:13,622 ai_services 6780 19880 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:13,622 ai_services 6780 19880 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:13,623 ai_services 6780 19880 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:13,623 ai_services 6780 19880 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:50,338 ai_services 21736 13708 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:50,338 ai_services 21736 13708 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:50,339 ai_services 21736 13708 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:50,339 ai_services 21736 13708 OpenAI client initialized successfully
+INFO 2025-12-04 22:16:50,340 ai_services 21736 13708 OpenAI client initialized successfully
+INFO 2025-12-04 22:17:09,833 basehttp 16460 5508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:18:10,851 basehttp 16460 5508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:19:11,813 basehttp 16460 5508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:20:12,848 basehttp 16460 5508 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-04 22:20:16,890 ai_services 10624 22320 OpenAI client initialized successfully
+INFO 2025-12-04 22:20:16,891 ai_services 10624 22320 OpenAI client initialized successfully
+INFO 2025-12-04 22:20:16,891 ai_services 10624 22320 OpenAI client initialized successfully
+INFO 2025-12-04 22:20:16,892 ai_services 10624 22320 OpenAI client initialized successfully
+INFO 2025-12-04 22:20:16,892 ai_services 10624 22320 OpenAI client initialized successfully
+INFO 2025-12-04 22:34:28,540 ai_services 12284 22288 OpenAI client initialized successfully
+INFO 2025-12-04 22:34:28,541 ai_services 12284 22288 OpenAI client initialized successfully
+INFO 2025-12-04 22:34:28,544 ai_services 12284 22288 OpenAI client initialized successfully
+INFO 2025-12-04 22:34:28,545 ai_services 12284 22288 OpenAI client initialized successfully
+INFO 2025-12-04 22:34:28,546 ai_services 12284 22288 OpenAI client initialized successfully
+INFO 2025-12-04 22:40:55,198 ai_services 3392 2676 OpenAI client initialized successfully
+INFO 2025-12-04 22:40:55,199 ai_services 3392 2676 OpenAI client initialized successfully
+INFO 2025-12-04 22:40:55,199 ai_services 3392 2676 OpenAI client initialized successfully
+INFO 2025-12-04 22:40:55,199 ai_services 3392 2676 OpenAI client initialized successfully
+INFO 2025-12-04 22:40:55,200 ai_services 3392 2676 OpenAI client initialized successfully
+INFO 2025-12-04 22:49:16,839 ai_services 9200 18812 OpenAI client initialized successfully
+INFO 2025-12-04 22:49:16,840 ai_services 9200 18812 OpenAI client initialized successfully
+INFO 2025-12-04 22:49:16,841 ai_services 9200 18812 OpenAI client initialized successfully
+INFO 2025-12-04 22:49:16,841 ai_services 9200 18812 OpenAI client initialized successfully
+INFO 2025-12-04 22:49:16,841 ai_services 9200 18812 OpenAI client initialized successfully
+INFO 2025-12-04 22:55:22,592 ai_services 22000 21404 OpenAI client initialized successfully
+INFO 2025-12-04 22:55:22,592 ai_services 22000 21404 OpenAI client initialized successfully
+INFO 2025-12-04 22:55:22,593 ai_services 22000 21404 OpenAI client initialized successfully
+INFO 2025-12-04 22:55:22,593 ai_services 22000 21404 OpenAI client initialized successfully
+INFO 2025-12-04 22:55:22,594 ai_services 22000 21404 OpenAI client initialized successfully
+INFO 2025-12-04 22:56:38,746 ai_services 21876 15892 OpenAI client initialized successfully
+INFO 2025-12-04 22:56:38,747 ai_services 21876 15892 OpenAI client initialized successfully
+INFO 2025-12-04 22:56:38,747 ai_services 21876 15892 OpenAI client initialized successfully
+INFO 2025-12-04 22:56:38,747 ai_services 21876 15892 OpenAI client initialized successfully
+INFO 2025-12-04 22:56:38,748 ai_services 21876 15892 OpenAI client initialized successfully
+INFO 2025-12-04 23:01:37,496 ai_services 18276 12148 OpenAI client initialized successfully
+INFO 2025-12-04 23:01:37,497 ai_services 18276 12148 OpenAI client initialized successfully
+INFO 2025-12-04 23:01:37,497 ai_services 18276 12148 OpenAI client initialized successfully
+INFO 2025-12-04 23:01:37,497 ai_services 18276 12148 OpenAI client initialized successfully
+INFO 2025-12-04 23:01:37,498 ai_services 18276 12148 OpenAI client initialized successfully
+INFO 2025-12-04 23:03:29,102 ai_services 22108 21940 OpenAI client initialized successfully
+INFO 2025-12-04 23:03:29,103 ai_services 22108 21940 OpenAI client initialized successfully
+INFO 2025-12-04 23:03:29,103 ai_services 22108 21940 OpenAI client initialized successfully
+INFO 2025-12-04 23:03:29,103 ai_services 22108 21940 OpenAI client initialized successfully
+INFO 2025-12-04 23:03:29,105 ai_services 22108 21940 OpenAI client initialized successfully
+INFO 2025-12-05 00:17:54,613 ai_services 11340 12108 OpenAI client initialized successfully
+INFO 2025-12-05 00:17:54,613 ai_services 11340 12108 OpenAI client initialized successfully
+INFO 2025-12-05 00:17:54,614 ai_services 11340 12108 OpenAI client initialized successfully
+INFO 2025-12-05 00:17:54,614 ai_services 11340 12108 OpenAI client initialized successfully
+INFO 2025-12-05 00:17:54,614 ai_services 11340 12108 OpenAI client initialized successfully
+INFO 2025-12-05 00:20:45,046 ai_services 21340 19212 OpenAI client initialized successfully
+INFO 2025-12-05 00:20:45,046 ai_services 21340 19212 OpenAI client initialized successfully
+INFO 2025-12-05 00:20:45,047 ai_services 21340 19212 OpenAI client initialized successfully
+INFO 2025-12-05 00:20:45,047 ai_services 21340 19212 OpenAI client initialized successfully
+INFO 2025-12-05 00:20:45,047 ai_services 21340 19212 OpenAI client initialized successfully
+INFO 2025-12-05 00:22:06,610 basehttp 16460 19252 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:06,682 basehttp 16460 19252 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 4881
+INFO 2025-12-05 00:22:10,264 basehttp 16460 19252 "GET /community/study-partners/ HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:10,313 basehttp 16460 19252 "GET /accounts/login/?next=/community/study-partners/ HTTP/1.1" 200 4881
+INFO 2025-12-05 00:22:15,827 basehttp 16460 19252 "POST /accounts/login/?next=/community/study-partners/ HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:15,938 basehttp 16460 19252 "GET /community/study-partners/ HTTP/1.1" 200 25889
+INFO 2025-12-05 00:22:16,035 basehttp 16460 19252 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-05 00:22:36,139 basehttp 16460 19252 "GET / HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:36,183 basehttp 16460 19252 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:36,250 basehttp 16460 19252 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-05 00:22:36,496 basehttp 16460 19252 "GET /accounts/dashboard/student/ HTTP/1.1" 200 29220
+INFO 2025-12-05 00:22:36,595 basehttp 16460 19252 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-05 00:23:06,596 basehttp 16460 19252 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-05 00:23:09,311 basehttp 16460 19252 "GET /community/study-groups/ HTTP/1.1" 200 10762
+INFO 2025-12-05 00:23:09,383 basehttp 16460 19252 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-05 09:10:15,823 autoreload 5468 17488 Watching for file changes with StatReloader
+INFO 2025-12-05 09:10:17,811 ai_services 5468 17488 OpenAI client initialized successfully
+INFO 2025-12-05 09:10:17,812 ai_services 5468 17488 OpenAI client initialized successfully
+INFO 2025-12-05 09:10:17,812 ai_services 5468 17488 OpenAI client initialized successfully
+INFO 2025-12-05 09:10:17,813 ai_services 5468 17488 OpenAI client initialized successfully
+INFO 2025-12-05 09:10:17,813 ai_services 5468 17488 OpenAI client initialized successfully
