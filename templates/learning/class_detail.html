@@ -77,6 +77,15 @@
             <div class="px-4 py-5 sm:p-6">
                 <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Quick Actions</h3>
                 <div class="space-y-3">
+                    <a href="{% url 'learning:start_class_video_session' teacher_class.id %}" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 text-center block flex items-center justify-center">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                        </svg>
+                        Start Video Session
+                    </a>
+                    <a href="{% url 'learning:class_video_sessions' teacher_class.id %}" class="w-full bg-indigo-600 text-white py-2 px-4 rounded-md hover:bg-indigo-700 transition duration-200 text-center block">
+                        View Video Sessions
+                    </a>
                     <a href="{% url 'learning:student_progress' teacher_class.id %}" class="w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center block">
                         View Student Progress
                     </a>

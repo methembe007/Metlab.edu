@@ -1,0 +1,14 @@
+Hello {{ participant.username }},
+
+A video session you're invited to has been updated:
+
+Title: {{ session.title }}
+Host: {{ host.username }}
+New Scheduled Time: {{ session.scheduled_time|date:"F d, Y" }} at {{ session.scheduled_time|time:"g:i A" }}
+Duration: {{ session.duration_minutes }} minutes
+
+View updated session details:
+{{ session_url }}
+
+Best regards,
+MetLab Education Team

@@ -36,6 +36,7 @@ urlpatterns = [
     path('gamification/', include('gamification.urls')),
     path('community/', include('community.urls')),
     path('services/', include('services.urls')),
+    path('video/', include('video_chat.urls')),
     
     # Health check endpoints for monitoring
     path('health/', health_check, name='health_check'),

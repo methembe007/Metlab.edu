@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher_class.name }} - Video Sessions - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="space-y-6">
+    <!-- Header -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Video Sessions</h1>
+                    <p class="mt-1 text-sm text-gray-600">
+                        {{ teacher_class.name }} - {{ teacher_class.subject }}
+                    </p>
+                </div>
+                <div class="flex space-x-3">
+                    <a href="{% url 'learning:class_detail' teacher_class.id %}" class="text-blue-600 hover:text-blue-800">
+                        ← Back to Class
+                    </a>
+                    <a href="{% url 'learning:start_class_video_session' teacher_class.id %}" class="bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+                        Schedule New Session
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Active Sessions -->
+    {% if active_sessions %}
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Active Sessions</h3>
+            <div class="space-y-4">
+                {% for session in active_sessions %}
+                <div class="border border-green-200 bg-green-50 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h4 class="text-base font-medium text-gray-900">{{ session.title }}</h4>
+                            <p class="text-sm text-gray-600 mt-1">
+                                Started: {{ session.started_at|date:"M d, Y g:i A" }}
+                            </p>
+                            <p class="text-sm text-gray-600">
+                                Participants: {{ session.participants.count }} / {{ session.max_participants }}
+                            </p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="{% url 'video_chat:join_session' session.session_id %}" class="bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200">
+                                Join Session
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    
+    <!-- Upcoming Sessions -->
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Upcoming Sessions</h3>
+            
+            {% if upcoming_sessions %}
+                <div class="space-y-4">
+                    {% for session in upcoming_sessions %}
+                    <div class="border border-gray-200 rounded-lg p-4">
+                        <div class="flex items-center justify-between">
+                            <div class="flex-1">
+                                <h4 class="text-base font-medium text-gray-900">{{ session.title }}</h4>
+                                <p class="text-sm text-gray-600 mt-1">
+                                    Scheduled: {{ session.scheduled_time|date:"M d, Y g:i A" }}
+                                </p>
+                                <p class="text-sm text-gray-600">
+                                    Duration: {{ session.duration_minutes }} minutes
+                                </p>
+                                {% if session.description %}
+                                <p class="text-sm text-gray-500 mt-2">{{ session.description }}</p>
+                                {% endif %}
+                            </div>
+                            <div class="flex space-x-2">
+                                <a href="{% url 'video_chat:session_detail' session.session_id %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                    View Details
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="text-center py-8">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No upcoming sessions</h3>
+                    <p class="mt-1 text-sm text-gray-500">Schedule a video session to meet with your class.</p>
+                    <div class="mt-4">
+                        <a href="{% url 'learning:start_class_video_session' teacher_class.id %}" class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                            Schedule Session
+                        </a>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    
+    <!-- Past Sessions -->
+    {% if past_sessions %}
+    <div class="bg-white shadow rounded-lg">
+        <div class="px-4 py-5 sm:p-6">
+            <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4">Past Sessions</h3>
+            <div class="space-y-4">
+                {% for session in past_sessions %}
+                <div class="border border-gray-200 rounded-lg p-4">
+                    <div class="flex items-center justify-between">
+                        <div class="flex-1">
+                            <h4 class="text-base font-medium text-gray-900">{{ session.title }}</h4>
+                            <p class="text-sm text-gray-600 mt-1">
+                                {% if session.status == 'completed' %}
+                                    Completed: {{ session.ended_at|date:"M d, Y g:i A" }}
+                                {% else %}
+                                    Cancelled: {{ session.updated_at|date:"M d, Y g:i A" }}
+                                {% endif %}
+                            </p>
+                            {% if session.status == 'completed' %}
+                            <p class="text-sm text-gray-600">
+                                Participants: {{ session.participants.filter.count }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        <div class="flex space-x-2">
+                            <a href="{% url 'video_chat:session_detail' session.session_id %}" class="text-blue-600 hover:text-blue-800 text-sm">
+                                View Details
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

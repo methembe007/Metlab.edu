@@ -118,6 +118,12 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
         Requirements: 1.3, 4.3
         """
         try:
+            # Check rate limiting for WebSocket messages
+            is_allowed, remaining, reset_time = await self.check_message_rate_limit()
+            if not is_allowed:
+                await self.send_error('Message rate limit exceeded. Please slow down.')
+                return
+            
             data = json.loads(text_data)
             message_type = data.get('type')
             
@@ -144,6 +150,14 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
                 await self.handle_screen_share_stop(data)
             elif message_type == 'connection_quality':
                 await self.handle_connection_quality(data)
+            elif message_type == 'recording_start':
+                await self.handle_recording_start(data)
+            elif message_type == 'recording_stop':
+                await self.handle_recording_stop(data)
+            elif message_type == 'recording_chunk':
+                await self.handle_recording_chunk(data)
+            elif message_type == 'recording_complete':
+                await self.handle_recording_complete(data)
             else:
                 logger.warning(f"Unknown message type: {message_type}")
                 await self.send_error(f'Unknown message type: {message_type}')
@@ -213,6 +227,14 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
         """Handle user leaving the session"""
         try:
             await self.update_participant_status('left')
+            
+            # Track join/leave pattern for abuse detection
+            is_suspicious = await self.track_join_leave_pattern()
+            if is_suspicious:
+                logger.warning(
+                    f"Suspicious join/leave pattern detected for user {self.user.username} "
+                    f"in session {self.session_id}"
+                )
             
             # Log event
             await self.log_session_event('participant_left', {
@@ -448,6 +470,127 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             logger.error(f"Error handling connection quality: {str(e)}")
     
+    async def handle_recording_start(self, data):
+        """
+        Handle recording start request.
+        Requirements: 6.1, 6.2, 6.3
+        """
+        try:
+            # Check if user is the host
+            if self.session.host != self.user:
+                await self.send_error('Only the host can start recording')
+                return
+            
+            # Check if already recording
+            if self.session.is_recorded:
+                await self.send_error('Session is already being recorded')
+                return
+            
+            # Initialize recording
+            await self.start_recording()
+            
+            # Log event
+            await self.log_session_event('recording_started', {
+                'user_id': str(self.user.id),
+                'username': self.user.username,
+                'started_at': timezone.now().isoformat()
+            })
+            
+            # Broadcast to all participants
+            await self.channel_layer.group_send(
+                self.session_group_name,
+                {
+                    'type': 'recording_started',
+                    'user_id': str(self.user.id),
+                    'user_name': self.user.get_full_name() or self.user.username,
+                }
+            )
+            
+            logger.info(f"Recording started by {self.user.username} in session {self.session_id}")
+            
+        except Exception as e:
+            logger.error(f"Error handling recording start: {str(e)}")
+            await self.send_error('Failed to start recording')
+    
+    async def handle_recording_stop(self, data):
+        """
+        Handle recording stop request.
+        Requirements: 6.1, 6.2, 6.3
+        """
+        try:
+            # Check if user is the host
+            if self.session.host != self.user:
+                await self.send_error('Only the host can stop recording')
+                return
+            
+            # Stop recording
+            await self.stop_recording()
+            
+            # Log event
+            await self.log_session_event('recording_stopped', {
+                'user_id': str(self.user.id),
+                'username': self.user.username,
+                'stopped_at': timezone.now().isoformat()
+            })
+            
+            # Broadcast to all participants
+            await self.channel_layer.group_send(
+                self.session_group_name,
+                {
+                    'type': 'recording_stopped',
+                    'user_id': str(self.user.id),
+                    'user_name': self.user.get_full_name() or self.user.username,
+                }
+            )
+            
+            logger.info(f"Recording stopped by {self.user.username} in session {self.session_id}")
+            
+        except Exception as e:
+            logger.error(f"Error handling recording stop: {str(e)}")
+            await self.send_error('Failed to stop recording')
+    
+    async def handle_recording_chunk(self, data):
+        """
+        Handle incoming recording chunk from client.
+        Requirements: 6.1, 6.2, 6.4
+        """
+        try:
+            chunk_data = data.get('chunk_data')
+            chunk_size = data.get('chunk_size', 0)
+            chunk_index = data.get('chunk_index', 0)
+            timestamp = data.get('timestamp')
+            
+            if not chunk_data:
+                await self.send_error('Missing chunk data')
+                return
+            
+            # Save chunk to storage
+            await self.save_recording_chunk(chunk_data, chunk_index, chunk_size, timestamp)
+            
+            logger.debug(f"Received recording chunk {chunk_index} ({chunk_size} bytes) from {self.user.username}")
+            
+        except Exception as e:
+            logger.error(f"Error handling recording chunk: {str(e)}")
+            await self.send_error('Failed to save recording chunk')
+    
+    async def handle_recording_complete(self, data):
+        """
+        Handle recording completion notification.
+        Requirements: 6.4, 6.5
+        """
+        try:
+            chunk_count = data.get('chunk_count', 0)
+            duration_seconds = data.get('duration_seconds', 0)
+            
+            # Process and finalize recording
+            await self.finalize_recording(chunk_count, duration_seconds)
+            
+            logger.info(f"Recording completed for session {self.session_id}: {chunk_count} chunks, {duration_seconds}s")
+            
+        except Exception as e:
+            logger.error(f"Error handling recording complete: {str(e)}")
+            await self.send_error('Failed to finalize recording')
+    
     # Group message handlers (called by channel layer)
     
     async def participant_joined(self, event):
@@ -524,6 +667,22 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
             'user_id': event['user_id'],
         }))
     
+    async def recording_started(self, event):
+        """Send recording started notification"""
+        await self.send(text_data=json.dumps({
+            'type': 'recording_started',
+            'user_id': event['user_id'],
+            'user_name': event['user_name'],
+        }))
+    
+    async def recording_stopped(self, event):
+        """Send recording stopped notification"""
+        await self.send(text_data=json.dumps({
+            'type': 'recording_stopped',
+            'user_id': event['user_id'],
+            'user_name': event['user_name'],
+        }))
+    
     # Helper methods
     
     async def send_error(self, message):
@@ -532,6 +691,32 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
             'type': 'error',
             'message': message
         }))
+    
+    @database_sync_to_async
+    def check_message_rate_limit(self):
+        """Check WebSocket message rate limit"""
+        from .rate_limiting import VideoSessionRateLimiter
+        
+        if not self.user or not self.session_id:
+            return True, 0, None
+        
+        return VideoSessionRateLimiter.check_websocket_message_limit(
+            self.user,
+            self.session_id
+        )
+    
+    @database_sync_to_async
+    def track_join_leave_pattern(self):
+        """Track join/leave patterns for abuse detection"""
+        from .rate_limiting import SessionAbuseDetector
+        
+        if not self.user or not self.session_id:
+            return False
+        
+        return SessionAbuseDetector.track_repeated_join_leave(
+            self.user,
+            self.session_id
+        )
     
     # Database operations
     
@@ -549,42 +734,18 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
         Check if user is authorized to join this video session.
         Requirements: 1.2, 4.1, 4.2
         """
+        from .permissions import VideoSessionPermissions
+        
         if not self.session:
             return False
         
-        # Host is always authorized
-        if self.session.host == self.user:
-            return True
+        # Use centralized permission checking
+        can_join, reason = VideoSessionPermissions.can_user_join_session(self.user, self.session)
         
-        # Check if user is already a participant
-        if VideoSessionParticipant.objects.filter(
-            session=self.session,
-            user=self.user
-        ).exists():
-            return True
+        if not can_join:
+            logger.warning(f"Authorization failed for {self.user.username}: {reason}")
         
-        # For one-on-one sessions, check if user is invited
-        if self.session.session_type == 'one_on_one':
-            return VideoSessionParticipant.objects.filter(
-                session=self.session,
-                user=self.user,
-                status='invited'
-            ).exists()
-        
-        # For class sessions, check if user is enrolled in the class
-        if self.session.session_type == 'class' and self.session.teacher_class:
-            from learning.models import ClassEnrollment
-            return ClassEnrollment.objects.filter(
-                teacher_class=self.session.teacher_class,
-                student__user=self.user,
-                status='active'
-            ).exists()
-        
-        # For group sessions, allow if not requiring approval
-        if self.session.session_type == 'group' and not self.session.require_approval:
-            return True
-        
-        return False
+        return can_join
     
     @database_sync_to_async
     def is_session_full(self):
@@ -723,3 +884,103 @@ class VideoSessionConsumer(AsyncWebsocketConsumer):
         except Exception as e:
             logger.error(f"Error getting participants: {str(e)}")
             return []
+    
+    @database_sync_to_async
+    def start_recording(self):
+        """Initialize recording for the session"""
+        try:
+            if self.session:
+                self.session.is_recorded = True
+                self.session.save(update_fields=['is_recorded', 'updated_at'])
+        except Exception as e:
+            logger.error(f"Error starting recording: {str(e)}")
+    
+    @database_sync_to_async
+    def stop_recording(self):
+        """Stop recording for the session"""
+        try:
+            if self.session:
+                # Keep is_recorded as True since we have recorded content
+                # The recording URL will be set when processing is complete
+                self.session.save(update_fields=['updated_at'])
+        except Exception as e:
+            logger.error(f"Error stopping recording: {str(e)}")
+    
+    @database_sync_to_async
+    def save_recording_chunk(self, chunk_data, chunk_index, chunk_size, timestamp):
+        """Save recording chunk to storage"""
+        import base64
+        import os
+        from django.conf import settings
+        from django.core.files.base import ContentFile
+        
+        try:
+            # Decode base64 chunk data
+            chunk_bytes = base64.b64decode(chunk_data)
+            
+            # Create recordings directory if it doesn't exist
+            recordings_dir = os.path.join(settings.MEDIA_ROOT, 'recordings', str(self.session.session_id))
+            os.makedirs(recordings_dir, exist_ok=True)
+            
+            # Save chunk to file
+            chunk_filename = f'chunk_{chunk_index:05d}.webm'
+            chunk_path = os.path.join(recordings_dir, chunk_filename)
+            
+            with open(chunk_path, 'wb') as f:
+                f.write(chunk_bytes)
+            
+            logger.debug(f"Saved recording chunk {chunk_index} to {chunk_path}")
+            
+        except Exception as e:
+            logger.error(f"Error saving recording chunk: {str(e)}")
+            raise
+    
+    @database_sync_to_async
+    def finalize_recording(self, chunk_count, duration_seconds):
+        """Process and assemble recording chunks into final video"""
+        import os
+        import glob
+        from django.conf import settings
+        from django.core.files.base import ContentFile
+        
+        try:
+            recordings_dir = os.path.join(settings.MEDIA_ROOT, 'recordings', str(self.session.session_id))
+            
+            if not os.path.exists(recordings_dir):
+                logger.error(f"Recording directory not found: {recordings_dir}")
+                return
+            
+            # Get all chunk files sorted by index
+            chunk_files = sorted(glob.glob(os.path.join(recordings_dir, 'chunk_*.webm')))
+            
+            if not chunk_files:
+                logger.error(f"No recording chunks found in {recordings_dir}")
+                return
+            
+            # Assemble chunks into final recording
+            final_filename = f'session_{self.session.session_id}.webm'
+            final_path = os.path.join(recordings_dir, final_filename)
+            
+            with open(final_path, 'wb') as final_file:
+                for chunk_file in chunk_files:
+                    with open(chunk_file, 'rb') as chunk:
+                        final_file.write(chunk.read())
+                    # Optionally delete chunk file after merging
+                    # os.remove(chunk_file)
+            
+            # Get file size
+            file_size = os.path.getsize(final_path)
+            
+            # Generate recording URL (relative to MEDIA_URL)
+            recording_url = f"{settings.MEDIA_URL}recordings/{self.session.session_id}/{final_filename}"
+            
+            # Update session with recording metadata
+            self.session.recording_url = recording_url
+            self.session.recording_size_bytes = file_size
+            self.session.save(update_fields=['recording_url', 'recording_size_bytes', 'updated_at'])
+            
+            logger.info(f"Recording finalized: {final_path} ({file_size} bytes)")
+            
+        except Exception as e:
+            logger.error(f"Error finalizing recording: {str(e)}")
+            raise

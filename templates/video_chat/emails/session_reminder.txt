@@ -1,0 +1,14 @@
+Hello {{ participant.username }},
+
+This is a reminder that your video session is starting soon!
+
+Title: {{ session.title }}
+Host: {{ host.username }}
+Scheduled Time: {{ session.scheduled_time|date:"F d, Y" }} at {{ session.scheduled_time|time:"g:i A" }}
+Starting in: {{ minutes_until }} minutes
+
+Join the session now:
+{{ join_url }}
+
+Best regards,
+MetLab Education Team

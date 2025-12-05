@@ -78,3 +78,7 @@
 {"timestamp": "2025-12-04 10:50:13,608", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
 {"timestamp": "2025-12-04 10:52:00,929", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
 {"timestamp": "2025-12-04 10:52:02,973", "level": "ERROR", "logger": "errors", "message": "Error: TemplateDoesNotExist"}
+{"timestamp": "2025-12-05 20:59:25,352", "level": "ERROR", "logger": "errors", "message": "Error: NoReverseMatch"}
+{"timestamp": "2025-12-05 21:42:32,656", "level": "ERROR", "logger": "errors", "message": "Error: ValueError"}
+{"timestamp": "2025-12-05 21:47:11,606", "level": "ERROR", "logger": "errors", "message": "Error: ValueError"}
+{"timestamp": "2025-12-05 21:48:39,234", "level": "ERROR", "logger": "errors", "message": "Error: ValueError"}

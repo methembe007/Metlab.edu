@@ -48,6 +48,8 @@ urlpatterns = [
     path('teacher/classes/<int:class_id>/progress/', teacher_views.student_progress, name='student_progress'),
     path('teacher/classes/<int:class_id>/analytics/', teacher_views.class_analytics, name='class_analytics'),
     path('teacher/classes/<int:class_id>/remove/<int:student_id>/', teacher_views.remove_student, name='remove_student'),
+    path('teacher/classes/<int:class_id>/video-session/start/', teacher_views.start_class_video_session, name='start_class_video_session'),
+    path('teacher/classes/<int:class_id>/video-sessions/', teacher_views.class_video_sessions, name='class_video_sessions'),
     path('teacher/distribute/', teacher_views.bulk_content_distribution, name='bulk_content_distribution'),
     path('teacher/bulk-assign/', teacher_views.bulk_assign_content, name='bulk_assign_content'),
     
@@ -57,6 +59,7 @@ urlpatterns = [
     # Parent monitoring dashboard
     path('parent/', parent_views.parent_dashboard, name='parent_dashboard'),
     path('parent/child/<int:child_id>/progress/', parent_views.child_progress_detail, name='child_progress_detail'),
+    path('parent/child/<int:child_id>/video-sessions/', parent_views.child_video_sessions, name='child_video_sessions'),
     path('parent/child/<int:child_id>/screen-time/', parent_views.screen_time_settings, name='screen_time_settings'),
     path('parent/notifications/', parent_views.notification_settings, name='notification_settings'),
     path('parent/link-child/', parent_views.link_child_account, name='link_child_account'),

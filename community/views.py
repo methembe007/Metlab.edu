@@ -1410,3 +1410,69 @@ def update_session_attendance(request, session_id):
         return JsonResponse({'error': 'Invalid JSON'}, status=400)
     except Exception as e:
         return JsonResponse({'error': 'Failed to update attendance'}, status=500)
+
+
+
+@login_required
+@role_required('student')
+def start_booking_video_call(request, booking_id):
+    """Start a video call for a tutor booking"""
+    booking = get_object_or_404(
+        TutorBooking,
+        id=booking_id,
+        student__user=request.user,
+        status__in=['confirmed', 'in_progress']
+    )
+    
+    # Check if video session already exists
+    if hasattr(booking, 'video_session') and booking.video_session:
+        from django.shortcuts import redirect
+        return redirect('video_chat:join_session', session_id=booking.video_session.session_id)
+    
+    # Create a video session for this booking
+    from video_chat.models import VideoSession, VideoSessionParticipant
+    from video_chat.services import VideoSessionService
+    from django.utils import timezone
+    
+    try:
+        # Create the session
+        session = VideoSessionService.create_session(
+            host=booking.tutor.user,
+            session_type='one_on_one',
+            title=f"Tutoring Session: {booking.subject.name}",
+            description=f"Tutoring session between {booking.tutor.user.get_full_name() or booking.tutor.user.username} and {booking.student.user.get_full_name() or booking.student.user.username}",
+            scheduled_time=booking.scheduled_time,
+            duration_minutes=booking.duration_minutes,
+            max_participants=2,
+            allow_screen_share=True,
+            tutor_booking=booking
+        )
+        
+        # Add both tutor and student as participants
+        VideoSessionParticipant.objects.create(
+            session=session,
+            user=booking.tutor.user,
+            role='host',
+            status='invited'
+        )
+        
+        VideoSessionParticipant.objects.create(
+            session=session,
+            user=booking.student.user,
+            role='participant',
+            status='invited'
+        )
+        
+        # Update booking status to in_progress
+        booking.status = 'in_progress'
+        booking.save()
+        
+        # Start the session immediately
+        VideoSessionService.start_session(session.session_id, request.user)
+        
+        messages.success(request, 'Video call started successfully!')
+        return redirect('video_chat:join_session', session_id=session.session_id)
+        
+    except Exception as e:
+        messages.error(request, f'Error starting video call: {str(e)}')
+        return redirect('community:booking_detail', booking_id=booking.id)

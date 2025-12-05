@@ -28,6 +28,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+# Site URL for generating absolute URLs in emails and notifications
+SITE_URL = os.environ.get('SITE_URL', 'http://localhost:8000')
+
 # Security Settings
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
@@ -342,6 +345,41 @@ else:
 # AI Services Configuration
 # Set your OpenAI API key in environment variable or here
 OPENAI_API_KEY = os.getenv('OPENAI_API_KEY', '')  # Set this in production
+
+# WebRTC STUN/TURN Server Configuration
+# For development, we use public STUN servers
+# For production, configure your own TURN server
+WEBRTC_ICE_SERVERS = [
+    {
+        'urls': 'stun:stun.l.google.com:19302'
+    },
+    {
+        'urls': 'stun:stun1.l.google.com:19302'
+    },
+    {
+        'urls': 'stun:stun2.l.google.com:19302'
+    },
+    {
+        'urls': 'stun:stun3.l.google.com:19302'
+    },
+    {
+        'urls': 'stun:stun4.l.google.com:19302'
+    },
+]
+
+# TURN server configuration (optional for development)
+# Uncomment and configure if you have a TURN server for development
+# WEBRTC_ICE_SERVERS.append({
+#     'urls': 'turn:your-turn-server.com:3478',
+#     'username': os.getenv('TURN_USERNAME', ''),
+#     'credential': os.getenv('TURN_PASSWORD', ''),
+# })
+
+# Video Chat Settings
+VIDEO_CHAT_MAX_PARTICIPANTS = 30
+VIDEO_CHAT_SESSION_TIMEOUT = 3600  # 1 hour in seconds
+VIDEO_CHAT_RECORDING_ENABLED = True
+VIDEO_CHAT_SCREEN_SHARE_ENABLED = True
 
 # Logging Configuration
 LOGGING = {

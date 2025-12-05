@@ -2,10 +2,13 @@
 Service layer for video chat session management.
 Handles business logic for session lifecycle, participant management, and event logging.
 """
+import logging
 from django.utils import timezone
 from django.db import transaction
 from django.core.exceptions import ValidationError, PermissionDenied
 from .models import VideoSession, VideoSessionParticipant, VideoSessionEvent
+
+logger = logging.getLogger(__name__)
 
 
 class VideoSessionService:
@@ -38,7 +41,11 @@ class VideoSessionService:
             
         Raises:
             ValidationError: If validation fails
+            PermissionDenied: If user doesn't have permission to create session
         """
+        from .permissions import VideoSessionPermissions
+        from .rate_limiting import VideoSessionRateLimiter, SessionAbuseDetector
+        
         # Validate session type
         valid_types = ['one_on_one', 'group', 'class']
         if session_type not in valid_types:
@@ -47,6 +54,37 @@ class VideoSessionService:
         # Validate host permissions
         if not host.is_authenticated:
             raise PermissionDenied("User must be authenticated to create a session")
+        
+        # Check rate limiting for session creation
+        is_allowed, remaining, reset_time = VideoSessionRateLimiter.check_session_creation_limit(host)
+        if not is_allowed:
+            reset_msg = f" Try again in {reset_time.strftime('%H:%M:%S')}" if reset_time else ""
+            raise ValidationError(
+                f"Session creation rate limit exceeded. "
+                f"Maximum {VideoSessionRateLimiter.SESSION_CREATION_LIMIT} sessions per hour.{reset_msg}"
+            )
+        
+        # Check for abuse patterns
+        if SessionAbuseDetector.track_rapid_session_creation(host):
+            logger.warning(f"Rapid session creation detected for user {host.username}")
+            # Flag user if pattern is very suspicious
+            SessionAbuseDetector.flag_user(
+                host,
+                "Rapid session creation pattern detected",
+                duration_hours=1
+            )
+        
+        # Check if user is flagged for abuse
+        is_flagged, flag_reason = SessionAbuseDetector.is_user_flagged(host)
+        if is_flagged:
+            raise PermissionDenied(f"Session creation temporarily restricted: {flag_reason}")
+        
+        # Check if user can create this type of session
+        can_create, reason = VideoSessionPermissions.can_user_create_session(
+            host, session_type, teacher_class, tutor_booking
+        )
+        if not can_create:
+            raise PermissionDenied(reason)
         
         # Validate one-on-one session has max 2 participants
         if session_type == 'one_on_one' and max_participants > 2:
@@ -250,6 +288,11 @@ class VideoSessionService:
                 participant.left_at = timezone.now()
                 participant.save(update_fields=['status', 'left_at', 'updated_at'])
             
+            # Update tutor booking status if this is a tutoring session
+            if session.tutor_booking:
+                session.tutor_booking.status = 'completed'
+                session.tutor_booking.save(update_fields=['status', 'updated_at'])
+            
             # Log session end event
             VideoSessionEvent.objects.create(
                 session=session,
@@ -394,10 +437,32 @@ class VideoSessionService:
             ValidationError: If user cannot join the session
             PermissionDenied: If user doesn't have permission to join
         """
+        from .permissions import VideoSessionPermissions
+        from .rate_limiting import VideoSessionRateLimiter, SessionAbuseDetector
+        
         try:
             session = VideoSession.objects.select_related('host').get(session_id=session_id)
         except VideoSession.DoesNotExist:
             raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Check rate limiting for join attempts
+        is_allowed, remaining, reset_time = VideoSessionRateLimiter.check_join_attempt_limit(user, session_id)
+        if not is_allowed:
+            reset_msg = f" Try again in {reset_time.strftime('%H:%M:%S')}" if reset_time else ""
+            raise ValidationError(
+                f"Join attempt rate limit exceeded. "
+                f"Maximum {VideoSessionRateLimiter.JOIN_ATTEMPT_LIMIT} attempts per 5 minutes.{reset_msg}"
+            )
+        
+        # Check if user is flagged for abuse
+        is_flagged, flag_reason = SessionAbuseDetector.is_user_flagged(user)
+        if is_flagged:
+            raise PermissionDenied(f"Session access temporarily restricted: {flag_reason}")
+        
+        # Check if user has permission to join this session
+        can_join, reason = VideoSessionPermissions.can_user_join_session(user, session)
+        if not can_join:
+            raise PermissionDenied(reason)
         
         # Check if user is already in another active session (busy status)
         active_participant = VideoSessionParticipant.objects.filter(
@@ -468,6 +533,21 @@ class VideoSessionService:
                     'participant_count': session.participants.filter(status='joined').count()
                 }
             )
+            
+            # Send notification to parents if user is a student
+            try:
+                from accounts.models import StudentProfile
+                student_profile = StudentProfile.objects.filter(user=user).first()
+                if student_profile:
+                    # Notify all linked parents
+                    for parent in student_profile.parents.all():
+                        # Log notification (actual email/push notification would be sent here)
+                        logger.info(
+                            f"Parent notification: {student_profile.user.get_full_name() or student_profile.user.username} "
+                            f"joined video session '{session.title}' at {participant.joined_at}"
+                        )
+            except Exception as e:
+                logger.error(f"Error sending parent notification for join: {str(e)}")
         
         return participant
     
@@ -532,6 +612,24 @@ class VideoSessionService:
                     'remaining_participants': session.participants.filter(status='joined').count()
                 }
             )
+            
+            # Send notification to parents if user is a student
+            try:
+                from accounts.models import StudentProfile
+                student_profile = StudentProfile.objects.filter(user=user).first()
+                if student_profile:
+                    # Calculate session duration
+                    duration_minutes = int((participant.left_at - participant.joined_at).total_seconds() / 60) if participant.joined_at else 0
+                    
+                    # Notify all linked parents
+                    for parent in student_profile.parents.all():
+                        # Log notification (actual email/push notification would be sent here)
+                        logger.info(
+                            f"Parent notification: {student_profile.user.get_full_name() or student_profile.user.username} "
+                            f"left video session '{session.title}' at {participant.left_at}. Duration: {duration_minutes} minutes"
+                        )
+            except Exception as e:
+                logger.error(f"Error sending parent notification for leave: {str(e)}")
         
         return participant
     
@@ -1152,3 +1250,454 @@ class VideoSessionService:
                 'recording_size_mb': round(session.recording_size_bytes / (1024 * 1024), 2) if session.recording_size_bytes else None
             }
         }
+
+
+    @staticmethod
+    def start_recording(session_id, user):
+        """
+        Start recording a video session.
+        
+        Args:
+            session_id: UUID of the session
+            user: User starting the recording (must be host)
+            
+        Returns:
+            Updated VideoSession instance
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            PermissionDenied: If user is not the host
+            ValidationError: If recording cannot be started
+            
+        Requirements: 6.1, 6.2
+        """
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Verify user is the host
+        if session.host != user:
+            raise PermissionDenied("Only the session host can start recording")
+        
+        # Validate session status
+        if session.status != 'active':
+            raise ValidationError("Can only record active sessions")
+        
+        # Check if already recording
+        if session.is_recorded:
+            raise ValidationError("Session is already being recorded")
+        
+        with transaction.atomic():
+            # Update session
+            session.is_recorded = True
+            session.save(update_fields=['is_recorded', 'updated_at'])
+            
+            # Log recording start event
+            VideoSessionEvent.objects.create(
+                session=session,
+                event_type='recording_started',
+                user=user,
+                details={
+                    'action': 'recording_started',
+                    'started_at': timezone.now().isoformat()
+                }
+            )
+        
+        return session
+    
+    @staticmethod
+    def stop_recording(session_id, user):
+        """
+        Stop recording a video session.
+        
+        Args:
+            session_id: UUID of the session
+            user: User stopping the recording (must be host)
+            
+        Returns:
+            Updated VideoSession instance
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            PermissionDenied: If user is not the host
+            ValidationError: If recording cannot be stopped
+            
+        Requirements: 6.1, 6.2
+        """
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Verify user is the host
+        if session.host != user:
+            raise PermissionDenied("Only the session host can stop recording")
+        
+        # Validate session is being recorded
+        if not session.is_recorded:
+            raise ValidationError("Session is not being recorded")
+        
+        with transaction.atomic():
+            # Log recording stop event
+            VideoSessionEvent.objects.create(
+                session=session,
+                event_type='recording_stopped',
+                user=user,
+                details={
+                    'action': 'recording_stopped',
+                    'stopped_at': timezone.now().isoformat()
+                }
+            )
+            
+            # Note: is_recorded remains True as we have recorded content
+            # The recording URL will be set when processing is complete
+            session.save(update_fields=['updated_at'])
+        
+        return session
+    
+    @staticmethod
+    def get_recording_url(session_id, user):
+        """
+        Get the recording URL for a session.
+        
+        Args:
+            session_id: UUID of the session
+            user: User requesting the recording
+            
+        Returns:
+            Recording URL string or None
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            PermissionDenied: If user doesn't have access to the recording
+            
+        Requirements: 6.4, 6.5
+        """
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Check if user has access to this session
+        is_participant = VideoSessionParticipant.objects.filter(
+            session=session,
+            user=user
+        ).exists()
+        
+        if not is_participant and session.host != user:
+            raise PermissionDenied("User does not have access to this recording")
+        
+        # Check if recording exists
+        if not session.is_recorded or not session.recording_url:
+            return None
+        
+        return session.recording_url
+    
+    @staticmethod
+    def delete_recording(session_id, user):
+        """
+        Delete the recording for a session.
+        
+        Args:
+            session_id: UUID of the session
+            user: User deleting the recording (must be host)
+            
+        Returns:
+            Updated VideoSession instance
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            PermissionDenied: If user is not the host
+            ValidationError: If recording cannot be deleted
+            
+        Requirements: 6.4, 6.5
+        """
+        import os
+        import shutil
+        from django.conf import settings
+        
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Verify user is the host
+        if session.host != user:
+            raise PermissionDenied("Only the session host can delete recordings")
+        
+        # Check if recording exists
+        if not session.is_recorded or not session.recording_url:
+            raise ValidationError("No recording exists for this session")
+        
+        with transaction.atomic():
+            # Delete recording files from storage
+            recordings_dir = os.path.join(settings.MEDIA_ROOT, 'recordings', str(session.session_id))
+            
+            if os.path.exists(recordings_dir):
+                try:
+                    shutil.rmtree(recordings_dir)
+                    logger.info(f"Deleted recording directory: {recordings_dir}")
+                except Exception as e:
+                    logger.error(f"Error deleting recording files: {str(e)}")
+            
+            # Update session
+            session.is_recorded = False
+            session.recording_url = ''
+            session.recording_size_bytes = None
+            session.save(update_fields=['is_recorded', 'recording_url', 'recording_size_bytes', 'updated_at'])
+            
+            # Log deletion event
+            VideoSessionEvent.objects.create(
+                session=session,
+                event_type='recording_stopped',
+                user=user,
+                details={
+                    'action': 'recording_deleted',
+                    'deleted_at': timezone.now().isoformat()
+                }
+            )
+        
+        return session
+    
+    @staticmethod
+    def get_recording_metadata(session_id, user):
+        """
+        Get metadata about a session recording.
+        
+        Args:
+            session_id: UUID of the session
+            user: User requesting the metadata
+            
+        Returns:
+            Dictionary containing recording metadata
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            PermissionDenied: If user doesn't have access
+            
+        Requirements: 6.4, 6.5
+        """
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Check if user has access to this session
+        is_participant = VideoSessionParticipant.objects.filter(
+            session=session,
+            user=user
+        ).exists()
+        
+        if not is_participant and session.host != user:
+            raise PermissionDenied("User does not have access to this recording")
+        
+        # Get recording events
+        recording_started_event = session.events.filter(
+            event_type='recording_started'
+        ).first()
+        
+        recording_stopped_event = session.events.filter(
+            event_type='recording_stopped'
+        ).order_by('-timestamp').first()
+        
+        # Calculate recording duration
+        recording_duration = None
+        if recording_started_event and recording_stopped_event:
+            duration_seconds = (recording_stopped_event.timestamp - recording_started_event.timestamp).total_seconds()
+            recording_duration = round(duration_seconds / 60, 2)  # Convert to minutes
+        
+        return {
+            'session_id': str(session.session_id),
+            'session_title': session.title,
+            'is_recorded': session.is_recorded,
+            'recording_url': session.recording_url if session.is_recorded else None,
+            'recording_size_bytes': session.recording_size_bytes,
+            'recording_size_mb': round(session.recording_size_bytes / (1024 * 1024), 2) if session.recording_size_bytes else None,
+            'recording_started_at': recording_started_event.timestamp if recording_started_event else None,
+            'recording_stopped_at': recording_stopped_event.timestamp if recording_stopped_event else None,
+            'recording_duration_minutes': recording_duration,
+            'recorded_by': session.host.username,
+            'is_available': session.is_recorded and bool(session.recording_url)
+        }
+    
+    @staticmethod
+    def create_session_report(session_id, reporter, report_type, description, 
+                             reported_user=None, severity='medium'):
+        """
+        Create a report for inappropriate behavior or issues in a video session.
+        
+        Args:
+            session_id: UUID of the session being reported
+            reporter: User object submitting the report
+            report_type: Type of report (from VideoSessionReport.REPORT_TYPE_CHOICES)
+            description: Detailed description of the issue
+            reported_user: Optional User object being reported
+            severity: Severity level ('low', 'medium', 'high', 'critical')
+            
+        Returns:
+            VideoSessionReport instance
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+            ValidationError: If validation fails
+            PermissionDenied: If reporter is not a participant
+            
+        Requirements: 1.2, 2.3
+        """
+        from .models import VideoSessionReport
+        
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        # Verify reporter is/was a participant in the session
+        is_participant = VideoSessionParticipant.objects.filter(
+            session=session,
+            user=reporter
+        ).exists()
+        
+        if not is_participant:
+            raise PermissionDenied("Only session participants can submit reports")
+        
+        # Validate report type
+        valid_types = [choice[0] for choice in VideoSessionReport.REPORT_TYPE_CHOICES]
+        if report_type not in valid_types:
+            raise ValidationError(f"Invalid report type. Must be one of: {valid_types}")
+        
+        # Validate severity
+        valid_severities = ['low', 'medium', 'high', 'critical']
+        if severity not in valid_severities:
+            raise ValidationError(f"Invalid severity. Must be one of: {valid_severities}")
+        
+        # If reporting a user, verify they were in the session
+        if reported_user:
+            is_reported_participant = VideoSessionParticipant.objects.filter(
+                session=session,
+                user=reported_user
+            ).exists()
+            
+            if not is_reported_participant:
+                raise ValidationError("Reported user was not a participant in this session")
+        
+        with transaction.atomic():
+            # Create the report
+            report = VideoSessionReport.objects.create(
+                session=session,
+                reporter=reporter,
+                reported_user=reported_user,
+                report_type=report_type,
+                description=description,
+                severity=severity,
+                status='pending'
+            )
+            
+            # Log the report event
+            VideoSessionEvent.objects.create(
+                session=session,
+                event_type='connection_issue',  # Using existing event type for now
+                user=reporter,
+                details={
+                    'action': 'session_reported',
+                    'report_id': report.id,
+                    'report_type': report_type,
+                    'severity': severity
+                }
+            )
+            
+            # Track disruption if reporting inappropriate behavior
+            if report_type in ['inappropriate_behavior', 'harassment', 'bullying', 'spam']:
+                from .rate_limiting import SessionAbuseDetector
+                if reported_user:
+                    disruption_count = SessionAbuseDetector.track_session_disruption(
+                        reported_user,
+                        session_id,
+                        report_type
+                    )
+                    
+                    # Auto-flag user if multiple reports
+                    if disruption_count >= 3:
+                        SessionAbuseDetector.flag_user(
+                            reported_user,
+                            f"Multiple reports received: {disruption_count} incidents",
+                            duration_hours=24
+                        )
+        
+        logger.info(
+            f"Session report created: {report_type} in session {session_id} "
+            f"by {reporter.username}" + 
+            (f" against {reported_user.username}" if reported_user else "")
+        )
+        
+        return report
+    
+    @staticmethod
+    def get_session_reports(session_id, user=None, status=None):
+        """
+        Get reports for a specific session.
+        
+        Args:
+            session_id: UUID of the session
+            user: Optional user filter (to get reports by or against a user)
+            status: Optional status filter
+            
+        Returns:
+            QuerySet of VideoSessionReport objects
+            
+        Raises:
+            VideoSession.DoesNotExist: If session not found
+        """
+        from .models import VideoSessionReport
+        
+        try:
+            session = VideoSession.objects.get(session_id=session_id)
+        except VideoSession.DoesNotExist:
+            raise VideoSession.DoesNotExist(f"Session with ID {session_id} not found")
+        
+        reports = VideoSessionReport.objects.filter(session=session)
+        
+        if user:
+            # Get reports by or against this user
+            reports = reports.filter(
+                models.Q(reporter=user) | models.Q(reported_user=user)
+            )
+        
+        if status:
+            reports = reports.filter(status=status)
+        
+        return reports.select_related('reporter', 'reported_user', 'reviewed_by').order_by('-created_at')
+    
+    @staticmethod
+    def get_user_reports(user, as_reporter=True, as_reported=True, status=None):
+        """
+        Get all reports involving a specific user.
+        
+        Args:
+            user: User object
+            as_reporter: Include reports submitted by this user
+            as_reported: Include reports against this user
+            status: Optional status filter
+            
+        Returns:
+            QuerySet of VideoSessionReport objects
+        """
+        from .models import VideoSessionReport
+        from django.db.models import Q
+        
+        query = Q()
+        
+        if as_reporter:
+            query |= Q(reporter=user)
+        
+        if as_reported:
+            query |= Q(reported_user=user)
+        
+        reports = VideoSessionReport.objects.filter(query)
+        
+        if status:
+            reports = reports.filter(status=status)
+        
+        return reports.select_related(
+            'session', 'reporter', 'reported_user', 'reviewed_by'
+        ).order_by('-created_at')

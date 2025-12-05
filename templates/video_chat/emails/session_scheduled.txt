@@ -1,0 +1,23 @@
+Hello {{ participant.username }},
+
+You have been invited to a video session:
+
+Title: {{ session.title }}
+Host: {{ host.username }}
+Scheduled Time: {{ session.scheduled_time|date:"F d, Y" }} at {{ session.scheduled_time|time:"g:i A" }}
+Duration: {{ session.duration_minutes }} minutes
+
+{% if session.description %}
+Description:
+{{ session.description }}
+{% endif %}
+
+You can join the session 10 minutes before the scheduled time.
+
+View session details and join:
+{{ session_url }}
+
+You will receive a reminder 15 minutes before the session starts.
+
+Best regards,
+MetLab Education Team

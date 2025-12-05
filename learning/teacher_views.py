@@ -97,7 +97,7 @@ def upload_content(request):
                         logger.error(f"Content processing failed: {str(e)}")
                     
                     messages.success(request, 'Content uploaded successfully! AI processing has started.')
-                    return redirect('teacher_content_list')
+                    return redirect('learning:teacher_content_list')
             except Exception as e:
                 messages.error(request, f'Error uploading content: {str(e)}')
     else:
@@ -206,7 +206,7 @@ def customize_quiz(request, quiz_id):
             form.save_m2m()
             
             messages.success(request, 'Quiz customized successfully!')
-            return redirect('teacher_quiz_list')
+            return redirect('learning:teacher_quiz_list')
     else:
         initial_data = {}
         if teacher_quiz:
@@ -291,7 +291,7 @@ def create_class(request):
             teacher_class.save()
             
             messages.success(request, f'Class "{teacher_class.name}" created successfully! Invitation code: {teacher_class.invitation_code}')
-            return redirect('class_management')
+            return redirect('learning:class_management')
     else:
         form = TeacherClassForm()
     
@@ -480,7 +480,7 @@ def remove_student(request, class_id, student_id):
     except ClassEnrollment.DoesNotExist:
         messages.error(request, 'Student not found in this class.')
     
-    return redirect('class_detail', class_id=class_id)
+    return redirect('learning:class_detail', class_id=class_id)
 
 
 @login_required
@@ -501,7 +501,7 @@ def toggle_quiz_status(request, quiz_id):
     status = "activated" if teacher_quiz.is_active else "deactivated"
     messages.success(request, f'Quiz "{teacher_quiz.title}" has been {status}.')
     
-    return redirect('teacher_quiz_list')
+    return redirect('learning:teacher_quiz_list')
 
 
 @login_required
@@ -844,3 +844,73 @@ def content_processing_status(request, content_id):
         'has_quizzes': uploaded_content.quizzes.exists(),
         'has_flashcards': uploaded_content.flashcards.exists(),
     })
+
+
+@login_required
+@teacher_required
+def start_class_video_session(request, class_id):
+    """Start or schedule a video session for a class"""
+    teacher_profile = request.user.teacher_profile
+    teacher_class = get_object_or_404(
+        TeacherClass,
+        id=class_id,
+        teacher=teacher_profile
+    )
+    
+    # Get enrolled students
+    enrollments = teacher_class.enrollments.filter(is_active=True).select_related('student__user')
+    student_users = [enrollment.student.user for enrollment in enrollments]
+    
+    # Redirect to video chat schedule session with pre-filled data
+    from django.urls import reverse
+    from urllib.parse import urlencode
+    
+    # Store class info in session for the video chat form
+    request.session['video_session_class_id'] = class_id
+    request.session['video_session_class_name'] = teacher_class.name
+    request.session['video_session_student_ids'] = [user.id for user in student_users]
+    
+    return redirect('video_chat:schedule_session')
+
+
+@login_required
+@teacher_required
+def class_video_sessions(request, class_id):
+    """View all video sessions for a class"""
+    teacher_profile = request.user.teacher_profile
+    teacher_class = get_object_or_404(
+        TeacherClass,
+        id=class_id,
+        teacher=teacher_profile
+    )
+    
+    # Get video sessions for this class
+    from video_chat.models import VideoSession
+    video_sessions = VideoSession.objects.filter(
+        teacher_class=teacher_class
+    ).order_by('-created_at')
+    
+    # Separate into upcoming, active, and past
+    from django.utils import timezone
+    now = timezone.now()
+    
+    upcoming_sessions = video_sessions.filter(
+        status='scheduled',
+        scheduled_time__gte=now
+    ).order_by('scheduled_time')
+    
+    active_sessions = video_sessions.filter(status='active')
+    
+    past_sessions = video_sessions.filter(
+        status__in=['completed', 'cancelled']
+    ).order_by('-created_at')[:10]
+    
+    context = {
+        'teacher_class': teacher_class,
+        'upcoming_sessions': upcoming_sessions,
+        'active_sessions': active_sessions,
+        'past_sessions': past_sessions,
+        'teacher_profile': teacher_profile,
+    }
+    
+    return render(request, 'learning/class_video_sessions.html', context)

@@ -27,16 +27,30 @@ class VideoCallInterface {
         this.screenSharing = false;
         this.screenStream = null;
         
+        // Recording state
+        this.isRecording = false;
+        this.mediaRecorder = null;
+        this.recordedChunks = [];
+        this.recordingStartTime = null;
+        
         // Connection quality monitoring
         this.connectionStats = new Map(); // userId -> stats
         this.statsInterval = null;
         
-        // ICE servers configuration
+        // ICE servers configuration (will be loaded from server)
         this.iceServers = [
             { urls: 'stun:stun.l.google.com:19302' },
             { urls: 'stun:stun1.l.google.com:19302' },
             { urls: 'stun:stun2.l.google.com:19302' }
         ];
+        
+        // Video chat settings
+        this.videoSettings = {
+            maxParticipants: 30,
+            sessionTimeout: 3600,
+            recordingEnabled: true,
+            screenShareEnabled: true
+        };
         
         // Participants data
         this.participants = new Map(); // userId -> participant data
@@ -55,6 +69,13 @@ class VideoCallInterface {
      */
     async initialize() {
         try {
+            // Initialize tracking variables
+            this.reconnectionAttempts = new Map();
+            this.audioOnlySuggested = false;
+            
+            // Load ICE server configuration from server
+            await this.loadICEServerConfiguration();
+            
             // Initialize local video placeholder with user initials
             this.initializeLocalPlaceholder();
             
@@ -70,10 +91,69 @@ class VideoCallInterface {
             // Start connection quality monitoring
             this.startConnectionMonitoring();
             
+            // Start adaptive quality monitoring
+            // Requirements: 9.1 - Adjust video resolution based on bandwidth
+            this.startAdaptiveQualityMonitoring();
+            
+            // Initialize engagement monitoring (speaking indicators, idle detection)
+            this.initializeEngagementMonitoring();
+            
+            // Initialize participant list
+            this.updateParticipantsList();
+            
             console.log('Video call interface initialized');
         } catch (error) {
             console.error('Failed to initialize video call:', error);
             this.showError('Failed to initialize video call: ' + error.message);
+        }
+    }
+    
+    /**
+     * Load ICE server configuration from the server
+     * Requirements: 1.3, 4.3, 9.1 - Configure STUN/TURN servers for WebRTC connections
+     */
+    async loadICEServerConfiguration() {
+        try {
+            const response = await fetch('/video-chat/api/ice-servers/', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Requested-With': 'XMLHttpRequest'
+                },
+                credentials: 'same-origin'
+            });
+            
+            if (!response.ok) {
+                throw new Error('Failed to load ICE server configuration');
+            }
+            
+            const data = await response.json();
+            
+            // Update ICE servers configuration
+            if (data.iceServers && data.iceServers.length > 0) {
+                this.iceServers = data.iceServers;
+                console.log('Loaded ICE servers configuration:', this.iceServers.length, 'servers');
+            }
+            
+            // Update video chat settings
+            if (data.maxParticipants) {
+                this.videoSettings.maxParticipants = data.maxParticipants;
+            }
+            if (data.sessionTimeout) {
+                this.videoSettings.sessionTimeout = data.sessionTimeout;
+            }
+            if (typeof data.recordingEnabled !== 'undefined') {
+                this.videoSettings.recordingEnabled = data.recordingEnabled;
+            }
+            if (typeof data.screenShareEnabled !== 'undefined') {
+                this.videoSettings.screenShareEnabled = data.screenShareEnabled;
+            }
+            
+            console.log('Video chat settings loaded:', this.videoSettings);
+        } catch (error) {
+            console.error('Failed to load ICE server configuration:', error);
+            console.log('Using default STUN servers');
+            // Continue with default STUN servers if loading fails
         }
     }
     
@@ -147,6 +227,14 @@ class VideoCallInterface {
                     
                 case 'screen_share_stop':
                     this.handleScreenShareStop(message);
+                    break;
+                    
+                case 'recording_started':
+                    this.handleRecordingStarted(message);
+                    break;
+                    
+                case 'recording_stopped':
+                    this.handleRecordingStopped(message);
                     break;
                     
                 case 'participants_list':
@@ -298,7 +386,9 @@ class VideoCallInterface {
             userName: message.user_name,
             audioEnabled: message.audio_enabled,
             videoEnabled: message.video_enabled,
-            joinedAt: new Date()
+            screenSharing: false,
+            joinedAt: new Date(),
+            lastActivity: new Date()
         });
         
         // Update UI
@@ -426,7 +516,9 @@ class VideoCallInterface {
                     userName: participant.user_name,
                     audioEnabled: participant.audio_enabled,
                     videoEnabled: participant.video_enabled,
-                    joinedAt: new Date(participant.joined_at)
+                    screenSharing: false,
+                    joinedAt: new Date(participant.joined_at),
+                    lastActivity: new Date()
                 });
             }
         });
@@ -437,6 +529,7 @@ class VideoCallInterface {
     
     /**
      * Restart ICE connection
+     * Requirements: 9.2, 9.3 - Implement automatic reconnection on disconnect
      */
     async restartICE(peerId) {
         console.log('Restarting ICE for:', peerId);
@@ -444,6 +537,17 @@ class VideoCallInterface {
         const pc = this.peerConnections.get(peerId);
         if (pc) {
             try {
+                // Track reconnection attempts
+                if (!this.reconnectionAttempts) {
+                    this.reconnectionAttempts = new Map();
+                }
+                
+                const attempts = this.reconnectionAttempts.get(peerId) || 0;
+                this.reconnectionAttempts.set(peerId, attempts + 1);
+                
+                // Show reconnecting indicator
+                this.showReconnectingIndicator(peerId, true);
+                
                 const offer = await pc.createOffer({ iceRestart: true });
                 await pc.setLocalDescription(offer);
                 
@@ -455,9 +559,300 @@ class VideoCallInterface {
                         sdp: offer.sdp
                     }
                 });
+                
+                // Set timeout for reconnection
+                setTimeout(() => {
+                    if (pc.connectionState !== 'connected') {
+                        console.log('Reconnection timeout, trying again...');
+                        if (attempts < 3) {
+                            this.restartICE(peerId);
+                        } else {
+                            // After 3 attempts, suggest audio-only mode
+                            this.showReconnectingIndicator(peerId, false);
+                            this.suggestAudioOnlyMode(peerId);
+                        }
+                    } else {
+                        // Successfully reconnected
+                        this.reconnectionAttempts.set(peerId, 0);
+                        this.showReconnectingIndicator(peerId, false);
+                        this.showNotification('Connection restored');
+                    }
+                }, 10000); // 10 second timeout
+                
             } catch (error) {
                 console.error('Error restarting ICE:', error);
+                this.showReconnectingIndicator(peerId, false);
             }
+        }
+    }
+    
+    /**
+     * Show/hide reconnecting indicator for a peer
+     * Requirements: 9.2, 9.3 - Visual feedback during reconnection
+     */
+    showReconnectingIndicator(peerId, show) {
+        const container = document.querySelector(`[data-peer-id="${peerId}"]`);
+        if (!container) return;
+        
+        let indicator = container.querySelector('.reconnecting-indicator');
+        
+        if (show && !indicator) {
+            indicator = document.createElement('div');
+            indicator.className = 'reconnecting-indicator';
+            indicator.innerHTML = `
+                <div class="spinner"></div>
+                <span>Reconnecting...</span>
+            `;
+            container.appendChild(indicator);
+        }
+        
+        if (indicator) {
+            indicator.style.display = show ? 'flex' : 'none';
+        }
+    }
+    
+    /**
+     * Adjust video resolution based on bandwidth
+     * Requirements: 9.1 - Adjust video resolution based on bandwidth
+     */
+    async adjustVideoQuality(targetBitrate) {
+        if (!this.localStream) return;
+        
+        const videoTrack = this.localStream.getVideoTracks()[0];
+        if (!videoTrack) return;
+        
+        try {
+            // Determine appropriate resolution based on target bitrate
+            let constraints;
+            
+            if (targetBitrate < 500000) { // < 500 kbps
+                // Low quality: 320x240 @ 15fps
+                constraints = {
+                    width: { ideal: 320 },
+                    height: { ideal: 240 },
+                    frameRate: { ideal: 15 }
+                };
+                console.log('Adjusting to low quality (320x240)');
+            } else if (targetBitrate < 1000000) { // < 1 Mbps
+                // Medium quality: 640x480 @ 24fps
+                constraints = {
+                    width: { ideal: 640 },
+                    height: { ideal: 480 },
+                    frameRate: { ideal: 24 }
+                };
+                console.log('Adjusting to medium quality (640x480)');
+            } else if (targetBitrate < 2000000) { // < 2 Mbps
+                // High quality: 1280x720 @ 30fps
+                constraints = {
+                    width: { ideal: 1280 },
+                    height: { ideal: 720 },
+                    frameRate: { ideal: 30 }
+                };
+                console.log('Adjusting to high quality (1280x720)');
+            } else {
+                // Full HD: 1920x1080 @ 30fps
+                constraints = {
+                    width: { ideal: 1920 },
+                    height: { ideal: 1080 },
+                    frameRate: { ideal: 30 }
+                };
+                console.log('Adjusting to full HD (1920x1080)');
+            }
+            
+            // Apply constraints to video track
+            await videoTrack.applyConstraints(constraints);
+            
+            // Also adjust bitrate for all peer connections
+            this.peerConnections.forEach((pc, peerId) => {
+                const sender = pc.getSenders().find(s => s.track && s.track.kind === 'video');
+                if (sender) {
+                    const parameters = sender.getParameters();
+                    if (!parameters.encodings) {
+                        parameters.encodings = [{}];
+                    }
+                    
+                    // Set max bitrate
+                    parameters.encodings[0].maxBitrate = targetBitrate;
+                    
+                    sender.setParameters(parameters).catch(error => {
+                        console.error('Error setting bitrate:', error);
+                    });
+                }
+            });
+            
+        } catch (error) {
+            console.error('Error adjusting video quality:', error);
+        }
+    }
+    
+    /**
+     * Monitor bandwidth and adjust quality automatically
+     * Requirements: 9.1 - Adjust video resolution based on bandwidth
+     */
+    startAdaptiveQualityMonitoring() {
+        // Check bandwidth every 5 seconds and adjust quality
+        setInterval(() => {
+            let lowestBitrate = Infinity;
+            
+            // Find the lowest available bitrate among all connections
+            this.connectionStats.forEach((stats, peerId) => {
+                if (stats.current && stats.current.availableOutgoingBitrate > 0) {
+                    lowestBitrate = Math.min(lowestBitrate, stats.current.availableOutgoingBitrate);
+                }
+            });
+            
+            // Adjust quality if we have valid bitrate data
+            if (lowestBitrate !== Infinity && lowestBitrate > 0) {
+                // Use 80% of available bitrate to leave headroom
+                const targetBitrate = lowestBitrate * 0.8;
+                this.adjustVideoQuality(targetBitrate);
+            }
+        }, 5000);
+    }
+    
+    /**
+     * Suggest audio-only mode to user
+     * Requirements: 9.5 - Add audio-only fallback option
+     */
+    suggestAudioOnlyMode(peerId) {
+        const participant = this.participants.get(peerId);
+        const userName = participant ? participant.userName : 'this participant';
+        
+        // Check if we already suggested this
+        if (this.audioOnlySuggested) return;
+        this.audioOnlySuggested = true;
+        
+        // Show modal or notification with option to switch to audio-only
+        const message = `Connection quality with ${userName} is very poor. Would you like to switch to audio-only mode?`;
+        
+        if (confirm(message)) {
+            this.switchToAudioOnly();
+        }
+    }
+    
+    /**
+     * Switch to audio-only mode
+     * Requirements: 9.5 - Add audio-only fallback option
+     */
+    async switchToAudioOnly() {
+        try {
+            console.log('Switching to audio-only mode');
+            
+            // Disable local video
+            if (this.localStream) {
+                const videoTrack = this.localStream.getVideoTracks()[0];
+                if (videoTrack) {
+                    videoTrack.enabled = false;
+                    this.videoEnabled = false;
+                }
+            }
+            
+            // Remove video tracks from all peer connections
+            this.peerConnections.forEach((pc, peerId) => {
+                const sender = pc.getSenders().find(s => s.track && s.track.kind === 'video');
+                if (sender && sender.track) {
+                    sender.track.enabled = false;
+                }
+            });
+            
+            // Update UI
+            this.updateVideoButton();
+            this.showLocalVideoPlaceholder(true);
+            
+            // Notify other participants
+            this.sendWebSocketMessage({
+                type: 'media_state_change',
+                audio_enabled: this.audioEnabled,
+                video_enabled: false
+            });
+            
+            // Show notification
+            this.showNotification('Switched to audio-only mode to improve connection quality');
+            
+            // Add audio-only indicator
+            this.showAudioOnlyIndicator(true);
+            
+        } catch (error) {
+            console.error('Error switching to audio-only mode:', error);
+            this.showError('Failed to switch to audio-only mode');
+        }
+    }
+    
+    /**
+     * Switch back to video mode
+     * Requirements: 9.5 - Allow switching back from audio-only
+     */
+    async switchToVideoMode() {
+        try {
+            console.log('Switching back to video mode');
+            
+            // Enable local video
+            if (this.localStream) {
+                const videoTrack = this.localStream.getVideoTracks()[0];
+                if (videoTrack) {
+                    videoTrack.enabled = true;
+                    this.videoEnabled = true;
+                }
+            }
+            
+            // Enable video tracks in all peer connections
+            this.peerConnections.forEach((pc, peerId) => {
+                const sender = pc.getSenders().find(s => s.track && s.track.kind === 'video');
+                if (sender && sender.track) {
+                    sender.track.enabled = true;
+                }
+            });
+            
+            // Update UI
+            this.updateVideoButton();
+            this.showLocalVideoPlaceholder(false);
+            
+            // Notify other participants
+            this.sendWebSocketMessage({
+                type: 'media_state_change',
+                audio_enabled: this.audioEnabled,
+                video_enabled: true
+            });
+            
+            // Hide audio-only indicator
+            this.showAudioOnlyIndicator(false);
+            
+            // Reset suggestion flag
+            this.audioOnlySuggested = false;
+            
+        } catch (error) {
+            console.error('Error switching to video mode:', error);
+            this.showError('Failed to switch to video mode');
+        }
+    }
+    
+    /**
+     * Show/hide audio-only mode indicator
+     * Requirements: 9.5 - Visual indicator for audio-only mode
+     */
+    showAudioOnlyIndicator(show) {
+        let indicator = document.getElementById('audio-only-indicator');
+        
+        if (show && !indicator) {
+            indicator = document.createElement('div');
+            indicator.id = 'audio-only-indicator';
+            indicator.className = 'audio-only-indicator';
+            indicator.innerHTML = `
+                <i class="fas fa-volume-up"></i>
+                <span>Audio-Only Mode</span>
+                <button class="btn-switch-video" onclick="videoCall.switchToVideoMode()">
+                    <i class="fas fa-video"></i> Enable Video
+                </button>
+            `;
+            
+            const controlBar = document.querySelector('.video-controls');
+            if (controlBar) {
+                controlBar.insertBefore(indicator, controlBar.firstChild);
+            }
+        }
+        
+        if (indicator) {
+            indicator.style.display = show ? 'flex' : 'none';
         }
     }
     
@@ -474,54 +869,285 @@ class VideoCallInterface {
     
     /**
      * Get connection statistics
+     * Requirements: 9.1, 9.4 - Monitor RTCPeerConnection stats and calculate quality score
      */
     async getConnectionStats(peerId, pc) {
         try {
             const stats = await pc.getStats();
             let quality = 'unknown';
-            let bytesReceived = 0;
-            let packetsLost = 0;
+            let qualityScore = 0;
+            
+            // Collect detailed statistics
+            const statsData = {
+                bytesReceived: 0,
+                bytesSent: 0,
+                packetsLost: 0,
+                packetsReceived: 0,
+                jitter: 0,
+                roundTripTime: 0,
+                currentRoundTripTime: 0,
+                availableOutgoingBitrate: 0,
+                timestamp: Date.now()
+            };
             
             stats.forEach(report => {
-                if (report.type === 'inbound-rtp' && report.kind === 'video') {
-                    bytesReceived = report.bytesReceived || 0;
-                    packetsLost = report.packetsLost || 0;
+                // Inbound RTP stats (receiving)
+                if (report.type === 'inbound-rtp') {
+                    if (report.kind === 'video') {
+                        statsData.bytesReceived = report.bytesReceived || 0;
+                        statsData.packetsLost = report.packetsLost || 0;
+                        statsData.packetsReceived = report.packetsReceived || 0;
+                        statsData.jitter = report.jitter || 0;
+                        statsData.framesDecoded = report.framesDecoded || 0;
+                        statsData.framesDropped = report.framesDropped || 0;
+                    }
+                }
+                
+                // Outbound RTP stats (sending)
+                if (report.type === 'outbound-rtp') {
+                    if (report.kind === 'video') {
+                        statsData.bytesSent = report.bytesSent || 0;
+                        statsData.packetsSent = report.packetsSent || 0;
+                    }
+                }
+                
+                // Candidate pair stats (connection quality)
+                if (report.type === 'candidate-pair' && report.state === 'succeeded') {
+                    statsData.currentRoundTripTime = report.currentRoundTripTime || 0;
+                    statsData.availableOutgoingBitrate = report.availableOutgoingBitrate || 0;
+                }
+                
+                // Remote inbound RTP (for RTT)
+                if (report.type === 'remote-inbound-rtp') {
+                    statsData.roundTripTime = report.roundTripTime || 0;
                 }
             });
             
-            // Simple quality calculation based on packet loss
-            const totalPackets = packetsLost + (bytesReceived / 1000);
-            const lossRate = totalPackets > 0 ? packetsLost / totalPackets : 0;
+            // Calculate quality score based on multiple factors
+            qualityScore = this.calculateQualityScore(statsData, peerId);
             
-            if (lossRate < 0.02) {
+            // Determine quality level
+            if (qualityScore >= 80) {
                 quality = 'excellent';
-            } else if (lossRate < 0.05) {
+            } else if (qualityScore >= 60) {
                 quality = 'good';
-            } else if (lossRate < 0.10) {
+            } else if (qualityScore >= 40) {
                 quality = 'fair';
             } else {
                 quality = 'poor';
             }
             
-            this.connectionStats.set(peerId, { quality, lossRate, bytesReceived });
+            // Store stats with history for trend analysis
+            const existingStats = this.connectionStats.get(peerId) || { history: [] };
+            existingStats.quality = quality;
+            existingStats.qualityScore = qualityScore;
+            existingStats.current = statsData;
+            existingStats.history = existingStats.history || [];
+            existingStats.history.push({
+                timestamp: statsData.timestamp,
+                qualityScore: qualityScore,
+                packetsLost: statsData.packetsLost,
+                roundTripTime: statsData.roundTripTime
+            });
+            
+            // Keep only last 30 data points (1 minute of history at 2s intervals)
+            if (existingStats.history.length > 30) {
+                existingStats.history.shift();
+            }
+            
+            this.connectionStats.set(peerId, existingStats);
             this.updateConnectionQuality(peerId, quality);
+            
+            // Check if quality degradation requires action
+            this.handleQualityChange(peerId, quality, qualityScore);
+            
         } catch (error) {
             console.error('Error getting connection stats:', error);
         }
     }
     
     /**
+     * Calculate connection quality score (0-100)
+     * Requirements: 9.1, 9.4 - Calculate connection quality score
+     */
+    calculateQualityScore(statsData, peerId) {
+        let score = 100;
+        
+        // Get previous stats for rate calculations
+        const prevStats = this.connectionStats.get(peerId);
+        const prevData = prevStats?.current;
+        
+        if (prevData) {
+            // Calculate rates
+            const timeDiff = (statsData.timestamp - prevData.timestamp) / 1000; // seconds
+            
+            if (timeDiff > 0) {
+                // Packet loss rate (0-30 points penalty)
+                const totalPackets = statsData.packetsReceived + statsData.packetsLost;
+                const prevTotalPackets = prevData.packetsReceived + prevData.packetsLost;
+                const packetsInPeriod = totalPackets - prevTotalPackets;
+                const lostInPeriod = statsData.packetsLost - prevData.packetsLost;
+                
+                if (packetsInPeriod > 0) {
+                    const lossRate = lostInPeriod / packetsInPeriod;
+                    if (lossRate > 0.10) {
+                        score -= 30; // >10% loss: severe penalty
+                    } else if (lossRate > 0.05) {
+                        score -= 20; // 5-10% loss: major penalty
+                    } else if (lossRate > 0.02) {
+                        score -= 10; // 2-5% loss: moderate penalty
+                    } else if (lossRate > 0.01) {
+                        score -= 5; // 1-2% loss: minor penalty
+                    }
+                }
+                
+                // Frame drop rate (0-20 points penalty)
+                if (statsData.framesDecoded && statsData.framesDropped) {
+                    const frameDropRate = statsData.framesDropped / statsData.framesDecoded;
+                    if (frameDropRate > 0.10) {
+                        score -= 20; // >10% drops: severe
+                    } else if (frameDropRate > 0.05) {
+                        score -= 15; // 5-10% drops: major
+                    } else if (frameDropRate > 0.02) {
+                        score -= 10; // 2-5% drops: moderate
+                    } else if (frameDropRate > 0.01) {
+                        score -= 5; // 1-2% drops: minor
+                    }
+                }
+            }
+        }
+        
+        // Round trip time (0-25 points penalty)
+        const rtt = statsData.roundTripTime || statsData.currentRoundTripTime;
+        if (rtt > 0) {
+            if (rtt > 0.5) {
+                score -= 25; // >500ms: severe latency
+            } else if (rtt > 0.3) {
+                score -= 20; // 300-500ms: high latency
+            } else if (rtt > 0.15) {
+                score -= 15; // 150-300ms: moderate latency
+            } else if (rtt > 0.1) {
+                score -= 10; // 100-150ms: noticeable latency
+            } else if (rtt > 0.05) {
+                score -= 5; // 50-100ms: slight latency
+            }
+        }
+        
+        // Jitter (0-15 points penalty)
+        if (statsData.jitter > 0) {
+            if (statsData.jitter > 0.05) {
+                score -= 15; // >50ms jitter: severe
+            } else if (statsData.jitter > 0.03) {
+                score -= 10; // 30-50ms jitter: high
+            } else if (statsData.jitter > 0.02) {
+                score -= 5; // 20-30ms jitter: moderate
+            }
+        }
+        
+        // Bandwidth (0-10 points penalty)
+        if (statsData.availableOutgoingBitrate > 0) {
+            const bitrateMbps = statsData.availableOutgoingBitrate / 1000000;
+            if (bitrateMbps < 0.5) {
+                score -= 10; // <500kbps: very low
+            } else if (bitrateMbps < 1.0) {
+                score -= 5; // 500kbps-1Mbps: low
+            }
+        }
+        
+        // Ensure score is within bounds
+        return Math.max(0, Math.min(100, score));
+    }
+    
+    /**
+     * Handle quality changes and trigger adaptive actions
+     * Requirements: 9.1, 9.4 - Display quality indicator and handle degradation
+     */
+    handleQualityChange(peerId, quality, qualityScore) {
+        const stats = this.connectionStats.get(peerId);
+        if (!stats || !stats.history || stats.history.length < 3) {
+            return; // Need more data points
+        }
+        
+        // Check for sustained poor quality (3+ consecutive poor readings)
+        const recentScores = stats.history.slice(-3).map(h => h.qualityScore);
+        const avgRecentScore = recentScores.reduce((a, b) => a + b, 0) / recentScores.length;
+        
+        if (avgRecentScore < 40 && !stats.poorQualityNotified) {
+            // Notify user of poor connection
+            const participant = this.participants.get(peerId);
+            const userName = participant ? participant.userName : 'A participant';
+            this.showNotification(`Poor connection quality with ${userName}`);
+            stats.poorQualityNotified = true;
+            
+            // Suggest audio-only mode if quality is very poor
+            if (avgRecentScore < 25) {
+                this.suggestAudioOnlyMode(peerId);
+            }
+        } else if (avgRecentScore >= 60 && stats.poorQualityNotified) {
+            // Quality improved, reset notification flag
+            stats.poorQualityNotified = false;
+        }
+    }
+    
+    /**
      * Update connection quality indicator
+     * Requirements: 9.1, 9.4 - Display quality indicator to users
      */
     updateConnectionQuality(peerId, quality) {
         const qualityElement = document.querySelector(`[data-peer-id="${peerId}"] .connection-quality`);
         if (qualityElement) {
             qualityElement.className = `connection-quality quality-${quality}`;
-            qualityElement.title = `Connection: ${quality}`;
+            
+            // Get detailed stats for tooltip
+            const stats = this.connectionStats.get(peerId);
+            let tooltipText = `Connection: ${quality}`;
+            
+            if (stats && stats.current) {
+                const data = stats.current;
+                const rtt = (data.roundTripTime || data.currentRoundTripTime) * 1000; // Convert to ms
+                const lossRate = data.packetsReceived > 0 
+                    ? ((data.packetsLost / (data.packetsReceived + data.packetsLost)) * 100).toFixed(1)
+                    : 0;
+                
+                tooltipText += `\nQuality Score: ${stats.qualityScore}/100`;
+                if (rtt > 0) tooltipText += `\nLatency: ${rtt.toFixed(0)}ms`;
+                if (lossRate > 0) tooltipText += `\nPacket Loss: ${lossRate}%`;
+                if (data.jitter > 0) tooltipText += `\nJitter: ${(data.jitter * 1000).toFixed(0)}ms`;
+            }
+            
+            qualityElement.title = tooltipText;
+            
+            // Add visual indicator bars
+            qualityElement.innerHTML = this.getQualityBarsHTML(quality);
         }
         
         // Update overall connection quality in control bar
         this.updateOverallConnectionQuality();
+    }
+    
+    /**
+     * Get HTML for quality indicator bars
+     * Requirements: 9.4 - Display quality indicator to users
+     */
+    getQualityBarsHTML(quality) {
+        const qualityLevels = {
+            'excellent': 4,
+            'good': 3,
+            'fair': 2,
+            'poor': 1,
+            'unknown': 0
+        };
+        
+        const level = qualityLevels[quality] || 0;
+        let html = '<div class="quality-bars">';
+        
+        for (let i = 1; i <= 4; i++) {
+            const activeClass = i <= level ? 'active' : '';
+            html += `<div class="quality-bar ${activeClass}"></div>`;
+        }
+        
+        html += '</div>';
+        return html;
     }
     
     /**
@@ -554,6 +1180,9 @@ class VideoCallInterface {
         if (this.statsInterval) {
             clearInterval(this.statsInterval);
         }
+        
+        // Clean up recording
+        this.cleanupRecording();
         
         // Close all peer connections
         this.peerConnections.forEach(pc => pc.close());
@@ -709,6 +1338,9 @@ VideoCallInterface.prototype.displayRemoteVideo = function(peerId, stream) {
         }
     }
     
+    // Start monitoring audio level for this stream
+    this.monitorAudioLevel(stream, peerId);
+    
     // Update video grid layout
     this.updateVideoGrid();
 };
@@ -729,6 +1361,10 @@ VideoCallInterface.prototype.createVideoContainer = function(peerId) {
         <video autoplay playsinline></video>
         <div class="video-placeholder" style="display: none;">
             <div class="avatar">${this.getInitials(userName)}</div>
+        </div>
+        <div class="screen-share-indicator" style="display: none;">
+            <i class="fas fa-desktop"></i>
+            <span>${userName} is sharing</span>
         </div>
         <div class="video-overlay">
             <div class="participant-name">${userName}</div>
@@ -828,6 +1464,9 @@ VideoCallInterface.prototype.handleMediaStateChange = function(message) {
         participant.audioEnabled = message.audio_enabled;
         participant.videoEnabled = message.video_enabled;
         
+        // Mark participant as active
+        this.markParticipantActive(peerId);
+        
         // Update video placeholder visibility
         this.showVideoPlaceholder(peerId, !message.video_enabled);
         
@@ -906,6 +1545,12 @@ VideoCallInterface.prototype.setupUIListeners = function() {
     const leaveBtn = document.getElementById('leave-session');
     if (leaveBtn) {
         leaveBtn.addEventListener('click', () => this.leaveSession());
+    }
+    
+    // Recording button
+    const recordBtn = document.getElementById('toggle-recording');
+    if (recordBtn) {
+        recordBtn.addEventListener('click', () => this.toggleRecording());
     }
     
     // Handle page unload
@@ -1032,42 +1677,62 @@ VideoCallInterface.prototype.toggleScreenShare = async function() {
 
 /**
  * Start screen sharing
+ * Requirements: 3.1, 3.2, 3.3
  */
 VideoCallInterface.prototype.startScreenShare = async function() {
     try {
-        // Get screen stream
+        // Get screen stream using getDisplayMedia API
         this.screenStream = await navigator.mediaDevices.getDisplayMedia({
             video: {
-                cursor: 'always'
+                cursor: 'always',
+                displaySurface: 'monitor' // Prefer full screen
             },
             audio: false
         });
         
         const screenTrack = this.screenStream.getVideoTracks()[0];
         
-        // Handle screen share stop (when user clicks browser's stop button)
+        // Handle screen share stop event (when user clicks browser's stop button)
         screenTrack.onended = () => {
+            console.log('Screen share ended by user');
             this.stopScreenShare();
         };
         
-        // Replace video track with screen track
+        // Replace video track with screen share track
         await this.replaceVideoTrack(screenTrack);
         
         this.screenSharing = true;
         
         // Update UI
         this.updateScreenShareButton();
+        this.updateVideoGrid();
+        this.showScreenShareIndicator(true);
+        
+        // Add screen sharing class to local video container
+        const localContainer = document.querySelector('.video-container.local');
+        if (localContainer) {
+            localContainer.classList.add('screen-sharing');
+        }
         
         // Notify other participants
         this.sendWebSocketMessage({
             type: 'screen_share_start'
         });
         
+        // Show notification
+        this.showNotification('You are now sharing your screen');
+        
         console.log('Screen sharing started');
     } catch (error) {
         console.error('Error starting screen share:', error);
         
-        if (error.name !== 'NotAllowedError') {
+        if (error.name === 'NotAllowedError') {
+            console.log('User cancelled screen sharing');
+        } else if (error.name === 'NotFoundError') {
+            this.showError('No screen available to share');
+        } else if (error.name === 'NotSupportedError') {
+            this.showError('Screen sharing is not supported in this browser');
+        } else {
             this.showError('Failed to start screen sharing: ' + error.message);
         }
     }
@@ -1075,25 +1740,36 @@ VideoCallInterface.prototype.startScreenShare = async function() {
 
 /**
  * Stop screen sharing
+ * Requirements: 3.1, 3.2, 3.3
  */
 VideoCallInterface.prototype.stopScreenShare = async function() {
     if (!this.screenSharing) return;
     
     try {
-        // Stop screen stream
+        // Stop screen stream tracks
         if (this.screenStream) {
             this.screenStream.getTracks().forEach(track => track.stop());
             this.screenStream = null;
         }
         
-        // Replace with camera track
+        // Replace screen track with camera track
         const videoTrack = this.localStream.getVideoTracks()[0];
-        await this.replaceVideoTrack(videoTrack);
+        if (videoTrack) {
+            await this.replaceVideoTrack(videoTrack);
+        }
         
         this.screenSharing = false;
         
         // Update UI
         this.updateScreenShareButton();
+        this.updateVideoGrid();
+        this.showScreenShareIndicator(false);
+        
+        // Remove screen sharing class from local video container
+        const localContainer = document.querySelector('.video-container.local');
+        if (localContainer) {
+            localContainer.classList.remove('screen-sharing');
+        }
         
         // Notify other participants
         this.sendWebSocketMessage({
@@ -1103,18 +1779,37 @@ VideoCallInterface.prototype.stopScreenShare = async function() {
         console.log('Screen sharing stopped');
     } catch (error) {
         console.error('Error stopping screen share:', error);
+        this.showError('Failed to stop screen sharing');
     }
 };
 
 /**
  * Handle screen share start from other participant
+ * Requirements: 3.4, 3.5
  */
 VideoCallInterface.prototype.handleScreenShareStart = function(message) {
     const peerId = message.user_id;
+    const userName = message.username || 'Someone';
     const participant = this.participants.get(peerId);
     
     if (participant) {
         participant.screenSharing = true;
+        
+        // Mark participant as active
+        this.markParticipantActive(peerId);
+        
+        // Update video grid layout for screen sharing
+        this.updateVideoGrid();
+        
+        // Mark the video container as screen sharing
+        const videoContainer = document.querySelector(`[data-peer-id="${peerId}"]`);
+        if (videoContainer) {
+            videoContainer.classList.add('screen-sharing');
+        }
+        
+        // Add screen sharing indicator
+        this.addRemoteScreenShareIndicator(peerId, participant.userName);
+        
         this.updateParticipantsList();
         
         // Show notification
@@ -1124,6 +1819,7 @@ VideoCallInterface.prototype.handleScreenShareStart = function(message) {
 
 /**
  * Handle screen share stop from other participant
+ * Requirements: 3.4, 3.5
  */
 VideoCallInterface.prototype.handleScreenShareStop = function(message) {
     const peerId = message.user_id;
@@ -1131,6 +1827,22 @@ VideoCallInterface.prototype.handleScreenShareStop = function(message) {
     
     if (participant) {
         participant.screenSharing = false;
+        
+        // Mark participant as active
+        this.markParticipantActive(peerId);
+        
+        // Update video grid layout back to normal
+        this.updateVideoGrid();
+        
+        // Remove screen sharing class from video container
+        const videoContainer = document.querySelector(`[data-peer-id="${peerId}"]`);
+        if (videoContainer) {
+            videoContainer.classList.remove('screen-sharing');
+        }
+        
+        // Remove screen sharing indicator
+        this.removeRemoteScreenShareIndicator(peerId);
+        
         this.updateParticipantsList();
     }
 };
@@ -1272,6 +1984,53 @@ VideoCallInterface.prototype.showNotification = function(message) {
     }, 3000);
 };
 
+/**
+ * Show/hide screen share indicator
+ * Requirements: 3.4, 3.5
+ */
+VideoCallInterface.prototype.showScreenShareIndicator = function(show) {
+    const indicator = document.querySelector('.video-container.local .screen-share-indicator');
+    if (indicator) {
+        indicator.style.display = show ? 'flex' : 'none';
+    }
+};
+
+/**
+ * Add screen sharing indicator to remote participant
+ * Requirements: 3.4, 3.5
+ */
+VideoCallInterface.prototype.addRemoteScreenShareIndicator = function(peerId, userName) {
+    const videoContainer = document.querySelector(`[data-peer-id="${peerId}"]`);
+    if (!videoContainer) return;
+    
+    // Check if indicator already exists
+    let indicator = videoContainer.querySelector('.screen-share-indicator');
+    if (!indicator) {
+        indicator = document.createElement('div');
+        indicator.className = 'screen-share-indicator';
+        indicator.innerHTML = `
+            <i class="fas fa-desktop"></i>
+            <span>${userName} is sharing</span>
+        `;
+        videoContainer.appendChild(indicator);
+    }
+    indicator.style.display = 'flex';
+};
+
+/**
+ * Remove screen sharing indicator from remote participant
+ * Requirements: 3.4, 3.5
+ */
+VideoCallInterface.prototype.removeRemoteScreenShareIndicator = function(peerId) {
+    const videoContainer = document.querySelector(`[data-peer-id="${peerId}"]`);
+    if (!videoContainer) return;
+    
+    const indicator = videoContainer.querySelector('.screen-share-indicator');
+    if (indicator) {
+        indicator.style.display = 'none';
+    }
+};
+
 
 // ============================================================================
 // Participant List and Engagement Indicators
@@ -1332,7 +2091,7 @@ VideoCallInterface.prototype.createParticipantListItem = function(participant) {
         <div class="participant-info">
             <div class="participant-name">
                 ${participant.userName}
-                ${participant.screenSharing ? '<i class="fas fa-desktop text-primary" title="Sharing screen"></i>' : ''}
+                ${participant.screenSharing ? '<span class="screen-sharing-badge"><i class="fas fa-desktop"></i> Sharing</span>' : ''}
                 ${isIdle ? '<span class="idle-badge">Idle</span>' : ''}
             </div>
             <div class="participant-meta">
@@ -1603,4 +2362,384 @@ VideoCallInterface.prototype.updateConnectionStateDisplay = function(state) {
             bars.forEach(bar => bar.classList.remove('active'));
             break;
     }
+};
+
+
+// ============================================================================
+// Session Recording - Task 6.1 Implementation
+// Requirements: 6.1, 6.2, 6.3
+// ============================================================================
+
+/**
+ * Toggle recording (start/stop)
+ */
+VideoCallInterface.prototype.toggleRecording = async function() {
+    const btn = document.getElementById('toggle-recording');
+    
+    // Prevent multiple clicks
+    if (btn && btn.classList.contains('loading')) {
+        return;
+    }
+    
+    // Add loading state
+    if (btn) btn.classList.add('loading');
+    
+    try {
+        if (this.isRecording) {
+            await this.stopRecording();
+        } else {
+            await this.startRecording();
+        }
+    } finally {
+        // Remove loading state
+        if (btn) btn.classList.remove('loading');
+    }
+};
+
+/**
+ * Start recording the session
+ * Requirements: 6.1, 6.2, 6.3
+ */
+VideoCallInterface.prototype.startRecording = async function() {
+    try {
+        // Check if MediaRecorder is supported
+        if (!window.MediaRecorder) {
+            throw new Error('Recording is not supported in this browser');
+        }
+        
+        // Create a composite stream with local audio/video
+        const compositeStream = new MediaStream();
+        
+        // Add local stream tracks
+        if (this.localStream) {
+            this.localStream.getTracks().forEach(track => {
+                compositeStream.addTrack(track);
+            });
+        }
+        
+        // Note: In a real implementation, you would need to mix remote streams
+        // This is a simplified version that records the local stream
+        // For full session recording, consider server-side recording or more complex client mixing
+        
+        // Determine supported MIME type
+        let mimeType = 'video/webm;codecs=vp9,opus';
+        if (!MediaRecorder.isTypeSupported(mimeType)) {
+            mimeType = 'video/webm;codecs=vp8,opus';
+            if (!MediaRecorder.isTypeSupported(mimeType)) {
+                mimeType = 'video/webm';
+                if (!MediaRecorder.isTypeSupported(mimeType)) {
+                    mimeType = ''; // Let browser choose
+                }
+            }
+        }
+        
+        // Create MediaRecorder
+        const options = mimeType ? { mimeType } : {};
+        this.mediaRecorder = new MediaRecorder(compositeStream, options);
+        
+        // Reset recorded chunks
+        this.recordedChunks = [];
+        this.recordingStartTime = new Date();
+        
+        // Handle data available event
+        this.mediaRecorder.ondataavailable = (event) => {
+            if (event.data && event.data.size > 0) {
+                this.recordedChunks.push(event.data);
+                
+                // Send chunk to server via WebSocket
+                this.sendRecordingChunk(event.data);
+            }
+        };
+        
+        // Handle recording stop event
+        this.mediaRecorder.onstop = () => {
+            console.log('Recording stopped, total chunks:', this.recordedChunks.length);
+            
+            // Notify server that recording is complete
+            this.sendWebSocketMessage({
+                type: 'recording_complete',
+                chunk_count: this.recordedChunks.length,
+                duration_seconds: this.recordingStartTime ? 
+                    Math.floor((new Date() - this.recordingStartTime) / 1000) : 0
+            });
+        };
+        
+        // Handle errors
+        this.mediaRecorder.onerror = (event) => {
+            console.error('MediaRecorder error:', event.error);
+            this.showError('Recording error: ' + event.error.message);
+            this.stopRecording();
+        };
+        
+        // Start recording with chunks every 5 seconds
+        this.mediaRecorder.start(5000);
+        
+        this.isRecording = true;
+        
+        // Update UI
+        this.updateRecordingButton();
+        this.showRecordingIndicator(true);
+        
+        // Notify server and other participants
+        this.sendWebSocketMessage({
+            type: 'recording_start'
+        });
+        
+        // Show notification
+        this.showNotification('Recording started');
+        
+        console.log('Recording started with MIME type:', mimeType || 'default');
+    } catch (error) {
+        console.error('Error starting recording:', error);
+        this.showError('Failed to start recording: ' + error.message);
+    }
+};
+
+/**
+ * Stop recording the session
+ * Requirements: 6.1, 6.2, 6.3
+ */
+VideoCallInterface.prototype.stopRecording = async function() {
+    if (!this.isRecording || !this.mediaRecorder) {
+        return;
+    }
+    
+    try {
+        // Stop the MediaRecorder
+        if (this.mediaRecorder.state !== 'inactive') {
+            this.mediaRecorder.stop();
+        }
+        
+        this.isRecording = false;
+        
+        // Update UI
+        this.updateRecordingButton();
+        this.showRecordingIndicator(false);
+        
+        // Notify server and other participants
+        this.sendWebSocketMessage({
+            type: 'recording_stop'
+        });
+        
+        // Show notification
+        this.showNotification('Recording stopped');
+        
+        console.log('Recording stopped');
+    } catch (error) {
+        console.error('Error stopping recording:', error);
+        this.showError('Failed to stop recording');
+    }
+};
+
+/**
+ * Send recording chunk to server via WebSocket
+ * Requirements: 6.1, 6.2
+ */
+VideoCallInterface.prototype.sendRecordingChunk = async function(chunk) {
+    try {
+        // Convert Blob to Base64 for WebSocket transmission
+        const reader = new FileReader();
+        
+        reader.onloadend = () => {
+            const base64data = reader.result.split(',')[1]; // Remove data URL prefix
+            
+            this.sendWebSocketMessage({
+                type: 'recording_chunk',
+                chunk_data: base64data,
+                chunk_size: chunk.size,
+                chunk_index: this.recordedChunks.length - 1,
+                timestamp: new Date().toISOString()
+            });
+        };
+        
+        reader.onerror = (error) => {
+            console.error('Error reading recording chunk:', error);
+        };
+        
+        reader.readAsDataURL(chunk);
+    } catch (error) {
+        console.error('Error sending recording chunk:', error);
+    }
+};
+
+/**
+ * Handle recording started notification from server
+ * Requirements: 6.2, 6.3
+ */
+VideoCallInterface.prototype.handleRecordingStarted = function(message) {
+    const userName = message.user_name || 'Someone';
+    
+    // Show recording indicator to all participants
+    this.showGlobalRecordingIndicator(true, userName);
+    
+    // Show notification
+    if (message.user_id !== this.userId) {
+        this.showNotification(`${userName} started recording this session`);
+    }
+    
+    console.log('Recording started by:', userName);
+};
+
+/**
+ * Handle recording stopped notification from server
+ * Requirements: 6.2, 6.3
+ */
+VideoCallInterface.prototype.handleRecordingStopped = function(message) {
+    const userName = message.user_name || 'Someone';
+    
+    // Hide recording indicator
+    this.showGlobalRecordingIndicator(false);
+    
+    // Show notification
+    if (message.user_id !== this.userId) {
+        this.showNotification(`${userName} stopped recording`);
+    }
+    
+    console.log('Recording stopped by:', userName);
+};
+
+/**
+ * Update recording button UI
+ */
+VideoCallInterface.prototype.updateRecordingButton = function() {
+    const btn = document.getElementById('toggle-recording');
+    if (!btn) return;
+    
+    const icon = btn.querySelector('i');
+    const text = btn.querySelector('.btn-text');
+    
+    if (this.isRecording) {
+        btn.classList.remove('btn-secondary');
+        btn.classList.add('btn-danger');
+        btn.classList.add('active');
+        btn.classList.add('recording-pulse');
+        if (icon) icon.className = 'fas fa-stop-circle';
+        if (text) text.textContent = 'Stop Recording';
+        btn.title = 'Stop recording this session';
+    } else {
+        btn.classList.remove('btn-danger');
+        btn.classList.add('btn-secondary');
+        btn.classList.remove('active');
+        btn.classList.remove('recording-pulse');
+        if (icon) icon.className = 'fas fa-circle';
+        if (text) text.textContent = 'Record';
+        btn.title = 'Start recording this session';
+    }
+};
+
+/**
+ * Show/hide recording indicator in local video
+ * Requirements: 6.2, 6.3
+ */
+VideoCallInterface.prototype.showRecordingIndicator = function(show) {
+    let indicator = document.getElementById('recording-indicator');
+    
+    if (show && !indicator) {
+        // Create recording indicator
+        indicator = document.createElement('div');
+        indicator.id = 'recording-indicator';
+        indicator.className = 'recording-indicator';
+        indicator.innerHTML = `
+            <i class="fas fa-circle recording-dot"></i>
+            <span>REC</span>
+        `;
+        
+        const controlBar = document.querySelector('.video-controls');
+        if (controlBar) {
+            controlBar.insertBefore(indicator, controlBar.firstChild);
+        }
+    }
+    
+    if (indicator) {
+        indicator.style.display = show ? 'flex' : 'none';
+    }
+};
+
+/**
+ * Show/hide global recording indicator (when someone else is recording)
+ * Requirements: 6.2, 6.3
+ */
+VideoCallInterface.prototype.showGlobalRecordingIndicator = function(show, userName) {
+    let indicator = document.getElementById('global-recording-indicator');
+    
+    if (show && !indicator) {
+        // Create global recording indicator
+        indicator = document.createElement('div');
+        indicator.id = 'global-recording-indicator';
+        indicator.className = 'global-recording-indicator';
+        indicator.innerHTML = `
+            <i class="fas fa-circle recording-dot"></i>
+            <span>This session is being recorded${userName ? ' by ' + userName : ''}</span>
+        `;
+        
+        document.body.appendChild(indicator);
+    }
+    
+    if (indicator) {
+        if (show) {
+            if (userName) {
+                const textSpan = indicator.querySelector('span');
+                if (textSpan) {
+                    textSpan.textContent = `This session is being recorded by ${userName}`;
+                }
+            }
+            indicator.style.display = 'flex';
+        } else {
+            indicator.style.display = 'none';
+        }
+    }
+};
+
+/**
+ * Download recorded session (for local backup)
+ */
+VideoCallInterface.prototype.downloadRecording = function() {
+    if (this.recordedChunks.length === 0) {
+        this.showError('No recording available to download');
+        return;
+    }
+    
+    try {
+        // Create blob from recorded chunks
+        const blob = new Blob(this.recordedChunks, {
+            type: 'video/webm'
+        });
+        
+        // Create download link
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = url;
+        a.download = `session-${this.sessionId}-${Date.now()}.webm`;
+        
+        document.body.appendChild(a);
+        a.click();
+        
+        // Clean up
+        setTimeout(() => {
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }, 100);
+        
+        this.showNotification('Recording downloaded');
+    } catch (error) {
+        console.error('Error downloading recording:', error);
+        this.showError('Failed to download recording');
+    }
+};
+
+/**
+ * Clean up recording resources
+ */
+VideoCallInterface.prototype.cleanupRecording = function() {
+    if (this.isRecording) {
+        this.stopRecording();
+    }
+    
+    if (this.mediaRecorder) {
+        this.mediaRecorder = null;
+    }
+    
+    this.recordedChunks = [];
+    this.recordingStartTime = null;
 };

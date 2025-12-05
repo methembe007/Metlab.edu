@@ -194,6 +194,26 @@
 
             <!-- Actions -->
             <div class="flex flex-col sm:flex-row gap-3">
+                {% if booking.status == 'confirmed' or booking.status == 'in_progress' %}
+                    {% if booking.video_session %}
+                        <a href="{% url 'video_chat:join_session' booking.video_session.session_id %}" 
+                           class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors text-center flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Join Video Call
+                        </a>
+                    {% else %}
+                        <a href="{% url 'community:start_booking_video_call' booking.id %}" 
+                           class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors text-center flex items-center justify-center">
+                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                            Start Video Call
+                        </a>
+                    {% endif %}
+                {% endif %}
+                
                 {% if booking.status in 'pending,confirmed' %}
                     <a href="{% url 'community:cancel_booking' booking.id %}" 
                        class="bg-red-600 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-colors text-center">
@@ -203,7 +223,7 @@
 
                 {% if booking.status == 'completed' and not booking.review %}
                     <a href="{% url 'community:review_tutor' booking.id %}" 
-                       class="bg-blue-600 text-white px-6 py-3 rounded-md hover:bg-blue-700 transition-colors text-center">
+                       class="bg-green-600 text-white px-6 py-3 rounded-md hover:bg-green-700 transition-colors text-center">
                         Write Review
                     </a>
                 {% endif %}

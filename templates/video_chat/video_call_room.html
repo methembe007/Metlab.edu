@@ -21,6 +21,10 @@
                 <div id="local-video-placeholder" class="video-placeholder" style="display: none;">
                     <div class="avatar">{{ user.get_full_name|slice:":2"|upper }}</div>
                 </div>
+                <div class="screen-share-indicator" style="display: none;">
+                    <i class="fas fa-desktop"></i>
+                    <span>You are sharing your screen</span>
+                </div>
                 <div class="video-overlay">
                     <div class="participant-name">You</div>
                 </div>
@@ -46,6 +50,13 @@
                     <i class="fas fa-desktop"></i>
                     <span class="btn-text">Share Screen</span>
                 </button>
+                
+                {% if session.host == user %}
+                <button id="toggle-recording" class="btn btn-secondary control-btn" title="Record Session">
+                    <i class="fas fa-circle"></i>
+                    <span class="btn-text">Record</span>
+                </button>
+                {% endif %}
                 
                 <!-- Connection Quality Indicator -->
                 <div id="connection-quality-indicator" class="connection-quality-display quality-unknown" title="Connection Quality">
@@ -74,7 +85,7 @@
     </div>
     
     <!-- Participants Sidebar -->
-    <div id="participants-sidebar" class="participants-sidebar">
+    <div id="participants-sidebar" class="participants-sidebar hidden">
         <div class="sidebar-header">
             <h3>Participants</h3>
             <button class="btn-close" onclick="videoCall.toggleParticipantList()">

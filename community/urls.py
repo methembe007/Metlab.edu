@@ -15,6 +15,7 @@ urlpatterns = [
     path('bookings/<int:booking_id>/', views.booking_detail, name='booking_detail'),
     path('bookings/<int:booking_id>/cancel/', views.cancel_booking, name='cancel_booking'),
     path('bookings/<int:booking_id>/review/', views.review_tutor, name='review_tutor'),
+    path('bookings/<int:booking_id>/video-call/', views.start_booking_video_call, name='start_booking_video_call'),
     
     # Study partner matching and management
     path('study-partners/', views.study_partner_recommendations, name='study_partner_recommendations'),

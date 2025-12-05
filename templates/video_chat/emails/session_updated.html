@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+        .header { background-color: #3B82F6; color: white; padding: 20px; text-align: center; border-radius: 5px 5px 0 0; }
+        .content { background-color: #f9f9f9; padding: 20px; border: 1px solid #ddd; }
+        .session-info { background-color: white; padding: 15px; margin: 15px 0; border-left: 4px solid #3B82F6; }
+        .button { display: inline-block; padding: 12px 24px; background-color: #3B82F6; color: white; text-decoration: none; border-radius: 5px; margin: 15px 0; }
+        .footer { text-align: center; padding: 20px; color: #666; font-size: 12px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Session Updated</h1>
+        </div>
+        <div class="content">
+            <p>Hello {{ participant.username }},</p>
+            
+            <p>A video session you're invited to has been updated:</p>
+            
+            <div class="session-info">
+                <h2>{{ session.title }}</h2>
+                <p><strong>Host:</strong> {{ host.username }}</p>
+                <p><strong>New Scheduled Time:</strong> {{ session.scheduled_time|date:"F d, Y" }} at {{ session.scheduled_time|time:"g:i A" }}</p>
+                <p><strong>Duration:</strong> {{ session.duration_minutes }} minutes</p>
+            </div>
+            
+            <p style="text-align: center;">
+                <a href="{{ session_url }}" class="button">View Session Details</a>
+            </p>
+        </div>
+        <div class="footer">
+            <p>MetLab Education - Video Chat System</p>
+        </div>
+    </div>
+</body>
+</html>

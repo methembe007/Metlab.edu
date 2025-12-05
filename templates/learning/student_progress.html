@@ -69,12 +69,9 @@
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center">
                                     <div class="flex-shrink-0 h-10 w-10">
-                                        <div
-                                            class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
+                                        <div class="h-10 w-10 rounded-full bg-blue-100 flex items-center justify-center">
                                             <span class="text-sm font-medium text-blue-800">
-                                                {{
-                                                progress.student.user.first_name|first|default:progress.student.user.username|first
-                                                }}{{ progress.student.user.last_name|first|default:"" }}
+                                                {% if progress.student.user.first_name %}{{ progress.student.user.first_name|first }}{% else %}{{ progress.student.user.username|first }}{% endif %}{% if progress.student.user.last_name %}{{ progress.student.user.last_name|first }}{% endif %}
                                             </span>
                                         </div>
                                     </div>
@@ -114,13 +111,11 @@
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 <div>{{ progress.avg_quiz_score }}% avg</div>
-                                <div class="text-xs text-gray-500">{{ progress.total_quiz_attempts }} attempt{{
-                                    progress.total_quiz_attempts|pluralize }}</div>
+                                <div class="text-xs text-gray-500">{{ progress.total_quiz_attempts }} attempt{{ progress.total_quiz_attempts|pluralize }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
                                 <div>{{ progress.total_time_spent }} min</div>
-                                <div class="text-xs text-gray-500">{{ progress.total_learning_sessions }} session{{
-                                    progress.total_learning_sessions|pluralize }}</div>
+                                <div class="text-xs text-gray-500">{{ progress.total_learning_sessions }} session{{ progress.total_learning_sessions|pluralize }}</div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap">
                                 <div class="flex items-center space-x-2">
@@ -134,7 +129,7 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                <button onclick="toggleStudentDetails('student-{{ progress.student.id }}')"
+                                <button onclick="toggleStudentDetails('student-{{ progress.student.id }}', event)"
                                     class="text-blue-600 hover:text-blue-900">
                                     View Details
                                 </button>
@@ -255,7 +250,7 @@
                     started.
                 </p>
                 <div class="mt-6">
-                    <button onclick="copyToClipboard('{{ teacher_class.invitation_code }}')"
+                    <button onclick="copyToClipboard('{{ teacher_class.invitation_code }}', event)"
                         class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
                         Copy Invitation Code
                     </button>
@@ -267,7 +262,7 @@
 </div>
 
 <script>
-    function toggleStudentDetails(studentId) {
+    function toggleStudentDetails(studentId, event) {
         const detailsRow = document.getElementById(studentId);
         const button = event.target;
 
@@ -280,7 +275,7 @@
         }
     }
 
-    function copyToClipboard(text) {
+    function copyToClipboard(text, event) {
         navigator.clipboard.writeText(text).then(function () {
             const button = event.target;
             const originalText = button.textContent;

@@ -1,0 +1,12 @@
+Hello {{ participant.username }},
+
+The video session has started!
+
+Title: {{ session.title }}
+Host: {{ host.username }}
+
+Join the session now:
+{{ join_url }}
+
+Best regards,
+MetLab Education Team

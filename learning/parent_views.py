@@ -74,6 +74,14 @@ def parent_dashboard(request):
             lesson_date=today
         ).first()
         
+        # Get recent video sessions (last 7 days)
+        from video_chat.models import VideoSessionParticipant
+        recent_video_sessions = VideoSessionParticipant.objects.filter(
+            user=child.user,
+            session__started_at__gte=week_ago,
+            status__in=['joined', 'left']
+        ).select_related('session').order_by('-joined_at')[:5]
+        
         # Get screen time limit for this child
         child_screen_limit = screen_time_limits.get(str(child.id), {})
         daily_limit_minutes = child_screen_limit.get('daily_limit_minutes', 60)  # Default 1 hour
@@ -97,6 +105,7 @@ def parent_dashboard(request):
             'recent_achievements': recent_achievements,
             'current_weaknesses': current_weaknesses,
             'today_lesson': today_lesson,
+            'recent_video_sessions': recent_video_sessions,
             'daily_limit_minutes': daily_limit_minutes,
             'today_screen_time': today_screen_time,
             'screen_time_percentage': min(100, (today_screen_time / daily_limit_minutes * 100)) if daily_limit_minutes > 0 else 0,
@@ -545,3 +554,60 @@ def send_encouragement_message(request, child_id):
         'success': False,
         'error': 'Invalid request method'
     })
+
+
+@login_required
+@parent_required
+def child_video_sessions(request, child_id):
+    """View video session history for a specific child"""
+    parent_profile = request.user.parent_profile
+    child = get_object_or_404(
+        StudentProfile,
+        id=child_id,
+        parents=parent_profile
+    )
+    
+    # Get time period from query params (default: last 30 days)
+    days = int(request.GET.get('days', 30))
+    start_date = timezone.now() - timedelta(days=days)
+    
+    # Get video sessions for the child
+    from video_chat.models import VideoSessionParticipant, VideoSession
+    
+    video_sessions = VideoSessionParticipant.objects.filter(
+        user=child.user,
+        session__started_at__gte=start_date
+    ).select_related(
+        'session',
+        'session__host',
+        'session__teacher_class',
+        'session__tutor_booking__tutor__user'
+    ).order_by('-joined_at')
+    
+    # Paginate results
+    paginator = Paginator(video_sessions, 20)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    
+    # Calculate statistics
+    total_sessions = video_sessions.count()
+    completed_sessions = video_sessions.filter(session__status='completed').count()
+    
+    # Calculate total time spent in video sessions
+    total_time_minutes = 0
+    for participant in video_sessions.filter(session__status='completed'):
+        if participant.joined_at and participant.left_at:
+            duration = participant.left_at - participant.joined_at
+            total_time_minutes += int(duration.total_seconds() / 60)
+    
+    context = {
+        'parent_profile': parent_profile,
+        'child': child,
+        'page_obj': page_obj,
+        'total_sessions': total_sessions,
+        'completed_sessions': completed_sessions,
+        'total_time_minutes': total_time_minutes,
+        'days': days,
+    }
+    
+    return render(request, 'learning/child_video_sessions.html', context)

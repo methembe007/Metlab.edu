@@ -1,0 +1,16 @@
+Hello {{ participant.username }},
+
+The following video session has been cancelled:
+
+Title: {{ session.title }}
+Host: {{ host.username }}
+Originally Scheduled: {{ session.scheduled_time|date:"F d, Y" }} at {{ session.scheduled_time|time:"g:i A" }}
+
+{% if reason %}
+Reason: {{ reason }}
+{% endif %}
+
+We apologize for any inconvenience.
+
+Best regards,
+MetLab Education Team

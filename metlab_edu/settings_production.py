@@ -154,6 +154,40 @@ OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY')
 if not OPENAI_API_KEY:
     raise ValueError("OPENAI_API_KEY environment variable must be set in production")
 
+# WebRTC STUN/TURN Server Configuration for Production
+# Configure your production TURN server for reliable NAT traversal
+WEBRTC_ICE_SERVERS = [
+    # Public STUN servers for fallback
+    {
+        'urls': 'stun:stun.l.google.com:19302'
+    },
+    {
+        'urls': 'stun:stun1.l.google.com:19302'
+    },
+    # Production TURN server (required for production)
+    # Configure these environment variables with your TURN server details
+    {
+        'urls': os.environ.get('TURN_SERVER_URL', 'turn:turn.example.com:3478'),
+        'username': os.environ.get('TURN_USERNAME', ''),
+        'credential': os.environ.get('TURN_PASSWORD', ''),
+    },
+]
+
+# Optional: Add additional TURN servers for redundancy
+TURN_SERVER_URL_2 = os.environ.get('TURN_SERVER_URL_2')
+if TURN_SERVER_URL_2:
+    WEBRTC_ICE_SERVERS.append({
+        'urls': TURN_SERVER_URL_2,
+        'username': os.environ.get('TURN_USERNAME_2', ''),
+        'credential': os.environ.get('TURN_PASSWORD_2', ''),
+    })
+
+# Video Chat Settings for Production
+VIDEO_CHAT_MAX_PARTICIPANTS = int(os.environ.get('VIDEO_CHAT_MAX_PARTICIPANTS', '30'))
+VIDEO_CHAT_SESSION_TIMEOUT = int(os.environ.get('VIDEO_CHAT_SESSION_TIMEOUT', '3600'))  # 1 hour
+VIDEO_CHAT_RECORDING_ENABLED = os.environ.get('VIDEO_CHAT_RECORDING_ENABLED', 'True').lower() == 'true'
+VIDEO_CHAT_SCREEN_SHARE_ENABLED = os.environ.get('VIDEO_CHAT_SCREEN_SHARE_ENABLED', 'True').lower() == 'true'
+
 # File Upload Settings for Production
 MAX_FILE_SIZE = int(os.environ.get('MAX_FILE_SIZE', str(25 * 1024 * 1024)))  # 25MB default
 VIRUS_SCAN_ENABLED = os.environ.get('VIRUS_SCAN_ENABLED', 'True').lower() == 'true'
