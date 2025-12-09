@@ -125,11 +125,12 @@ class VideoSessionScheduleForm(forms.ModelForm):
             if hasattr(self.user, 'teacher_profile'):
                 # Get all students enrolled in teacher's classes
                 from learning.teacher_models import ClassEnrollment
-                student_ids = ClassEnrollment.objects.filter(
-                    teacher_class__teacher=self.user.teacher_profile
-                ).values_list('student_id', flat=True)
+                student_user_ids = ClassEnrollment.objects.filter(
+                    teacher_class__teacher=self.user.teacher_profile,
+                    is_active=True
+                ).values_list('student__user_id', flat=True)
                 self.fields['participants'].queryset = User.objects.filter(
-                    id__in=student_ids
+                    id__in=student_user_ids
                 ).order_by('username')
             elif hasattr(self.user, 'student_profile'):
                 # Get all teachers of classes the student is enrolled in
@@ -236,11 +237,12 @@ class VideoSessionQuickStartForm(forms.Form):
             if hasattr(self.user, 'teacher_profile'):
                 # Get all students enrolled in teacher's classes
                 from learning.teacher_models import ClassEnrollment
-                student_ids = ClassEnrollment.objects.filter(
-                    teacher_class__teacher=self.user.teacher_profile
-                ).values_list('student_id', flat=True)
+                student_user_ids = ClassEnrollment.objects.filter(
+                    teacher_class__teacher=self.user.teacher_profile,
+                    is_active=True
+                ).values_list('student__user_id', flat=True)
                 self.fields['participants'].queryset = User.objects.filter(
-                    id__in=student_ids
+                    id__in=student_user_ids
                 ).order_by('username')
             elif hasattr(self.user, 'student_profile'):
                 # Get all teachers of classes the student is enrolled in

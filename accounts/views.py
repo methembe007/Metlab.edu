@@ -293,6 +293,27 @@ def parent_dashboard(request):
     """Parent dashboard view - redirect to learning parent dashboard"""
     return redirect('learning:parent_dashboard')
 
+
+@student_required
+@profile_required
+def student_profile_settings(request):
+    """Student profile settings view with parent link code"""
+    student_profile = request.user.student_profile
+    
+    # Generate parent link code
+    link_code = student_profile.generate_parent_link_code()
+    
+    # Get linked parents
+    linked_parents = student_profile.parents.all()
+    
+    context = {
+        'user': request.user,
+        'profile': student_profile,
+        'link_code': link_code,
+        'linked_parents': linked_parents,
+    }
+    return render(request, 'accounts/student_profile_settings.html', context)
+
 @requires_csrf_token
 def csrf_failure(request, reason=""):
     """

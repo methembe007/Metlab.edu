@@ -8,25 +8,69 @@
 {% endblock %}
 
 {% block content %}
-<div class="video-call-container">
+<div class="video-call-container min-h-screen bg-gray-900">
+    <!-- Loading Overlay -->
+    <div id="loading-overlay" class="fixed inset-0 bg-gray-900 bg-opacity-90 flex items-center justify-center z-50">
+        <div class="text-center">
+            <div class="inline-block animate-spin rounded-full h-16 w-16 border-t-2 border-b-2 border-blue-500 mb-4"></div>
+            <p class="text-white text-lg">Connecting to video call...</p>
+            <p class="text-gray-400 text-sm mt-2">Please allow camera and microphone access</p>
+        </div>
+    </div>
+    
     <!-- Error Container -->
-    <div id="error-container" class="alert alert-danger" style="display: none;"></div>
+    <div id="error-container" class="hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-md w-full mx-4">
+        <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg shadow-lg">
+            <div class="flex items-start">
+                <svg class="w-5 h-5 mr-2 flex-shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"/>
+                </svg>
+                <div class="flex-1">
+                    <p class="font-medium" id="error-message"></p>
+                    <button onclick="document.getElementById('error-container').classList.add('hidden')" class="text-sm underline mt-1">Dismiss</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Permission Denied Message -->
+    <div id="permission-denied-message" class="hidden fixed inset-0 bg-gray-900 bg-opacity-95 flex items-center justify-center z-40 p-4">
+        <div class="bg-white rounded-lg p-6 max-w-md w-full">
+            <div class="text-center">
+                <svg class="w-16 h-16 text-red-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                </svg>
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">Camera/Microphone Access Required</h3>
+                <p class="text-gray-600 mb-4">Please allow access to your camera and microphone to join the video call.</p>
+                <div class="space-y-2 text-left text-sm text-gray-600 mb-4">
+                    <p><strong>Chrome/Edge:</strong> Click the camera icon in the address bar</p>
+                    <p><strong>Firefox:</strong> Click the permissions icon and allow access</p>
+                    <p><strong>Safari:</strong> Go to Settings → Websites → Camera/Microphone</p>
+                </div>
+                <button onclick="location.reload()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700">
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
     
     <!-- Video Grid -->
-    <div class="video-main">
-        <div id="video-grid" class="video-grid">
+    <div class="video-main relative h-screen flex flex-col">
+        <div id="video-grid" class="video-grid flex-1 p-2 md:p-4 overflow-auto">
             <!-- Local video -->
-            <div class="video-container local" data-peer-id="local">
-                <video id="local-video" autoplay muted playsinline></video>
-                <div id="local-video-placeholder" class="video-placeholder" style="display: none;">
-                    <div class="avatar">{{ user.get_full_name|slice:":2"|upper }}</div>
+            <div class="video-container local relative bg-gray-800 rounded-lg overflow-hidden" data-peer-id="local">
+                <video id="local-video" autoplay muted playsinline class="w-full h-full object-cover"></video>
+                <div id="local-video-placeholder" class="video-placeholder absolute inset-0 flex items-center justify-center bg-gradient-to-br from-blue-500 to-purple-600" style="display: none;">
+                    <div class="avatar text-white text-4xl md:text-6xl font-bold">{{ user.get_full_name|slice:":2"|upper|default:"U" }}</div>
                 </div>
-                <div class="screen-share-indicator" style="display: none;">
-                    <i class="fas fa-desktop"></i>
-                    <span>You are sharing your screen</span>
+                <div class="screen-share-indicator absolute top-2 left-2 bg-green-500 text-white px-3 py-1 rounded-full text-sm flex items-center" style="display: none;">
+                    <svg class="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+                    </svg>
+                    <span>Sharing Screen</span>
                 </div>
-                <div class="video-overlay">
-                    <div class="participant-name">You</div>
+                <div class="video-overlay absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-2">
+                    <div class="participant-name text-white text-sm font-medium">You</div>
                 </div>
             </div>
             
@@ -34,75 +78,94 @@
         </div>
         
         <!-- Control Bar -->
-        <div class="control-bar">
-            <div class="control-group">
-                <button id="toggle-audio" class="btn btn-secondary control-btn" title="Mute/Unmute">
-                    <i class="fas fa-microphone"></i>
-                    <span class="btn-text">Mute</span>
-                </button>
-                
-                <button id="toggle-video" class="btn btn-secondary control-btn" title="Start/Stop Video">
-                    <i class="fas fa-video"></i>
-                    <span class="btn-text">Stop Video</span>
-                </button>
-                
-                <button id="toggle-screen-share" class="btn btn-secondary control-btn" title="Share Screen">
-                    <i class="fas fa-desktop"></i>
-                    <span class="btn-text">Share Screen</span>
-                </button>
-                
-                {% if session.host == user %}
-                <button id="toggle-recording" class="btn btn-secondary control-btn" title="Record Session">
-                    <i class="fas fa-circle"></i>
-                    <span class="btn-text">Record</span>
-                </button>
-                {% endif %}
-                
-                <!-- Connection Quality Indicator -->
-                <div id="connection-quality-indicator" class="connection-quality-display quality-unknown" title="Connection Quality">
-                    <div class="quality-bars">
-                        <div class="quality-bar"></div>
-                        <div class="quality-bar"></div>
-                        <div class="quality-bar"></div>
-                        <div class="quality-bar"></div>
+        <div class="control-bar bg-gray-800 border-t border-gray-700 p-2 md:p-4">
+            <div class="flex flex-wrap items-center justify-between gap-2 max-w-6xl mx-auto">
+                <div class="flex flex-wrap items-center gap-2">
+                    <button id="toggle-audio" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center transition-colors" title="Mute/Unmute">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M7 4a3 3 0 016 0v4a3 3 0 11-6 0V4zm4 10.93A7.001 7.001 0 0017 8a1 1 0 10-2 0A5 5 0 015 8a1 1 0 00-2 0 7.001 7.001 0 006 6.93V17H6a1 1 0 100 2h8a1 1 0 100-2h-3v-2.07z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="btn-text ml-2 hidden md:inline">Mute</span>
+                    </button>
+                    
+                    <button id="toggle-video" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center transition-colors" title="Start/Stop Video">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V6zM14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z"/>
+                        </svg>
+                        <span class="btn-text ml-2 hidden md:inline">Stop Video</span>
+                    </button>
+                    
+                    <button id="toggle-screen-share" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center transition-colors" title="Share Screen">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="btn-text ml-2 hidden md:inline">Share</span>
+                    </button>
+                    
+                    {% if session.host == user %}
+                    <button id="toggle-recording" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center transition-colors" title="Record Session">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <circle cx="10" cy="10" r="6"/>
+                        </svg>
+                        <span class="btn-text ml-2 hidden md:inline">Record</span>
+                    </button>
+                    {% endif %}
+                    
+                    <!-- Connection Quality Indicator -->
+                    <div id="connection-quality-indicator" class="connection-quality-display px-3 py-2 rounded-lg flex items-center bg-gray-700 text-gray-300" title="Connection Quality">
+                        <div class="quality-bars flex items-end space-x-1 mr-2">
+                            <div class="quality-bar w-1 h-2 bg-current rounded"></div>
+                            <div class="quality-bar w-1 h-3 bg-current rounded"></div>
+                            <div class="quality-bar w-1 h-4 bg-current rounded"></div>
+                            <div class="quality-bar w-1 h-5 bg-current rounded"></div>
+                        </div>
+                        <span class="quality-text text-sm hidden md:inline">Connecting...</span>
                     </div>
-                    <span class="quality-text">Connecting...</span>
                 </div>
-            </div>
-            
-            <div class="control-group">
-                <button id="toggle-participants" class="btn btn-secondary control-btn" title="Participants" onclick="videoCall.toggleParticipantList()">
-                    <i class="fas fa-users"></i>
-                    <span class="participant-count-badge" id="participant-count">1</span>
-                </button>
                 
-                <button id="leave-session" class="btn btn-danger control-btn" title="Leave Session">
-                    <i class="fas fa-phone-slash"></i>
-                    <span class="btn-text">Leave</span>
-                </button>
+                <div class="flex items-center gap-2">
+                    <button id="toggle-participants" class="control-btn bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center relative transition-colors" title="Participants" onclick="videoCall.toggleParticipantList()">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M9 6a3 3 0 11-6 0 3 3 0 016 0zM17 6a3 3 0 11-6 0 3 3 0 016 0zM12.93 17c.046-.327.07-.66.07-1a6.97 6.97 0 00-1.5-4.33A5 5 0 0119 16v1h-6.07zM6 11a5 5 0 015 5v1H1v-1a5 5 0 015-5z"/>
+                        </svg>
+                        <span class="participant-count-badge absolute -top-1 -right-1 bg-blue-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center" id="participant-count">1</span>
+                    </button>
+                    
+                    <button id="leave-session" class="control-btn bg-red-600 hover:bg-red-700 text-white px-3 py-2 md:px-4 md:py-2 rounded-lg flex items-center transition-colors" title="Leave Session">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+                        </svg>
+                        <span class="btn-text ml-2 hidden md:inline">Leave</span>
+                    </button>
+                </div>
             </div>
         </div>
     </div>
     
     <!-- Participants Sidebar -->
-    <div id="participants-sidebar" class="participants-sidebar hidden">
-        <div class="sidebar-header">
-            <h3>Participants</h3>
-            <button class="btn-close" onclick="videoCall.toggleParticipantList()">
-                <i class="fas fa-times"></i>
+    <div id="participants-sidebar" class="participants-sidebar hidden fixed right-0 top-0 bottom-0 w-full md:w-80 bg-gray-800 border-l border-gray-700 z-30 transform transition-transform">
+        <div class="sidebar-header bg-gray-900 p-4 flex items-center justify-between border-b border-gray-700">
+            <h3 class="text-white font-semibold text-lg">Participants</h3>
+            <button class="btn-close text-gray-400 hover:text-white transition-colors" onclick="videoCall.toggleParticipantList()">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
             </button>
         </div>
-        <div id="participants-list" class="participants-list">
+        <div id="participants-list" class="participants-list p-4 overflow-y-auto" style="max-height: calc(100vh - 80px);">
             <!-- Participants will be added dynamically -->
         </div>
     </div>
     
     <!-- Keyboard Shortcuts Hint -->
-    <div id="keyboard-shortcuts-hint" class="keyboard-shortcuts-hint">
-        <div><kbd>Ctrl+D</kbd> Mute/Unmute</div>
-        <div><kbd>Ctrl+E</kbd> Video On/Off</div>
-        <div><kbd>Ctrl+S</kbd> Share Screen</div>
-        <div><kbd>Ctrl+P</kbd> Participants</div>
+    <div id="keyboard-shortcuts-hint" class="keyboard-shortcuts-hint hidden md:block fixed bottom-20 right-4 bg-gray-800 text-white text-xs p-3 rounded-lg shadow-lg border border-gray-700">
+        <div class="font-semibold mb-2">Keyboard Shortcuts:</div>
+        <div class="space-y-1">
+            <div><kbd class="bg-gray-700 px-2 py-1 rounded">Ctrl+D</kbd> Mute/Unmute</div>
+            <div><kbd class="bg-gray-700 px-2 py-1 rounded">Ctrl+E</kbd> Video On/Off</div>
+            <div><kbd class="bg-gray-700 px-2 py-1 rounded">Ctrl+S</kbd> Share Screen</div>
+            <div><kbd class="bg-gray-700 px-2 py-1 rounded">Ctrl+P</kbd> Participants</div>
+        </div>
     </div>
 </div>
 {% endblock %}
@@ -122,7 +185,19 @@
         
         videoCall.initialize().catch(error => {
             console.error('Failed to initialize video call:', error);
-            alert('Failed to start video call: ' + error.message);
+            
+            // Hide loading overlay
+            document.getElementById('loading-overlay').classList.add('hidden');
+            
+            // Show appropriate error message
+            if (error.name === 'NotAllowedError' || error.name === 'PermissionDeniedError') {
+                document.getElementById('permission-denied-message').classList.remove('hidden');
+            } else {
+                const errorContainer = document.getElementById('error-container');
+                const errorMessage = document.getElementById('error-message');
+                errorMessage.textContent = 'Failed to start video call: ' + error.message;
+                errorContainer.classList.remove('hidden');
+            }
         });
     });
 </script>

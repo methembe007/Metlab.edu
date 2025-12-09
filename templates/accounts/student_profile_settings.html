@@ -1,0 +1,199 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile Settings - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-6">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <h1 class="text-2xl font-bold text-gray-900">Profile Settings</h1>
+                        <p class="text-sm text-gray-600 mt-1">Manage your account and privacy settings</p>
+                    </div>
+                    <a href="{% url 'accounts:student_dashboard' %}" 
+                       class="bg-gray-600 text-white px-4 py-2 rounded-md hover:bg-gray-700 transition duration-200">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Parent Account Linking Section -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Parent Account Linking</h2>
+                
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+                    <div class="flex">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-blue-800">About Parent Linking</h3>
+                            <p class="text-sm text-blue-700 mt-1">
+                                Share this code with your parent so they can monitor your learning progress and help support your education.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Link Code Display -->
+                <div class="bg-gradient-to-r from-purple-50 to-indigo-50 border-2 border-purple-200 rounded-lg p-6">
+                    <div class="text-center">
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">Your Parent Link Code</h3>
+                        <p class="text-sm text-gray-600 mb-4">Share this code with your parent</p>
+                        
+                        <div class="bg-white rounded-lg p-4 mb-4 inline-block">
+                            <div class="flex items-center space-x-3">
+                                <code id="linkCode" class="text-3xl font-mono font-bold text-purple-600 tracking-wider">
+                                    {{ link_code }}
+                                </code>
+                                <button onclick="copyLinkCode()" 
+                                        class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-md transition duration-200 flex items-center space-x-2">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                                    </svg>
+                                    <span>Copy</span>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="text-sm text-gray-600 space-y-2">
+                            <p><strong>Your Username:</strong> {{ user.username }}</p>
+                            <p class="text-xs text-gray-500">Your parent will need both your username and this code</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Currently Linked Parents -->
+                {% if linked_parents %}
+                <div class="mt-6">
+                    <h3 class="text-lg font-medium text-gray-900 mb-3">Linked Parents</h3>
+                    <div class="space-y-2">
+                        {% for parent in linked_parents %}
+                        <div class="flex items-center justify-between p-3 bg-green-50 border border-green-200 rounded-lg">
+                            <div class="flex items-center">
+                                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center mr-3">
+                                    <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <p class="text-sm font-medium text-gray-900">
+                                        {{ parent.user.first_name }} {{ parent.user.last_name }}
+                                    </p>
+                                    <p class="text-xs text-gray-600">{{ parent.user.email }}</p>
+                                </div>
+                            </div>
+                            <span class="text-xs px-2 py-1 bg-green-100 text-green-800 rounded-full">
+                                Linked
+                            </span>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="mt-6 text-center p-4 bg-gray-50 rounded-lg">
+                    <p class="text-sm text-gray-600">No parents linked yet</p>
+                </div>
+                {% endif %}
+
+                <!-- Instructions -->
+                <div class="mt-6 bg-gray-50 border border-gray-200 rounded-lg p-4">
+                    <h4 class="text-sm font-medium text-gray-900 mb-2">How to Link Your Parent</h4>
+                    <ol class="text-sm text-gray-600 space-y-1 list-decimal list-inside">
+                        <li>Share your username and the link code above with your parent</li>
+                        <li>Ask them to log into their parent account on Metlab.edu</li>
+                        <li>They should go to "Link Child Account" and enter your details</li>
+                        <li>Once linked, they can monitor your progress and help you learn</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Settings Section -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Privacy Settings</h2>
+                
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                        <div>
+                            <h3 class="text-sm font-medium text-gray-900">Profile Visibility</h3>
+                            <p class="text-xs text-gray-600">Control who can see your profile</p>
+                        </div>
+                        <a href="{% url 'accounts:privacy_settings' %}" 
+                           class="text-blue-600 hover:text-blue-700 text-sm font-medium">
+                            Manage →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Information Section -->
+        <div class="bg-white shadow rounded-lg">
+            <div class="px-6 py-5">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Account Information</h2>
+                
+                <div class="space-y-3">
+                    <div class="flex justify-between py-2 border-b border-gray-200">
+                        <span class="text-sm font-medium text-gray-700">Username</span>
+                        <span class="text-sm text-gray-900">{{ user.username }}</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-200">
+                        <span class="text-sm font-medium text-gray-700">Email</span>
+                        <span class="text-sm text-gray-900">{{ user.email }}</span>
+                    </div>
+                    <div class="flex justify-between py-2 border-b border-gray-200">
+                        <span class="text-sm font-medium text-gray-700">Name</span>
+                        <span class="text-sm text-gray-900">{{ user.first_name }} {{ user.last_name }}</span>
+                    </div>
+                    {% if profile.grade_level %}
+                    <div class="flex justify-between py-2 border-b border-gray-200">
+                        <span class="text-sm font-medium text-gray-700">Grade Level</span>
+                        <span class="text-sm text-gray-900">Grade {{ profile.grade_level }}</span>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function copyLinkCode() {
+    const linkCode = document.getElementById('linkCode').textContent.trim();
+    
+    // Copy to clipboard
+    navigator.clipboard.writeText(linkCode).then(function() {
+        // Show success message
+        const button = event.target.closest('button');
+        const originalHTML = button.innerHTML;
+        
+        button.innerHTML = `
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+            </svg>
+            <span>Copied!</span>
+        `;
+        button.classList.add('bg-green-600');
+        button.classList.remove('bg-purple-600', 'hover:bg-purple-700');
+        
+        // Reset after 2 seconds
+        setTimeout(function() {
+            button.innerHTML = originalHTML;
+            button.classList.remove('bg-green-600');
+            button.classList.add('bg-purple-600', 'hover:bg-purple-700');
+        }, 2000);
+    }).catch(function(err) {
+        alert('Failed to copy code. Please copy it manually: ' + linkCode);
+    });
+}
+</script>
+{% endblock %}

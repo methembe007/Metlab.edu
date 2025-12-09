@@ -44,9 +44,8 @@ class VideoSessionRateLimiter:
         current_count = cache.get(cache_key, 0)
         
         if current_count >= VideoSessionRateLimiter.SESSION_CREATION_LIMIT:
-            # Get TTL to know when limit resets
-            ttl = cache.ttl(cache_key)
-            reset_time = timezone.now() + timedelta(seconds=ttl) if ttl else None
+            # Estimate reset time based on window duration
+            reset_time = timezone.now() + timedelta(seconds=VideoSessionRateLimiter.SESSION_CREATION_WINDOW)
             
             logger.warning(
                 f"Session creation rate limit exceeded for user {user.username}. "
@@ -87,9 +86,8 @@ class VideoSessionRateLimiter:
         current_count = cache.get(cache_key, 0)
         
         if current_count >= VideoSessionRateLimiter.WEBSOCKET_MESSAGE_LIMIT:
-            # Get TTL to know when limit resets
-            ttl = cache.ttl(cache_key)
-            reset_time = timezone.now() + timedelta(seconds=ttl) if ttl else None
+            # Estimate reset time based on window duration
+            reset_time = timezone.now() + timedelta(seconds=VideoSessionRateLimiter.WEBSOCKET_MESSAGE_WINDOW)
             
             logger.warning(
                 f"WebSocket message rate limit exceeded for user {user.username} in session {session_id}. "
@@ -131,9 +129,8 @@ class VideoSessionRateLimiter:
         current_count = cache.get(cache_key, 0)
         
         if current_count >= VideoSessionRateLimiter.JOIN_ATTEMPT_LIMIT:
-            # Get TTL to know when limit resets
-            ttl = cache.ttl(cache_key)
-            reset_time = timezone.now() + timedelta(seconds=ttl) if ttl else None
+            # Estimate reset time based on window duration
+            reset_time = timezone.now() + timedelta(seconds=VideoSessionRateLimiter.JOIN_ATTEMPT_WINDOW)
             
             logger.warning(
                 f"Join attempt rate limit exceeded for user {user.username} in session {session_id}. "
@@ -190,14 +187,13 @@ class VideoSessionRateLimiter:
         """
         session_creation_key = f'session_creation_limit:{user.id}'
         session_creation_count = cache.get(session_creation_key, 0)
-        session_creation_ttl = cache.ttl(session_creation_key)
         
         return {
             'session_creation': {
                 'current': session_creation_count,
                 'limit': VideoSessionRateLimiter.SESSION_CREATION_LIMIT,
                 'remaining': max(0, VideoSessionRateLimiter.SESSION_CREATION_LIMIT - session_creation_count),
-                'reset_in_seconds': session_creation_ttl if session_creation_ttl else 0,
+                'reset_in_seconds': VideoSessionRateLimiter.SESSION_CREATION_WINDOW if session_creation_count > 0 else 0,
                 'is_limited': session_creation_count >= VideoSessionRateLimiter.SESSION_CREATION_LIMIT
             }
         }

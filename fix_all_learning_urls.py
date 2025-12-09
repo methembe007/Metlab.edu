@@ -12,9 +12,7 @@ replacements = {
     "{% url 'teacher_quiz_list'": "{% url 'learning:teacher_quiz_list'",
     "{% url 'teacher_content_list'": "{% url 'learning:teacher_content_list'",
     "{% url 'teacher_content_detail'": "{% url 'learning:teacher_content_detail'",
-    "{% url 'teacher_content_dashboard'": "{% url 'learning:teacher_content_dashboard'",
-    "{% url 'bulk_assign_content'": "{% url 'learning:bulk_assign_content'",
-    "{% url 'bulk_content_distribution'": "{% url 'learning:bulk_content_distribution'",
+    "{% url 'teacher_content_dashboard'": "{% url 'learning:teacher_content_dashboard'",python 
     "{% url 'class_detail'": "{% url 'learning:class_detail'",
     "{% url 'student_progress'": "{% url 'learning:student_progress'",
     "{% url 'class_analytics'": "{% url 'learning:class_analytics'",

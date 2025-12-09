@@ -483,16 +483,6 @@ class VideoSessionService:
         if session.status == 'cancelled':
             raise ValidationError("Cannot join a cancelled session")
         
-        # Check participant limit
-        current_participant_count = session.participants.filter(
-            status__in=['invited', 'joined']
-        ).count()
-        
-        if current_participant_count >= session.max_participants:
-            raise ValidationError(
-                f"Session has reached maximum capacity ({session.max_participants} participants)"
-            )
-        
         with transaction.atomic():
             # Get or create participant record
             participant, created = VideoSessionParticipant.objects.get_or_create(
@@ -503,6 +493,19 @@ class VideoSessionService:
                     'status': 'invited'
                 }
             )
+            
+            # Check participant limit (excluding current user if already a participant)
+            current_participant_count = session.participants.filter(
+                status__in=['invited', 'joined']
+            ).exclude(user=user).count()
+            
+            # If this is a new participant, check if there's room
+            if created and current_participant_count >= session.max_participants:
+                # Delete the just-created participant record
+                participant.delete()
+                raise ValidationError(
+                    f"Session has reached maximum capacity ({session.max_participants} participants)"
+                )
             
             # If participant already exists but left, allow rejoin
             if not created and participant.status == 'left':

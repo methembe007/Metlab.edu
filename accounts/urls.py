@@ -13,6 +13,7 @@ urlpatterns = [
     path('dashboard/student/', views.student_dashboard, name='student_dashboard'),
     path('dashboard/teacher/', views.teacher_dashboard, name='teacher_dashboard'),
     path('dashboard/parent/', views.parent_dashboard, name='parent_dashboard'),
+    path('settings/student/', views.student_profile_settings, name='student_profile_settings'),
     
     # Privacy and compliance URLs
     path('privacy/', privacy_views.privacy_settings, name='privacy_settings'),
