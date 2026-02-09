@@ -1,0 +1,8 @@
+# Ignore all generated proto files
+# These should be regenerated from proto definitions
+
+# Go generated files
+go/
+
+# Keep this directory in git
+!.gitignore

@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homework
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: homework
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: metlab
+      service: homework
+  template:
+    metadata:
+      labels:
+        app: metlab
+        service: homework
+    spec:
+      containers:
+      - name: homework
+        image: metlab/homework:latest
+        ports:
+        - containerPort: 50053
+          name: grpc
+        env:
+        - name: PORT
+          value: "50053"
+        - name: DATABASE_URL
+          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "200m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homework
+  namespace: metlab-dev
+spec:
+  selector:
+    app: metlab
+    service: homework
+  ports:
+  - port: 50053
+    targetPort: 50053
+  type: ClusterIP

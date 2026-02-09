@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: metlab
+      service: frontend
+  template:
+    metadata:
+      labels:
+        app: metlab
+        service: frontend
+    spec:
+      containers:
+      - name: frontend
+        image: metlab/frontend:latest
+        ports:
+        - containerPort: 3000
+          name: http
+        env:
+        - name: PORT
+          value: "3000"
+        - name: API_URL
+          value: "http://api-gateway:8080"
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "200m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: frontend
+  namespace: metlab-dev
+spec:
+  selector:
+    app: metlab
+    service: frontend
+  ports:
+  - port: 3000
+    targetPort: 3000
+  type: ClusterIP

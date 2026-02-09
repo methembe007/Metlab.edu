@@ -1,0 +1,57 @@
+# Git
+.git
+.gitignore
+
+# Testing
+*_test.go
+**/*_test.go
+**/testdata/
+coverage.txt
+coverage.html
+coverage.out
+
+# Build artifacts
+**/bin/
+**/dist/
+**/*.exe
+**/*.dll
+**/*.so
+**/*.dylib
+
+# Dependencies (will be downloaded in container)
+**/vendor/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Go specific
+*.out
+*.test
+*.prof

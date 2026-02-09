@@ -1,0 +1,77 @@
+# Git
+.git
+.gitignore
+.gitattributes
+
+# Documentation
+*.md
+!README.md
+docs/
+
+# CI/CD
+.github/
+.gitlab-ci.yml
+.travis.yml
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Logs
+*.log
+logs/
+
+# Testing
+*_test.go
+**/*_test.go
+**/testdata/
+coverage.txt
+coverage.html
+
+# Build artifacts (will be built in container)
+**/bin/
+**/dist/
+**/.output/
+
+# Dependencies (will be downloaded in container)
+**/node_modules/
+**/vendor/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Kubernetes
+infrastructure/k8s/
+*.yaml
+*.yml
+!docker-compose.yml
+
+# Tilt
+Tiltfile
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# OS files
+Thumbs.db
+.DS_Store
+.Spotlight-V100
+.Trashes
+
+# Development tools
+Makefile
+scripts/
+
+# Proto files (copied separately)
+# proto/
+
+# Shared module (copied separately)
+# shared/

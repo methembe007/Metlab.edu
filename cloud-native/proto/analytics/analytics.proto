@@ -1,0 +1,72 @@
+syntax = "proto3";
+package analytics;
+option go_package = "metlab/proto/analytics";
+
+service AnalyticsService {
+  rpc RecordLogin(RecordLoginRequest) returns (RecordLoginResponse);
+  rpc GetStudentLoginStats(GetStudentLoginStatsRequest) returns (LoginStatsResponse);
+  rpc GetClassEngagement(GetClassEngagementRequest) returns (ClassEngagementResponse);
+  rpc RecordPDFDownload(RecordPDFDownloadRequest) returns (RecordPDFDownloadResponse);
+}
+
+message RecordLoginRequest {
+  string student_id = 1;
+  string ip_address = 2;
+  string user_agent = 3;
+}
+
+message RecordLoginResponse {
+  bool success = 1;
+}
+
+message GetStudentLoginStatsRequest {
+  string student_id = 1;
+  int32 days = 2;
+}
+
+message LoginStatsResponse {
+  repeated DailyLoginCount daily_counts = 1;
+  int32 total_logins = 2;
+  double average_per_week = 3;
+}
+
+message DailyLoginCount {
+  string date = 1;
+  int32 count = 2;
+}
+
+message GetClassEngagementRequest {
+  string class_id = 1;
+  string teacher_id = 2;
+}
+
+message ClassEngagementResponse {
+  repeated StudentEngagement students = 1;
+  ClassStats class_stats = 2;
+}
+
+message StudentEngagement {
+  string student_id = 1;
+  string student_name = 2;
+  int32 total_logins = 3;
+  int32 videos_watched = 4;
+  int32 homework_submitted = 5;
+  int32 chat_messages = 6;
+  double engagement_score = 7;
+}
+
+message ClassStats {
+  double average_logins = 1;
+  double average_videos_watched = 2;
+  double homework_completion_rate = 3;
+  int32 total_students = 4;
+}
+
+message RecordPDFDownloadRequest {
+  string pdf_id = 1;
+  string student_id = 2;
+}
+
+message RecordPDFDownloadResponse {
+  bool success = 1;
+}

@@ -1,0 +1,58 @@
+syntax = "proto3";
+package auth;
+option go_package = "metlab/proto/auth";
+
+service AuthService {
+  rpc TeacherSignup(TeacherSignupRequest) returns (AuthResponse);
+  rpc TeacherLogin(LoginRequest) returns (AuthResponse);
+  rpc StudentSignin(StudentSigninRequest) returns (AuthResponse);
+  rpc ValidateToken(ValidateTokenRequest) returns (ValidateTokenResponse);
+  rpc GenerateSigninCode(GenerateSigninCodeRequest) returns (SigninCodeResponse);
+}
+
+message TeacherSignupRequest {
+  string email = 1;
+  string password = 2;
+  string full_name = 3;
+  string subject_area = 4;
+}
+
+message LoginRequest {
+  string email = 1;
+  string password = 2;
+}
+
+message StudentSigninRequest {
+  string teacher_name = 1;
+  string student_name = 2;
+  string signin_code = 3;
+}
+
+message AuthResponse {
+  string token = 1;
+  string user_id = 2;
+  string role = 3;
+  int64 expires_at = 4;
+}
+
+message ValidateTokenRequest {
+  string token = 1;
+}
+
+message ValidateTokenResponse {
+  bool valid = 1;
+  string user_id = 2;
+  string role = 3;
+  repeated string class_ids = 4;
+  string teacher_id = 5;
+}
+
+message GenerateSigninCodeRequest {
+  string teacher_id = 1;
+  string class_id = 2;
+}
+
+message SigninCodeResponse {
+  string code = 1;
+  int64 expires_at = 2;
+}

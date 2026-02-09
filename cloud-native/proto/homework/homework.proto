@@ -1,0 +1,112 @@
+syntax = "proto3";
+package homework;
+option go_package = "metlab/proto/homework";
+
+service HomeworkService {
+  rpc CreateAssignment(CreateAssignmentRequest) returns (Assignment);
+  rpc ListAssignments(ListAssignmentsRequest) returns (ListAssignmentsResponse);
+  rpc SubmitHomework(stream SubmitHomeworkRequest) returns (SubmitHomeworkResponse);
+  rpc ListSubmissions(ListSubmissionsRequest) returns (ListSubmissionsResponse);
+  rpc GradeSubmission(GradeSubmissionRequest) returns (GradeSubmissionResponse);
+  rpc GetSubmissionFile(GetSubmissionFileRequest) returns (stream FileChunk);
+}
+
+message CreateAssignmentRequest {
+  string teacher_id = 1;
+  string class_id = 2;
+  string title = 3;
+  string description = 4;
+  int64 due_date = 5;
+  int32 max_score = 6;
+}
+
+message Assignment {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int64 due_date = 4;
+  int32 max_score = 5;
+  int32 submission_count = 6;
+  int32 graded_count = 7;
+  int64 created_at = 8;
+}
+
+message ListAssignmentsRequest {
+  string user_id = 1;
+  string class_id = 2;
+  string role = 3;
+}
+
+message ListAssignmentsResponse {
+  repeated Assignment assignments = 1;
+}
+
+message SubmitHomeworkRequest {
+  oneof data {
+    SubmissionMetadata metadata = 1;
+    bytes chunk = 2;
+  }
+}
+
+message SubmissionMetadata {
+  string assignment_id = 1;
+  string student_id = 2;
+  string filename = 3;
+  int64 file_size = 4;
+}
+
+message SubmitHomeworkResponse {
+  string submission_id = 1;
+  bool is_late = 2;
+  string status = 3;
+}
+
+message ListSubmissionsRequest {
+  string assignment_id = 1;
+  string teacher_id = 2;
+  string status_filter = 3;
+}
+
+message ListSubmissionsResponse {
+  repeated Submission submissions = 1;
+}
+
+message Submission {
+  string id = 1;
+  string assignment_id = 2;
+  string student_id = 3;
+  string student_name = 4;
+  string filename = 5;
+  int64 submitted_at = 6;
+  bool is_late = 7;
+  string status = 8;
+  Grade grade = 9;
+}
+
+message Grade {
+  int32 score = 1;
+  string feedback = 2;
+  int64 graded_at = 3;
+  string graded_by = 4;
+}
+
+message GradeSubmissionRequest {
+  string submission_id = 1;
+  string teacher_id = 2;
+  int32 score = 3;
+  string feedback = 4;
+}
+
+message GradeSubmissionResponse {
+  bool success = 1;
+  Grade grade = 2;
+}
+
+message GetSubmissionFileRequest {
+  string submission_id = 1;
+  string teacher_id = 2;
+}
+
+message FileChunk {
+  bytes data = 1;
+}

@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metlab-dev
+  labels:
+    name: metlab-dev
+    environment: development
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metlab-staging
+  labels:
+    name: metlab-staging
+    environment: staging
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: metlab-production
+  labels:
+    name: metlab-production
+    environment: production

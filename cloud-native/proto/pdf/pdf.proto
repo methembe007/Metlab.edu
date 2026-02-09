@@ -1,0 +1,59 @@
+syntax = "proto3";
+package pdf;
+option go_package = "metlab/proto/pdf";
+
+service PDFService {
+  rpc UploadPDF(stream UploadPDFRequest) returns (UploadPDFResponse);
+  rpc ListPDFs(ListPDFsRequest) returns (ListPDFsResponse);
+  rpc GetDownloadURL(GetDownloadURLRequest) returns (DownloadURLResponse);
+}
+
+message UploadPDFRequest {
+  oneof data {
+    PDFMetadata metadata = 1;
+    bytes chunk = 2;
+  }
+}
+
+message PDFMetadata {
+  string teacher_id = 1;
+  string class_id = 2;
+  string title = 3;
+  string description = 4;
+  string filename = 5;
+  int64 file_size = 6;
+}
+
+message UploadPDFResponse {
+  string pdf_id = 1;
+  string status = 2;
+}
+
+message ListPDFsRequest {
+  string class_id = 1;
+  string user_id = 2;
+}
+
+message ListPDFsResponse {
+  repeated PDF pdfs = 1;
+}
+
+message PDF {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int64 file_size_bytes = 4;
+  int64 created_at = 5;
+  string filename = 6;
+  bool downloaded_by_user = 7;
+}
+
+message GetDownloadURLRequest {
+  string pdf_id = 1;
+  string user_id = 2;
+}
+
+message DownloadURLResponse {
+  string url = 1;
+  int64 expires_at = 2;
+}

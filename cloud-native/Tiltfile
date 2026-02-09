@@ -1,0 +1,121 @@
+# Tiltfile for Metlab.edu Cloud-Native Development
+
+# Load Kubernetes YAML
+k8s_yaml('infrastructure/k8s/namespace.yaml')
+k8s_yaml('infrastructure/k8s/postgres.yaml')
+k8s_yaml('infrastructure/k8s/redis.yaml')
+
+# API Gateway
+docker_build(
+    'metlab/api-gateway',
+    '.',
+    dockerfile='infrastructure/docker/api-gateway.Dockerfile',
+    live_update=[
+        sync('./services/api-gateway', '/app/services/api-gateway'),
+        run('cd /app/services/api-gateway && go build -o /app/bin/api-gateway ./cmd/server', trigger=['./services/api-gateway']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/api-gateway.yaml')
+k8s_resource('api-gateway', port_forwards='8080:8080')
+
+# Auth Service
+docker_build(
+    'metlab/auth',
+    '.',
+    dockerfile='infrastructure/docker/auth.Dockerfile',
+    live_update=[
+        sync('./services/auth', '/app/services/auth'),
+        run('cd /app/services/auth && go build -o /app/bin/auth ./cmd/server', trigger=['./services/auth']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/auth.yaml')
+k8s_resource('auth', port_forwards='50051:50051')
+
+# Video Service
+docker_build(
+    'metlab/video',
+    '.',
+    dockerfile='infrastructure/docker/video.Dockerfile',
+    live_update=[
+        sync('./services/video', '/app/services/video'),
+        run('cd /app/services/video && go build -o /app/bin/video ./cmd/server', trigger=['./services/video']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/video.yaml')
+k8s_resource('video', port_forwards='50052:50052')
+
+# Homework Service
+docker_build(
+    'metlab/homework',
+    '.',
+    dockerfile='infrastructure/docker/homework.Dockerfile',
+    live_update=[
+        sync('./services/homework', '/app/services/homework'),
+        run('cd /app/services/homework && go build -o /app/bin/homework ./cmd/server', trigger=['./services/homework']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/homework.yaml')
+k8s_resource('homework', port_forwards='50053:50053')
+
+# Analytics Service
+docker_build(
+    'metlab/analytics',
+    '.',
+    dockerfile='infrastructure/docker/analytics.Dockerfile',
+    live_update=[
+        sync('./services/analytics', '/app/services/analytics'),
+        run('cd /app/services/analytics && go build -o /app/bin/analytics ./cmd/server', trigger=['./services/analytics']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/analytics.yaml')
+k8s_resource('analytics', port_forwards='50054:50054')
+
+# Collaboration Service
+docker_build(
+    'metlab/collaboration',
+    '.',
+    dockerfile='infrastructure/docker/collaboration.Dockerfile',
+    live_update=[
+        sync('./services/collaboration', '/app/services/collaboration'),
+        run('cd /app/services/collaboration && go build -o /app/bin/collaboration ./cmd/server', trigger=['./services/collaboration']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/collaboration.yaml')
+k8s_resource('collaboration', port_forwards='50055:50055')
+
+# PDF Service
+docker_build(
+    'metlab/pdf',
+    '.',
+    dockerfile='infrastructure/docker/pdf.Dockerfile',
+    live_update=[
+        sync('./services/pdf', '/app/services/pdf'),
+        run('cd /app/services/pdf && go build -o /app/bin/pdf ./cmd/server', trigger=['./services/pdf']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/pdf.yaml')
+k8s_resource('pdf', port_forwards='50056:50056')
+
+# Frontend
+docker_build(
+    'metlab/frontend',
+    './frontend',
+    dockerfile='../infrastructure/docker/frontend.Dockerfile',
+    live_update=[
+        sync('./frontend/app', '/app/app'),
+        run('cd /app && npm run build', trigger=['./frontend/app']),
+    ]
+)
+k8s_yaml('infrastructure/k8s/frontend.yaml')
+k8s_resource('frontend', port_forwards='3000:3000')
+
+# Watch for proto file changes
+watch_file('./proto')
+
+# Local resource for proto generation
+local_resource(
+    'proto-gen',
+    'make proto-gen',
+    deps=['proto'],
+    labels=['proto'],
+)

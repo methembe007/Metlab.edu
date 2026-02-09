@@ -1,0 +1,490 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-config
+  namespace: metlab-dev
+data:
+  POSTGRES_DB: metlab
+  POSTGRES_USER: postgres
+  # Connection pooling settings
+  POSTGRES_MAX_CONNECTIONS: "200"
+  POSTGRES_SHARED_BUFFERS: "256MB"
+  POSTGRES_EFFECTIVE_CACHE_SIZE: "1GB"
+  POSTGRES_MAINTENANCE_WORK_MEM: "64MB"
+  POSTGRES_CHECKPOINT_COMPLETION_TARGET: "0.9"
+  POSTGRES_WAL_BUFFERS: "16MB"
+  POSTGRES_DEFAULT_STATISTICS_TARGET: "100"
+  POSTGRES_RANDOM_PAGE_COST: "1.1"
+  POSTGRES_EFFECTIVE_IO_CONCURRENCY: "200"
+  POSTGRES_WORK_MEM: "2621kB"
+  POSTGRES_MIN_WAL_SIZE: "1GB"
+  POSTGRES_MAX_WAL_SIZE: "4GB"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: postgres-secret
+  namespace: metlab-dev
+type: Opaque
+stringData:
+  POSTGRES_PASSWORD: postgres
+  # Connection string for applications
+  DATABASE_URL: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable&pool_max_conns=100&pool_min_conns=10"
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init-scripts
+  namespace: metlab-dev
+data:
+  01-init-extensions.sql: |
+    -- Enable required PostgreSQL extensions
+    CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+    CREATE EXTENSION IF NOT EXISTS "pgcrypto";
+    
+  02-init-schema.sql: |
+    -- Core tables for authentication and user management
+    
+    -- Users table (base for both teachers and students)
+    CREATE TABLE IF NOT EXISTS users (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        email VARCHAR(255) UNIQUE,
+        password_hash VARCHAR(255),
+        full_name VARCHAR(255) NOT NULL,
+        role VARCHAR(20) NOT NULL CHECK (role IN ('teacher', 'student')),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW(),
+        last_login TIMESTAMP,
+        is_active BOOLEAN DEFAULT true
+    );
+    
+    -- Teachers table
+    CREATE TABLE IF NOT EXISTS teachers (
+        id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+        subject_area VARCHAR(100),
+        verified BOOLEAN DEFAULT false
+    );
+    
+    -- Classes table
+    CREATE TABLE IF NOT EXISTS classes (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        name VARCHAR(255) NOT NULL,
+        subject VARCHAR(100),
+        grade_level VARCHAR(50),
+        created_at TIMESTAMP DEFAULT NOW(),
+        is_active BOOLEAN DEFAULT true
+    );
+    
+    -- Signin codes for student registration
+    CREATE TABLE IF NOT EXISTS signin_codes (
+        code VARCHAR(8) PRIMARY KEY,
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        created_at TIMESTAMP DEFAULT NOW(),
+        expires_at TIMESTAMP NOT NULL,
+        used BOOLEAN DEFAULT false,
+        used_by UUID REFERENCES users(id),
+        used_at TIMESTAMP
+    );
+    
+    -- Students table
+    CREATE TABLE IF NOT EXISTS students (
+        id UUID PRIMARY KEY REFERENCES users(id) ON DELETE CASCADE,
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        signin_code VARCHAR(8) REFERENCES signin_codes(code)
+    );
+    
+    -- Videos table
+    CREATE TABLE IF NOT EXISTS videos (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        original_filename VARCHAR(255),
+        storage_path VARCHAR(500),
+        duration_seconds INT,
+        file_size_bytes BIGINT,
+        status VARCHAR(20) CHECK (status IN ('uploading', 'processing', 'ready', 'failed')),
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Video variants for adaptive streaming
+    CREATE TABLE IF NOT EXISTS video_variants (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
+        resolution VARCHAR(20),
+        bitrate_kbps INT,
+        storage_path VARCHAR(500),
+        file_size_bytes BIGINT
+    );
+    
+    -- Video thumbnails
+    CREATE TABLE IF NOT EXISTS video_thumbnails (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
+        timestamp_percent INT,
+        storage_path VARCHAR(500)
+    );
+    
+    -- Video views tracking
+    CREATE TABLE IF NOT EXISTS video_views (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        video_id UUID REFERENCES videos(id) ON DELETE CASCADE,
+        student_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        started_at TIMESTAMP DEFAULT NOW(),
+        last_position_seconds INT DEFAULT 0,
+        total_watch_seconds INT DEFAULT 0,
+        completed BOOLEAN DEFAULT false,
+        updated_at TIMESTAMP DEFAULT NOW(),
+        UNIQUE(video_id, student_id)
+    );
+    
+    -- PDFs table
+    CREATE TABLE IF NOT EXISTS pdfs (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        file_name VARCHAR(255),
+        storage_path VARCHAR(500),
+        file_size_bytes BIGINT,
+        created_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Homework assignments
+    CREATE TABLE IF NOT EXISTS homework_assignments (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        teacher_id UUID REFERENCES teachers(id) ON DELETE CASCADE,
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        due_date TIMESTAMP NOT NULL,
+        max_score INT DEFAULT 100,
+        created_at TIMESTAMP DEFAULT NOW(),
+        updated_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Homework submissions
+    CREATE TABLE IF NOT EXISTS homework_submissions (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        assignment_id UUID REFERENCES homework_assignments(id) ON DELETE CASCADE,
+        student_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        file_path VARCHAR(500),
+        file_name VARCHAR(255),
+        file_size_bytes BIGINT,
+        submitted_at TIMESTAMP DEFAULT NOW(),
+        is_late BOOLEAN DEFAULT false,
+        status VARCHAR(20) CHECK (status IN ('submitted', 'graded', 'returned')),
+        UNIQUE(assignment_id, student_id)
+    );
+    
+    -- Homework grades
+    CREATE TABLE IF NOT EXISTS homework_grades (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        submission_id UUID REFERENCES homework_submissions(id) ON DELETE CASCADE UNIQUE,
+        score INT,
+        feedback TEXT,
+        graded_by UUID REFERENCES teachers(id),
+        graded_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Study groups
+    CREATE TABLE IF NOT EXISTS study_groups (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        name VARCHAR(255) NOT NULL,
+        description TEXT,
+        created_by UUID REFERENCES students(id) ON DELETE CASCADE,
+        created_at TIMESTAMP DEFAULT NOW(),
+        max_members INT DEFAULT 10
+    );
+    
+    -- Study group members
+    CREATE TABLE IF NOT EXISTS study_group_members (
+        study_group_id UUID REFERENCES study_groups(id) ON DELETE CASCADE,
+        student_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        joined_at TIMESTAMP DEFAULT NOW(),
+        PRIMARY KEY (study_group_id, student_id)
+    );
+    
+    -- Chat rooms
+    CREATE TABLE IF NOT EXISTS chat_rooms (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        class_id UUID REFERENCES classes(id) ON DELETE CASCADE,
+        name VARCHAR(255) NOT NULL,
+        created_by UUID REFERENCES students(id) ON DELETE CASCADE,
+        created_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Chat messages
+    CREATE TABLE IF NOT EXISTS chat_messages (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        chat_room_id UUID REFERENCES chat_rooms(id) ON DELETE CASCADE,
+        sender_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        message_text TEXT,
+        image_path VARCHAR(500),
+        sent_at TIMESTAMP DEFAULT NOW()
+    );
+    
+    -- Student logins for analytics
+    CREATE TABLE IF NOT EXISTS student_logins (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        student_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        login_at TIMESTAMP DEFAULT NOW(),
+        ip_address INET,
+        user_agent TEXT
+    );
+    
+    -- PDF downloads for analytics
+    CREATE TABLE IF NOT EXISTS pdf_downloads (
+        id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+        pdf_id UUID REFERENCES pdfs(id) ON DELETE CASCADE,
+        student_id UUID REFERENCES students(id) ON DELETE CASCADE,
+        downloaded_at TIMESTAMP DEFAULT NOW()
+    );
+    
+  03-init-indexes.sql: |
+    -- Create indexes for performance optimization
+    
+    -- Authentication and user management indexes
+    CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
+    CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
+    CREATE INDEX IF NOT EXISTS idx_signin_codes_teacher ON signin_codes(teacher_id);
+    CREATE INDEX IF NOT EXISTS idx_signin_codes_expires ON signin_codes(expires_at) WHERE NOT used;
+    CREATE INDEX IF NOT EXISTS idx_students_teacher ON students(teacher_id);
+    CREATE INDEX IF NOT EXISTS idx_classes_teacher ON classes(teacher_id);
+    
+    -- Video indexes
+    CREATE INDEX IF NOT EXISTS idx_videos_class ON videos(class_id);
+    CREATE INDEX IF NOT EXISTS idx_videos_teacher ON videos(teacher_id);
+    CREATE INDEX IF NOT EXISTS idx_videos_status ON videos(status);
+    CREATE INDEX IF NOT EXISTS idx_video_views_video_student ON video_views(video_id, student_id);
+    CREATE INDEX IF NOT EXISTS idx_video_views_student ON video_views(student_id);
+    
+    -- PDF indexes
+    CREATE INDEX IF NOT EXISTS idx_pdfs_class ON pdfs(class_id);
+    CREATE INDEX IF NOT EXISTS idx_pdfs_teacher ON pdfs(teacher_id);
+    
+    -- Homework indexes
+    CREATE INDEX IF NOT EXISTS idx_homework_assignments_class ON homework_assignments(class_id);
+    CREATE INDEX IF NOT EXISTS idx_homework_assignments_teacher ON homework_assignments(teacher_id);
+    CREATE INDEX IF NOT EXISTS idx_homework_submissions_assignment ON homework_submissions(assignment_id);
+    CREATE INDEX IF NOT EXISTS idx_homework_submissions_student ON homework_submissions(student_id);
+    CREATE INDEX IF NOT EXISTS idx_homework_submissions_status ON homework_submissions(status);
+    
+    -- Collaboration indexes
+    CREATE INDEX IF NOT EXISTS idx_study_groups_class ON study_groups(class_id);
+    CREATE INDEX IF NOT EXISTS idx_chat_messages_room_time ON chat_messages(chat_room_id, sent_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_chat_rooms_class ON chat_rooms(class_id);
+    
+    -- Analytics indexes
+    CREATE INDEX IF NOT EXISTS idx_student_logins_student_date ON student_logins(student_id, login_at DESC);
+    CREATE INDEX IF NOT EXISTS idx_pdf_downloads_student ON pdf_downloads(student_id);
+    CREATE INDEX IF NOT EXISTS idx_pdf_downloads_pdf ON pdf_downloads(pdf_id);
+
+---
+# Persistent Volume Claim for PostgreSQL data
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: postgres-pvc
+  namespace: metlab-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+  storageClassName: standard
+
+---
+# StatefulSet for PostgreSQL with enhanced configuration
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgres
+  namespace: metlab-dev
+  labels:
+    app: postgres
+    component: database
+spec:
+  serviceName: postgres
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+        component: database
+    spec:
+      containers:
+      - name: postgres
+        image: postgres:15-alpine
+        ports:
+        - containerPort: 5432
+          name: postgres
+          protocol: TCP
+        env:
+        - name: POSTGRES_DB
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_DB
+        - name: POSTGRES_USER
+          valueFrom:
+            configMapKeyRef:
+              name: postgres-config
+              key: POSTGRES_USER
+        - name: POSTGRES_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-secret
+              key: POSTGRES_PASSWORD
+        - name: PGDATA
+          value: /var/lib/postgresql/data/pgdata
+        # PostgreSQL performance tuning
+        - name: POSTGRES_INITDB_ARGS
+          value: "--encoding=UTF8 --locale=en_US.utf8"
+        volumeMounts:
+        - name: postgres-storage
+          mountPath: /var/lib/postgresql/data
+        - name: init-scripts
+          mountPath: /docker-entrypoint-initdb.d
+        - name: postgres-config-volume
+          mountPath: /etc/postgresql/postgresql.conf
+          subPath: postgresql.conf
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "2Gi"
+            cpu: "2000m"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready -U postgres
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - pg_isready -U postgres
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: postgres-storage
+        persistentVolumeClaim:
+          claimName: postgres-pvc
+      - name: init-scripts
+        configMap:
+          name: postgres-init-scripts
+      - name: postgres-config-volume
+        configMap:
+          name: postgres-tuning-config
+
+---
+# ConfigMap for PostgreSQL tuning configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-tuning-config
+  namespace: metlab-dev
+data:
+  postgresql.conf: |
+    # Connection Settings
+    max_connections = 200
+    superuser_reserved_connections = 3
+    
+    # Memory Settings
+    shared_buffers = 256MB
+    effective_cache_size = 1GB
+    maintenance_work_mem = 64MB
+    work_mem = 2621kB
+    
+    # WAL Settings
+    wal_buffers = 16MB
+    min_wal_size = 1GB
+    max_wal_size = 4GB
+    checkpoint_completion_target = 0.9
+    
+    # Query Planner Settings
+    random_page_cost = 1.1
+    effective_io_concurrency = 200
+    default_statistics_target = 100
+    
+    # Logging
+    log_destination = 'stderr'
+    logging_collector = on
+    log_directory = 'log'
+    log_filename = 'postgresql-%Y-%m-%d_%H%M%S.log'
+    log_rotation_age = 1d
+    log_rotation_size = 100MB
+    log_line_prefix = '%t [%p]: [%l-1] user=%u,db=%d,app=%a,client=%h '
+    log_timezone = 'UTC'
+    
+    # Locale and Formatting
+    datestyle = 'iso, mdy'
+    timezone = 'UTC'
+    lc_messages = 'en_US.utf8'
+    lc_monetary = 'en_US.utf8'
+    lc_numeric = 'en_US.utf8'
+    lc_time = 'en_US.utf8'
+    default_text_search_config = 'pg_catalog.english'
+
+---
+# Headless Service for StatefulSet
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres
+  namespace: metlab-dev
+  labels:
+    app: postgres
+    component: database
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+    name: postgres
+  clusterIP: None
+  type: ClusterIP
+
+---
+# Regular Service for external access (if needed)
+apiVersion: v1
+kind: Service
+metadata:
+  name: postgres-service
+  namespace: metlab-dev
+  labels:
+    app: postgres
+    component: database
+spec:
+  selector:
+    app: postgres
+  ports:
+  - port: 5432
+    targetPort: 5432
+    protocol: TCP
+    name: postgres
+  type: ClusterIP

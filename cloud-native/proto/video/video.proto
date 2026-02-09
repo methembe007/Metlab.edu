@@ -1,0 +1,111 @@
+syntax = "proto3";
+package video;
+option go_package = "metlab/proto/video";
+
+service VideoService {
+  rpc UploadVideo(stream UploadVideoRequest) returns (UploadVideoResponse);
+  rpc ListVideos(ListVideosRequest) returns (ListVideosResponse);
+  rpc GetVideo(GetVideoRequest) returns (Video);
+  rpc GetStreamingURL(GetStreamingURLRequest) returns (StreamingURLResponse);
+  rpc RecordView(RecordViewRequest) returns (RecordViewResponse);
+  rpc GetVideoAnalytics(GetVideoAnalyticsRequest) returns (VideoAnalyticsResponse);
+}
+
+message UploadVideoRequest {
+  oneof data {
+    VideoMetadata metadata = 1;
+    bytes chunk = 2;
+  }
+}
+
+message VideoMetadata {
+  string teacher_id = 1;
+  string class_id = 2;
+  string title = 3;
+  string description = 4;
+  string filename = 5;
+  int64 file_size = 6;
+}
+
+message UploadVideoResponse {
+  string video_id = 1;
+  string status = 2;
+}
+
+message ListVideosRequest {
+  string user_id = 1;
+  string class_id = 2;
+  int32 page = 3;
+  int32 page_size = 4;
+}
+
+message ListVideosResponse {
+  repeated Video videos = 1;
+  int32 total_count = 2;
+}
+
+message GetVideoRequest {
+  string video_id = 1;
+  string user_id = 2;
+}
+
+message Video {
+  string id = 1;
+  string title = 2;
+  string description = 3;
+  int32 duration_seconds = 4;
+  string thumbnail_url = 5;
+  string status = 6;
+  int64 created_at = 7;
+  repeated VideoVariant variants = 8;
+}
+
+message VideoVariant {
+  string resolution = 1;
+  int32 bitrate_kbps = 2;
+  string storage_path = 3;
+}
+
+message GetStreamingURLRequest {
+  string video_id = 1;
+  string user_id = 2;
+  string resolution = 3;
+}
+
+message StreamingURLResponse {
+  string url = 1;
+  int64 expires_at = 2;
+  string manifest_url = 3;
+}
+
+message RecordViewRequest {
+  string video_id = 1;
+  string student_id = 2;
+  int32 position_seconds = 3;
+  int32 watch_duration_seconds = 4;
+  bool completed = 5;
+}
+
+message RecordViewResponse {
+  bool success = 1;
+}
+
+message GetVideoAnalyticsRequest {
+  string video_id = 1;
+  string teacher_id = 2;
+}
+
+message VideoAnalyticsResponse {
+  string video_id = 1;
+  int32 total_views = 2;
+  repeated StudentViewData student_views = 3;
+}
+
+message StudentViewData {
+  string student_id = 1;
+  string student_name = 2;
+  int32 percentage_watched = 3;
+  int32 total_watch_seconds = 4;
+  bool completed = 5;
+  int64 last_viewed_at = 6;
+}

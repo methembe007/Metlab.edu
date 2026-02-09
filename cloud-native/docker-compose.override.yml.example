@@ -1,0 +1,79 @@
+# docker-compose.override.yml.example
+# Copy this file to docker-compose.override.yml for local development
+# This file enables hot-reload and development features
+
+version: '3.8'
+
+services:
+  # Auth Service - Development mode with hot reload
+  auth-service:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/auth.Dockerfile
+      target: builder  # Use builder stage for development
+    volumes:
+      - ./services/auth:/build/services/auth
+      - ./shared:/build/shared
+      - ./proto:/build/proto
+    command: >
+      sh -c "cd /build/services/auth && 
+             go install github.com/cosmtrek/air@latest &&
+             air -c .air.toml"
+    environment:
+      - LOG_LEVEL=debug
+
+  # API Gateway - Development mode
+  api-gateway:
+    build:
+      target: builder
+    volumes:
+      - ./services/api-gateway:/build/services/api-gateway
+      - ./shared:/build/shared
+      - ./proto:/build/proto
+    command: >
+      sh -c "cd /build/services/api-gateway && 
+             go install github.com/cosmtrek/air@latest &&
+             air -c .air.toml"
+    environment:
+      - LOG_LEVEL=debug
+
+  # Frontend - Development mode with hot reload
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/frontend.Dockerfile
+      target: builder
+    volumes:
+      - ./frontend:/build
+      - /build/node_modules  # Prevent overwriting node_modules
+    command: npm run dev
+    environment:
+      - NODE_ENV=development
+      - VITE_API_URL=http://localhost:8080
+
+  # PostgreSQL - Expose pgAdmin for development
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: metlab-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@metlab.local
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - metlab-network
+
+  # Redis Commander for Redis management
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: metlab-redis-commander
+    environment:
+      REDIS_HOSTS: local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+    networks:
+      - metlab-network

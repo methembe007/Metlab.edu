@@ -1,0 +1,104 @@
+syntax = "proto3";
+package collaboration;
+option go_package = "metlab/proto/collaboration";
+
+service CollaborationService {
+  rpc CreateStudyGroup(CreateStudyGroupRequest) returns (StudyGroup);
+  rpc JoinStudyGroup(JoinStudyGroupRequest) returns (JoinStudyGroupResponse);
+  rpc ListStudyGroups(ListStudyGroupsRequest) returns (ListStudyGroupsResponse);
+  rpc CreateChatRoom(CreateChatRoomRequest) returns (ChatRoom);
+  rpc SendMessage(SendMessageRequest) returns (SendMessageResponse);
+  rpc GetMessages(GetMessagesRequest) returns (GetMessagesResponse);
+  rpc StreamMessages(StreamMessagesRequest) returns (stream ChatMessage);
+}
+
+message CreateStudyGroupRequest {
+  string class_id = 1;
+  string student_id = 2;
+  string name = 3;
+  string description = 4;
+}
+
+message StudyGroup {
+  string id = 1;
+  string name = 2;
+  string description = 3;
+  int32 member_count = 4;
+  int32 max_members = 5;
+  string created_by = 6;
+  int64 created_at = 7;
+  bool is_member = 8;
+}
+
+message JoinStudyGroupRequest {
+  string study_group_id = 1;
+  string student_id = 2;
+}
+
+message JoinStudyGroupResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message ListStudyGroupsRequest {
+  string class_id = 1;
+  string student_id = 2;
+}
+
+message ListStudyGroupsResponse {
+  repeated StudyGroup study_groups = 1;
+  int32 student_group_count = 2;
+}
+
+message CreateChatRoomRequest {
+  string class_id = 1;
+  string student_id = 2;
+  string name = 3;
+  string topic = 4;
+}
+
+message ChatRoom {
+  string id = 1;
+  string name = 2;
+  string topic = 3;
+  string created_by = 4;
+  int64 created_at = 5;
+}
+
+message SendMessageRequest {
+  string chat_room_id = 1;
+  string sender_id = 2;
+  string message_text = 3;
+  bytes image_data = 4;
+  string image_filename = 5;
+}
+
+message SendMessageResponse {
+  string message_id = 1;
+  int64 sent_at = 2;
+}
+
+message GetMessagesRequest {
+  string chat_room_id = 1;
+  string user_id = 2;
+  int32 limit = 3;
+  int64 before_timestamp = 4;
+}
+
+message GetMessagesResponse {
+  repeated ChatMessage messages = 1;
+}
+
+message StreamMessagesRequest {
+  string chat_room_id = 1;
+  string user_id = 2;
+}
+
+message ChatMessage {
+  string id = 1;
+  string sender_id = 2;
+  string sender_name = 3;
+  string message_text = 4;
+  string image_url = 5;
+  int64 sent_at = 6;
+}
