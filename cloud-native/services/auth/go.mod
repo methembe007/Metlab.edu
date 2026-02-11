@@ -3,11 +3,11 @@ module github.com/metlab/auth
 go 1.21
 
 require (
-	github.com/jackc/pgx/v5 v5.5.1
-	google.golang.org/grpc v1.60.1
-	google.golang.org/protobuf v1.32.0
 	github.com/golang-jwt/jwt/v5 v5.2.0
+	github.com/google/uuid v1.6.0
+	github.com/jackc/pgx/v5 v5.5.1
 	golang.org/x/crypto v0.18.0
+	google.golang.org/grpc v1.60.1
 )
 
 require (
@@ -20,4 +20,5 @@ require (
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240116215550-a9fa1716bcac // indirect
+	google.golang.org/protobuf v1.32.0 // indirect
 )

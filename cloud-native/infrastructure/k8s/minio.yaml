@@ -1,0 +1,171 @@
+---
+# MinIO Deployment for local development (S3-compatible object storage)
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: minio-pvc
+  namespace: metlab-dev
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: minio-config
+  namespace: metlab-dev
+data:
+  MINIO_ROOT_USER: "minioadmin"
+  MINIO_BROWSER: "on"
+  MINIO_DOMAIN: "minio.metlab.local"
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: minio-secret
+  namespace: metlab-dev
+type: Opaque
+stringData:
+  MINIO_ROOT_PASSWORD: "minioadmin123"
+  # For services to connect
+  S3_ACCESS_KEY: "minioadmin"
+  S3_SECRET_KEY: "minioadmin123"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minio
+  namespace: metlab-dev
+  labels:
+    app: minio
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: minio
+  template:
+    metadata:
+      labels:
+        app: minio
+    spec:
+      containers:
+      - name: minio
+        image: minio/minio:RELEASE.2024-01-16T16-07-38Z
+        args:
+        - server
+        - /data
+        - --console-address
+        - ":9001"
+        env:
+        - name: MINIO_ROOT_USER
+          valueFrom:
+            configMapKeyRef:
+              name: minio-config
+              key: MINIO_ROOT_USER
+        - name: MINIO_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: minio-secret
+              key: MINIO_ROOT_PASSWORD
+        - name: MINIO_BROWSER
+          valueFrom:
+            configMapKeyRef:
+              name: minio-config
+              key: MINIO_BROWSER
+        ports:
+        - containerPort: 9000
+          name: api
+          protocol: TCP
+        - containerPort: 9001
+          name: console
+          protocol: TCP
+        volumeMounts:
+        - name: data
+          mountPath: /data
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "500m"
+        livenessProbe:
+          httpGet:
+            path: /minio/health/live
+            port: 9000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: /minio/health/ready
+            port: 9000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: minio-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: minio-service
+  namespace: metlab-dev
+  labels:
+    app: minio
+spec:
+  type: ClusterIP
+  ports:
+  - port: 9000
+    targetPort: 9000
+    protocol: TCP
+    name: api
+  - port: 9001
+    targetPort: 9001
+    protocol: TCP
+    name: console
+  selector:
+    app: minio
+---
+# Job to create buckets on MinIO startup
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: minio-setup-buckets
+  namespace: metlab-dev
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: mc
+        image: minio/mc:RELEASE.2024-01-16T16-06-34Z
+        command:
+        - /bin/sh
+        - -c
+        - |
+          # Wait for MinIO to be ready
+          until mc alias set myminio http://minio-service:9000 minioadmin minioadmin123; do
+            echo "Waiting for MinIO to be ready..."
+            sleep 5
+          done
+          
+          # Create buckets if they don't exist
+          mc mb --ignore-existing myminio/videos
+          mc mb --ignore-existing myminio/pdfs
+          mc mb --ignore-existing myminio/thumbnails
+          
+          # Set public read policy for thumbnails (optional, for easier access)
+          mc anonymous set download myminio/thumbnails
+          
+          echo "Buckets created successfully!"
+          
+          # List buckets to verify
+          mc ls myminio

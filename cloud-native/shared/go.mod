@@ -3,10 +3,10 @@ module github.com/metlab/shared
 go 1.21
 
 require (
-	github.com/jackc/pgx/v5 v5.5.1
-	github.com/redis/go-redis/v9 v9.4.0
 	github.com/aws/aws-sdk-go v1.49.21
 	github.com/golang-jwt/jwt/v5 v5.2.0
+	github.com/jackc/pgx/v5 v5.5.1
+	github.com/redis/go-redis/v9 v9.4.0
 	google.golang.org/grpc v1.60.1
 )
 
@@ -18,6 +18,7 @@ require (
 	github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9 // indirect
 	github.com/jackc/puddle/v2 v2.2.1 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
+	golang.org/x/crypto v0.18.0 // indirect
 	golang.org/x/net v0.20.0 // indirect
 	golang.org/x/sync v0.6.0 // indirect
 	golang.org/x/sys v0.16.0 // indirect

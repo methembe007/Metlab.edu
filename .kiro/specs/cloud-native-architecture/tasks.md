@@ -71,20 +71,38 @@
   - Create database migration tool setup (golang-migrate or similar)
   - _Requirements: 18.1, 18.2, 18.3_
 
-- [ ] 6. Set up Redis for caching and pub/sub
+- [x] 6. Set up Redis for caching and pub/sub
+
+
+
+
+
   - Create Kubernetes Deployment manifest for Redis
   - Configure Redis persistence and memory limits
   - Set up Redis connection pooling in Go services
   - _Requirements: 16.1_
 
-- [ ] 7. Configure object storage for media files
+- [x] 7. Configure object storage for media files
+
+
+
+
+
   - Set up MinIO for local development (S3-compatible)
   - Create Kubernetes Deployment for MinIO
   - Configure buckets for videos, PDFs, and thumbnails
   - Write storage client wrapper in Go with S3 SDK
   - _Requirements: 4.2, 5.2_
 
-- [ ] 8. Implement shared Go packages and utilities
+- [x] 8. Implement shared Go packages and utilities
+
+
+
+
+
+
+
+
   - Create database connection package with pgx pool
   - Create Redis client package with connection management
   - Create S3 client package with upload/download helpers
@@ -95,7 +113,12 @@
 
 ## Phase 2: Authentication Service
 
-- [ ] 9. Implement Authentication Service core structure
+- [x] 9. Implement Authentication Service core structure
+
+
+
+
+
   - Create Go project structure for auth service
   - Implement gRPC server setup with health checks
   - Create database models for users, teachers, students, signin_codes
@@ -103,7 +126,16 @@
   - Set up service configuration with environment variables
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 10. Implement teacher registration and authentication
+- [x] 10. Implement teacher registration and authentication
+
+
+
+
+
+
+
+
+
   - Implement TeacherSignup gRPC handler with validation
   - Implement password hashing using bcrypt
   - Implement email validation and uniqueness check
@@ -112,7 +144,12 @@
   - Implement account lockout after failed login attempts
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5_
 
-- [ ] 11. Implement signin code generation for students
+- [x] 11. Implement signin code generation for students
+
+
+
+
+
   - Implement GenerateSigninCode gRPC handler
   - Create 8-character alphanumeric code generator with uniqueness check
   - Associate signin codes with teacher and class
@@ -120,7 +157,12 @@
   - Implement code validation and expiration checking
   - _Requirements: 3.1, 3.2, 3.3, 3.4, 3.5_
 
-- [ ] 12. Implement student authentication with signin codes
+- [x] 12. Implement student authentication with signin codes
+
+
+
+
+
   - Implement StudentSignin gRPC handler
   - Validate signin code, teacher name, and student name
   - Create student account on first successful signin

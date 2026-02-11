@@ -50,7 +50,7 @@ echo ""
 # Configuration
 CLUSTER_NAME="metlab-dev"
 CPUS=4
-MEMORY=8192
+MEMORY=3072
 DRIVER="docker"
 
 # Check if Minikube cluster already exists
