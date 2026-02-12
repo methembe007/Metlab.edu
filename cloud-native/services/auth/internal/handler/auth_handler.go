@@ -162,9 +162,49 @@ func (h *AuthHandler) TeacherLogin(ctx context.Context, req interface{}) (interf
 // Once proto is generated, signature will be:
 // func (h *AuthHandler) ValidateToken(ctx context.Context, req *pb.ValidateTokenRequest) (*pb.ValidateTokenResponse, error)
 func (h *AuthHandler) ValidateToken(ctx context.Context, req interface{}) (interface{}, error) {
-	// This will be implemented in a future task
-	// For now, return not implemented
-	return nil, status.Error(codes.Unimplemented, "ValidateToken not yet implemented")
+	// Extract request fields (will use req.Token once proto is generated)
+	// token := req.Token
+	
+	// Placeholder validation - this will be replaced with actual proto fields
+	token := ""
+	
+	// Validate required fields
+	if token == "" {
+		return nil, status.Error(codes.InvalidArgument, "token is required")
+	}
+	
+	// Call service layer to validate token
+	valid, userID, role, classIDs, teacherID, err := h.authService.ValidateToken(ctx, token)
+	if err != nil {
+		// Map service errors to gRPC status codes
+		if strings.Contains(err.Error(), "invalid token") {
+			return nil, status.Error(codes.Unauthenticated, "invalid or expired token")
+		}
+		if strings.Contains(err.Error(), "user not found") {
+			return nil, status.Error(codes.NotFound, "user not found")
+		}
+		if strings.Contains(err.Error(), "user account is inactive") {
+			return nil, status.Error(codes.PermissionDenied, "user account is inactive")
+		}
+		return nil, status.Error(codes.Internal, "failed to validate token")
+	}
+	
+	// Return response (will use pb.ValidateTokenResponse once proto is generated)
+	// return &pb.ValidateTokenResponse{
+	// 	Valid:     valid,
+	// 	UserId:    userID,
+	// 	Role:      role,
+	// 	ClassIds:  classIDs,
+	// 	TeacherId: teacherID,
+	// }, nil
+	
+	// Placeholder return
+	_ = valid
+	_ = userID
+	_ = role
+	_ = classIDs
+	_ = teacherID
+	return nil, nil
 }
 
 // GenerateSigninCode generates a signin code for student registration

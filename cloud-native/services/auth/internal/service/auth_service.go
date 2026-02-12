@@ -359,6 +359,44 @@ func (s *AuthService) StudentSignin(ctx context.Context, teacherName, studentNam
 	return user, token, nil
 }
 
+// ValidateToken validates a JWT token and returns user information
+func (s *AuthService) ValidateToken(ctx context.Context, token string) (bool, string, string, []string, string, error) {
+	// Validate the JWT token
+	claims, err := utils.ValidateJWT(token, s.config.JWTSecret)
+	if err != nil {
+		return false, "", "", nil, "", fmt.Errorf("invalid token: %w", err)
+	}
+	
+	// Parse user ID
+	userID, err := uuid.Parse(claims.UserID)
+	if err != nil {
+		return false, "", "", nil, "", fmt.Errorf("invalid user_id in token: %w", err)
+	}
+	
+	// Verify user exists and is active
+	user, err := s.userRepo.GetUserByID(ctx, userID)
+	if err != nil {
+		return false, "", "", nil, "", fmt.Errorf("user not found: %w", err)
+	}
+	
+	if !user.IsActive {
+		return false, "", "", nil, "", fmt.Errorf("user account is inactive")
+	}
+	
+	// Extract teacher_id if the user is a student
+	teacherID := claims.TeacherID
+	if user.Role == models.RoleStudent && teacherID == "" {
+		// Get student record to retrieve teacher_id
+		student, err := s.studentRepo.GetStudentByID(ctx, userID)
+		if err == nil && student != nil {
+			teacherID = student.TeacherID.String()
+		}
+	}
+	
+	// Return validation result with user information
+	return true, claims.UserID, claims.Role, claims.ClassIDs, teacherID, nil
+}
+
 // recordLoginAttempt records a login attempt (helper method)
 func (s *AuthService) recordLoginAttempt(ctx context.Context, email string, successful bool, ipAddress string) {
 	attempt := &models.LoginAttempt{

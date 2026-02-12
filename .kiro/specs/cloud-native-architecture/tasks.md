@@ -170,7 +170,16 @@
   - Generate JWT token for student with 7-day expiration
   - _Requirements: 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 13. Implement token validation service
+- [x] 13. Implement token validation service
+
+
+
+
+
+
+
+
+
   - Implement ValidateToken gRPC handler
   - Parse and verify JWT signature
   - Check token expiration
@@ -185,7 +194,12 @@
   - Test account lockout logic
   - _Requirements: 2.1, 2.2, 2.3, 2.4, 2.5, 3.1, 3.2, 3.3, 3.4, 3.5, 9.1, 9.2, 9.3, 9.4, 9.5_
 
-- [ ] 14. Create Kubernetes deployment for Auth Service
+
+
+- [x] 14. Create Kubernetes deployment for Auth Service
+
+
+
   - Write Deployment manifest with resource limits
   - Create Service manifest for internal gRPC communication
   - Configure environment variables and secrets

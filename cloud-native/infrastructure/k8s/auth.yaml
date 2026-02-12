@@ -1,3 +1,43 @@
+# ConfigMap for Auth Service configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: auth-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: auth
+    component: configuration
+data:
+  PORT: "50051"
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+  JWT_EXPIRY_HOURS: "24"
+  STUDENT_EXPIRY_DAYS: "7"
+  MAX_LOGIN_ATTEMPTS: "5"
+  LOCKOUT_MINUTES: "30"
+
+---
+# Secret for Auth Service sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: auth-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: auth
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+  JWT_SECRET: "dev-jwt-secret-change-in-production-use-strong-random-key"
+
+---
+# Deployment for Auth Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,48 +46,218 @@ metadata:
   labels:
     app: metlab
     service: auth
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: metlab
       service: auth
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: metlab
         service: auth
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "50051"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: auth
         image: metlab/auth:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 50051
-          name: grpc
+        - name: grpc
+          containerPort: 50051
+          protocol: TCP
         env:
+        # Configuration from ConfigMap
         - name: PORT
-          value: "50051"
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: PORT
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: ENV
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: DATABASE_NAME
+        - name: JWT_EXPIRY_HOURS
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: JWT_EXPIRY_HOURS
+        - name: STUDENT_EXPIRY_DAYS
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: STUDENT_EXPIRY_DAYS
+        - name: MAX_LOGIN_ATTEMPTS
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: MAX_LOGIN_ATTEMPTS
+        - name: LOCKOUT_MINUTES
+          valueFrom:
+            configMapKeyRef:
+              name: auth-config
+              key: LOCKOUT_MINUTES
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: auth-secret
+              key: DATABASE_PASSWORD
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: auth-secret
+              key: JWT_SECRET
+        # Computed DATABASE_URL for convenience
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "500m"
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "1Gi"
+            cpu: "1000m"
+        # Health check probes
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50051 || exit 0"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50051 || exit 0"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
 
 ---
+# Service for Auth Service (internal gRPC communication)
 apiVersion: v1
 kind: Service
 metadata:
   name: auth
   namespace: metlab-dev
+  labels:
+    app: metlab
+    service: auth
 spec:
+  type: ClusterIP
   selector:
     app: metlab
     service: auth
   ports:
-  - port: 50051
-    targetPort: 50051
-  type: ClusterIP
+  - name: grpc
+    port: 50051
+    targetPort: grpc
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Auth Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: auth-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: auth
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: auth
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
