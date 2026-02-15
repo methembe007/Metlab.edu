@@ -17,7 +17,6 @@ type RedisConfig struct {
 	// Connection pool settings
 	PoolSize           int
 	MinIdleConns       int
-	MaxConnAge         time.Duration
 	PoolTimeout        time.Duration
 	IdleTimeout        time.Duration
 	IdleCheckFrequency time.Duration
@@ -36,7 +35,6 @@ func DefaultRedisConfig() *RedisConfig {
 		DB:                 0,
 		PoolSize:           100,
 		MinIdleConns:       10,
-		MaxConnAge:         time.Hour,
 		PoolTimeout:        4 * time.Second,
 		IdleTimeout:        5 * time.Minute,
 		IdleCheckFrequency: time.Minute,
@@ -64,7 +62,6 @@ func NewRedisClient(ctx context.Context, cfg *RedisConfig) (*RedisClient, error)
 		DB:                 cfg.DB,
 		PoolSize:           cfg.PoolSize,
 		MinIdleConns:       cfg.MinIdleConns,
-		MaxConnAge:         cfg.MaxConnAge,
 		PoolTimeout:        cfg.PoolTimeout,
 		ConnMaxIdleTime:    cfg.IdleTimeout,
 		DialTimeout:        cfg.DialTimeout,
@@ -97,9 +94,6 @@ func NewRedisClientFromURL(ctx context.Context, url string) (*RedisClient, error
 	if opts.MinIdleConns == 0 {
 		opts.MinIdleConns = 10
 	}
-	if opts.MaxConnAge == 0 {
-		opts.MaxConnAge = time.Hour
-	}
 	if opts.PoolTimeout == 0 {
 		opts.PoolTimeout = 4 * time.Second
 	}
@@ -131,7 +125,6 @@ func NewRedisClientFromURL(ctx context.Context, url string) (*RedisClient, error
 			DB:                 opts.DB,
 			PoolSize:           opts.PoolSize,
 			MinIdleConns:       opts.MinIdleConns,
-			MaxConnAge:         opts.MaxConnAge,
 			PoolTimeout:        opts.PoolTimeout,
 			IdleTimeout:        opts.ConnMaxIdleTime,
 			DialTimeout:        opts.DialTimeout,

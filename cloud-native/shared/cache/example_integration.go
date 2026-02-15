@@ -61,7 +61,6 @@ func InitializeRedisClient(ctx context.Context) (*RedisClient, error) {
 		DB:                 svcCfg.RedisDB,
 		PoolSize:           100,
 		MinIdleConns:       10,
-		MaxConnAge:         time.Hour,
 		PoolTimeout:        4 * time.Second,
 		IdleTimeout:        5 * time.Minute,
 		IdleCheckFrequency: time.Minute,

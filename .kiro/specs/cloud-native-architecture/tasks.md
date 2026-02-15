@@ -208,7 +208,12 @@
 
 ## Phase 3: API Gateway Service
 
-- [ ] 15. Implement API Gateway core structure
+- [x] 15. Implement API Gateway core structure
+
+
+
+
+
   - Create Go project structure for API gateway
   - Set up Chi router with middleware chain
   - Implement gRPC client connections to all backend services
@@ -216,21 +221,36 @@
   - Set up CORS configuration
   - _Requirements: 1.3_
 
-- [ ] 16. Implement authentication middleware
+- [x] 16. Implement authentication middleware
+
+
+
+
+
   - Extract JWT token from Authorization header
   - Call Auth service ValidateToken gRPC method
   - Add user context to request for downstream handlers
   - Return 401 for missing or invalid tokens
   - _Requirements: 2.4, 20.3_
 
-- [ ] 17. Implement rate limiting middleware
+- [x] 17. Implement rate limiting middleware
+
+
+
+
+
   - Create in-memory rate limiter with Redis backing
   - Implement 100 requests per minute per IP limit
   - Return 429 status code when limit exceeded
   - Add rate limit headers to responses
   - _Requirements: 1.3, 20.3_
 
-- [ ] 18. Implement HTTP handlers for Auth endpoints
+- [x] 18. Implement HTTP handlers for Auth endpoints
+
+
+
+
+
   - POST /api/auth/teacher/signup - calls TeacherSignup
   - POST /api/auth/teacher/login - calls TeacherLogin
   - POST /api/auth/student/signin - calls StudentSignin
@@ -238,7 +258,12 @@
   - Add request validation and error handling
   - _Requirements: 2.1, 2.4, 3.1, 9.1_
 
-- [ ] 19. Implement HTTP handlers for Video endpoints
+- [x] 19. Implement HTTP handlers for Video endpoints
+
+
+
+
+
   - GET /api/videos - list videos for class
   - POST /api/videos - upload video
   - GET /api/videos/:id - get video details
@@ -247,7 +272,12 @@
   - GET /api/videos/:id/analytics - get view analytics
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 20. Implement HTTP handlers for Homework endpoints
+- [x] 20. Implement HTTP handlers for Homework endpoints
+
+
+
+
+
   - POST /api/homework/assignments - create assignment
   - GET /api/homework/assignments - list assignments
   - POST /api/homework/submissions - submit homework
@@ -256,7 +286,12 @@
   - GET /api/homework/submissions/:id/file - download submission
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 8.1, 8.2, 8.3, 8.4, 8.5, 15.1, 15.2, 15.3, 15.4, 15.5_
 
-- [ ] 21. Implement HTTP handlers for remaining endpoints
+- [x] 21. Implement HTTP handlers for remaining endpoints
+
+
+
+
+
   - PDF endpoints (upload, list, download)
   - Analytics endpoints (login stats, engagement)
   - Study group endpoints (create, join, list)
@@ -270,7 +305,12 @@
   - Test error handling and status codes
   - _Requirements: 1.3, 2.4, 20.3_
 
-- [ ] 22. Create Kubernetes deployment for API Gateway
+- [x] 22. Create Kubernetes deployment for API Gateway
+
+
+
+
+
   - Write Deployment manifest with HPA configuration
   - Create Service manifest exposing HTTP port
   - Configure Ingress rules for routing
