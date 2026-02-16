@@ -1,0 +1,93 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-worker
+  namespace: metlab-dev
+  labels:
+    app: video-worker
+    component: worker
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: video-worker
+  template:
+    metadata:
+      labels:
+        app: video-worker
+        component: worker
+    spec:
+      containers:
+      - name: video-worker
+        image: metlab/video-worker:latest
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: DB_HOST
+          value: "postgres-service"
+        - name: DB_PORT
+          value: "5432"
+        - name: DB_USER
+          value: "postgres"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: postgres-password
+        - name: DB_NAME
+          value: "metlab"
+        - name: REDIS_HOST
+          value: "redis-service"
+        - name: REDIS_PORT
+          value: "6379"
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: redis-password
+              optional: true
+        - name: S3_ENDPOINT
+          value: "http://minio-service:9000"
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: minio-access-key
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: minio-secret-key
+        - name: VIDEO_BUCKET
+          value: "metlab-videos"
+        - name: TEMP_DIR
+          value: "/tmp/video-processing"
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "1000m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        volumeMounts:
+        - name: temp-storage
+          mountPath: /tmp/video-processing
+      volumes:
+      - name: temp-storage
+        emptyDir:
+          sizeLimit: 10Gi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-worker-service
+  namespace: metlab-dev
+  labels:
+    app: video-worker
+spec:
+  selector:
+    app: video-worker
+  ports:
+  - name: metrics
+    port: 9090
+    targetPort: 9090
+  type: ClusterIP

@@ -138,6 +138,19 @@ func (c *Client) Download(ctx context.Context, bucket, key string) ([]byte, erro
 	return buf.Bytes(), nil
 }
 
+// GetObject returns a reader for streaming an object from S3
+func (c *Client) GetObject(ctx context.Context, bucket, key string) (io.ReadCloser, error) {
+	result, err := c.s3Client.GetObjectWithContext(ctx, &s3.GetObjectInput{
+		Bucket: aws.String(bucket),
+		Key:    aws.String(key),
+	})
+	if err != nil {
+		return nil, fmt.Errorf("failed to get object from S3: %w", err)
+	}
+
+	return result.Body, nil
+}
+
 // DownloadToWriter downloads data from S3 to a writer
 func (c *Client) DownloadToWriter(ctx context.Context, bucket, key string, writer io.WriterAt) (int64, error) {
 	n, err := c.downloader.DownloadWithContext(ctx, writer, &s3.GetObjectInput{
