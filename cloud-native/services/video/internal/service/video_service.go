@@ -35,6 +35,7 @@ type StorageClient interface {
 	Upload(ctx context.Context, bucket, key string, data io.Reader, opts *storage.UploadOptions) (string, error)
 	GeneratePresignedURL(bucket, key string, expiration time.Duration) (string, error)
 	Delete(ctx context.Context, bucket, key string) error
+	Exists(ctx context.Context, bucket, key string) (bool, error)
 }
 
 // Queue interface for job queue
@@ -292,31 +293,86 @@ func (s *VideoService) GetVideo(ctx context.Context, req *pb.GetVideoRequest) (*
 	}, nil
 }
 
-// GetStreamingURL generates a streaming URL for a video
+// GetStreamingURL generates a streaming URL for a video with adaptive bitrate support
 func (s *VideoService) GetStreamingURL(ctx context.Context, req *pb.GetStreamingURLRequest) (*pb.StreamingURLResponse, error) {
 	if req.VideoId == "" {
 		return nil, status.Error(codes.InvalidArgument, "video_id is required")
 	}
 
+	// Retrieve video from database
 	video, err := s.repo.GetVideoByID(ctx, req.VideoId)
 	if err != nil {
 		return nil, status.Errorf(codes.NotFound, "video not found: %v", err)
 	}
 
+	// Verify video is ready for streaming
 	if video.Status != "ready" {
-		return nil, status.Error(codes.FailedPrecondition, "video is not ready for streaming")
+		return nil, status.Errorf(codes.FailedPrecondition, "video is not ready for streaming (status: %s)", video.Status)
 	}
 
-	// Generate presigned URL for HLS manifest
-	manifestPath := fmt.Sprintf("videos/%s/hls/playlist.m3u8", video.ID)
-	url, err := s.storageClient.GeneratePresignedURL(s.videoBucket, manifestPath, 1*time.Hour)
+	// Set URL expiration to 1 hour as per requirements
+	expiration := 1 * time.Hour
+	expiresAt := time.Now().Add(expiration)
+
+	// Check if specific resolution is requested
+	if req.Resolution != "" {
+		// Validate requested resolution exists
+		variants, err := s.repo.GetVideoVariants(ctx, video.ID)
+		if err != nil {
+			return nil, status.Errorf(codes.Internal, "failed to get video variants: %v", err)
+		}
+
+		// Find the requested resolution variant
+		var selectedVariant *models.VideoVariant
+		for i := range variants {
+			if variants[i].Resolution == req.Resolution {
+				selectedVariant = variants[i]
+				break
+			}
+		}
+
+		if selectedVariant == nil {
+			return nil, status.Errorf(codes.InvalidArgument, "requested resolution '%s' not available", req.Resolution)
+		}
+
+		// Generate presigned URL for specific resolution HLS manifest
+		manifestPath := fmt.Sprintf("videos/%s/hls/%s/playlist.m3u8", video.ID, req.Resolution)
+		url, err := s.storageClient.GeneratePresignedURL(s.videoBucket, manifestPath, expiration)
+		if err != nil {
+			return nil, status.Errorf(codes.Internal, "failed to generate streaming URL: %v", err)
+		}
+
+		return &pb.StreamingURLResponse{
+			Url:         url,
+			ExpiresAt:   expiresAt.Unix(),
+			ManifestUrl: url,
+		}, nil
+	}
+
+	// Generate presigned URL for adaptive bitrate HLS master playlist
+	// The master playlist contains references to all available resolutions
+	manifestPath := fmt.Sprintf("videos/%s/hls/master.m3u8", video.ID)
+	
+	// Check if master playlist exists, fallback to single playlist if not
+	exists, err := s.storageClient.Exists(ctx, s.videoBucket, manifestPath)
 	if err != nil {
-		return nil, status.Errorf(codes.Internal, "failed to generate URL: %v", err)
+		return nil, status.Errorf(codes.Internal, "failed to check manifest existence: %v", err)
+	}
+
+	// If master playlist doesn't exist, use the default playlist
+	if !exists {
+		manifestPath = fmt.Sprintf("videos/%s/hls/playlist.m3u8", video.ID)
+	}
+
+	// Generate signed URL for HLS manifest with 1 hour expiration
+	url, err := s.storageClient.GeneratePresignedURL(s.videoBucket, manifestPath, expiration)
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to generate streaming URL: %v", err)
 	}
 
 	return &pb.StreamingURLResponse{
 		Url:         url,
-		ExpiresAt:   time.Now().Add(1 * time.Hour).Unix(),
+		ExpiresAt:   expiresAt.Unix(),
 		ManifestUrl: url,
 	}, nil
 }
@@ -351,6 +407,12 @@ func (s *VideoService) GetVideoAnalytics(ctx context.Context, req *pb.GetVideoAn
 		return nil, status.Error(codes.InvalidArgument, "video_id is required")
 	}
 
+	// Verify video exists
+	_, err := s.repo.GetVideoByID(ctx, req.VideoId)
+	if err != nil {
+		return nil, status.Errorf(codes.NotFound, "video not found: %v", err)
+	}
+
 	// Get total views
 	totalViews, err := s.repo.GetTotalViews(ctx, req.VideoId)
 	if err != nil {
@@ -363,16 +425,51 @@ func (s *VideoService) GetVideoAnalytics(ctx context.Context, req *pb.GetVideoAn
 		return nil, status.Errorf(codes.Internal, "failed to get analytics: %v", err)
 	}
 
-	// Convert to proto messages
-	pbStudentViews := make([]*pb.StudentViewData, len(studentViews))
-	for i, view := range studentViews {
-		pbStudentViews[i] = &pb.StudentViewData{
-			StudentId:         view.StudentID,
-			StudentName:       view.StudentName,
-			PercentageWatched: view.PercentageWatched,
-			TotalWatchSeconds: view.TotalWatchSeconds,
-			Completed:         view.Completed,
-			LastViewedAt:      view.LastViewedAt.Unix(),
+	// Create a map of student IDs who have viewed the video
+	viewedStudents := make(map[string]*models.StudentViewData)
+	for _, view := range studentViews {
+		viewedStudents[view.StudentID] = view
+	}
+
+	// Build response with student view data
+	pbStudentViews := make([]*pb.StudentViewData, 0)
+
+	// If all_students list is provided, include students who haven't started
+	if len(req.AllStudents) > 0 {
+		for _, studentInfo := range req.AllStudents {
+			if view, exists := viewedStudents[studentInfo.StudentId]; exists {
+				// Student has viewed the video
+				pbStudentViews = append(pbStudentViews, &pb.StudentViewData{
+					StudentId:         view.StudentID,
+					StudentName:       studentInfo.StudentName,
+					PercentageWatched: view.PercentageWatched,
+					TotalWatchSeconds: view.TotalWatchSeconds,
+					Completed:         view.Completed,
+					LastViewedAt:      view.LastViewedAt.Unix(),
+				})
+			} else {
+				// Student hasn't started watching
+				pbStudentViews = append(pbStudentViews, &pb.StudentViewData{
+					StudentId:         studentInfo.StudentId,
+					StudentName:       studentInfo.StudentName,
+					PercentageWatched: 0,
+					TotalWatchSeconds: 0,
+					Completed:         false,
+					LastViewedAt:      0,
+				})
+			}
+		}
+	} else {
+		// No student list provided, return only students who have viewed
+		for _, view := range studentViews {
+			pbStudentViews = append(pbStudentViews, &pb.StudentViewData{
+				StudentId:         view.StudentID,
+				StudentName:       "", // Name should be enriched by API Gateway
+				PercentageWatched: view.PercentageWatched,
+				TotalWatchSeconds: view.TotalWatchSeconds,
+				Completed:         view.Completed,
+				LastViewedAt:      view.LastViewedAt.Unix(),
+			})
 		}
 	}
 

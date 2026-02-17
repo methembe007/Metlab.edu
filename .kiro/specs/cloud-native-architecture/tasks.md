@@ -384,21 +384,39 @@
   - Return video details including duration, thumbnails, status
   - _Requirements: 4.4, 10.1, 10.5_
 
-- [ ] 28. Implement video streaming URL generation
+- [x] 28. Implement video streaming URL generation
+
+
+
+
+
   - Implement GetStreamingURL gRPC handler
   - Generate signed S3 URLs for HLS manifest
   - Set URL expiration to 1 hour
   - Support adaptive bitrate selection
   - _Requirements: 10.2, 10.3_
 
-- [ ] 29. Implement video view tracking
+- [x] 29. Implement video view tracking
+
+
+
+
+
+
+
+
   - Implement RecordView gRPC handler
   - Create or update video_views record with position and duration
   - Track total watch time and completion status
   - Update last position for resume functionality
   - _Requirements: 7.1, 7.2, 7.3, 7.5, 10.4_
 
-- [ ] 30. Implement video analytics
+- [x] 30. Implement video analytics
+
+
+
+
+
   - Implement GetVideoAnalytics gRPC handler
   - Query video_views for student viewing data
   - Calculate percentage watched per student
@@ -413,7 +431,12 @@
   - Test analytics aggregation
   - _Requirements: 4.1, 4.2, 4.3, 4.4, 4.5, 7.1, 7.2, 7.3, 7.4, 7.5_
 
-- [ ] 31. Create Kubernetes deployment for Video Service
+- [x] 31. Create Kubernetes deployment for Video Service
+
+
+
+
+
   - Write Deployment manifest with resource limits for FFmpeg
   - Create Service manifest for gRPC communication
   - Configure persistent volume for temporary processing

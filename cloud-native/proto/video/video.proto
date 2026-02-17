@@ -93,6 +93,12 @@ message RecordViewResponse {
 message GetVideoAnalyticsRequest {
   string video_id = 1;
   string teacher_id = 2;
+  repeated StudentInfo all_students = 3; // Optional: list of all students in class to identify who hasn't started
+}
+
+message StudentInfo {
+  string student_id = 1;
+  string student_name = 2;
 }
 
 message VideoAnalyticsResponse {

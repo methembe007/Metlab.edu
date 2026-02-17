@@ -1,3 +1,70 @@
+# ConfigMap for Video Service configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: video-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video
+    component: configuration
+data:
+  PORT: "50052"
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+  S3_ENDPOINT: "http://minio-service:9000"
+  S3_REGION: "us-east-1"
+  VIDEO_BUCKET: "metlab-videos"
+  THUMBNAIL_BUCKET: "metlab-thumbnails"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  MAX_UPLOAD_SIZE_MB: "2048"
+  SUPPORTED_FORMATS: "mp4,webm,mov"
+  PROCESSING_QUEUE: "video-processing"
+  TEMP_DIR: "/tmp/video-processing"
+
+---
+# Secret for Video Service sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: video-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+  S3_ACCESS_KEY: "minioadmin"
+  S3_SECRET_KEY: "minioadmin"
+  REDIS_PASSWORD: ""
+
+---
+# PersistentVolumeClaim for temporary video processing storage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: video-processing-pvc
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video
+    component: storage
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: standard
+
+---
+# Deployment for Video Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,48 +73,267 @@ metadata:
   labels:
     app: metlab
     service: video
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: metlab
       service: video
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: metlab
         service: video
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "50052"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: video
         image: metlab/video:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 50052
-          name: grpc
+        - name: grpc
+          containerPort: 50052
+          protocol: TCP
         env:
+        # Configuration from ConfigMap
         - name: PORT
-          value: "50052"
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: PORT
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: ENV
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: DATABASE_NAME
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: S3_ENDPOINT
+        - name: S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: S3_REGION
+        - name: VIDEO_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: VIDEO_BUCKET
+        - name: THUMBNAIL_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: THUMBNAIL_BUCKET
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: REDIS_PORT
+        - name: MAX_UPLOAD_SIZE_MB
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: MAX_UPLOAD_SIZE_MB
+        - name: SUPPORTED_FORMATS
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: SUPPORTED_FORMATS
+        - name: PROCESSING_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: PROCESSING_QUEUE
+        - name: TEMP_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: video-config
+              key: TEMP_DIR
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: video-secret
+              key: DATABASE_PASSWORD
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: video-secret
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: video-secret
+              key: S3_SECRET_KEY
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: video-secret
+              key: REDIS_PASSWORD
+        # Computed DATABASE_URL for convenience
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         resources:
           requests:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "1Gi"
+            cpu: "1000m"
           limits:
-            memory: "512Mi"
-            cpu: "500m"
+            memory: "2Gi"
+            cpu: "2000m"
+        # Volume mounts for temporary processing
+        volumeMounts:
+        - name: temp-storage
+          mountPath: /tmp/video-processing
+        # Health check probes
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50052 || exit 0"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50052 || exit 0"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Volumes
+      volumes:
+      - name: temp-storage
+        persistentVolumeClaim:
+          claimName: video-processing-pvc
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
 
 ---
+# Service for Video Service (internal gRPC communication)
 apiVersion: v1
 kind: Service
 metadata:
   name: video
   namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video
 spec:
+  type: ClusterIP
   selector:
     app: metlab
     service: video
   ports:
-  - port: 50052
-    targetPort: 50052
-  type: ClusterIP
+  - name: grpc
+    port: 50052
+    targetPort: grpc
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Video Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: video-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: video
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max

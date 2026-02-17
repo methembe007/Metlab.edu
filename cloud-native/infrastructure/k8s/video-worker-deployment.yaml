@@ -1,93 +1,343 @@
+# ConfigMap for Video Worker configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: video-worker-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video-worker
+    component: configuration
+data:
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+  S3_ENDPOINT: "http://minio-service:9000"
+  S3_REGION: "us-east-1"
+  VIDEO_BUCKET: "metlab-videos"
+  THUMBNAIL_BUCKET: "metlab-thumbnails"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  PROCESSING_QUEUE: "video-processing"
+  TEMP_DIR: "/tmp/video-processing"
+  FFMPEG_THREADS: "4"
+  VIDEO_RESOLUTIONS: "1080p,720p,480p,360p"
+  THUMBNAIL_TIMESTAMPS: "0,25,50,75"
+  MAX_PROCESSING_TIME_MINUTES: "30"
+
+---
+# Secret for Video Worker sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: video-worker-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video-worker
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+  S3_ACCESS_KEY: "minioadmin"
+  S3_SECRET_KEY: "minioadmin"
+  REDIS_PASSWORD: ""
+
+---
+# PersistentVolumeClaim for video worker temporary processing storage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: video-worker-processing-pvc
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video-worker
+    component: storage
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: standard
+
+---
+# Deployment for Video Worker
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: video-worker
   namespace: metlab-dev
   labels:
-    app: video-worker
+    app: metlab
+    service: video-worker
     component: worker
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: video-worker
+      app: metlab
+      service: video-worker
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
-        app: video-worker
+        app: metlab
+        service: video-worker
         component: worker
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "9090"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: video-worker
         image: metlab/video-worker:latest
         imagePullPolicy: IfNotPresent
+        ports:
+        - name: metrics
+          containerPort: 9090
+          protocol: TCP
         env:
-        - name: DB_HOST
-          value: "postgres-service"
-        - name: DB_PORT
-          value: "5432"
-        - name: DB_USER
-          value: "postgres"
-        - name: DB_PASSWORD
+        # Configuration from ConfigMap
+        - name: ENV
           valueFrom:
-            secretKeyRef:
-              name: metlab-secrets
-              key: postgres-password
-        - name: DB_NAME
-          value: "metlab"
-        - name: REDIS_HOST
-          value: "redis-service"
-        - name: REDIS_PORT
-          value: "6379"
-        - name: REDIS_PASSWORD
+            configMapKeyRef:
+              name: video-worker-config
+              key: ENV
+        - name: DATABASE_HOST
           valueFrom:
-            secretKeyRef:
-              name: metlab-secrets
-              key: redis-password
-              optional: true
+            configMapKeyRef:
+              name: video-worker-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: DATABASE_NAME
         - name: S3_ENDPOINT
-          value: "http://minio-service:9000"
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: S3_ENDPOINT
+        - name: S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: S3_REGION
+        - name: VIDEO_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: VIDEO_BUCKET
+        - name: THUMBNAIL_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: THUMBNAIL_BUCKET
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: REDIS_PORT
+        - name: PROCESSING_QUEUE
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: PROCESSING_QUEUE
+        - name: TEMP_DIR
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: TEMP_DIR
+        - name: FFMPEG_THREADS
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: FFMPEG_THREADS
+        - name: VIDEO_RESOLUTIONS
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: VIDEO_RESOLUTIONS
+        - name: THUMBNAIL_TIMESTAMPS
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: THUMBNAIL_TIMESTAMPS
+        - name: MAX_PROCESSING_TIME_MINUTES
+          valueFrom:
+            configMapKeyRef:
+              name: video-worker-config
+              key: MAX_PROCESSING_TIME_MINUTES
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: video-worker-secret
+              key: DATABASE_PASSWORD
         - name: S3_ACCESS_KEY
           valueFrom:
             secretKeyRef:
-              name: metlab-secrets
-              key: minio-access-key
+              name: video-worker-secret
+              key: S3_ACCESS_KEY
         - name: S3_SECRET_KEY
           valueFrom:
             secretKeyRef:
-              name: metlab-secrets
-              key: minio-secret-key
-        - name: VIDEO_BUCKET
-          value: "metlab-videos"
-        - name: TEMP_DIR
-          value: "/tmp/video-processing"
+              name: video-worker-secret
+              key: S3_SECRET_KEY
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: video-worker-secret
+              key: REDIS_PASSWORD
+        # Computed DATABASE_URL for convenience
+        - name: DATABASE_URL
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         resources:
           requests:
-            memory: "1Gi"
-            cpu: "1000m"
+            memory: "2Gi"
+            cpu: "1500m"
           limits:
             memory: "4Gi"
-            cpu: "2000m"
+            cpu: "3000m"
+        # Volume mounts for temporary processing (FFmpeg needs significant space)
         volumeMounts:
         - name: temp-storage
           mountPath: /tmp/video-processing
+        # Health check probes
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 9090
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          httpGet:
+            path: /ready
+            port: 9090
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Volumes
       volumes:
       - name: temp-storage
-        emptyDir:
-          sizeLimit: 10Gi
+        persistentVolumeClaim:
+          claimName: video-worker-processing-pvc
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period (longer for video processing)
+      terminationGracePeriodSeconds: 60
+
 ---
+# Service for Video Worker (metrics endpoint)
 apiVersion: v1
 kind: Service
 metadata:
-  name: video-worker-service
+  name: video-worker
   namespace: metlab-dev
   labels:
-    app: video-worker
+    app: metlab
+    service: video-worker
 spec:
+  type: ClusterIP
   selector:
-    app: video-worker
+    app: metlab
+    service: video-worker
   ports:
   - name: metrics
     port: 9090
-    targetPort: 9090
-  type: ClusterIP
+    targetPort: metrics
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Video Worker
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: video-worker-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: video-worker
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: video-worker
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 75
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 120
+      - type: Pods
+        value: 1
+        periodSeconds: 120
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+      - type: Pods
+        value: 2
+        periodSeconds: 60
+      selectPolicy: Max

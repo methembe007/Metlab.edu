@@ -284,13 +284,15 @@ func (r *VideoRepository) RecordVideoView(ctx context.Context, view *models.Vide
 
 // GetVideoAnalytics retrieves viewing analytics for a video
 func (r *VideoRepository) GetVideoAnalytics(ctx context.Context, videoID string) ([]*models.StudentViewData, error) {
+	// Query video views with calculated percentage watched
+	// Note: In a microservices architecture, student names should be enriched by the API Gateway
+	// by calling the Auth service. Here we only return student IDs.
 	query := `
 		SELECT 
 			vv.student_id,
-			COALESCE(u.full_name, 'Unknown') as student_name,
 			CASE 
 				WHEN v.duration_seconds > 0 THEN 
-					CAST((vv.total_watch_seconds * 100.0 / v.duration_seconds) AS INTEGER)
+					LEAST(CAST((vv.total_watch_seconds * 100.0 / v.duration_seconds) AS INTEGER), 100)
 				ELSE 0
 			END as percentage_watched,
 			vv.total_watch_seconds,
@@ -298,9 +300,8 @@ func (r *VideoRepository) GetVideoAnalytics(ctx context.Context, videoID string)
 			vv.updated_at as last_viewed_at
 		FROM video_views vv
 		JOIN videos v ON vv.video_id = v.id
-		LEFT JOIN users u ON vv.student_id = u.id
 		WHERE vv.video_id = $1
-		ORDER BY student_name ASC
+		ORDER BY vv.updated_at DESC
 	`
 
 	rows, err := r.db.Query(ctx, query, videoID)
@@ -313,12 +314,14 @@ func (r *VideoRepository) GetVideoAnalytics(ctx context.Context, videoID string)
 	for rows.Next() {
 		var data models.StudentViewData
 		err := rows.Scan(
-			&data.StudentID, &data.StudentName, &data.PercentageWatched,
+			&data.StudentID, &data.PercentageWatched,
 			&data.TotalWatchSeconds, &data.Completed, &data.LastViewedAt,
 		)
 		if err != nil {
 			return nil, err
 		}
+		// Student name will be empty - should be enriched by API Gateway
+		data.StudentName = ""
 		analytics = append(analytics, &data)
 	}
 
@@ -331,4 +334,26 @@ func (r *VideoRepository) GetTotalViews(ctx context.Context, videoID string) (in
 	query := `SELECT COUNT(*) FROM video_views WHERE video_id = $1`
 	err := r.db.QueryRow(ctx, query, videoID).Scan(&count)
 	return count, err
+}
+
+// GetStudentsWhoViewed returns a list of student IDs who have viewed a video
+func (r *VideoRepository) GetStudentsWhoViewed(ctx context.Context, videoID string) ([]string, error) {
+	query := `SELECT student_id FROM video_views WHERE video_id = $1`
+	
+	rows, err := r.db.Query(ctx, query, videoID)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var studentIDs []string
+	for rows.Next() {
+		var studentID string
+		if err := rows.Scan(&studentID); err != nil {
+			return nil, err
+		}
+		studentIDs = append(studentIDs, studentID)
+	}
+
+	return studentIDs, nil
 }
