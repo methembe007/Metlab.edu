@@ -1,0 +1,185 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homework-service-config
+  namespace: metlab-production
+data:
+  PORT: "50053"
+  ENVIRONMENT: "production"
+  DATABASE_HOST: "postgres-service"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "metlab"
+  DATABASE_SSL_MODE: "require"
+  S3_ENDPOINT: "s3.amazonaws.com"
+  S3_BUCKET: "metlab-homework"
+  S3_REGION: "us-east-1"
+  S3_USE_SSL: "true"
+  MAX_UPLOAD_SIZE: "26214400"
+
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: homework-service-secrets
+  namespace: metlab-production
+type: Opaque
+data:
+  DATABASE_USER: cG9zdGdyZXM=  # base64 encoded
+  DATABASE_PASSWORD: ""  # Add your base64 encoded password
+  S3_ACCESS_KEY: ""  # Add your base64 encoded access key
+  S3_SECRET_KEY: ""  # Add your base64 encoded secret key
+  JWT_SECRET: ""  # Add your base64 encoded JWT secret
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: homework-service
+  namespace: metlab-production
+  labels:
+    app: homework-service
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: homework-service
+  template:
+    metadata:
+      labels:
+        app: homework-service
+        version: v1
+    spec:
+      containers:
+      - name: homework-service
+        image: metlab/homework-service:latest
+        imagePullPolicy: Always
+        ports:
+        - name: grpc
+          containerPort: 50053
+          protocol: TCP
+        env:
+        - name: DATABASE_USER
+          valueFrom:
+            secretKeyRef:
+              name: homework-service-secrets
+              key: DATABASE_USER
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: homework-service-secrets
+              key: DATABASE_PASSWORD
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: homework-service-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: homework-service-secrets
+              key: S3_SECRET_KEY
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: homework-service-secrets
+              key: JWT_SECRET
+        envFrom:
+        - configMapRef:
+            name: homework-service-config
+        resources:
+          requests:
+            memory: "512Mi"
+            cpu: "500m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "nc -z localhost 50053"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "nc -z localhost 50053"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+        volumeMounts:
+        - name: tmp
+          mountPath: /tmp
+      volumes:
+      - name: tmp
+        emptyDir: {}
+      restartPolicy: Always
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: homework-service
+  namespace: metlab-production
+  labels:
+    app: homework-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 50053
+    targetPort: 50053
+    protocol: TCP
+    name: grpc
+  selector:
+    app: homework-service
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: homework-service-hpa
+  namespace: metlab-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: homework-service
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
