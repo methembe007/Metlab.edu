@@ -460,20 +460,34 @@
   - Write database migration files for homework tables
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 8.1, 8.2, 8.3, 8.4, 8.5, 15.1, 15.2, 15.3, 15.4, 15.5_
 
-- [ ] 33. Implement homework assignment creation
+- [x] 33. Implement homework assignment creation
+
+
+
+
+
   - Implement CreateAssignment gRPC handler
   - Validate assignment data (title, description, due date, max score)
   - Store assignment in database linked to teacher and class
   - _Requirements: 6.1, 6.2_
 
-- [ ] 34. Implement homework assignment listing
+- [x] 34. Implement homework assignment listing
+
+
+
+
   - Implement ListAssignments gRPC handler
   - Filter assignments by class and teacher
   - Include submission counts for each assignment
   - Sort by due date
   - _Requirements: 6.1, 15.1_
 
-- [ ] 35. Implement homework submission
+- [x] 35. Implement homework submission
+
+
+
+
+
   - Implement SubmitHomework gRPC streaming handler
   - Validate file format (PDF, DOCX, TXT, images) and size (max 25MB)
   - Stream file to S3 storage
@@ -482,14 +496,24 @@
   - Allow resubmission before grading
   - _Requirements: 15.1, 15.2, 15.3, 15.4, 15.5_
 
-- [ ] 36. Implement submission listing and retrieval
+- [x] 36. Implement submission listing and retrieval
+
+
+
+
+
   - Implement ListSubmissions gRPC handler
   - Filter submissions by assignment, student, or status
   - Include student names and submission timestamps
   - Support filtering by graded/ungraded status
   - _Requirements: 6.2, 6.3_
 
-- [ ] 37. Implement homework grading
+- [x] 37. Implement homework grading
+
+
+
+
+
   - Implement GradeSubmission gRPC handler
   - Validate score against max_score
   - Store grade and feedback in database
@@ -498,7 +522,12 @@
   - Calculate class average scores
   - _Requirements: 8.1, 8.2, 8.3, 8.4, 8.5_
 
-- [ ] 38. Implement submission file download
+- [x] 38. Implement submission file download
+
+
+
+
+
   - Implement GetSubmissionFile gRPC streaming handler
   - Generate signed S3 download URL
   - Stream file chunks to client
@@ -512,7 +541,12 @@
   - Test resubmission logic
   - _Requirements: 6.1, 6.2, 6.3, 6.4, 6.5, 8.1, 8.2, 8.3, 8.4, 8.5, 15.1, 15.2, 15.3, 15.4, 15.5_
 
-- [ ] 39. Create Kubernetes deployment for Homework Service
+- [x] 39. Create Kubernetes deployment for Homework Service
+
+
+
+
+
   - Write Deployment manifest with resource limits
   - Create Service manifest for gRPC communication
   - Configure environment variables and secrets

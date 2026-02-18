@@ -65,6 +65,7 @@ message ListSubmissionsRequest {
   string assignment_id = 1;
   string teacher_id = 2;
   string status_filter = 3;
+  string student_id = 4;
 }
 
 message ListSubmissionsResponse {

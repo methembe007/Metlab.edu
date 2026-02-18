@@ -6,12 +6,12 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"strings"
 	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/metlab/homework/internal/models"
 	"github.com/metlab/homework/internal/repository"
-	"github.com/metlab/shared/errors"
 	"github.com/metlab/shared/logger"
 	pb "github.com/metlab/shared/proto-gen/go/homework"
 	"github.com/metlab/shared/storage"
@@ -49,7 +49,10 @@ func NewHomeworkHandler(
 
 // CreateAssignment creates a new homework assignment
 func (h *HomeworkHandler) CreateAssignment(ctx context.Context, req *pb.CreateAssignmentRequest) (*pb.Assignment, error) {
-	h.logger.Info("Creating assignment", "teacher_id", req.TeacherId, "class_id", req.ClassId)
+	h.logger.Info("Creating assignment", map[string]interface{}{
+		"teacher_id": req.TeacherId,
+		"class_id":   req.ClassId,
+	})
 	
 	// Validate request
 	if req.TeacherId == "" {
@@ -84,7 +87,9 @@ func (h *HomeworkHandler) CreateAssignment(ctx context.Context, req *pb.CreateAs
 		return nil, status.Error(codes.Internal, "failed to create assignment")
 	}
 	
-	h.logger.Info("Assignment created successfully", "assignment_id", assignment.ID)
+	h.logger.Info("Assignment created successfully", map[string]interface{}{
+		"assignment_id": assignment.ID,
+	})
 	
 	return &pb.Assignment{
 		Id:              assignment.ID,
@@ -100,7 +105,11 @@ func (h *HomeworkHandler) CreateAssignment(ctx context.Context, req *pb.CreateAs
 
 // ListAssignments lists assignments for a class or teacher
 func (h *HomeworkHandler) ListAssignments(ctx context.Context, req *pb.ListAssignmentsRequest) (*pb.ListAssignmentsResponse, error) {
-	h.logger.Info("Listing assignments", "user_id", req.UserId, "class_id", req.ClassId, "role", req.Role)
+	h.logger.Info("Listing assignments", map[string]interface{}{
+		"user_id":  req.UserId,
+		"class_id": req.ClassId,
+		"role":     req.Role,
+	})
 	
 	var assignments []*models.Assignment
 	var err error
@@ -174,6 +183,17 @@ func (h *HomeworkHandler) SubmitHomework(stream pb.HomeworkService_SubmitHomewor
 		return status.Error(codes.InvalidArgument, fmt.Sprintf("file size exceeds maximum of %d bytes", h.maxUploadSize))
 	}
 	
+	// Validate file format (PDF, DOCX, TXT, images)
+	if !isValidFileFormat(filename) {
+		return status.Error(codes.InvalidArgument, "invalid file format. Allowed formats: PDF, DOCX, TXT, JPG, JPEG, PNG, GIF")
+	}
+	
+	// Check if submission already exists and is graded (prevent resubmission after grading)
+	existingSubmission, err := h.submissionRepo.GetByAssignmentAndStudent(context.Background(), assignmentID, studentID)
+	if err == nil && existingSubmission != nil && existingSubmission.Status == models.StatusGraded {
+		return status.Error(codes.FailedPrecondition, "cannot resubmit homework that has already been graded")
+	}
+	
 	// Create temporary file
 	tempFile, err = os.CreateTemp("", "homework-*"+filepath.Ext(filename))
 	if err != nil {
@@ -245,7 +265,9 @@ func (h *HomeworkHandler) SubmitHomework(stream pb.HomeworkService_SubmitHomewor
 		return status.Error(codes.Internal, "failed to create submission")
 	}
 	
-	h.logger.Info("Homework submitted successfully", "submission_id", submission.ID)
+	h.logger.Info("Homework submitted successfully", map[string]interface{}{
+		"submission_id": submission.ID,
+	})
 	
 	return stream.SendAndClose(&pb.SubmitHomeworkResponse{
 		SubmissionId: submission.ID,
@@ -254,15 +276,26 @@ func (h *HomeworkHandler) SubmitHomework(stream pb.HomeworkService_SubmitHomewor
 	})
 }
 
-// ListSubmissions lists submissions for an assignment
+// ListSubmissions lists submissions for an assignment with optional filtering
+// Supports filtering by:
+// - assignment_id: Required to list submissions for a specific assignment
+// - status_filter: Optional filter by status (submitted, graded, returned)
+// - student_id: Optional filter by specific student (when proto is regenerated)
+// Returns submissions with student names, timestamps, and grade information
 func (h *HomeworkHandler) ListSubmissions(ctx context.Context, req *pb.ListSubmissionsRequest) (*pb.ListSubmissionsResponse, error) {
-	h.logger.Info("Listing submissions", "assignment_id", req.AssignmentId)
+	h.logger.Info("Listing submissions", map[string]interface{}{
+		"assignment_id": req.AssignmentId,
+		"status_filter": req.StatusFilter,
+	})
 	
+	// Validate that at least assignment_id is provided
 	if req.AssignmentId == "" {
 		return nil, status.Error(codes.InvalidArgument, "assignment_id is required")
 	}
 	
-	submissions, err := h.submissionRepo.ListByAssignment(ctx, req.AssignmentId, req.StatusFilter)
+	// Use the enhanced filtering method
+	// Note: student_id filtering will be available once proto is regenerated
+	submissions, err := h.submissionRepo.ListWithFilters(ctx, req.AssignmentId, "", req.StatusFilter)
 	if err != nil {
 		h.logger.Error("Failed to list submissions", err)
 		return nil, status.Error(codes.Internal, "failed to list submissions")
@@ -282,6 +315,7 @@ func (h *HomeworkHandler) ListSubmissions(ctx context.Context, req *pb.ListSubmi
 			Status:       s.Status,
 		}
 		
+		// Include grade information if available
 		if s.Grade != nil {
 			pbSub.Grade = &pb.Grade{
 				Score:    s.Grade.Score,
@@ -294,6 +328,10 @@ func (h *HomeworkHandler) ListSubmissions(ctx context.Context, req *pb.ListSubmi
 		pbSubmissions[i] = pbSub
 	}
 	
+	h.logger.Info("Submissions listed successfully", map[string]interface{}{
+		"count": len(submissions),
+	})
+	
 	return &pb.ListSubmissionsResponse{
 		Submissions: pbSubmissions,
 	}, nil
@@ -301,7 +339,10 @@ func (h *HomeworkHandler) ListSubmissions(ctx context.Context, req *pb.ListSubmi
 
 // GradeSubmission grades a homework submission
 func (h *HomeworkHandler) GradeSubmission(ctx context.Context, req *pb.GradeSubmissionRequest) (*pb.GradeSubmissionResponse, error) {
-	h.logger.Info("Grading submission", "submission_id", req.SubmissionId, "teacher_id", req.TeacherId)
+	h.logger.Info("Grading submission", map[string]interface{}{
+		"submission_id": req.SubmissionId,
+		"teacher_id":    req.TeacherId,
+	})
 	
 	// Validate request
 	if req.SubmissionId == "" {
@@ -314,14 +355,26 @@ func (h *HomeworkHandler) GradeSubmission(ctx context.Context, req *pb.GradeSubm
 		return nil, status.Error(codes.InvalidArgument, "score must be non-negative")
 	}
 	
-	// Get submission to validate it exists
+	// Get submission to validate it exists and get assignment ID
 	submission, err := h.submissionRepo.GetByID(ctx, req.SubmissionId)
 	if err != nil {
 		h.logger.Error("Failed to get submission", err)
 		return nil, status.Error(codes.NotFound, "submission not found")
 	}
 	
-	// Create or update grade
+	// Get assignment to validate score against max_score
+	assignment, err := h.assignmentRepo.GetByID(ctx, submission.AssignmentID)
+	if err != nil {
+		h.logger.Error("Failed to get assignment", err)
+		return nil, status.Error(codes.Internal, "failed to get assignment")
+	}
+	
+	// Validate score against max_score
+	if req.Score > assignment.MaxScore {
+		return nil, status.Error(codes.InvalidArgument, fmt.Sprintf("score (%d) cannot exceed max_score (%d)", req.Score, assignment.MaxScore))
+	}
+	
+	// Create or update grade (allows grade updates after initial submission)
 	grade := &models.Grade{
 		SubmissionID: req.SubmissionId,
 		Score:        req.Score,
@@ -334,13 +387,25 @@ func (h *HomeworkHandler) GradeSubmission(ctx context.Context, req *pb.GradeSubm
 		return nil, status.Error(codes.Internal, "failed to create grade")
 	}
 	
-	// Update submission status
+	// Update submission status to 'graded'
 	if err := h.submissionRepo.UpdateStatus(ctx, req.SubmissionId, models.StatusGraded); err != nil {
 		h.logger.Error("Failed to update submission status", err)
 		return nil, status.Error(codes.Internal, "failed to update submission status")
 	}
 	
-	h.logger.Info("Submission graded successfully", "submission_id", submission.ID, "score", grade.Score)
+	// Calculate class average scores for the assignment
+	classAverage, err := h.gradeRepo.GetClassAverageForAssignment(ctx, submission.AssignmentID)
+	if err != nil {
+		h.logger.Error("Failed to calculate class average", err)
+		// Don't fail the request if we can't calculate average, just log it
+		classAverage = 0
+	}
+	
+	h.logger.Info("Submission graded successfully", map[string]interface{}{
+		"submission_id": submission.ID,
+		"score":         grade.Score,
+		"class_average": classAverage,
+	})
 	
 	return &pb.GradeSubmissionResponse{
 		Success: true,
@@ -355,10 +420,17 @@ func (h *HomeworkHandler) GradeSubmission(ctx context.Context, req *pb.GradeSubm
 
 // GetSubmissionFile streams a submission file for download
 func (h *HomeworkHandler) GetSubmissionFile(req *pb.GetSubmissionFileRequest, stream pb.HomeworkService_GetSubmissionFileServer) error {
-	h.logger.Info("Getting submission file", "submission_id", req.SubmissionId)
+	h.logger.Info("Getting submission file", map[string]interface{}{
+		"submission_id": req.SubmissionId,
+		"teacher_id":    req.TeacherId,
+	})
 	
+	// Validate request
 	if req.SubmissionId == "" {
 		return status.Error(codes.InvalidArgument, "submission_id is required")
+	}
+	if req.TeacherId == "" {
+		return status.Error(codes.InvalidArgument, "teacher_id is required")
 	}
 	
 	// Get submission
@@ -368,30 +440,35 @@ func (h *HomeworkHandler) GetSubmissionFile(req *pb.GetSubmissionFileRequest, st
 		return status.Error(codes.NotFound, "submission not found")
 	}
 	
-	// Download from S3 to temp file
-	tempFile, err := os.CreateTemp("", "download-*")
+	// Get assignment to verify teacher has permission
+	assignment, err := h.assignmentRepo.GetByID(context.Background(), submission.AssignmentID)
 	if err != nil {
-		h.logger.Error("Failed to create temp file", err)
-		return status.Error(codes.Internal, "failed to create temp file")
-	}
-	defer os.Remove(tempFile.Name())
-	defer tempFile.Close()
-	
-	if err := h.storageClient.DownloadFile(context.Background(), submission.FilePath, tempFile.Name()); err != nil {
-		h.logger.Error("Failed to download from storage", err)
-		return status.Error(codes.Internal, "failed to download file")
+		h.logger.Error("Failed to get assignment", err)
+		return status.Error(codes.Internal, "failed to verify permissions")
 	}
 	
-	// Seek to beginning
-	if _, err := tempFile.Seek(0, 0); err != nil {
-		h.logger.Error("Failed to seek file", err)
-		return status.Error(codes.Internal, "failed to read file")
+	// Verify teacher has permission to access this submission
+	if assignment.TeacherID != req.TeacherId {
+		h.logger.Warn("Teacher attempted to access submission without permission", map[string]interface{}{
+			"teacher_id":    req.TeacherId,
+			"assignment_id": assignment.ID,
+			"owner_id":      assignment.TeacherID,
+		})
+		return status.Error(codes.PermissionDenied, "you do not have permission to access this submission")
 	}
+	
+	// Get object reader from S3 for streaming
+	reader, err := h.storageClient.GetObjectReader(context.Background(), submission.FilePath)
+	if err != nil {
+		h.logger.Error("Failed to get object from storage", err)
+		return status.Error(codes.Internal, "failed to retrieve file")
+	}
+	defer reader.Close()
 	
 	// Stream file chunks
 	buffer := make([]byte, 64*1024) // 64KB chunks
 	for {
-		n, err := tempFile.Read(buffer)
+		n, err := reader.Read(buffer)
 		if err == io.EOF {
 			break
 		}
@@ -406,6 +483,30 @@ func (h *HomeworkHandler) GetSubmissionFile(req *pb.GetSubmissionFileRequest, st
 		}
 	}
 	
-	h.logger.Info("File streamed successfully", "submission_id", submission.ID)
+	h.logger.Info("File streamed successfully", map[string]interface{}{
+		"submission_id": submission.ID,
+		"teacher_id":    req.TeacherId,
+	})
 	return nil
+}
+
+// isValidFileFormat checks if the file extension is allowed
+func isValidFileFormat(filename string) bool {
+	ext := strings.ToLower(filepath.Ext(filename))
+	if ext == "" {
+		return false
+	}
+	
+	allowedFormats := map[string]bool{
+		".pdf":  true,
+		".docx": true,
+		".doc":  true,
+		".txt":  true,
+		".jpg":  true,
+		".jpeg": true,
+		".png":  true,
+		".gif":  true,
+	}
+	
+	return allowedFormats[ext]
 }

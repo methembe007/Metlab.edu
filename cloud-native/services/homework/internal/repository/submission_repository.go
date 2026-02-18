@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/metlab/homework/internal/models"
@@ -108,7 +109,7 @@ func (r *SubmissionRepository) GetByID(ctx context.Context, id string) (*models.
 	return submission, nil
 }
 
-// ListByAssignment retrieves all submissions for an assignment
+// ListByAssignment retrieves all submissions for an assignment with optional filters
 func (r *SubmissionRepository) ListByAssignment(ctx context.Context, assignmentID string, statusFilter string) ([]*models.Submission, error) {
 	query := `
 		SELECT 
@@ -124,9 +125,103 @@ func (r *SubmissionRepository) ListByAssignment(ctx context.Context, assignmentI
 	
 	args := []interface{}{assignmentID}
 	
+	// Support filtering by status
 	if statusFilter != "" {
 		query += ` AND s.status = $2`
 		args = append(args, statusFilter)
+	}
+	
+	query += ` ORDER BY s.submitted_at DESC`
+	
+	rows, err := r.db.Query(ctx, query, args...)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+	
+	var submissions []*models.Submission
+	for rows.Next() {
+		submission := &models.Submission{}
+		var gradeID, gradedBy sql.NullString
+		var score sql.NullInt32
+		var feedback sql.NullString
+		var gradedAt sql.NullTime
+		
+		err := rows.Scan(
+			&submission.ID,
+			&submission.AssignmentID,
+			&submission.StudentID,
+			&submission.FilePath,
+			&submission.FileName,
+			&submission.FileSizeBytes,
+			&submission.SubmittedAt,
+			&submission.IsLate,
+			&submission.Status,
+			&submission.StudentName,
+			&gradeID,
+			&score,
+			&feedback,
+			&gradedBy,
+			&gradedAt,
+		)
+		if err != nil {
+			return nil, err
+		}
+		
+		// Populate grade if it exists
+		if gradeID.Valid {
+			submission.Grade = &models.Grade{
+				ID:           gradeID.String,
+				SubmissionID: submission.ID,
+				Score:        score.Int32,
+				Feedback:     feedback.String,
+				GradedBy:     gradedBy.String,
+				GradedAt:     gradedAt.Time,
+			}
+		}
+		
+		submissions = append(submissions, submission)
+	}
+	
+	return submissions, rows.Err()
+}
+
+// ListWithFilters retrieves submissions with multiple filter options
+func (r *SubmissionRepository) ListWithFilters(ctx context.Context, assignmentID, studentID, statusFilter string) ([]*models.Submission, error) {
+	query := `
+		SELECT 
+			s.id, s.assignment_id, s.student_id, s.file_path, s.file_name,
+			s.file_size_bytes, s.submitted_at, s.is_late, s.status,
+			u.full_name as student_name,
+			g.id, g.score, g.feedback, g.graded_by, g.graded_at
+		FROM homework_submissions s
+		JOIN users u ON s.student_id = u.id
+		LEFT JOIN homework_grades g ON s.id = g.submission_id
+		WHERE 1=1
+	`
+	
+	args := []interface{}{}
+	paramCount := 1
+	
+	// Filter by assignment if provided
+	if assignmentID != "" {
+		query += fmt.Sprintf(` AND s.assignment_id = $%d`, paramCount)
+		args = append(args, assignmentID)
+		paramCount++
+	}
+	
+	// Filter by student if provided
+	if studentID != "" {
+		query += fmt.Sprintf(` AND s.student_id = $%d`, paramCount)
+		args = append(args, studentID)
+		paramCount++
+	}
+	
+	// Filter by status if provided
+	if statusFilter != "" {
+		query += fmt.Sprintf(` AND s.status = $%d`, paramCount)
+		args = append(args, statusFilter)
+		paramCount++
 	}
 	
 	query += ` ORDER BY s.submitted_at DESC`
@@ -273,4 +368,61 @@ func (r *SubmissionRepository) Exists(ctx context.Context, assignmentID, student
 	var exists bool
 	err := r.db.QueryRow(ctx, query, assignmentID, studentID).Scan(&exists)
 	return exists, err
+}
+
+// GetByAssignmentAndStudent retrieves a submission by assignment and student
+func (r *SubmissionRepository) GetByAssignmentAndStudent(ctx context.Context, assignmentID, studentID string) (*models.Submission, error) {
+	query := `
+		SELECT 
+			s.id, s.assignment_id, s.student_id, s.file_path, s.file_name,
+			s.file_size_bytes, s.submitted_at, s.is_late, s.status,
+			u.full_name as student_name,
+			g.id, g.score, g.feedback, g.graded_by, g.graded_at
+		FROM homework_submissions s
+		JOIN users u ON s.student_id = u.id
+		LEFT JOIN homework_grades g ON s.id = g.submission_id
+		WHERE s.assignment_id = $1 AND s.student_id = $2
+	`
+	
+	submission := &models.Submission{}
+	var gradeID, gradedBy sql.NullString
+	var score sql.NullInt32
+	var feedback sql.NullString
+	var gradedAt sql.NullTime
+	
+	err := r.db.QueryRow(ctx, query, assignmentID, studentID).Scan(
+		&submission.ID,
+		&submission.AssignmentID,
+		&submission.StudentID,
+		&submission.FilePath,
+		&submission.FileName,
+		&submission.FileSizeBytes,
+		&submission.SubmittedAt,
+		&submission.IsLate,
+		&submission.Status,
+		&submission.StudentName,
+		&gradeID,
+		&score,
+		&feedback,
+		&gradedBy,
+		&gradedAt,
+	)
+	
+	if err != nil {
+		return nil, err
+	}
+	
+	// Populate grade if it exists
+	if gradeID.Valid {
+		submission.Grade = &models.Grade{
+			ID:           gradeID.String,
+			SubmissionID: submission.ID,
+			Score:        score.Int32,
+			Feedback:     feedback.String,
+			GradedBy:     gradedBy.String,
+			GradedAt:     gradedAt.Time,
+		}
+	}
+	
+	return submission, nil
 }

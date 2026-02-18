@@ -1,3 +1,45 @@
+# ConfigMap for Homework Service configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homework-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: homework
+    component: configuration
+data:
+  PORT: "50053"
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+  S3_ENDPOINT: "http://minio-service:9000"
+  S3_REGION: "us-east-1"
+  HOMEWORK_BUCKET: "metlab-homework"
+  MAX_UPLOAD_SIZE_MB: "25"
+  SUPPORTED_FORMATS: "pdf,docx,txt,jpg,jpeg,png"
+
+---
+# Secret for Homework Service sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: homework-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: homework
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+  S3_ACCESS_KEY: "minioadmin"
+  S3_SECRET_KEY: "minioadmin"
+
+---
+# Deployment for Homework Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,48 +48,228 @@ metadata:
   labels:
     app: metlab
     service: homework
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: metlab
       service: homework
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: metlab
         service: homework
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "50053"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: homework
         image: metlab/homework:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 50053
-          name: grpc
+        - name: grpc
+          containerPort: 50053
+          protocol: TCP
         env:
+        # Configuration from ConfigMap
         - name: PORT
-          value: "50053"
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: PORT
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: ENV
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: DATABASE_NAME
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: S3_ENDPOINT
+        - name: S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: S3_REGION
+        - name: HOMEWORK_BUCKET
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: HOMEWORK_BUCKET
+        - name: MAX_UPLOAD_SIZE_MB
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: MAX_UPLOAD_SIZE_MB
+        - name: SUPPORTED_FORMATS
+          valueFrom:
+            configMapKeyRef:
+              name: homework-config
+              key: SUPPORTED_FORMATS
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: homework-secret
+              key: DATABASE_PASSWORD
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: homework-secret
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: homework-secret
+              key: S3_SECRET_KEY
+        # Computed DATABASE_URL for convenience
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "500m"
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "1Gi"
+            cpu: "1000m"
+        # Health check probes
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50053 || exit 0"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50053 || exit 0"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
 
 ---
+# Service for Homework Service (internal gRPC communication)
 apiVersion: v1
 kind: Service
 metadata:
   name: homework
   namespace: metlab-dev
+  labels:
+    app: metlab
+    service: homework
 spec:
+  type: ClusterIP
   selector:
     app: metlab
     service: homework
   ports:
-  - port: 50053
-    targetPort: 50053
-  type: ClusterIP
+  - name: grpc
+    port: 50053
+    targetPort: grpc
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Homework Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: homework-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: homework
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: homework
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max

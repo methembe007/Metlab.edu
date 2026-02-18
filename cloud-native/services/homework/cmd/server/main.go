@@ -40,15 +40,14 @@ func main() {
 		ServiceName: "homework-service",
 	})
 
-	appLogger.Info("Starting Homework Service", "port", cfg.Port, "environment", cfg.Environment)
+	appLogger.Info("Starting Homework Service", map[string]interface{}{
+		"port":        cfg.Port,
+		"environment": cfg.Environment,
+	})
 
 	// Initialize database connection
 	ctx := context.Background()
-	dbPool, err := db.NewPool(ctx, &db.Config{
-		ConnectionURL: cfg.DatabaseURL,
-		MinConns:      5,
-		MaxConns:      20,
-	})
+	dbPool, err := db.NewPoolFromURL(ctx, cfg.DatabaseURL)
 	if err != nil {
 		appLogger.Fatal("Failed to connect to database", err)
 	}
@@ -69,7 +68,9 @@ func main() {
 		appLogger.Fatal("Failed to initialize storage client", err)
 	}
 
-	appLogger.Info("Storage client initialized", "bucket", cfg.S3Bucket)
+	appLogger.Info("Storage client initialized", map[string]interface{}{
+		"bucket": cfg.S3Bucket,
+	})
 
 	// Create gRPC server
 	grpcServer := grpc.NewServer(
@@ -122,7 +123,9 @@ func main() {
 		os.Exit(0)
 	}()
 
-	appLogger.Info("Homework service listening", "address", lis.Addr().String())
+	appLogger.Info("Homework service listening", map[string]interface{}{
+		"address": lis.Addr().String(),
+	})
 	
 	if err := grpcServer.Serve(lis); err != nil {
 		appLogger.Fatal("Failed to serve", err)
