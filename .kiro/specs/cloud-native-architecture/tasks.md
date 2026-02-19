@@ -555,20 +555,36 @@
 
 ## Phase 6: Analytics Service
 
-- [ ] 40. Implement Analytics Service core structure
+- [x] 40. Implement Analytics Service core structure
+
+
+
+
+
+
   - Create Go project structure for analytics service
   - Implement gRPC server with analytics methods
   - Create database models for student_logins, pdf_downloads
   - Write database migration files for analytics tables
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 41. Implement login tracking
+- [x] 41. Implement login tracking
+
+
+
+
+
   - Implement RecordLogin gRPC handler
   - Store login timestamp, IP address, user agent
   - Associate login with student ID
   - _Requirements: 12.2_
 
-- [ ] 42. Implement student login statistics
+- [x] 42. Implement student login statistics
+
+
+
+
+
   - Implement GetStudentLoginStats gRPC handler
   - Query login data for past 30 days
   - Aggregate logins by day
@@ -576,7 +592,12 @@
   - Return data formatted for graph display
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 43. Implement class engagement analytics
+- [x] 43. Implement class engagement analytics
+
+
+
+
+
   - Implement GetClassEngagement gRPC handler
   - Aggregate video views, homework submissions, login frequency
   - Calculate engagement metrics per student
@@ -589,7 +610,12 @@
   - Test engagement metric calculations
   - _Requirements: 12.1, 12.2, 12.3, 12.4, 12.5_
 
-- [ ] 44. Create Kubernetes deployment for Analytics Service
+- [x] 44. Create Kubernetes deployment for Analytics Service
+
+
+
+
+
   - Write Deployment manifest with resource limits
   - Create Service manifest for gRPC communication
   - Configure environment variables

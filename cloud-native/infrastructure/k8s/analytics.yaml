@@ -1,3 +1,38 @@
+# ConfigMap for Analytics Service configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: analytics-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: analytics
+    component: configuration
+data:
+  PORT: "50054"
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+
+---
+# Secret for Analytics Service sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: analytics-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: analytics
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+
+---
+# Deployment for Analytics Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,48 +41,193 @@ metadata:
   labels:
     app: metlab
     service: analytics
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: metlab
       service: analytics
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: metlab
         service: analytics
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "50054"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: analytics
         image: metlab/analytics:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 50054
-          name: grpc
+        - name: grpc
+          containerPort: 50054
+          protocol: TCP
         env:
+        # Configuration from ConfigMap
         - name: PORT
-          value: "50054"
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: PORT
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: ENV
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: analytics-config
+              key: DATABASE_NAME
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: analytics-secret
+              key: DATABASE_PASSWORD
+        # Computed DATABASE_URL for convenience
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
-          limits:
             memory: "256Mi"
-            cpu: "200m"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        # Health check probes
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50054 || exit 0"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50054 || exit 0"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
 
 ---
+# Service for Analytics Service (internal gRPC communication)
 apiVersion: v1
 kind: Service
 metadata:
   name: analytics
   namespace: metlab-dev
+  labels:
+    app: metlab
+    service: analytics
 spec:
+  type: ClusterIP
   selector:
     app: metlab
     service: analytics
   ports:
-  - port: 50054
-    targetPort: 50054
-  type: ClusterIP
+  - name: grpc
+    port: 50054
+    targetPort: grpc
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Analytics Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: analytics-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: analytics
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: analytics
+  minReplicas: 2
+  maxReplicas: 8
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
