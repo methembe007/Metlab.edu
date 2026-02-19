@@ -1,0 +1,158 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: collaboration-service
+  namespace: metlab-production
+  labels:
+    app: collaboration-service
+    version: v1
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: collaboration-service
+  template:
+    metadata:
+      labels:
+        app: collaboration-service
+        version: v1
+    spec:
+      containers:
+      - name: collaboration
+        image: metlab/collaboration:latest
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 50055
+          name: grpc
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "50055"
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_NAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: DATABASE_PASSWORD
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: REDIS_PORT
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: REDIS_PASSWORD
+              optional: true
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: S3_ENDPOINT
+        - name: S3_BUCKET
+          value: "metlab-chat-images"
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: S3_SECRET_KEY
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50055"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50055"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: collaboration-service
+  namespace: metlab-production
+  labels:
+    app: collaboration-service
+spec:
+  type: ClusterIP
+  ports:
+  - port: 50055
+    targetPort: 50055
+    protocol: TCP
+    name: grpc
+  selector:
+    app: collaboration-service
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: collaboration-service-hpa
+  namespace: metlab-production
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: collaboration-service
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

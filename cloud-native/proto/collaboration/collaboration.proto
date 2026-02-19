@@ -33,6 +33,7 @@ message StudyGroup {
 message JoinStudyGroupRequest {
   string study_group_id = 1;
   string student_id = 2;
+  string class_id = 3;
 }
 
 message JoinStudyGroupResponse {
