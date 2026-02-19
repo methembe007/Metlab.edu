@@ -6,7 +6,6 @@ import (
 	"io"
 	"log"
 
-	"github.com/google/uuid"
 	"github.com/metlab/collaboration/internal/service"
 	pb "metlab/proto-gen/go/collaboration"
 	"google.golang.org/grpc/codes"
@@ -188,21 +187,21 @@ func (h *CollaborationHandler) SendMessage(ctx context.Context, req *pb.SendMess
 		return nil, status.Error(codes.InvalidArgument, "message must contain text or image")
 	}
 	
-	// TODO: Handle image upload to S3 if image_data is provided
-	var imagePath *string
-	if len(req.ImageData) > 0 {
-		// For now, we'll just generate a placeholder path
-		// In a full implementation, this would upload to S3
-		path := fmt.Sprintf("chat-images/%s/%s", req.ChatRoomId, uuid.New().String())
-		imagePath = &path
-		log.Printf("Image upload not yet implemented, using placeholder path: %s", path)
+	// Validate message text length (max 1000 characters)
+	if len(req.MessageText) > 1000 {
+		return nil, status.Error(codes.InvalidArgument, "message text exceeds maximum length of 1000 characters")
 	}
 	
-	// Send message
-	message, err := h.service.SendMessage(ctx, req.ChatRoomId, req.SenderId, "Student", req.MessageText, imagePath)
+	// Validate image size (max 5MB)
+	if len(req.ImageData) > 5*1024*1024 {
+		return nil, status.Error(codes.InvalidArgument, "image size exceeds maximum of 5MB")
+	}
+	
+	// Send message with image data
+	message, err := h.service.SendMessage(ctx, req.ChatRoomId, req.SenderId, "Student", req.MessageText, req.ImageData, req.ImageFilename)
 	if err != nil {
 		log.Printf("Failed to send message: %v", err)
-		return nil, status.Error(codes.Internal, "failed to send message")
+		return nil, status.Error(codes.Internal, fmt.Sprintf("failed to send message: %v", err))
 	}
 	
 	return &pb.SendMessageResponse{

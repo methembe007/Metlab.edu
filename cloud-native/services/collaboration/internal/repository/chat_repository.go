@@ -134,12 +134,14 @@ func (r *ChatRepository) CreateMessage(ctx context.Context, message *models.Chat
 	return nil
 }
 
-// GetMessages retrieves messages for a chat room
+// GetMessages retrieves messages for a chat room (past 7 days only)
 func (r *ChatRepository) GetMessages(ctx context.Context, roomID string, limit int32, beforeTimestamp int64) ([]*models.ChatMessage, error) {
 	query := `
 		SELECT id, chat_room_id, sender_id, sender_name, message_text, image_path, sent_at
 		FROM chat_messages
-		WHERE chat_room_id = $1 AND sent_at < $2
+		WHERE chat_room_id = $1 
+		  AND sent_at < $2
+		  AND sent_at >= NOW() - INTERVAL '7 days'
 		ORDER BY sent_at DESC
 		LIMIT $3
 	`

@@ -16,6 +16,7 @@ import (
 	"github.com/metlab/collaboration/internal/repository"
 	"github.com/metlab/collaboration/internal/service"
 	pb "metlab/proto-gen/go/collaboration"
+	"github.com/metlab/shared/storage"
 	"github.com/redis/go-redis/v9"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/health"
@@ -56,6 +57,36 @@ func main() {
 	
 	log.Println("Successfully connected to Redis")
 
+	// Initialize S3 storage client
+	storageConfig := &storage.Config{
+		Endpoint:        fmt.Sprintf("http://%s", cfg.S3Endpoint),
+		Region:          "us-east-1",
+		AccessKeyID:     cfg.S3AccessKey,
+		SecretAccessKey: cfg.S3SecretKey,
+		UseSSL:          false,
+		ForcePathStyle:  true,
+	}
+	
+	storageClient, err := storage.NewClient(storageConfig)
+	if err != nil {
+		log.Fatalf("Failed to create storage client: %v", err)
+	}
+	
+	// Ensure bucket exists
+	bucketExists, err := storageClient.BucketExists(ctx, cfg.S3Bucket)
+	if err != nil {
+		log.Printf("Warning: Failed to check if bucket exists: %v", err)
+	} else if !bucketExists {
+		log.Printf("Creating bucket: %s", cfg.S3Bucket)
+		if err := storageClient.CreateBucket(ctx, cfg.S3Bucket); err != nil {
+			log.Printf("Warning: Failed to create bucket: %v", err)
+		} else {
+			log.Printf("Successfully created bucket: %s", cfg.S3Bucket)
+		}
+	}
+	
+	log.Println("Successfully initialized S3 storage client")
+
 	// Initialize repositories
 	studyGroupRepo := repository.NewStudyGroupRepository(database.Pool)
 	chatRepo := repository.NewChatRepository(database.Pool)
@@ -66,6 +97,7 @@ func main() {
 		studyGroupRepo,
 		chatRepo,
 		redisClient,
+		storageClient,
 	)
 
 	// Initialize handler

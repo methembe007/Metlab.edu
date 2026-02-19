@@ -1,15 +1,19 @@
 package service
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"fmt"
 	"log"
+	"path/filepath"
+	"strings"
 
 	"github.com/google/uuid"
 	"github.com/metlab/collaboration/internal/config"
 	"github.com/metlab/collaboration/internal/models"
 	"github.com/metlab/collaboration/internal/repository"
+	"github.com/metlab/shared/storage"
 	"github.com/redis/go-redis/v9"
 )
 
@@ -19,6 +23,7 @@ type CollaborationService struct {
 	studyGroupRepo *repository.StudyGroupRepository
 	chatRepo       *repository.ChatRepository
 	redisClient    *redis.Client
+	storageClient  *storage.Client
 }
 
 // NewCollaborationService creates a new collaboration service
@@ -27,12 +32,14 @@ func NewCollaborationService(
 	studyGroupRepo *repository.StudyGroupRepository,
 	chatRepo *repository.ChatRepository,
 	redisClient *redis.Client,
+	storageClient *storage.Client,
 ) *CollaborationService {
 	return &CollaborationService{
 		config:         cfg,
 		studyGroupRepo: studyGroupRepo,
 		chatRepo:       chatRepo,
 		redisClient:    redisClient,
+		storageClient:  storageClient,
 	}
 }
 
@@ -185,20 +192,76 @@ func (s *CollaborationService) CreateChatRoom(ctx context.Context, classID, stud
 }
 
 // SendMessage sends a message to a chat room
-func (s *CollaborationService) SendMessage(ctx context.Context, roomID, senderID, senderName, messageText string, imagePath *string) (*models.ChatMessage, error) {
+func (s *CollaborationService) SendMessage(ctx context.Context, roomID, senderID, senderName, messageText string, imageData []byte, imageFilename string) (*models.ChatMessage, error) {
 	// Validate input
-	if messageText == "" && (imagePath == nil || *imagePath == "") {
+	if messageText == "" && len(imageData) == 0 {
 		return nil, fmt.Errorf("message must contain text or image")
 	}
 
+	// Validate message text length
 	if len(messageText) > s.config.MaxMessageLength {
-		return nil, fmt.Errorf("message text exceeds maximum length (%d)", s.config.MaxMessageLength)
+		return nil, fmt.Errorf("message text exceeds maximum length of %d characters", s.config.MaxMessageLength)
+	}
+
+	// Validate image size
+	if len(imageData) > 0 && int64(len(imageData)) > s.config.MaxImageSize {
+		return nil, fmt.Errorf("image size exceeds maximum of %d bytes (5MB)", s.config.MaxImageSize)
 	}
 
 	// Verify chat room exists
 	_, err := s.chatRepo.GetRoomByID(ctx, roomID)
 	if err != nil {
 		return nil, fmt.Errorf("chat room not found: %w", err)
+	}
+
+	// Upload image to S3 if provided
+	var imagePath *string
+	if len(imageData) > 0 {
+		// Generate unique filename
+		ext := filepath.Ext(imageFilename)
+		if ext == "" {
+			ext = ".jpg" // Default extension
+		}
+		
+		// Validate file extension
+		validExtensions := []string{".jpg", ".jpeg", ".png", ".gif", ".webp"}
+		isValid := false
+		extLower := strings.ToLower(ext)
+		for _, validExt := range validExtensions {
+			if extLower == validExt {
+				isValid = true
+				break
+			}
+		}
+		if !isValid {
+			return nil, fmt.Errorf("invalid image format, supported formats: jpg, jpeg, png, gif, webp")
+		}
+		
+		key := fmt.Sprintf("chat-images/%s/%s%s", roomID, uuid.New().String(), ext)
+		
+		// Determine content type
+		contentType := "image/jpeg"
+		switch extLower {
+		case ".png":
+			contentType = "image/png"
+		case ".gif":
+			contentType = "image/gif"
+		case ".webp":
+			contentType = "image/webp"
+		}
+		
+		// Upload to S3
+		_, err := s.storageClient.Upload(ctx, s.config.S3Bucket, key, bytes.NewReader(imageData), &storage.UploadOptions{
+			ContentType: contentType,
+			ACL:         "public-read",
+		})
+		if err != nil {
+			log.Printf("Failed to upload image to S3: %v", err)
+			return nil, fmt.Errorf("failed to upload image: %w", err)
+		}
+		
+		imagePath = &key
+		log.Printf("Successfully uploaded image to S3: %s", key)
 	}
 
 	// Create message
@@ -218,7 +281,7 @@ func (s *CollaborationService) SendMessage(ctx context.Context, roomID, senderID
 	// Publish message to Redis pub/sub for real-time delivery
 	if err := s.publishMessage(ctx, message); err != nil {
 		log.Printf("Failed to publish message to Redis: %v", err)
-		// Don't fail the request if pub/sub fails
+		// Don't fail the request if pub/sub fails, message is already stored
 	}
 
 	return message, nil

@@ -666,21 +666,43 @@
   - Add student to group members
   - _Requirements: 13.3, 13.4, 13.5_
 
-- [ ] 48. Implement study group listing
+- [x] 48. Implement study group listing
+
+
+
+
+
+
+
+
+
+
+
+
   - Implement ListStudyGroups gRPC handler
   - Filter groups by class
   - Include member count for each group
   - Show which groups student has joined
   - _Requirements: 13.3_
 
-- [ ] 49. Implement chat room creation
+- [x] 49. Implement chat room creation
+
+
+
+
+
   - Implement CreateChatRoom gRPC handler
   - Validate room name and topic
   - Restrict access to same class students
   - Store creator information
   - _Requirements: 14.1, 14.3_
 
-- [ ] 50. Implement chat message sending
+- [x] 50. Implement chat message sending
+
+
+
+
+
   - Implement SendMessage gRPC handler
   - Validate message text (max 1000 characters)
   - Support image attachments (max 5MB)
@@ -689,7 +711,12 @@
   - Deliver to all connected clients within 2 seconds
   - _Requirements: 14.2, 14.4, 14.5_
 
-- [ ] 51. Implement chat message retrieval
+- [x] 51. Implement chat message retrieval
+
+
+
+
+
   - Implement GetMessages gRPC handler
   - Query messages for past 7 days
   - Sort by timestamp descending
