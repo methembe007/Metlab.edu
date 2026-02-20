@@ -1,0 +1,160 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: pdf-service
+  namespace: metlab
+  labels:
+    app: pdf-service
+spec:
+  selector:
+    app: pdf-service
+  ports:
+    - name: grpc
+      port: 50056
+      targetPort: 50056
+      protocol: TCP
+  type: ClusterIP
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pdf-service
+  namespace: metlab
+  labels:
+    app: pdf-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pdf-service
+  template:
+    metadata:
+      labels:
+        app: pdf-service
+    spec:
+      containers:
+      - name: pdf-service
+        image: metlab/pdf-service:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 50056
+          name: grpc
+          protocol: TCP
+        env:
+        - name: PORT
+          value: "50056"
+        - name: ENVIRONMENT
+          value: "production"
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: DATABASE_NAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: DATABASE_PASSWORD
+        - name: DATABASE_SSL_MODE
+          value: "require"
+        - name: S3_ENDPOINT
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: S3_ENDPOINT
+        - name: S3_BUCKET
+          value: "metlab-pdfs"
+        - name: S3_REGION
+          valueFrom:
+            configMapKeyRef:
+              name: metlab-config
+              key: S3_REGION
+        - name: S3_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: S3_ACCESS_KEY
+        - name: S3_SECRET_KEY
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: S3_SECRET_KEY
+        - name: S3_USE_SSL
+          value: "true"
+        - name: MAX_UPLOAD_SIZE
+          value: "52428800"
+        - name: JWT_SECRET
+          valueFrom:
+            secretKeyRef:
+              name: metlab-secrets
+              key: JWT_SECRET
+        resources:
+          requests:
+            memory: "256Mi"
+            cpu: "250m"
+          limits:
+            memory: "512Mi"
+            cpu: "500m"
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc-health-probe -addr=:50056"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc-health-probe -addr=:50056"
+          initialDelaySeconds: 5
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 2
+
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: pdf-service-hpa
+  namespace: metlab
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: pdf-service
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80

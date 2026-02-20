@@ -52,7 +52,7 @@ func (c *S3Client) UploadFile(ctx context.Context, localPath, key string) error 
 	}
 	defer file.Close()
 
-	_, err = c.Upload(ctx, c.bucket, key, file, nil)
+	_, err = c.Client.Upload(ctx, c.bucket, key, file, nil)
 	if err != nil {
 		return fmt.Errorf("failed to upload file: %w", err)
 	}
@@ -88,7 +88,7 @@ func (c *S3Client) GetObjectReader(ctx context.Context, key string) (io.ReadClos
 
 // DeleteFile deletes a file from S3
 func (c *S3Client) DeleteFile(ctx context.Context, key string) error {
-	return c.Delete(ctx, c.bucket, key)
+	return c.Client.Delete(ctx, c.bucket, key)
 }
 
 // FileExists checks if a file exists in S3
@@ -99,4 +99,27 @@ func (c *S3Client) FileExists(ctx context.Context, key string) (bool, error) {
 // GenerateDownloadURL generates a presigned URL for downloading a file
 func (c *S3Client) GenerateDownloadURL(key string, expiration time.Duration) (string, error) {
 	return c.GeneratePresignedURL(c.bucket, key, expiration)
+}
+
+// Upload uploads byte data to S3 with the configured bucket
+func (c *S3Client) Upload(ctx context.Context, key string, data []byte) error {
+	_, err := c.Client.UploadBytes(ctx, c.bucket, key, data, &UploadOptions{
+		ContentType: "application/pdf",
+		ACL:         "private",
+	})
+	return err
+}
+
+// Delete deletes a file from S3 using the configured bucket
+func (c *S3Client) Delete(ctx context.Context, key string) error {
+	return c.Client.Delete(ctx, c.bucket, key)
+}
+
+// GetSignedURL generates a presigned URL for downloading a file with expiration time
+func (c *S3Client) GetSignedURL(ctx context.Context, key string, expiresAt time.Time) (string, error) {
+	duration := time.Until(expiresAt)
+	if duration <= 0 {
+		return "", fmt.Errorf("expiration time must be in the future")
+	}
+	return c.GeneratePresignedURL(c.bucket, key, duration)
 }

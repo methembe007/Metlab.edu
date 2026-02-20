@@ -1,0 +1,119 @@
+================================================================================
+METLAB.EDU FRONTEND - WSL SETUP INSTRUCTIONS
+================================================================================
+
+PROBLEM:
+You're trying to run npm commands from Windows on a WSL path, which doesn't work.
+Error: "UNC paths are not supported" and "'vinxi' is not recognized"
+
+SOLUTION:
+Run commands from within WSL (Ubuntu) terminal.
+
+================================================================================
+STEP-BY-STEP INSTRUCTIONS
+================================================================================
+
+METHOD 1: Use the Setup Script (Easiest)
+-----------------------------------------
+
+1. Open WSL Terminal:
+   - Open Windows Terminal → Select "Ubuntu" profile
+   - OR: Press Win+R, type "wsl", press Enter
+   - OR: Search "Ubuntu" in Windows Start menu
+
+2. Navigate to project:
+   cd /home/metrix/git/Metlab.edu/cloud-native/frontend
+
+3. Run setup script:
+   chmod +x setup.sh
+   ./setup.sh
+
+4. Start dev server:
+   npm run dev
+
+5. Open browser:
+   http://localhost:3000
+
+
+METHOD 2: Use Windows Batch Script
+-----------------------------------
+
+1. From Windows Explorer, navigate to:
+   \\wsl.localhost\Ubuntu\home\metrix\git\Metlab.edu\cloud-native\frontend
+
+2. Double-click: setup-from-windows.bat
+   (This will run the setup via WSL)
+
+3. After setup completes, double-click: dev-from-windows.bat
+   (This will start the dev server)
+
+4. Open browser:
+   http://localhost:3000
+
+
+METHOD 3: Manual Installation
+------------------------------
+
+From WSL terminal:
+
+cd /home/metrix/git/Metlab.edu/cloud-native/frontend
+rm -rf node_modules package-lock.json
+npm cache clean --force
+npm install --legacy-peer-deps
+npm run dev
+
+================================================================================
+VERIFICATION
+================================================================================
+
+After running "npm run dev", you should see:
+
+  vinxi v0.5.11
+  ➜ Local:   http://localhost:3000/
+
+Then open http://localhost:3000 in your browser.
+
+================================================================================
+WHY THIS HAPPENS
+================================================================================
+
+- Your project files are in WSL (Linux) filesystem
+- Windows CMD/PowerShell cannot directly execute commands on WSL paths
+- npm packages installed in WSL are not accessible from Windows context
+- Solution: Always run npm commands from WSL terminal
+
+================================================================================
+TROUBLESHOOTING
+================================================================================
+
+Issue: "Cannot find module 'vite-tsconfig-paths'"
+Solution: Run from WSL: npm install --legacy-peer-deps
+
+Issue: "Port 3000 already in use"
+Solution: Run from WSL: lsof -ti:3000 | xargs kill -9
+
+Issue: Permission errors
+Solution: Run from WSL: sudo chown -R $USER:$USER .
+
+================================================================================
+NEXT STEPS
+================================================================================
+
+After successful setup:
+
+1. Dev server runs at http://localhost:3000
+2. TanStack Router Devtools: bottom-right corner
+3. TanStack Query Devtools: bottom-left corner
+4. Make changes to files in app/ directory
+5. Hot reload will update automatically
+
+================================================================================
+DOCUMENTATION
+================================================================================
+
+- QUICK_START.md - Quick start guide
+- SETUP_GUIDE.md - Comprehensive setup and usage
+- README.md - Project overview
+- IMPLEMENTATION_SUMMARY.md - Task completion details
+
+================================================================================

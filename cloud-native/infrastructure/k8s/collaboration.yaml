@@ -1,3 +1,49 @@
+# ConfigMap for Collaboration Service configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: collaboration-config
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: collaboration
+    component: configuration
+data:
+  PORT: "50055"
+  ENV: "development"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_USER: "postgres"
+  DATABASE_NAME: "metlab"
+  REDIS_HOST: "redis"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  REDIS_POOL_SIZE: "10"
+  MAX_STUDY_GROUPS_PER_STUDENT: "5"
+  MAX_STUDY_GROUP_MEMBERS: "10"
+  MAX_MESSAGE_LENGTH: "1000"
+  MAX_IMAGE_SIZE_MB: "5"
+  MESSAGE_RETENTION_DAYS: "7"
+  CHAT_RATE_LIMIT_PER_MINUTE: "60"
+
+---
+# Secret for Collaboration Service sensitive data
+apiVersion: v1
+kind: Secret
+metadata:
+  name: collaboration-secret
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: collaboration
+    component: configuration
+type: Opaque
+stringData:
+  DATABASE_PASSWORD: "postgres"
+  REDIS_PASSWORD: ""
+
+---
+# Deployment for Collaboration Service
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -6,50 +52,250 @@ metadata:
   labels:
     app: metlab
     service: collaboration
+    version: v1
 spec:
   replicas: 2
   selector:
     matchLabels:
       app: metlab
       service: collaboration
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
   template:
     metadata:
       labels:
         app: metlab
         service: collaboration
+        version: v1
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "50055"
+        prometheus.io/path: "/metrics"
     spec:
       containers:
       - name: collaboration
         image: metlab/collaboration:latest
+        imagePullPolicy: IfNotPresent
         ports:
-        - containerPort: 50055
-          name: grpc
+        - name: grpc
+          containerPort: 50055
+          protocol: TCP
         env:
+        # Configuration from ConfigMap
         - name: PORT
-          value: "50055"
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: PORT
+        - name: ENV
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: ENV
+        - name: DATABASE_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: DATABASE_HOST
+        - name: DATABASE_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: DATABASE_PORT
+        - name: DATABASE_USER
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: DATABASE_USER
+        - name: DATABASE_NAME
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: DATABASE_NAME
+        - name: REDIS_HOST
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: REDIS_HOST
+        - name: REDIS_PORT
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: REDIS_PORT
+        - name: REDIS_DB
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: REDIS_DB
+        - name: REDIS_POOL_SIZE
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: REDIS_POOL_SIZE
+        - name: MAX_STUDY_GROUPS_PER_STUDENT
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: MAX_STUDY_GROUPS_PER_STUDENT
+        - name: MAX_STUDY_GROUP_MEMBERS
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: MAX_STUDY_GROUP_MEMBERS
+        - name: MAX_MESSAGE_LENGTH
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: MAX_MESSAGE_LENGTH
+        - name: MAX_IMAGE_SIZE_MB
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: MAX_IMAGE_SIZE_MB
+        - name: MESSAGE_RETENTION_DAYS
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: MESSAGE_RETENTION_DAYS
+        - name: CHAT_RATE_LIMIT_PER_MINUTE
+          valueFrom:
+            configMapKeyRef:
+              name: collaboration-config
+              key: CHAT_RATE_LIMIT_PER_MINUTE
+        # Secrets
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: collaboration-secret
+              key: DATABASE_PASSWORD
+        - name: REDIS_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: collaboration-secret
+              key: REDIS_PASSWORD
+        # Computed URLs for convenience
         - name: DATABASE_URL
-          value: "postgres://postgres:postgres@postgres:5432/metlab?sslmode=disable"
+          value: "postgres://$(DATABASE_USER):$(DATABASE_PASSWORD)@$(DATABASE_HOST):$(DATABASE_PORT)/$(DATABASE_NAME)?sslmode=disable"
         - name: REDIS_URL
-          value: "redis:6379"
+          value: "redis://$(REDIS_HOST):$(REDIS_PORT)/$(REDIS_DB)"
         resources:
           requests:
-            memory: "128Mi"
-            cpu: "100m"
+            memory: "512Mi"
+            cpu: "500m"
           limits:
-            memory: "256Mi"
-            cpu: "200m"
+            memory: "1Gi"
+            cpu: "1000m"
+        # Health check probes
+        livenessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50055 || exit 0"
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+          successThreshold: 1
+        readinessProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "grpc_health_probe -addr=:50055 || exit 0"
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+          successThreshold: 1
+        # Security context
+        securityContext:
+          runAsNonRoot: false
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+            - ALL
+          readOnlyRootFilesystem: false
+      # Restart policy
+      restartPolicy: Always
+      # DNS policy
+      dnsPolicy: ClusterFirst
+      # Termination grace period
+      terminationGracePeriodSeconds: 30
 
 ---
+# Service for Collaboration Service (internal gRPC communication)
 apiVersion: v1
 kind: Service
 metadata:
   name: collaboration
   namespace: metlab-dev
+  labels:
+    app: metlab
+    service: collaboration
 spec:
+  type: ClusterIP
   selector:
     app: metlab
     service: collaboration
   ports:
-  - port: 50055
-    targetPort: 50055
-  type: ClusterIP
+  - name: grpc
+    port: 50055
+    targetPort: grpc
+    protocol: TCP
+  sessionAffinity: None
+
+---
+# Horizontal Pod Autoscaler for Collaboration Service
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: collaboration-hpa
+  namespace: metlab-dev
+  labels:
+    app: metlab
+    service: collaboration
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: collaboration
+  minReplicas: 2
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 80
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 85
+  behavior:
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+      - type: Pods
+        value: 1
+        periodSeconds: 60
+      selectPolicy: Min
+    scaleUp:
+      stabilizationWindowSeconds: 0
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 30
+      - type: Pods
+        value: 2
+        periodSeconds: 30
+      selectPolicy: Max
