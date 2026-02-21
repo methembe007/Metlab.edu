@@ -1,201 +1,204 @@
-# Metlab.edu Frontend
+Welcome to your new TanStack Start app! 
 
-Modern, cloud-native frontend application built with TanStack Start, React, and TypeScript.
+# Getting Started
 
-## 🚀 Quick Start
-
-### For WSL/Linux Users
-
-```bash
-cd /home/metrix/git/Metlab.edu/cloud-native/frontend
-./setup.sh
-npm run dev
-```
-
-### For Windows Users (Running WSL Project)
-
-**Option 1: Use the batch script (Recommended)**
-```cmd
-setup-from-windows.bat
-dev-from-windows.bat
-```
-
-**Option 2: Open WSL terminal and run**
-```bash
-cd /home/metrix/git/Metlab.edu/cloud-native/frontend
-./setup.sh
-npm run dev
-```
-
-📖 **See [QUICK_START.md](./QUICK_START.md) for detailed instructions**
-
-## ⚠️ Important Note
-
-This project is in a WSL filesystem. Always run npm commands from within WSL, not from Windows CMD/PowerShell. Windows cannot directly execute commands on WSL paths.
-
-## Tech Stack
-
-- **Framework**: TanStack Start (React-based SSR framework)
-- **Routing**: TanStack Router (file-based routing)
-- **Data Fetching**: TanStack Query (server state management)
-- **Styling**: Tailwind CSS
-- **Language**: TypeScript
-- **Build Tool**: Vite (via Vinxi)
-
-## Project Structure
-
-```
-app/
-├── routes/              # File-based routes
-│   ├── __root.tsx      # Root layout with providers
-│   └── index.tsx       # Home page
-├── components/          # Reusable components
-│   └── layout/         # Layout components (Header, Footer, Sidebar)
-├── lib/                # Utilities and configurations
-│   ├── queryClient.ts  # TanStack Query configuration
-│   └── apiClient.ts    # API client for backend communication
-├── client.tsx          # Client entry point
-├── router.tsx          # Router configuration
-├── ssr.tsx            # SSR entry point
-└── styles.css         # Global styles (Tailwind)
-```
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js 18+ 
-- npm or yarn
-
-### Installation
+To run this application:
 
 ```bash
 npm install
-```
-
-### Development
-
-```bash
 npm run dev
 ```
 
-The app will be available at `http://localhost:3000`
+# Building For Production
 
-### Build
+To build this application for production:
 
 ```bash
 npm run build
 ```
 
-### Production
-
-```bash
-npm run start
-```
-
-## Key Features
-
-### TanStack Router
-
-File-based routing with automatic route generation. Routes are defined in the `app/routes/` directory.
-
-- `__root.tsx` - Root layout component
-- `index.tsx` - Home page (/)
-- `teacher/` - Teacher portal routes
-- `student/` - Student portal routes
-
-### TanStack Query
-
-Configured with sensible defaults:
-- 1 minute stale time
-- 5 minute garbage collection time
-- 3 retry attempts for queries
-- Automatic refetch disabled on window focus
-
-### API Client
-
-Centralized API client with:
-- Automatic JWT token injection
-- Request/response interceptors
-- File upload support
-- Type-safe requests
-
-### Layout Components
-
-Reusable layout components:
-- **Header**: Navigation bar with user info and logout
-- **Sidebar**: Collapsible navigation menu
-- **Footer**: Site footer with links
-- **Layout**: Wrapper component combining all layouts
-
-## Environment Variables
-
-Create a `.env` file:
-
-```env
-VITE_API_URL=http://localhost:8080/api
-```
-
-## Development Tools
-
-- **Router Devtools**: Bottom-right corner (development only)
-- **Query Devtools**: Bottom-left corner (development only)
-- **ESLint**: Code linting
-- **Vitest**: Unit testing
-
 ## Testing
+
+This project uses [Vitest](https://vitest.dev/) for testing. You can run the tests with:
 
 ```bash
 npm run test
 ```
 
-## Linting
+## Styling
+
+This project uses [Tailwind CSS](https://tailwindcss.com/) for styling.
+
+### Removing Tailwind CSS
+
+If you prefer not to use Tailwind CSS:
+
+1. Remove the demo pages in `src/routes/demo/`
+2. Replace the Tailwind import in `src/styles.css` with your own styles
+3. Remove `tailwindcss()` from the plugins array in `vite.config.ts`
+4. Uninstall the packages: `npm install @tailwindcss/vite tailwindcss -D`
+
+## Linting & Formatting
+
+
+This project uses [eslint](https://eslint.org/) and [prettier](https://prettier.io/) for linting and formatting. Eslint is configured using [tanstack/eslint-config](https://tanstack.com/config/latest/docs/eslint). The following scripts are available:
 
 ```bash
 npm run lint
+npm run format
+npm run check
 ```
 
-## Docker
 
-Build the Docker image:
 
-```bash
-docker build -t metlab-frontend .
+## Routing
+
+This project uses [TanStack Router](https://tanstack.com/router) with file-based routing. Routes are managed as files in `src/routes`.
+
+### Adding A Route
+
+To add a new route to your application just add a new file in the `./src/routes` directory.
+
+TanStack will automatically generate the content of the route file for you.
+
+Now that you have two routes you can use a `Link` component to navigate between them.
+
+### Adding Links
+
+To use SPA (Single Page Application) navigation you will need to import the `Link` component from `@tanstack/react-router`.
+
+```tsx
+import { Link } from "@tanstack/react-router";
 ```
 
-Run the container:
+Then anywhere in your JSX you can use it like so:
 
-```bash
-docker run -p 3000:3000 metlab-frontend
+```tsx
+<Link to="/about">About</Link>
 ```
 
-## Contributing
+This will create a link that will navigate to the `/about` route.
 
-1. Create a new route in `app/routes/`
-2. Use layout components from `app/components/layout/`
-3. Use TanStack Query hooks for data fetching
-4. Follow TypeScript best practices
-5. Ensure responsive design with Tailwind CSS
+More information on the `Link` component can be found in the [Link documentation](https://tanstack.com/router/v1/docs/framework/react/api/router/linkComponent).
 
-## Architecture Decisions
+### Using A Layout
 
-### Why TanStack Start?
+In the File Based Routing setup the layout is located in `src/routes/__root.tsx`. Anything you add to the root route will appear in all the routes. The route content will appear in the JSX where you render `{children}` in the `shellComponent`.
 
-- Server-side rendering for better SEO and initial load
-- File-based routing for intuitive organization
-- Built-in code splitting
-- Excellent TypeScript support
+Here is an example layout that includes a header:
 
-### Why TanStack Query?
+```tsx
+import { HeadContent, Scripts, createRootRoute } from '@tanstack/react-router'
 
-- Automatic caching and background refetching
-- Optimistic updates
-- Request deduplication
-- Built-in loading and error states
+export const Route = createRootRoute({
+  head: () => ({
+    meta: [
+      { charSet: 'utf-8' },
+      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { title: 'My App' },
+    ],
+  }),
+  shellComponent: ({ children }) => (
+    <html lang="en">
+      <head>
+        <HeadContent />
+      </head>
+      <body>
+        <header>
+          <nav>
+            <Link to="/">Home</Link>
+            <Link to="/about">About</Link>
+          </nav>
+        </header>
+        {children}
+        <Scripts />
+      </body>
+    </html>
+  ),
+})
+```
 
-### Why Tailwind CSS?
+More information on layouts can be found in the [Layouts documentation](https://tanstack.com/router/latest/docs/framework/react/guide/routing-concepts#layouts).
 
-- Utility-first approach for rapid development
-- Small bundle size with purging
-- Consistent design system
-- Excellent responsive design support
+## Server Functions
+
+TanStack Start provides server functions that allow you to write server-side code that seamlessly integrates with your client components.
+
+```tsx
+import { createServerFn } from '@tanstack/react-start'
+
+const getServerTime = createServerFn({
+  method: 'GET',
+}).handler(async () => {
+  return new Date().toISOString()
+})
+
+// Use in a component
+function MyComponent() {
+  const [time, setTime] = useState('')
+  
+  useEffect(() => {
+    getServerTime().then(setTime)
+  }, [])
+  
+  return <div>Server time: {time}</div>
+}
+```
+
+## API Routes
+
+You can create API routes by using the `server` property in your route definitions:
+
+```tsx
+import { createFileRoute } from '@tanstack/react-router'
+import { json } from '@tanstack/react-start'
+
+export const Route = createFileRoute('/api/hello')({
+  server: {
+    handlers: {
+      GET: () => json({ message: 'Hello, World!' }),
+    },
+  },
+})
+```
+
+## Data Fetching
+
+There are multiple ways to fetch data in your application. You can use TanStack Query to fetch data from a server. But you can also use the `loader` functionality built into TanStack Router to load the data for a route before it's rendered.
+
+For example:
+
+```tsx
+import { createFileRoute } from '@tanstack/react-router'
+
+export const Route = createFileRoute('/people')({
+  loader: async () => {
+    const response = await fetch('https://swapi.dev/api/people')
+    return response.json()
+  },
+  component: PeopleComponent,
+})
+
+function PeopleComponent() {
+  const data = Route.useLoaderData()
+  return (
+    <ul>
+      {data.results.map((person) => (
+        <li key={person.name}>{person.name}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+Loaders simplify your data fetching logic dramatically. Check out more information in the [Loader documentation](https://tanstack.com/router/latest/docs/framework/react/guide/data-loading#loader-parameters).
+
+# Demo files
+
+Files prefixed with `demo` can be safely deleted. They are there to provide a starting point for you to play around with the features you've installed.
+
+# Learn More
+
+You can learn more about all of the offerings from TanStack in the [TanStack documentation](https://tanstack.com).
+
+For TanStack Start specific documentation, visit [TanStack Start](https://tanstack.com/start).
