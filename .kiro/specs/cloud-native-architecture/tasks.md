@@ -974,7 +974,7 @@
   - Display login activity graph
   - _Requirements: 9.1, 12.1_
 
-- [ ] 69. Implement video viewing UI for students
+- [x] 69. Implement video viewing UI for students
   - Create video player with HLS support
   - Implement playback controls (play, pause, seek, speed)
   - Show video progress and resume functionality
