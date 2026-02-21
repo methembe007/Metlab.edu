@@ -2,6 +2,17 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as IndexRoute } from './routes/index'
+import { Route as TeacherVideoAnalyticsRoute } from './routes/teacher/video-analytics'
+import { Route as TeacherVideosRoute } from './routes/teacher/videos'
+import { Route as TeacherStudentsRoute } from './routes/teacher/students'
+import { Route as TeacherSignupRoute } from './routes/teacher/signup'
+import { Route as TeacherPdfsRoute } from './routes/teacher/pdfs'
+import { Route as TeacherLoginRoute } from './routes/teacher/login'
+import { Route as TeacherHomeworkRoute } from './routes/teacher/homework'
+import { Route as TeacherDashboardRoute } from './routes/teacher/dashboard'
+import { Route as TeacherAnalyticsRoute } from './routes/teacher/analytics'
+import { Route as StudentSigninRoute } from './routes/student/signin'
+import { Route as StudentDashboardRoute } from './routes/student/dashboard'
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
@@ -9,7 +20,64 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRoute
       parentRoute: typeof rootRoute
     }
+    '/teacher/analytics': {
+      preLoaderRoute: typeof TeacherAnalyticsRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/dashboard': {
+      preLoaderRoute: typeof TeacherDashboardRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/homework': {
+      preLoaderRoute: typeof TeacherHomeworkRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/login': {
+      preLoaderRoute: typeof TeacherLoginRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/pdfs': {
+      preLoaderRoute: typeof TeacherPdfsRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/signup': {
+      preLoaderRoute: typeof TeacherSignupRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/students': {
+      preLoaderRoute: typeof TeacherStudentsRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/videos': {
+      preLoaderRoute: typeof TeacherVideosRoute
+      parentRoute: typeof rootRoute
+    }
+    '/teacher/video-analytics': {
+      preLoaderRoute: typeof TeacherVideoAnalyticsRoute
+      parentRoute: typeof rootRoute
+    }
+    '/student/dashboard': {
+      preLoaderRoute: typeof StudentDashboardRoute
+      parentRoute: typeof rootRoute
+    }
+    '/student/signin': {
+      preLoaderRoute: typeof StudentSigninRoute
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
-export const routeTree = rootRoute.addChildren([IndexRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  TeacherAnalyticsRoute,
+  TeacherDashboardRoute,
+  TeacherHomeworkRoute,
+  TeacherLoginRoute,
+  TeacherPdfsRoute,
+  TeacherSignupRoute,
+  TeacherStudentsRoute,
+  TeacherVideosRoute,
+  TeacherVideoAnalyticsRoute,
+  StudentDashboardRoute,
+  StudentSigninRoute,
+])

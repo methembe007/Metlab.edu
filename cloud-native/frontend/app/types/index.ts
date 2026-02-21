@@ -82,6 +82,7 @@ export interface Submission {
   id: string
   assignmentId: string
   studentId: string
+  studentName: string
   fileName: string
   fileSizeBytes: number
   submittedAt: string
@@ -89,6 +90,29 @@ export interface Submission {
   status: 'submitted' | 'graded' | 'returned'
   score?: number
   feedback?: string
+  gradedAt?: string
+  gradedBy?: string
+}
+
+export interface Grade {
+  id: string
+  submissionId: string
+  score: number
+  feedback: string
+  gradedBy: string
+  gradedAt: string
+}
+
+export interface SubmissionWithAssignment extends Submission {
+  assignmentTitle: string
+  assignmentMaxScore: number
+}
+
+export interface ClassAverageStats {
+  assignmentId: string
+  averageScore: number
+  totalSubmissions: number
+  gradedSubmissions: number
 }
 
 // PDF types
@@ -137,6 +161,23 @@ export interface LoginStats {
   dailyCounts: DailyLoginCount[]
   totalLogins: number
   averagePerWeek: number
+}
+
+export interface StudentVideoView {
+  studentId: string
+  studentName: string
+  percentageWatched: number
+  totalWatchSeconds: number
+  lastWatchedAt?: string
+  completed: boolean
+}
+
+export interface VideoAnalytics {
+  videoId: string
+  videoTitle: string
+  totalViews: number
+  averagePercentageWatched: number
+  studentViews: StudentVideoView[]
 }
 
 // API Error type
