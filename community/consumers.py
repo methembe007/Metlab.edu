@@ -21,9 +21,8 @@ class StudyRoomConsumer(AsyncWebsocketConsumer):
         self.student_profile = None
         self.session = None
         self.is_moderator = False
-            
- 
-   async def connect(self):
+    
+    async def connect(self):
         """Handle WebSocket connection"""
         self.room_id = self.scope['url_route']['kwargs']['room_id']
         self.room_group_name = f'study_room_{self.room_id}'

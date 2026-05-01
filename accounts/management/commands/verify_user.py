@@ -1,5 +1,6 @@
 """
-Management command to manually verify user accounts
+Management command to manually activate user accounts
+Note: Email verification has been removed. This command now activates inactive users.
 """
 
 from django.core.management.base import BaseCommand
@@ -9,10 +10,10 @@ User = get_user_model()
 
 
 class Command(BaseCommand):
-    help = 'Manually verify a user account'
+    help = 'Manually activate a user account'
 
     def add_arguments(self, parser):
-        parser.add_argument('username', type=str, help='Username to verify')
+        parser.add_argument('username', type=str, help='Username to activate')
 
     def handle(self, *args, **options):
         username = options['username']
@@ -20,9 +21,9 @@ class Command(BaseCommand):
         try:
             user = User.objects.get(username=username)
             
-            if user.email_verified and user.is_active:
+            if user.is_active:
                 self.stdout.write(
-                    self.style.WARNING(f'User {username} is already verified and active')
+                    self.style.WARNING(f'User {username} is already active')
                 )
                 return
             
@@ -31,7 +32,7 @@ class Command(BaseCommand):
             user.save()
             
             self.stdout.write(
-                self.style.SUCCESS(f'Successfully verified user: {username}')
+                self.style.SUCCESS(f'Successfully activated user: {username}')
             )
             
         except User.DoesNotExist:

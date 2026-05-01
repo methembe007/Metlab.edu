@@ -90,6 +90,12 @@ class VideoSessionService:
         if session_type == 'one_on_one' and max_participants > 2:
             max_participants = 2
         
+        # Validate session size based on SFU availability
+        from .sfu_config import SFUConfig
+        is_valid, error_message = SFUConfig.validate_session_size(session_type, max_participants)
+        if not is_valid:
+            raise ValidationError(error_message)
+        
         # Determine initial status
         if scheduled_time and scheduled_time > timezone.now():
             status = 'scheduled'

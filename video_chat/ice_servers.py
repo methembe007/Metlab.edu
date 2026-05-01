@@ -34,6 +34,8 @@ def ice_servers_api(request):
     Returns:
         JsonResponse: ICE server configuration
     """
+    from .sfu_config import SFUConfig
+    
     ice_servers = get_ice_servers()
     
     # Filter out sensitive credentials for logging
@@ -46,12 +48,26 @@ def ice_servers_api(request):
             safe_server['credential'] = server['credential']
         safe_servers.append(safe_server)
     
+    # Get session_id from query params to determine connection mode
+    session_id = request.GET.get('session_id')
+    connection_mode = 'p2p'
+    
+    if session_id:
+        try:
+            from .models import VideoSession
+            session = VideoSession.objects.get(session_id=session_id)
+            connection_mode = SFUConfig.get_connection_mode(session)
+        except VideoSession.DoesNotExist:
+            pass
+    
     return JsonResponse({
         'iceServers': safe_servers,
         'maxParticipants': getattr(settings, 'VIDEO_CHAT_MAX_PARTICIPANTS', 30),
         'sessionTimeout': getattr(settings, 'VIDEO_CHAT_SESSION_TIMEOUT', 3600),
         'recordingEnabled': getattr(settings, 'VIDEO_CHAT_RECORDING_ENABLED', True),
         'screenShareEnabled': getattr(settings, 'VIDEO_CHAT_SCREEN_SHARE_ENABLED', True),
+        'connectionMode': connection_mode,
+        'sfuConfig': SFUConfig.get_sfu_config(),
     })
 
 

@@ -8,9 +8,7 @@
     <link href="{% static 'css/output.css' %}" rel="stylesheet">
     <link href="{% static 'css/mobile-optimizations.css' %}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    {% csrf_token %}
     <meta name="csrf-token" content="{{ csrf_token }}">
     
     <!-- Mobile-specific meta tags -->
@@ -23,96 +21,466 @@
     <link rel="preload" href="{% static 'js/mobile-optimizations.js' %}" as="script">
 
     {% block extra_css %}{% endblock %}
+    
+    <style>
+        /* Modern Navbar Styles - Glass-morphism now handled by TailwindCSS classes */
+        
+        /* Fallback for browsers without backdrop-filter support */
+        @supports not (backdrop-filter: blur(10px)) {
+            nav[class*="backdrop-blur"] {
+                background: rgba(255, 255, 255, 1) !important;
+            }
+        }
+        
+        /* Animated Hamburger Icon */
+        .hamburger-icon {
+            width: 24px;
+            height: 18px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .hamburger-line {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: #374151;
+            border-radius: 2px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-origin: center;
+        }
+        
+        .hamburger-line:nth-child(1) {
+            transform: translateY(0);
+        }
+        
+        .hamburger-line:nth-child(2) {
+            transform: translateY(0);
+        }
+        
+        .hamburger-line:nth-child(3) {
+            transform: translateY(0);
+        }
+        
+        /* Active state - hamburger to X transformation */
+        #hamburger-btn.active .hamburger-line:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        
+        #hamburger-btn.active .hamburger-line:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        
+        #hamburger-btn.active .hamburger-line:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
+        
+        /* Mobile Dropdown */
+        .mobile-dropdown {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        
+        .mobile-dropdown.active {
+            max-height: 500px;
+        }
+        
+        /* Desktop Navigation Link Animated Underlines */
+        .nav-link-desktop {
+            position: relative;
+        }
+        
+        .nav-link-desktop::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(to right, #3b82f6, #2563eb); /* bg-gradient-to-r from-blue-500 to-blue-700 */
+            transition: width 300ms ease-in-out, left 300ms ease-in-out;
+            transform: translateX(-50%);
+        }
+        
+        .nav-link-desktop:hover::after {
+            width: 75%;
+            left: 50%;
+        }
+        
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 5rem;
+        }
+        
+        /* Badge Animation */
+        .role-badge {
+            animation: fadeInScale 0.5s ease-out;
+        }
+        
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Mobile Menu Item Animation */
+        .mobile-menu-item {
+            opacity: 0;
+            transform: translateX(-20px);
+            animation: slideInLeft 0.3s ease-out forwards;
+        }
+        
+        .mobile-menu-item:nth-child(1) { animation-delay: 0.1s; }
+        .mobile-menu-item:nth-child(2) { animation-delay: 0.15s; }
+        .mobile-menu-item:nth-child(3) { animation-delay: 0.2s; }
+        .mobile-menu-item:nth-child(4) { animation-delay: 0.25s; }
+        .mobile-menu-item:nth-child(5) { animation-delay: 0.3s; }
+        .mobile-menu-item:nth-child(6) { animation-delay: 0.35s; }
+        .mobile-menu-item:nth-child(7) { animation-delay: 0.4s; }
+        
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 min-h-screen">
-    <nav class="bg-white shadow-lg">
-        <div class="max-w-7xl mx-auto px-4">
-            <div class="flex justify-between h-16">
-                <div class="flex items-center">
-                    <a href="{% url 'home' %}" class="text-xl font-bold text-blue-600">Metlab.edu</a>
+<body class="bg-gray-50 min-h-screen pt-16">
+    <!-- Modern Navigation Bar with Enhanced Semantic Markup -->
+    <nav class="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200 fixed top-0 left-0 right-0 z-50" 
+         role="navigation" 
+         aria-label="Main navigation">
+        <div class="w-full px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Brand Logo -->
+                <div class="flex-shrink-0 flex items-center">
+                    <a href="{% if user.is_authenticated %}{% url 'accounts:dashboard' %}{% else %}{% url 'accounts:login' %}{% endif %}" 
+                       class="flex items-center space-x-3 group"
+                       aria-label="Metlab.edu home">
+                        <div class="w-10 h-10 bg-gradient-to-br from-blue-500 to-blue-700 rounded-xl flex items-center justify-center shadow-md transform group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
+                            <span class="text-white text-xl font-bold">M</span>
+                        </div>
+                        <span class="text-xl font-bold bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
+                            Metlab.edu
+                        </span>
+                    </a>
                 </div>
-                <div class="flex items-center">
-                    {% if user.is_authenticated %}
-                        <!-- Desktop Navigation -->
-                        <div class="hidden md:flex items-center space-x-4 nav-items">
-                            {% if user_role %}
-                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                    {{ user_role|title }}
-                                </span>
-                            {% endif %}
-                            <a href="{% url 'accounts:dashboard' %}" class="text-gray-700 hover:text-blue-600 touch-target">
-                                Dashboard
-                            </a>
-                            {% if user_role == 'student' or user_role == 'teacher' %}
-                                <a href="{% url 'content:library' %}" class="text-gray-700 hover:text-blue-600 touch-target">
-                                    Library
-                                </a>
-                                <a href="{% url 'content:upload' %}" class="text-gray-700 hover:text-blue-600 touch-target">
-                                    Upload
-                                </a>
-                            {% endif %}
-                            {% if user_role == 'student' %}
-                                <a href="{% url 'community:tutor_recommendations' %}" class="text-gray-700 hover:text-blue-600 touch-target nav-secondary">
-                                    Tutors
-                                </a>
-                                <a href="{% url 'gamification:achievements' %}" class="text-gray-700 hover:text-blue-600 touch-target nav-secondary">
-                                    Achievements
-                                </a>
-                                <a href="{% url 'gamification:shop' %}" class="text-gray-700 hover:text-blue-600 flex items-center touch-target nav-secondary">
-                                    <i class="fas fa-shopping-cart mr-1"></i>
-                                    Shop
-                                </a>
-                            {% endif %}
-                            <span class="text-gray-700 hidden lg:inline">Welcome, {{ user.first_name|default:user.username }}!</span>
-                            <a href="{% url 'accounts:logout' %}" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded touch-target">
-                                Logout
-                            </a>
-                        </div>
+                
+                {% if user.is_authenticated %}
+                    <!-- Desktop Navigation Links -->
+                    <div class="hidden md:flex items-center space-x-1" role="menubar">
+                        {% if user_role %}
+                            <span class="role-badge inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md mr-2"
+                                  role="status"
+                                  aria-label="Current user role: {{ user_role|title }}">
+                                <i class="fas fa-user-circle mr-1.5" aria-hidden="true"></i>
+                                {{ user_role|title }}
+                            </span>
+                        {% endif %}
                         
-                        <!-- Mobile Navigation -->
-                        <div class="md:hidden">
-                            <button type="button" class="mobile-menu-toggle p-2 rounded-md text-gray-700 hover:text-blue-600 touch-target" aria-label="Open menu">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                                </svg>
-                            </button>
-                            
-                            <!-- Mobile Menu Items -->
-                            <div class="nav-items hidden mobile-nav">
-                                <a href="{% url 'accounts:dashboard' %}" class="text-gray-700 hover:text-blue-600">Dashboard</a>
-                                {% if user_role == 'student' or user_role == 'teacher' %}
-                                    <a href="{% url 'content:library' %}" class="text-gray-700 hover:text-blue-600">Library</a>
-                                    <a href="{% url 'content:upload' %}" class="text-gray-700 hover:text-blue-600">Upload</a>
-                                {% endif %}
-                                {% if user_role == 'student' %}
-                                    <a href="{% url 'community:tutor_recommendations' %}" class="text-gray-700 hover:text-blue-600">Find Tutors</a>
-                                    <a href="{% url 'community:my_bookings' %}" class="text-gray-700 hover:text-blue-600">My Bookings</a>
-                                    <a href="{% url 'gamification:achievements' %}" class="text-gray-700 hover:text-blue-600">Achievements</a>
-                                    <a href="{% url 'gamification:leaderboard' %}" class="text-gray-700 hover:text-blue-600">Leaderboard</a>
-                                    <a href="{% url 'gamification:shop' %}" class="text-gray-700 hover:text-blue-600">Shop</a>
-                                {% endif %}
-                                <div class="border-t border-gray-200 pt-2 mt-2">
-                                    <span class="text-gray-600 text-sm">{{ user.first_name|default:user.username }}</span>
-                                    <a href="{% url 'accounts:logout' %}" class="text-red-600 hover:text-red-700 font-medium">Logout</a>
-                                </div>
+                        <a href="{% url 'accounts:dashboard' %}" 
+                           class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                           role="menuitem"
+                           aria-label="Go to dashboard">
+                            <i class="fas fa-home mr-2" aria-hidden="true"></i>Dashboard
+                        </a>
+                        
+                        {% if user_role == 'student' or user_role == 'teacher' %}
+                            <a href="{% url 'content:library' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="Browse content library">
+                                <i class="fas fa-book mr-2" aria-hidden="true"></i>Library
+                            </a>
+                            <a href="{% url 'content:upload' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="Upload new content">
+                                <i class="fas fa-cloud-upload-alt mr-2" aria-hidden="true"></i>Upload
+                            </a>
+                        {% endif %}
+                        
+                        {% if user_role == 'student' %}
+                            <a href="{% url 'community:tutor_recommendations' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="Find tutors">
+                                <i class="fas fa-chalkboard-teacher mr-2" aria-hidden="true"></i>Tutors
+                            </a>
+                            <a href="{% url 'gamification:achievements' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="View achievements">
+                                <i class="fas fa-trophy mr-2" aria-hidden="true"></i>Achievements
+                            </a>
+                            <a href="{% url 'gamification:shop' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="Visit shop">
+                                <i class="fas fa-shopping-cart mr-2" aria-hidden="true"></i>Shop
+                            </a>
+                        {% elif user_role == 'teacher' %}
+                            <a href="{% url 'learning:teacher_content_dashboard' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="Manage classes">
+                                <i class="fas fa-chalkboard mr-2" aria-hidden="true"></i>My Classes
+                            </a>
+                        {% elif user_role == 'parent' %}
+                            <a href="{% url 'learning:parent_dashboard' %}" 
+                               class="nav-link-desktop px-4 py-2 text-gray-700 font-medium rounded-lg hover:text-blue-600 hover:bg-blue-50 transition-all duration-200"
+                               role="menuitem"
+                               aria-label="View children's progress">
+                                <i class="fas fa-child mr-2" aria-hidden="true"></i>Children
+                            </a>
+                        {% endif %}
+                        
+                        <div class="h-6 w-px bg-gray-300 mx-2" role="separator" aria-orientation="vertical"></div>
+                        
+                        <span class="text-sm text-gray-600 px-3 hidden lg:inline" role="status" aria-label="Logged in as {{ user.first_name|default:user.username }}">
+                            <i class="fas fa-user mr-1" aria-hidden="true"></i>{{ user.first_name|default:user.username }}
+                        </span>
+                        
+                        <a href="{% url 'accounts:logout' %}" 
+                           class="ml-2 bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-black font-semibold py-2 px-4 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-200"
+                           role="menuitem"
+                           aria-label="Logout from account">
+                            <i class="fas fa-sign-out-alt mr-1" aria-hidden="true"></i>Logout
+                        </a>
+                    </div>
+                    
+                    <!-- Mobile Hamburger Button -->
+                    <div class="md:hidden">
+                        <button id="hamburger-btn" 
+                                class="relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-colors"
+                                type="button"
+                                aria-label="Toggle navigation menu"
+                                aria-expanded="false"
+                                aria-controls="mobile-dropdown">
+                            <div class="hamburger-icon">
+                                <span class="hamburger-line"></span>
+                                <span class="hamburger-line"></span>
+                                <span class="hamburger-line"></span>
                             </div>
-                        </div>
-                    {% else %}
-                        <div class="flex items-center space-x-2">
-                            <a href="{% url 'accounts:login' %}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded touch-target">
-                                Login
-                            </a>
-                            <a href="{% url 'accounts:register' %}" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded touch-target">
-                                Register
-                            </a>
+                        </button>
+                    </div>
+                {% else %}
+                    <!-- Guest Navigation -->
+                    <div class="flex items-center space-x-3" role="menubar">
+                        <a href="{% url 'accounts:login' %}" 
+                           class="sm:hidden bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-200"
+                           role="menuitem"
+                           aria-label="Login to your account">
+                            Login
+                        </a>
+                        <a href="{% url 'accounts:register' %}" 
+                           class="bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 text-white font-semibold py-2 px-4 rounded-lg shadow-sm transform hover:scale-105 transition-all duration-200"
+                           role="menuitem"
+                           aria-label="Create new account">
+                            <i class="fas fa-user-plus mr-1" aria-hidden="true"></i>
+                            <span class="hidden sm:inline">Register</span>
+                            <span class="sm:hidden">Sign Up</span>
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Mobile Dropdown Menu -->
+            {% if user.is_authenticated %}
+            <div id="mobile-dropdown" 
+                 class="mobile-dropdown md:hidden bg-white border-t border-gray-200"
+                 role="menu"
+                 aria-labelledby="hamburger-btn"
+                 aria-hidden="true">
+                <div class="py-4 space-y-1">
+                    {% if user_role %}
+                        <div class="px-4 py-2" role="presentation">
+                            <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-500 to-blue-600 text-white shadow-md"
+                                  role="status"
+                                  aria-label="Current user role: {{ user_role|title }}">
+                                <i class="fas fa-user-circle mr-1.5" aria-hidden="true"></i>
+                                {{ user_role|title }}
+                            </span>
                         </div>
                     {% endif %}
+                    
+                    <a href="{% url 'accounts:dashboard' %}" 
+                       class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                       role="menuitem"
+                       aria-label="Go to dashboard">
+                        <i class="fas fa-home w-6 mr-3" aria-hidden="true"></i>Dashboard
+                    </a>
+                    
+                    {% if user_role == 'student' or user_role == 'teacher' %}
+                        <a href="{% url 'content:library' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="Browse content library">
+                            <i class="fas fa-book w-6 mr-3" aria-hidden="true"></i>Library
+                        </a>
+                        <a href="{% url 'content:upload' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="Upload new content">
+                            <i class="fas fa-cloud-upload-alt w-6 mr-3" aria-hidden="true"></i>Upload
+                        </a>
+                    {% endif %}
+                    
+                    {% if user_role == 'student' %}
+                        <a href="{% url 'community:tutor_recommendations' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="Find tutors">
+                            <i class="fas fa-chalkboard-teacher w-6 mr-3" aria-hidden="true"></i>Tutors
+                        </a>
+                        <a href="{% url 'gamification:achievements' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="View achievements">
+                            <i class="fas fa-trophy w-6 mr-3" aria-hidden="true"></i>Achievements
+                        </a>
+                        <a href="{% url 'gamification:shop' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="Visit shop">
+                            <i class="fas fa-shopping-cart w-6 mr-3" aria-hidden="true"></i>Shop
+                        </a>
+                    {% elif user_role == 'teacher' %}
+                        <a href="{% url 'learning:teacher_content_dashboard' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="Manage classes">
+                            <i class="fas fa-chalkboard w-6 mr-3" aria-hidden="true"></i>My Classes
+                        </a>
+                    {% elif user_role == 'parent' %}
+                        <a href="{% url 'learning:parent_dashboard' %}" 
+                           class="mobile-menu-item block px-4 py-3 text-gray-700 font-medium rounded-lg hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                           role="menuitem"
+                           aria-label="View children's progress">
+                            <i class="fas fa-child w-6 mr-3" aria-hidden="true"></i>Children
+                        </a>
+                    {% endif %}
+                    
+                    <div class="border-t border-gray-200 my-2" role="separator"></div>
+                    
+                    <div class="px-4 py-2 text-sm text-gray-600" role="status" aria-label="Logged in as {{ user.first_name|default:user.username }}">
+                        <i class="fas fa-user mr-2" aria-hidden="true"></i>{{ user.first_name|default:user.username }}
+                    </div>
+                    
+                    <a href="{% url 'accounts:logout' %}" 
+                       class="mobile-menu-item block px-4 py-3 text-red-600 hover:bg-red-50 transition-colors font-semibold"
+                       role="menuitem"
+                       aria-label="Logout from account">
+                        <i class="fas fa-sign-out-alt w-6 mr-3" aria-hidden="true"></i>Logout
+                    </a>
                 </div>
             </div>
+            {% endif %}
         </div>
     </nav>
+    
+    <script>
+        // Mobile navigation toggle function
+        function toggleMobileMenu() {
+            const hamburger = document.getElementById('hamburger-btn');
+            const dropdown = document.getElementById('mobile-dropdown');
+            
+            if (!hamburger || !dropdown) return;
+            
+            const isOpen = hamburger.classList.contains('active');
+            
+            if (isOpen) {
+                // Close menu
+                hamburger.classList.remove('active');
+                dropdown.classList.remove('active');
+                hamburger.setAttribute('aria-expanded', 'false');
+                dropdown.setAttribute('aria-hidden', 'true');
+            } else {
+                // Open menu
+                hamburger.classList.add('active');
+                dropdown.classList.add('active');
+                hamburger.setAttribute('aria-expanded', 'true');
+                dropdown.setAttribute('aria-hidden', 'false');
+            }
+        }
+        
+        // Initialize navbar functionality when DOM is ready
+        document.addEventListener('DOMContentLoaded', function() {
+            const hamburger = document.getElementById('hamburger-btn');
+            const dropdown = document.getElementById('mobile-dropdown');
+            
+            // Only set up event listeners if elements exist
+            if (!hamburger || !dropdown) return;
+            
+            // Add click event listener to hamburger button
+            hamburger.addEventListener('click', toggleMobileMenu);
+            
+            // Add keyboard support for hamburger button
+            hamburger.addEventListener('keydown', function(event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    toggleMobileMenu();
+                }
+            });
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(event) {
+                if (!hamburger.contains(event.target) && !dropdown.contains(event.target)) {
+                    if (hamburger.classList.contains('active')) {
+                        hamburger.classList.remove('active');
+                        dropdown.classList.remove('active');
+                        hamburger.setAttribute('aria-expanded', 'false');
+                        dropdown.setAttribute('aria-hidden', 'true');
+                    }
+                }
+            });
+            
+            // Close mobile menu on escape key
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape' && hamburger.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    dropdown.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                    hamburger.focus(); // Return focus to hamburger button
+                }
+            });
+            
+            // Close mobile menu when navigating to a new page
+            const mobileLinks = dropdown.querySelectorAll('a[role="menuitem"]');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    hamburger.classList.remove('active');
+                    dropdown.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                });
+            });
+            
+            // Handle window resize to close menu when switching to desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768 && hamburger.classList.contains('active')) {
+                    hamburger.classList.remove('active');
+                    dropdown.classList.remove('active');
+                    hamburger.setAttribute('aria-expanded', 'false');
+                    dropdown.setAttribute('aria-hidden', 'true');
+                }
+            });
+        });
+    </script>
 
-    <main class="max-w-7xl mx-auto py-6 px-4">
+    <main class="w-full py-6 px-4 sm:px-6 lg:px-8">
         {% if messages %}
             {% for message in messages %}
                 <div class="alert alert-{{ message.tags }} mb-4 p-4 rounded-lg {% if message.tags == 'error' %}bg-red-100 text-red-700{% elif message.tags == 'success' %}bg-green-100 text-green-700{% elif message.tags == 'warning' %}bg-yellow-100 text-yellow-700{% else %}bg-blue-100 text-blue-700{% endif %}">
@@ -126,7 +494,7 @@
     </main>
 
     <footer class="bg-gray-800 text-white py-8 mt-12">
-        <div class="max-w-7xl mx-auto px-4 text-center">
+        <div class="w-full px-4 sm:px-6 lg:px-8 text-center">
             <p>&copy; 2025 Metlab.edu. All rights reserved.</p>
         </div>
     </footer>
@@ -142,5 +510,7 @@
     {% endif %}
     
     {% block extra_js %}{% endblock %}
+    
+
 </body>
 </html>

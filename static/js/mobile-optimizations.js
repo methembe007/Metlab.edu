@@ -85,49 +85,222 @@ class MobileOptimizations {
         const nav = document.querySelector('nav');
         if (!nav) return;
 
-        // Create mobile menu toggle if it doesn't exist
-        let mobileToggle = nav.querySelector('.mobile-menu-toggle');
-        if (!mobileToggle && this.isMobile) {
-            mobileToggle = this.createMobileMenuToggle();
-            nav.appendChild(mobileToggle);
+        // Get mobile menu elements
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuClose = document.getElementById('mobile-menu-close');
+
+        if (!mobileMenuButton || !mobileMenu) return;
+
+        // Toggle menu on button click
+        mobileMenuButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.toggleMobileMenu();
+        });
+
+        // Close menu on overlay click
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
         }
 
-        // Handle mobile navigation
-        if (mobileToggle) {
-            mobileToggle.addEventListener('click', this.toggleMobileMenu.bind(this));
+        // Close menu on close button click
+        if (mobileMenuClose) {
+            mobileMenuClose.addEventListener('click', () => {
+                this.closeMobileMenu();
+            });
         }
 
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (this.isMobile && !nav.contains(e.target)) {
+        // Close menu when clicking a nav item
+        const mobileNavItems = mobileMenu.querySelectorAll('.mobile-nav-item');
+        mobileNavItems.forEach(item => {
+            item.addEventListener('click', () => {
+                // Delay closing to allow navigation
+                setTimeout(() => this.closeMobileMenu(), 150);
+            });
+        });
+
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && this.isMobileMenuOpen()) {
                 this.closeMobileMenu();
             }
         });
-    }
 
-    createMobileMenuToggle() {
-        const toggle = document.createElement('button');
-        toggle.className = 'mobile-menu-toggle md:hidden p-2 rounded-md text-gray-700 hover:text-blue-600';
-        toggle.innerHTML = `
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-            </svg>
-        `;
-        return toggle;
+        // Prevent body scroll when menu is open
+        this.setupBodyScrollLock();
+
+        // Handle swipe to close
+        this.setupSwipeToClose(mobileMenu);
     }
 
     toggleMobileMenu() {
-        const navItems = document.querySelector('.nav-items');
-        if (navItems) {
-            navItems.classList.toggle('mobile-nav-open');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        if (!mobileMenu) return;
+
+        const isOpen = !mobileMenu.classList.contains('translate-x-full');
+
+        if (isOpen) {
+            this.closeMobileMenu();
+        } else {
+            this.openMobileMenu();
         }
     }
 
-    closeMobileMenu() {
-        const navItems = document.querySelector('.nav-items');
-        if (navItems) {
-            navItems.classList.remove('mobile-nav-open');
+    openMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        if (!mobileMenu) return;
+
+        // Show overlay
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('hidden');
+            setTimeout(() => {
+                mobileMenuOverlay.classList.add('opacity-100');
+            }, 10);
         }
+
+        // Slide in menu
+        mobileMenu.classList.remove('translate-x-full');
+
+        // Update button icons
+        if (mobileMenuButton) {
+            const openIcon = mobileMenuButton.querySelector('.menu-icon-open');
+            const closeIcon = mobileMenuButton.querySelector('.menu-icon-close');
+            if (openIcon) openIcon.classList.add('hidden');
+            if (closeIcon) closeIcon.classList.remove('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'true');
+        }
+
+        // Lock body scroll
+        document.body.style.overflow = 'hidden';
+
+        // Focus first menu item for accessibility
+        setTimeout(() => {
+            const firstItem = mobileMenu.querySelector('.mobile-nav-item');
+            if (firstItem) firstItem.focus();
+        }, 300);
+    }
+
+    closeMobileMenu() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuOverlay = document.getElementById('mobile-menu-overlay');
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+
+        if (!mobileMenu) return;
+
+        // Hide overlay
+        if (mobileMenuOverlay) {
+            mobileMenuOverlay.classList.remove('opacity-100');
+            setTimeout(() => {
+                mobileMenuOverlay.classList.add('hidden');
+            }, 300);
+        }
+
+        // Slide out menu
+        mobileMenu.classList.add('translate-x-full');
+
+        // Update button icons
+        if (mobileMenuButton) {
+            const openIcon = mobileMenuButton.querySelector('.menu-icon-open');
+            const closeIcon = mobileMenuButton.querySelector('.menu-icon-close');
+            if (openIcon) openIcon.classList.remove('hidden');
+            if (closeIcon) closeIcon.classList.add('hidden');
+            mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+
+        // Unlock body scroll
+        document.body.style.overflow = '';
+    }
+
+    isMobileMenuOpen() {
+        const mobileMenu = document.getElementById('mobile-menu');
+        return mobileMenu && !mobileMenu.classList.contains('translate-x-full');
+    }
+
+    setupBodyScrollLock() {
+        // Prevent scroll on body when menu is open
+        let scrollPosition = 0;
+
+        const lockScroll = () => {
+            scrollPosition = window.pageYOffset;
+            document.body.style.position = 'fixed';
+            document.body.style.top = `-${scrollPosition}px`;
+            document.body.style.width = '100%';
+        };
+
+        const unlockScroll = () => {
+            document.body.style.position = '';
+            document.body.style.top = '';
+            document.body.style.width = '';
+            window.scrollTo(0, scrollPosition);
+        };
+
+        // Listen for menu state changes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                if (mutation.attributeName === 'class') {
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (mobileMenu && !mobileMenu.classList.contains('translate-x-full')) {
+                        lockScroll();
+                    } else {
+                        unlockScroll();
+                    }
+                }
+            });
+        });
+
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenu) {
+            observer.observe(mobileMenu, { attributes: true });
+        }
+    }
+
+    setupSwipeToClose(menu) {
+        if (!menu) return;
+
+        let startX = 0;
+        let currentX = 0;
+        let isDragging = false;
+
+        menu.addEventListener('touchstart', (e) => {
+            startX = e.touches[0].clientX;
+            isDragging = true;
+        }, { passive: true });
+
+        menu.addEventListener('touchmove', (e) => {
+            if (!isDragging) return;
+
+            currentX = e.touches[0].clientX;
+            const diff = currentX - startX;
+
+            // Only allow swipe to the right (closing)
+            if (diff > 0) {
+                menu.style.transform = `translateX(${diff}px)`;
+            }
+        }, { passive: true });
+
+        menu.addEventListener('touchend', () => {
+            if (!isDragging) return;
+
+            const diff = currentX - startX;
+
+            // If swiped more than 100px, close the menu
+            if (diff > 100) {
+                this.closeMobileMenu();
+            }
+
+            // Reset transform
+            menu.style.transform = '';
+            isDragging = false;
+        }, { passive: true });
     }
 
     setupMobileFormOptimizations() {

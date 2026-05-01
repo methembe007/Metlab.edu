@@ -8,5 +8,5 @@ from . import consumers
 websocket_urlpatterns = [
     # WebSocket endpoint for video session signaling
     # Requirements: 1.2, 1.3, 4.1, 4.3
-    re_path(r'ws/video-session/(?P<session_id>[0-9a-f-]+)/$', consumers.VideoSessionConsumer.as_asgi()),
+    re_path(r'ws/video/(?P<session_id>[0-9a-f-]+)/$', consumers.VideoSessionConsumer.as_asgi()),
 ]

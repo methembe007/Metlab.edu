@@ -9781,3 +9781,1669 @@ INFO 2025-12-09 08:30:30,583 ai_services 17036 176 OpenAI client initialized suc
 INFO 2025-12-09 08:30:30,584 ai_services 17036 176 OpenAI client initialized successfully
 INFO 2025-12-09 08:30:30,585 ai_services 17036 176 OpenAI client initialized successfully
 INFO 2025-12-09 08:30:30,586 ai_services 17036 176 OpenAI client initialized successfully
+INFO 2025-12-09 08:31:29,423 basehttp 17036 18860 "GET / HTTP/1.1" 302 0
+INFO 2025-12-09 08:31:29,587 basehttp 17036 18860 "GET /accounts/login/ HTTP/1.1" 200 4881
+INFO 2025-12-09 08:31:29,819 basehttp 17036 18860 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2025-12-09 08:31:30,425 log 17036 18860 Not Found: /favicon.ico
+WARNING 2025-12-09 08:31:30,428 basehttp 17036 18860 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-09 08:31:34,305 basehttp 17036 18860 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:31:34,366 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:31:34,438 basehttp 17036 18860 "GET /accounts/dashboard/parent/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:31:34,645 basehttp 17036 18860 "GET /learning/parent/ HTTP/1.1" 200 20241
+INFO 2025-12-09 08:34:36,039 basehttp 17036 18860 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:34:36,093 basehttp 17036 18860 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-09 08:34:48,497 basehttp 17036 18860 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:34:48,600 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:34:48,915 basehttp 17036 18860 "GET /accounts/dashboard/student/ HTTP/1.1" 200 32680
+INFO 2025-12-09 08:34:49,151 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:35:19,112 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:35:49,104 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:36:19,144 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:36:49,102 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:37:19,162 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:37:49,111 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:38:19,104 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:38:49,660 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:39:19,650 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:39:49,778 basehttp 17036 18860 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-12-09 08:40:53,658 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:41:19,163 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:41:49,165 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:42:19,665 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:42:49,639 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:43:46,682 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:44:46,809 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:44:49,696 basehttp 17036 18860 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-12-09 08:45:20,705 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:45:43,006 basehttp 17036 18860 "GET / HTTP/1.1" 302 0
+INFO 2025-12-09 08:45:43,084 basehttp 17036 18860 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:45:43,153 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:45:43,413 basehttp 17036 18860 "GET /accounts/dashboard/student/ HTTP/1.1" 200 32480
+INFO 2025-12-09 08:45:43,668 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:45:49,093 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:46:13,641 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 08:46:16,561 basehttp 17036 18860 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:46:16,622 basehttp 17036 18860 "GET /accounts/login/ HTTP/1.1" 200 5096
+INFO 2025-12-09 08:46:24,676 basehttp 17036 18860 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:46:24,779 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:46:24,915 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11587
+INFO 2025-12-09 08:46:27,326 basehttp 17036 18860 "GET /learning/teacher/classes/ HTTP/1.1" 200 16415
+INFO 2025-12-09 08:46:29,458 basehttp 17036 18860 "GET /learning/teacher/classes/1/ HTTP/1.1" 200 19324
+INFO 2025-12-09 08:46:43,655 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:46:43,749 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:46:43,848 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:47:08,088 basehttp 17036 18860 "GET /learning/teacher/classes/1/video-session/start/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:47:08,439 basehttp 17036 18860 "GET /video/schedule/ HTTP/1.1" 200 12713
+INFO 2025-12-09 08:47:13,648 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:47:13,773 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:47:13,832 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:47:21,901 basehttp 17036 18860 "GET /learning/teacher/classes/1/video-sessions/ HTTP/1.1" 200 7579
+INFO 2025-12-09 08:47:26,273 basehttp 17036 18860 "GET /learning/teacher/classes/1/ HTTP/1.1" 200 19324
+INFO 2025-12-09 08:47:33,232 basehttp 17036 18860 "GET /learning/teacher/classes/ HTTP/1.1" 200 16415
+INFO 2025-12-09 08:47:39,545 basehttp 17036 18860 "GET /learning/teacher/ HTTP/1.1" 200 22685
+INFO 2025-12-09 08:47:43,665 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:47:43,749 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:47:43,820 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:47:46,652 basehttp 17036 18860 "GET /video/quick-start/ HTTP/1.1" 200 8797
+INFO 2025-12-09 08:48:11,348 basehttp 17036 18860 "POST /video/quick-start/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:48:11,433 basehttp 17036 18860 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:48:11,559 basehttp 17036 18860 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 12324
+INFO 2025-12-09 08:48:13,705 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:48:13,779 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:48:13,847 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:48:20,347 basehttp 17036 18860 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:48:20,432 basehttp 17036 18860 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 12111
+INFO 2025-12-09 08:48:32,302 basehttp 17036 18860 "GET /video/sessions/ HTTP/1.1" 200 10170
+INFO 2025-12-09 08:48:36,250 basehttp 17036 18860 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 18432
+INFO 2025-12-09 08:48:36,297 basehttp 17036 9224 "GET /static/js/video_call.js HTTP/1.1" 304 0
+INFO 2025-12-09 08:48:36,297 basehttp 17036 18860 "GET /static/css/video_call.css HTTP/1.1" 304 0
+WARNING 2025-12-09 08:48:36,421 log 17036 18860 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-09 08:48:36,422 basehttp 17036 18860 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-09 08:48:48,164 basehttp 17036 18860 "GET /video/sessions/ HTTP/1.1" 200 10170
+INFO 2025-12-09 08:48:50,560 basehttp 17036 18860 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 18432
+WARNING 2025-12-09 08:48:50,737 log 17036 18860 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-09 08:48:50,738 basehttp 17036 18860 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-09 08:53:19,883 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+WARNING 2025-12-09 08:53:19,925 log 17036 9224 Bad Request: /learning/api/recommendations/
+WARNING 2025-12-09 08:53:19,938 basehttp 17036 9224 "GET /learning/api/recommendations/ HTTP/1.1" 400 73
+INFO 2025-12-09 08:53:20,037 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:53:24,256 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:53:39,526 basehttp 17036 18860 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 11881
+INFO 2025-12-09 08:53:43,660 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:53:43,767 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:53:43,847 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:54:13,156 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-09 08:54:13,655 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:13,730 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:13,815 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:54:15,088 basehttp 17036 18860 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:15,175 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:15,269 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-09 08:54:43,643 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:43,709 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:54:43,790 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:55:13,670 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:55:13,721 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:55:13,787 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+WARNING 2025-12-09 08:55:43,724 log 17036 18860 Bad Request: /learning/api/recommendations/
+WARNING 2025-12-09 08:55:43,725 basehttp 17036 18860 "GET /learning/api/recommendations/ HTTP/1.1" 400 73
+INFO 2025-12-09 08:55:46,660 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:55:46,740 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:55:46,816 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:56:46,651 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:56:46,871 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:56:46,943 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:57:46,651 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:57:46,730 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:57:46,811 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:58:46,656 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:58:46,735 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:58:46,807 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 08:59:46,644 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:59:46,687 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 08:59:46,805 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+WARNING 2025-12-09 09:00:43,662 log 17036 18860 Bad Request: /learning/api/recommendations/
+WARNING 2025-12-09 09:00:43,663 basehttp 17036 18860 "GET /learning/api/recommendations/ HTTP/1.1" 400 73
+INFO 2025-12-09 09:00:46,653 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:00:46,736 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:00:46,812 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:01:46,648 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:01:46,727 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:01:46,821 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:02:46,654 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:02:46,723 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:02:46,797 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:03:46,657 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:03:46,730 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:03:46,809 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:04:46,660 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:04:46,749 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:04:46,853 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:05:24,065 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:05:24,163 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:05:24,238 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:05:39,396 basehttp 17036 18860 "GET /learning/teacher/classes/ HTTP/1.1" 200 16415
+WARNING 2025-12-09 09:05:43,589 log 17036 18860 Bad Request: /learning/api/recommendations/
+WARNING 2025-12-09 09:05:43,594 basehttp 17036 18860 "GET /learning/api/recommendations/ HTTP/1.1" 400 73
+INFO 2025-12-09 09:05:43,674 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:05:43,763 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:05:43,877 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:05:47,712 basehttp 17036 18860 "GET /learning/teacher/classes/ HTTP/1.1" 200 16415
+INFO 2025-12-09 09:05:52,961 basehttp 17036 18860 "GET /learning/teacher/classes/1/ HTTP/1.1" 200 19324
+INFO 2025-12-09 09:06:00,992 basehttp 17036 18860 "GET /accounts/dashboard/student/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:01,082 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:01,169 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:06:02,681 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:02,777 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11388
+INFO 2025-12-09 09:06:08,465 basehttp 17036 18860 "GET /learning/teacher/upload/ HTTP/1.1" 200 15206
+INFO 2025-12-09 09:06:12,987 basehttp 17036 18860 "GET /learning/teacher/ HTTP/1.1" 200 22685
+INFO 2025-12-09 09:06:13,656 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:13,738 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:13,816 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:06:17,121 basehttp 17036 18860 "GET /video/quick-start/ HTTP/1.1" 200 8797
+INFO 2025-12-09 09:06:21,248 basehttp 17036 18860 "GET /video/sessions/ HTTP/1.1" 200 10170
+INFO 2025-12-09 09:06:26,638 basehttp 17036 18860 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 18432
+WARNING 2025-12-09 09:06:26,761 log 17036 18860 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-09 09:06:26,765 basehttp 17036 18860 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-09 09:06:43,646 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:43,725 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:06:43,821 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:07:13,689 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:07:13,784 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:07:13,866 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:07:43,660 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:07:43,734 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:07:43,824 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:08:44,644 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:08:44,728 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:08:44,798 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:09:44,353 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:09:44,429 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:09:44,501 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:10:13,719 basehttp 17036 18860 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:10:13,803 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:10:13,869 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:10:27,539 basehttp 17036 18860 "GET /accounts/settings/student/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:10:27,614 basehttp 17036 18860 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 09:10:27,710 basehttp 17036 18860 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 11599
+INFO 2025-12-09 09:10:43,518 basehttp 17036 18860 "GET /learning/teacher/classes/ HTTP/1.1" 200 16415
+INFO 2025-12-09 09:11:17,677 basehttp 17036 18860 "GET /learning/teacher/ HTTP/1.1" 200 22685
+INFO 2025-12-09 21:53:00,746 autoreload 1616 13472 Watching for file changes with StatReloader
+INFO 2025-12-09 21:53:04,180 ai_services 1616 13472 OpenAI client initialized successfully
+INFO 2025-12-09 21:53:04,181 ai_services 1616 13472 OpenAI client initialized successfully
+INFO 2025-12-09 21:53:04,183 ai_services 1616 13472 OpenAI client initialized successfully
+INFO 2025-12-09 21:53:04,184 ai_services 1616 13472 OpenAI client initialized successfully
+INFO 2025-12-09 21:53:04,188 ai_services 1616 13472 OpenAI client initialized successfully
+INFO 2025-12-09 21:53:24,969 basehttp 1616 14560 "GET / HTTP/1.1" 302 0
+INFO 2025-12-09 21:53:25,090 basehttp 1616 14560 "GET /accounts/login/ HTTP/1.1" 200 5516
+INFO 2025-12-09 21:53:25,289 basehttp 1616 14160 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2025-12-09 21:53:25,289 basehttp 1616 14560 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+WARNING 2025-12-09 21:53:25,635 log 1616 14160 Not Found: /favicon.ico
+WARNING 2025-12-09 21:53:25,639 basehttp 1616 14160 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-09 21:53:38,028 basehttp 1616 14160 "GET /accounts/login/ HTTP/1.1" 200 5516
+INFO 2025-12-09 21:53:45,759 basehttp 1616 14160 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:53:45,869 basehttp 1616 14160 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:53:46,021 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 15554
+INFO 2025-12-09 21:55:07,345 basehttp 1616 14160 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:55:07,409 basehttp 1616 14160 "GET /accounts/login/ HTTP/1.1" 200 5731
+INFO 2025-12-09 21:55:09,222 basehttp 1616 14160 "GET /accounts/register/ HTTP/1.1" 200 9147
+INFO 2025-12-09 21:55:12,476 basehttp 1616 14160 "GET /accounts/register/ HTTP/1.1" 200 9147
+INFO 2025-12-09 21:55:14,233 basehttp 1616 14160 "GET /accounts/login/ HTTP/1.1" 200 5516
+INFO 2025-12-09 21:55:22,594 basehttp 1616 14160 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:55:22,757 basehttp 1616 14160 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:55:22,971 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 15554
+INFO 2025-12-09 21:57:10,102 basehttp 1616 14160 "GET /content/library/ HTTP/1.1" 200 21901
+INFO 2025-12-09 21:57:12,245 basehttp 1616 14160 "GET /content/upload/ HTTP/1.1" 200 22644
+INFO 2025-12-09 21:57:14,135 basehttp 1616 14160 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:57:14,237 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 15602
+INFO 2025-12-09 21:58:46,954 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19365
+INFO 2025-12-09 21:58:49,472 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19365
+INFO 2025-12-09 21:59:18,102 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19365
+INFO 2025-12-09 21:59:19,241 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19365
+INFO 2025-12-09 21:59:24,005 basehttp 1616 14160 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:59:24,077 basehttp 1616 14160 "GET /accounts/login/ HTTP/1.1" 200 9494
+INFO 2025-12-09 21:59:30,699 basehttp 1616 14160 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:59:30,796 basehttp 1616 14160 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 21:59:30,877 basehttp 1616 14160 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19564
+INFO 2025-12-09 22:01:37,050 autoreload 10200 20916 Watching for file changes with StatReloader
+INFO 2025-12-09 22:01:39,403 ai_services 10200 20916 OpenAI client initialized successfully
+INFO 2025-12-09 22:01:39,404 ai_services 10200 20916 OpenAI client initialized successfully
+INFO 2025-12-09 22:01:39,404 ai_services 10200 20916 OpenAI client initialized successfully
+INFO 2025-12-09 22:01:39,405 ai_services 10200 20916 OpenAI client initialized successfully
+INFO 2025-12-09 22:01:39,405 ai_services 10200 20916 OpenAI client initialized successfully
+ERROR 2025-12-09 22:14:09,117 log 10200 22804 Internal Server Error: /accounts/dashboard/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 84, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 287, in teacher_dashboard
+    return render(request, 'accounts/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 565, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 357: 'endif'. Did you forget to register or load this tag?
+ERROR 2025-12-09 22:14:09,204 basehttp 10200 22804 "GET /accounts/dashboard/teacher/ HTTP/1.1" 500 224932
+ERROR 2025-12-09 22:15:39,856 log 10200 22804 Internal Server Error: /accounts/dashboard/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 84, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 287, in teacher_dashboard
+    return render(request, 'accounts/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 565, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 357: 'endif'. Did you forget to register or load this tag?
+ERROR 2025-12-09 22:15:39,905 basehttp 10200 22804 "GET /accounts/dashboard/teacher/ HTTP/1.1" 500 224948
+ERROR 2025-12-09 22:15:42,414 log 10200 22804 Internal Server Error: /accounts/dashboard/teacher/
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 502, in parse
+    compile_func = self.tags[command]
+                   ~~~~~~~~~^^^^^^^^^
+KeyError: 'endif'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\base.py", line 197, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 40, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\contrib\auth\decorators.py", line 23, in _wrapper_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\decorators.py", line 84, in _wrapped_view
+    return view_func(request, *args, **kwargs)
+  File "C:\Users\methe\Metlab.edu\accounts\views.py", line 287, in teacher_dashboard
+    return render(request, 'accounts/teacher_dashboard.html', context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\shortcuts.py", line 25, in render
+    content = loader.render_to_string(template_name, context, request, using=using)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader.py", line 62, in render_to_string
+    return template.render(context, request)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\backends\django.py", line 61, in render
+    return self.template.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 171, in render
+    return self._render(context)
+           ~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 163, in _render
+    return self.nodelist.render(context)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 1000, in render
+    return SafeString("".join([node.render_annotated(context) for node in self]))
+                               ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 961, in render_annotated
+    return self.render(context)
+           ~~~~~~~~~~~^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 134, in render
+    compiled_parent = self.get_parent(context)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 131, in get_parent
+    return self.find_template(parent, context)
+           ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loader_tags.py", line 109, in find_template
+    template, origin = context.template.engine.find_template(
+                       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^
+        template_name,
+        ^^^^^^^^^^^^^^
+        skip=history,
+        ^^^^^^^^^^^^^
+    )
+    ^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\engine.py", line 159, in find_template
+    template = loader.get_template(name, skip=skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\cached.py", line 57, in get_template
+    template = super().get_template(template_name, skip)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\loaders\base.py", line 28, in get_template
+    return Template(
+        contents,
+    ...<2 lines>...
+        self.engine,
+    )
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 154, in __init__
+    self.nodelist = self.compile_nodelist()
+                    ~~~~~~~~~~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 196, in compile_nodelist
+    return parser.parse()
+           ~~~~~~~~~~~~^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 504, in parse
+    self.invalid_block_tag(token, command, parse_until)
+    ~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\template\base.py", line 565, in invalid_block_tag
+    raise self.error(
+    ...<3 lines>...
+    )
+django.template.exceptions.TemplateSyntaxError: Invalid block tag on line 357: 'endif'. Did you forget to register or load this tag?
+ERROR 2025-12-09 22:15:42,480 basehttp 10200 22804 "GET /accounts/dashboard/teacher/ HTTP/1.1" 500 224948
+INFO 2025-12-09 22:21:22,973 basehttp 10200 21672 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19131
+INFO 2025-12-09 22:21:40,904 basehttp 10200 21672 "GET /content/upload/ HTTP/1.1" 200 26420
+INFO 2025-12-09 22:21:45,154 basehttp 10200 21672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:21:45,253 basehttp 10200 21672 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19131
+INFO 2025-12-09 22:21:48,690 basehttp 10200 21672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:21:48,788 basehttp 10200 21672 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19131
+INFO 2025-12-09 22:21:50,458 basehttp 10200 21672 "GET /content/library/ HTTP/1.1" 200 25677
+INFO 2025-12-09 22:21:54,329 basehttp 10200 21672 "GET /content/library/ HTTP/1.1" 200 25677
+INFO 2025-12-09 22:22:00,928 basehttp 10200 21672 "GET /content/download/8/ HTTP/1.1" 200 813217
+INFO 2025-12-09 22:22:14,002 basehttp 10200 21672 "GET /content/detail/8/ HTTP/1.1" 200 18578
+INFO 2025-12-09 22:22:24,007 basehttp 10200 21672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:22:24,106 basehttp 10200 21672 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 19131
+INFO 2025-12-09 22:22:33,818 basehttp 10200 21672 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:22:33,914 basehttp 10200 21672 "GET /accounts/login/ HTTP/1.1" 200 11596
+INFO 2025-12-09 22:22:55,843 basehttp 10200 21672 "GET /accounts/register/ HTTP/1.1" 200 15012
+INFO 2025-12-09 22:22:57,887 basehttp 10200 21672 "GET /accounts/login/ HTTP/1.1" 200 11381
+INFO 2025-12-09 22:23:04,519 basehttp 10200 21672 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:23:04,620 basehttp 10200 21672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:23:04,911 basehttp 10200 21672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 40616
+INFO 2025-12-09 22:23:05,090 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:23:35,027 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:24:05,090 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:24:30,664 basehttp 10200 21672 "GET /content/library/ HTTP/1.1" 200 23330
+INFO 2025-12-09 22:24:30,826 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:24:35,036 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:24:47,989 basehttp 10200 21672 "POST /learning/api/lesson/17/start/ HTTP/1.1" 200 96
+INFO 2025-12-09 22:24:48,269 basehttp 10200 21672 "GET /learning/lesson/17/ HTTP/1.1" 200 55239
+INFO 2025-12-09 22:24:48,409 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:25:09,585 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:25:20,592 basehttp 10200 21672 "GET /video/sessions/ HTTP/1.1" 200 18788
+INFO 2025-12-09 22:25:20,771 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:25:25,703 basehttp 10200 21672 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 27458
+INFO 2025-12-09 22:25:25,753 basehttp 10200 21672 "GET /static/css/video_call.css HTTP/1.1" 304 0
+INFO 2025-12-09 22:25:25,823 basehttp 10200 21672 "GET /static/js/video_call.js HTTP/1.1" 304 0
+INFO 2025-12-09 22:25:25,910 basehttp 10200 21672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-12-09 22:25:25,951 log 10200 16248 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-09 22:25:25,952 basehttp 10200 16248 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-09 22:25:56,022 basehttp 10200 16248 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:25:59,592 basehttp 10200 16248 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:25:59,685 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11596
+INFO 2025-12-09 22:29:10,358 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:29:12,627 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:29:16,948 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15593
+ERROR 2025-12-09 22:30:04,729 exception 16828 396 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+INFO 2025-12-09 22:30:08,995 ai_services 16828 396 OpenAI client initialized successfully
+INFO 2025-12-09 22:30:08,996 ai_services 16828 396 OpenAI client initialized successfully
+INFO 2025-12-09 22:30:08,997 ai_services 16828 396 OpenAI client initialized successfully
+INFO 2025-12-09 22:30:08,998 ai_services 16828 396 OpenAI client initialized successfully
+INFO 2025-12-09 22:30:08,999 ai_services 16828 396 OpenAI client initialized successfully
+WARNING 2025-12-09 22:30:09,165 log 16828 396 Bad Request: /accounts/dashboard/
+ERROR 2025-12-09 22:30:11,602 exception 16828 396 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-09 22:30:11,705 log 16828 396 Bad Request: /accounts/dashboard/
+ERROR 2025-12-09 22:30:13,613 exception 16828 396 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-09 22:30:13,699 log 16828 396 Bad Request: /accounts/dashboard/
+INFO 2025-12-09 22:30:30,749 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:30:32,803 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:30:34,283 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:30:36,498 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15593
+INFO 2025-12-09 22:30:39,088 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11962
+INFO 2025-12-09 22:31:30,346 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11722
+INFO 2025-12-09 22:31:42,947 ai_services 11132 16932 OpenAI client initialized successfully
+INFO 2025-12-09 22:31:42,949 ai_services 11132 16932 OpenAI client initialized successfully
+INFO 2025-12-09 22:31:42,950 ai_services 11132 16932 OpenAI client initialized successfully
+INFO 2025-12-09 22:31:42,951 ai_services 11132 16932 OpenAI client initialized successfully
+INFO 2025-12-09 22:31:42,952 ai_services 11132 16932 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:02,207 ai_services 8568 21028 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:02,208 ai_services 8568 21028 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:02,208 ai_services 8568 21028 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:02,209 ai_services 8568 21028 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:02,209 ai_services 8568 21028 OpenAI client initialized successfully
+INFO 2025-12-09 22:33:20,242 basehttp 10200 16248 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:33:20,345 basehttp 10200 16248 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:33:20,662 basehttp 10200 16248 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 20478
+INFO 2025-12-09 22:35:41,676 basehttp 10200 16248 "GET /learning/teacher/classes/ HTTP/1.1" 200 25306
+INFO 2025-12-09 22:35:44,011 basehttp 10200 16248 "GET /learning/teacher/classes/1/ HTTP/1.1" 200 28215
+INFO 2025-12-09 22:35:46,995 basehttp 10200 16248 "GET /learning/teacher/classes/1/video-session/start/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:35:47,265 basehttp 10200 16248 "GET /video/schedule/ HTTP/1.1" 200 21604
+INFO 2025-12-09 22:35:58,809 basehttp 10200 16248 "GET /learning/teacher/classes/ HTTP/1.1" 200 25306
+INFO 2025-12-09 22:36:01,350 basehttp 10200 16248 "GET /learning/teacher/classes/1/progress/ HTTP/1.1" 200 23886
+INFO 2025-12-09 22:36:06,801 basehttp 10200 16248 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:36:06,856 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11937
+INFO 2025-12-09 22:38:57,550 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11721
+INFO 2025-12-09 22:38:59,801 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11721
+INFO 2025-12-09 22:39:00,907 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11721
+INFO 2025-12-09 22:39:23,992 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11721
+INFO 2025-12-09 22:39:25,526 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11721
+INFO 2025-12-09 22:39:27,039 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15352
+INFO 2025-12-09 22:39:32,084 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15352
+INFO 2025-12-09 22:39:33,450 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15352
+INFO 2025-12-09 22:42:01,333 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15366
+INFO 2025-12-09 22:42:03,457 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15366
+INFO 2025-12-09 22:42:06,524 basehttp 10200 16248 "GET /accounts/register/ HTTP/1.1" 200 15366
+INFO 2025-12-09 22:42:08,515 basehttp 10200 16248 "GET /accounts/login/ HTTP/1.1" 200 11735
+INFO 2025-12-09 22:46:12,990 basehttp 10200 5100 "GET /accounts/register/ HTTP/1.1" 200 15366
+INFO 2025-12-09 22:46:16,796 basehttp 10200 5100 "GET /accounts/login/ HTTP/1.1" 200 11735
+INFO 2025-12-09 22:46:30,984 basehttp 10200 5100 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:46:31,056 basehttp 10200 5100 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:46:31,183 basehttp 10200 5100 "GET /accounts/dashboard/student/ HTTP/1.1" 200 41203
+INFO 2025-12-09 22:46:31,315 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:46:52,005 basehttp 10200 5100 "GET /accounts/settings/student/ HTTP/1.1" 200 25031
+INFO 2025-12-09 22:46:52,159 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:47:04,157 basehttp 10200 5100 "GET /accounts/privacy/ HTTP/1.1" 200 26626
+INFO 2025-12-09 22:47:04,297 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:47:34,314 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:47:40,391 basehttp 10200 5100 "GET /content/library/ HTTP/1.1" 200 23910
+INFO 2025-12-09 22:47:40,520 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:47:43,148 basehttp 10200 5100 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:47:43,315 basehttp 10200 5100 "GET /accounts/dashboard/student/ HTTP/1.1" 200 41003
+INFO 2025-12-09 22:47:43,457 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:47:49,584 basehttp 10200 5100 "GET /accounts/settings/student/ HTTP/1.1" 200 25031
+INFO 2025-12-09 22:47:49,726 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:48:19,723 basehttp 10200 5100 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-09 22:48:24,655 basehttp 10200 5100 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:48:24,709 basehttp 10200 5100 "GET /accounts/login/ HTTP/1.1" 200 11950
+INFO 2025-12-09 22:48:48,346 basehttp 10200 5100 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:48:48,435 basehttp 10200 5100 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:48:48,512 basehttp 10200 5100 "GET /accounts/dashboard/parent/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:48:48,672 basehttp 10200 5100 "GET /learning/parent/ HTTP/1.1" 200 28819
+INFO 2025-12-09 22:49:14,951 basehttp 10200 5100 "GET /learning/parent/ HTTP/1.1" 200 28623
+INFO 2025-12-09 22:49:17,624 basehttp 10200 5100 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:49:17,687 basehttp 10200 5100 "GET /accounts/dashboard/parent/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:49:17,761 basehttp 10200 5100 "GET /learning/parent/ HTTP/1.1" 200 28623
+INFO 2025-12-09 22:49:22,557 basehttp 10200 5100 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-09 22:49:22,667 basehttp 10200 5100 "GET /accounts/login/ HTTP/1.1" 200 11950
+INFO 2025-12-09 22:50:52,339 basehttp 10200 5100 "GET /accounts/login/ HTTP/1.1" 200 11742
+INFO 2025-12-10 08:04:47,517 autoreload 20828 9648 Watching for file changes with StatReloader
+INFO 2025-12-10 08:04:50,431 ai_services 20828 9648 OpenAI client initialized successfully
+INFO 2025-12-10 08:04:50,432 ai_services 20828 9648 OpenAI client initialized successfully
+INFO 2025-12-10 08:04:50,432 ai_services 20828 9648 OpenAI client initialized successfully
+INFO 2025-12-10 08:04:50,433 ai_services 20828 9648 OpenAI client initialized successfully
+INFO 2025-12-10 08:04:50,434 ai_services 20828 9648 OpenAI client initialized successfully
+INFO 2025-12-10 08:05:08,519 basehttp 20828 13672 "GET / HTTP/1.1" 302 0
+INFO 2025-12-10 08:05:08,632 basehttp 20828 13672 "GET /accounts/login/ HTTP/1.1" 200 14276
+WARNING 2025-12-10 08:05:08,918 log 20828 13672 Not Found: /favicon.ico
+WARNING 2025-12-10 08:05:08,923 basehttp 20828 13672 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-10 08:05:27,992 basehttp 20828 13672 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:05:28,085 basehttp 20828 13672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:05:28,325 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48139
+INFO 2025-12-10 08:05:28,623 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:05:43,453 basehttp 20828 13672 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:05:43,520 basehttp 20828 13672 "GET /accounts/login/ HTTP/1.1" 200 14491
+INFO 2025-12-10 08:05:45,368 basehttp 20828 13672 "GET /accounts/register/ HTTP/1.1" 200 17907
+INFO 2025-12-10 08:05:48,786 basehttp 20828 13672 "GET /accounts/login/ HTTP/1.1" 200 14276
+INFO 2025-12-10 08:08:44,652 basehttp 20828 13672 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:08:44,760 basehttp 20828 13672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:08:44,993 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48292
+INFO 2025-12-10 08:08:45,135 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:09:11,193 query_optimization 20828 13672 Operation 'get_session_statistics': 1 queries in 0.009s
+INFO 2025-12-10 08:09:11,199 query_optimization 20828 13672 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2025-12-10 08:09:11,428 basehttp 20828 13672 "GET /learning/analytics/ HTTP/1.1" 200 34084
+INFO 2025-12-10 08:09:11,714 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:09:21,560 basehttp 20828 13672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:09:21,752 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48092
+INFO 2025-12-10 08:09:21,889 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:09:52,042 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:10:22,037 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:10:52,074 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:11:21,997 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:11:43,688 basehttp 20828 13672 "GET /content/library/ HTTP/1.1" 200 31006
+INFO 2025-12-10 08:11:43,960 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:11:45,985 basehttp 20828 13672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:11:46,266 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48092
+INFO 2025-12-10 08:11:46,492 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:12:16,983 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:12:47,111 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:13:17,117 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:13:42,883 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48092
+INFO 2025-12-10 08:13:43,048 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:14:12,995 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:14:42,992 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:15:12,996 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:15:42,987 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:16:12,985 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:16:40,953 basehttp 20828 13672 "GET /gamification/shop/ HTTP/1.1" 200 53072
+INFO 2025-12-10 08:16:41,132 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:16:52,658 basehttp 20828 13672 "GET /gamification/shop/?category=theme HTTP/1.1" 200 36947
+INFO 2025-12-10 08:16:52,832 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:16:57,715 basehttp 20828 13672 "GET /gamification/shop/?category=hint HTTP/1.1" 200 35177
+INFO 2025-12-10 08:16:57,888 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:16:59,911 basehttp 20828 13672 "GET /gamification/shop/?category=customization HTTP/1.1" 200 35165
+INFO 2025-12-10 08:17:00,047 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:01,509 basehttp 20828 13672 "GET /gamification/shop/?category=power_up HTTP/1.1" 200 35141
+INFO 2025-12-10 08:17:01,638 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:03,250 basehttp 20828 13672 "GET /gamification/shop/?category=avatar HTTP/1.1" 200 35179
+INFO 2025-12-10 08:17:03,385 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:04,710 basehttp 20828 13672 "GET /gamification/shop/?category=badge HTTP/1.1" 200 33613
+INFO 2025-12-10 08:17:04,841 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:06,557 basehttp 20828 13672 "GET /gamification/shop/?category=theme HTTP/1.1" 200 36947
+INFO 2025-12-10 08:17:06,690 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:12,214 basehttp 20828 13672 "GET /gamification/achievements/ HTTP/1.1" 200 60142
+INFO 2025-12-10 08:17:12,363 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:12,470 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:35,409 basehttp 20828 13672 "GET /content/library/ HTTP/1.1" 200 31006
+INFO 2025-12-10 08:17:35,548 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:17:37,793 basehttp 20828 13672 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:17:37,989 basehttp 20828 13672 "GET /accounts/dashboard/student/ HTTP/1.1" 200 48092
+INFO 2025-12-10 08:17:38,158 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:18:09,063 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:18:38,979 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:19:09,050 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:19:39,063 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:20:09,000 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:20:39,056 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:21:08,999 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:21:38,986 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:22:09,022 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:22:39,045 basehttp 20828 13672 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-12-10 08:23:42,780 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:24:08,994 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:24:38,989 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:25:40,079 basehttp 20828 13672 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 08:26:03,283 basehttp 20828 13672 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-10 08:26:03,362 basehttp 20828 13672 "GET /accounts/login/ HTTP/1.1" 200 14644
+INFO 2025-12-10 08:26:06,210 basehttp 20828 13672 "GET /accounts/register/ HTTP/1.1" 200 18060
+INFO 2025-12-10 08:26:08,808 basehttp 20828 13672 "GET /accounts/login/ HTTP/1.1" 200 14429
+INFO 2025-12-10 10:58:38,497 autoreload 18168 20220 Watching for file changes with StatReloader
+INFO 2025-12-10 10:58:44,294 ai_services 18168 20220 OpenAI client initialized successfully
+INFO 2025-12-10 10:58:44,300 ai_services 18168 20220 OpenAI client initialized successfully
+INFO 2025-12-10 10:58:44,302 ai_services 18168 20220 OpenAI client initialized successfully
+INFO 2025-12-10 10:58:44,303 ai_services 18168 20220 OpenAI client initialized successfully
+INFO 2025-12-10 10:58:44,304 ai_services 18168 20220 OpenAI client initialized successfully
+INFO 2025-12-10 10:58:51,002 basehttp 18168 9624 "GET / HTTP/1.1" 302 0
+INFO 2025-12-10 10:58:51,496 basehttp 18168 9624 "GET /accounts/login/ HTTP/1.1" 200 14429
+WARNING 2025-12-10 10:58:54,254 log 18168 9624 Not Found: /favicon.ico
+WARNING 2025-12-10 10:58:54,345 basehttp 18168 9624 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-10 10:59:41,110 ai_services 23096 11524 OpenAI client initialized successfully
+INFO 2025-12-10 10:59:41,111 ai_services 23096 11524 OpenAI client initialized successfully
+INFO 2025-12-10 10:59:41,111 ai_services 23096 11524 OpenAI client initialized successfully
+INFO 2025-12-10 10:59:41,112 ai_services 23096 11524 OpenAI client initialized successfully
+INFO 2025-12-10 10:59:41,112 ai_services 23096 11524 OpenAI client initialized successfully
+INFO 2025-12-10 11:00:17,184 basehttp 18168 9624 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2025-12-10 11:03:02,302 ai_services 6516 20424 OpenAI client initialized successfully
+INFO 2025-12-10 11:03:02,302 ai_services 6516 20424 OpenAI client initialized successfully
+INFO 2025-12-10 11:03:02,303 ai_services 6516 20424 OpenAI client initialized successfully
+INFO 2025-12-10 11:03:02,303 ai_services 6516 20424 OpenAI client initialized successfully
+INFO 2025-12-10 11:03:02,303 ai_services 6516 20424 OpenAI client initialized successfully
+INFO 2025-12-10 11:03:29,247 basehttp 18168 9624 "GET /accounts/login/ HTTP/1.1" 200 14510
+WARNING 2025-12-10 11:03:39,657 monitoring_middleware 18168 9624 Slow request: POST /accounts/login/
+INFO 2025-12-10 11:03:39,743 basehttp 18168 9624 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-10 11:03:39,949 basehttp 18168 9624 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-10 11:03:41,009 basehttp 18168 9624 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47147
+INFO 2025-12-10 11:03:41,607 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:04:12,062 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:04:42,071 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:05:12,076 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:05:42,064 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:06:12,107 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:06:42,097 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:07:12,144 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:08:14,247 basehttp 18168 9624 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 11:08:42,093 basehttp 18168 9624 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2025-12-10 11:12:40,155 ai_services 612 20004 OpenAI client initialized successfully
+INFO 2025-12-10 11:12:40,159 ai_services 612 20004 OpenAI client initialized successfully
+INFO 2025-12-10 11:12:40,161 ai_services 612 20004 OpenAI client initialized successfully
+INFO 2025-12-10 11:12:40,164 ai_services 612 20004 OpenAI client initialized successfully
+INFO 2025-12-10 11:12:40,173 ai_services 612 20004 OpenAI client initialized successfully
+INFO 2025-12-10 11:13:29,906 ai_services 21944 22464 OpenAI client initialized successfully
+INFO 2025-12-10 11:13:29,907 ai_services 21944 22464 OpenAI client initialized successfully
+INFO 2025-12-10 11:13:29,908 ai_services 21944 22464 OpenAI client initialized successfully
+INFO 2025-12-10 11:13:29,909 ai_services 21944 22464 OpenAI client initialized successfully
+INFO 2025-12-10 11:13:29,910 ai_services 21944 22464 OpenAI client initialized successfully
+INFO 2025-12-10 11:14:52,547 ai_services 7216 10716 OpenAI client initialized successfully
+INFO 2025-12-10 11:14:52,548 ai_services 7216 10716 OpenAI client initialized successfully
+INFO 2025-12-10 11:14:52,549 ai_services 7216 10716 OpenAI client initialized successfully
+INFO 2025-12-10 11:14:52,549 ai_services 7216 10716 OpenAI client initialized successfully
+INFO 2025-12-10 11:14:52,550 ai_services 7216 10716 OpenAI client initialized successfully
+INFO 2025-12-10 12:26:21,223 ai_services 7940 17100 OpenAI client initialized successfully
+INFO 2025-12-10 12:26:21,224 ai_services 7940 17100 OpenAI client initialized successfully
+INFO 2025-12-10 12:26:21,225 ai_services 7940 17100 OpenAI client initialized successfully
+INFO 2025-12-10 12:26:21,226 ai_services 7940 17100 OpenAI client initialized successfully
+INFO 2025-12-10 12:26:21,227 ai_services 7940 17100 OpenAI client initialized successfully
+ERROR 2025-12-10 12:26:21,372 exception 7940 17100 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-10 12:26:21,745 log 7940 17100 Bad Request: /accounts/dashboard/
+INFO 2025-12-10 12:27:41,216 ai_services 23740 940 OpenAI client initialized successfully
+INFO 2025-12-10 12:27:41,217 ai_services 23740 940 OpenAI client initialized successfully
+INFO 2025-12-10 12:27:41,217 ai_services 23740 940 OpenAI client initialized successfully
+INFO 2025-12-10 12:27:41,217 ai_services 23740 940 OpenAI client initialized successfully
+INFO 2025-12-10 12:27:41,218 ai_services 23740 940 OpenAI client initialized successfully
+ERROR 2025-12-10 12:27:41,377 exception 23740 940 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-10 12:27:41,521 log 23740 940 Bad Request: /accounts/dashboard/
+ERROR 2025-12-10 12:27:41,561 exception 23740 940 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-10 12:27:41,596 log 23740 940 Bad Request: /accounts/dashboard/
+ERROR 2025-12-10 12:27:41,600 exception 23740 940 Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+Traceback (most recent call last):
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\core\handlers\exception.py", line 55, in inner
+    response = get_response(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\utils\deprecation.py", line 133, in __call__
+    response = self.process_request(request)
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\middleware\common.py", line 48, in process_request
+    host = request.get_host()
+  File "C:\Users\methe\AppData\Roaming\Python\Python313\site-packages\django\http\request.py", line 151, in get_host
+    raise DisallowedHost(msg)
+django.core.exceptions.DisallowedHost: Invalid HTTP_HOST header: 'testserver'. You may need to add 'testserver' to ALLOWED_HOSTS.
+WARNING 2025-12-10 12:27:41,635 log 23740 940 Bad Request: /accounts/dashboard/
+INFO 2025-12-10 12:55:13,868 ai_services 4952 1092 OpenAI client initialized successfully
+INFO 2025-12-10 12:55:13,869 ai_services 4952 1092 OpenAI client initialized successfully
+INFO 2025-12-10 12:55:13,869 ai_services 4952 1092 OpenAI client initialized successfully
+INFO 2025-12-10 12:55:13,870 ai_services 4952 1092 OpenAI client initialized successfully
+INFO 2025-12-10 12:55:13,870 ai_services 4952 1092 OpenAI client initialized successfully
+INFO 2025-12-10 13:02:38,899 ai_services 9600 6620 OpenAI client initialized successfully
+INFO 2025-12-10 13:02:38,900 ai_services 9600 6620 OpenAI client initialized successfully
+INFO 2025-12-10 13:02:38,900 ai_services 9600 6620 OpenAI client initialized successfully
+INFO 2025-12-10 13:02:38,900 ai_services 9600 6620 OpenAI client initialized successfully
+INFO 2025-12-10 13:02:38,901 ai_services 9600 6620 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:12,070 ai_services 8812 14920 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:12,070 ai_services 8812 14920 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:12,071 ai_services 8812 14920 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:12,071 ai_services 8812 14920 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:12,071 ai_services 8812 14920 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:45,990 ai_services 7548 25300 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:45,991 ai_services 7548 25300 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:45,991 ai_services 7548 25300 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:45,991 ai_services 7548 25300 OpenAI client initialized successfully
+INFO 2025-12-10 13:03:45,992 ai_services 7548 25300 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:05,341 ai_services 25420 18392 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:05,342 ai_services 25420 18392 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:05,342 ai_services 25420 18392 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:05,342 ai_services 25420 18392 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:05,343 ai_services 25420 18392 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:36,632 ai_services 15588 25340 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:36,632 ai_services 15588 25340 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:36,633 ai_services 15588 25340 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:36,633 ai_services 15588 25340 OpenAI client initialized successfully
+INFO 2025-12-10 13:06:36,633 ai_services 15588 25340 OpenAI client initialized successfully
+INFO 2025-12-10 13:07:04,642 ai_services 544 22740 OpenAI client initialized successfully
+INFO 2025-12-10 13:07:04,643 ai_services 544 22740 OpenAI client initialized successfully
+INFO 2025-12-10 13:07:04,644 ai_services 544 22740 OpenAI client initialized successfully
+INFO 2025-12-10 13:07:04,644 ai_services 544 22740 OpenAI client initialized successfully
+INFO 2025-12-10 13:07:04,645 ai_services 544 22740 OpenAI client initialized successfully
+INFO 2025-12-10 13:08:15,027 ai_services 23900 22764 OpenAI client initialized successfully
+INFO 2025-12-10 13:08:15,028 ai_services 23900 22764 OpenAI client initialized successfully
+INFO 2025-12-10 13:08:15,029 ai_services 23900 22764 OpenAI client initialized successfully
+INFO 2025-12-10 13:08:15,029 ai_services 23900 22764 OpenAI client initialized successfully
+INFO 2025-12-10 13:08:15,030 ai_services 23900 22764 OpenAI client initialized successfully
+INFO 2025-12-10 13:10:32,805 ai_services 2032 22376 OpenAI client initialized successfully
+INFO 2025-12-10 13:10:32,805 ai_services 2032 22376 OpenAI client initialized successfully
+INFO 2025-12-10 13:10:32,805 ai_services 2032 22376 OpenAI client initialized successfully
+INFO 2025-12-10 13:10:32,806 ai_services 2032 22376 OpenAI client initialized successfully
+INFO 2025-12-10 13:10:32,806 ai_services 2032 22376 OpenAI client initialized successfully
+INFO 2025-12-10 13:12:01,623 basehttp 18168 11284 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:12:01,669 basehttp 18168 22120 "GET /learning/api/recommendations/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:12:01,688 basehttp 18168 11284 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:12:01,722 basehttp 18168 22120 "GET /accounts/login/?next=/learning/api/recommendations/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:12:11,322 basehttp 18168 22120 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:12:11,358 basehttp 18168 22120 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:12:41,325 basehttp 18168 22120 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:12:41,360 basehttp 18168 22120 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:13:11,389 basehttp 18168 22120 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:13:11,437 basehttp 18168 22120 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:13:41,135 basehttp 18168 22120 "GET /learning/api/recommendations/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:13:41,171 basehttp 18168 22120 "GET /accounts/login/?next=/learning/api/recommendations/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:58:29,269 basehttp 18168 25316 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:58:29,353 basehttp 18168 23904 "GET /learning/api/recommendations/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:58:29,530 basehttp 18168 25316 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:58:29,567 basehttp 18168 23904 "GET /accounts/login/?next=/learning/api/recommendations/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:58:38,977 basehttp 18168 23904 "GET /video/sessions/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:58:39,034 basehttp 18168 23904 "GET /accounts/login/?next=/video/sessions/ HTTP/1.1" 200 14510
+INFO 2025-12-10 13:58:44,000 basehttp 18168 23904 "POST /accounts/login/?next=/video/sessions/ HTTP/1.1" 302 0
+INFO 2025-12-10 13:58:44,131 basehttp 18168 23904 "GET /video/sessions/ HTTP/1.1" 200 25519
+INFO 2025-12-10 13:58:44,297 basehttp 18168 23904 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 13:58:59,744 basehttp 18168 23904 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 33989
+INFO 2025-12-10 13:58:59,811 basehttp 18168 23904 "GET /static/css/video_call.css HTTP/1.1" 304 0
+INFO 2025-12-10 13:58:59,840 basehttp 18168 23904 "GET /static/js/video_call.js HTTP/1.1" 304 0
+INFO 2025-12-10 13:58:59,970 basehttp 18168 23904 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-12-10 13:59:00,012 log 18168 25316 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-10 13:59:00,016 basehttp 18168 25316 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-10 13:59:29,978 basehttp 18168 25316 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 14:00:00,082 basehttp 18168 25316 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-10 14:00:30,082 basehttp 18168 25316 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:09:27,406 autoreload 20496 19624 Watching for file changes with StatReloader
+INFO 2025-12-17 21:09:30,564 ai_services 20496 19624 OpenAI client initialized successfully
+INFO 2025-12-17 21:09:30,564 ai_services 20496 19624 OpenAI client initialized successfully
+INFO 2025-12-17 21:09:30,565 ai_services 20496 19624 OpenAI client initialized successfully
+INFO 2025-12-17 21:09:30,565 ai_services 20496 19624 OpenAI client initialized successfully
+INFO 2025-12-17 21:09:30,566 ai_services 20496 19624 OpenAI client initialized successfully
+INFO 2025-12-17 21:09:36,644 basehttp 20496 3572 "GET / HTTP/1.1" 302 0
+INFO 2025-12-17 21:09:36,839 basehttp 20496 3572 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2025-12-17 21:09:37,470 basehttp 20496 19164 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 17355
+INFO 2025-12-17 21:09:37,484 basehttp 20496 3572 "GET /static/css/output.css HTTP/1.1" 200 66438
+INFO 2025-12-17 21:09:37,516 basehttp 20496 17556 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 20705
+WARNING 2025-12-17 21:09:38,811 log 20496 17556 Not Found: /favicon.ico
+WARNING 2025-12-17 21:09:38,822 basehttp 20496 17556 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-17 21:09:47,683 basehttp 20496 17556 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:09:47,849 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:09:48,337 basehttp 20496 17556 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47147
+INFO 2025-12-17 21:09:48,396 basehttp 20496 17556 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2025-12-17 21:09:48,555 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:10:04,048 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 25319
+INFO 2025-12-17 21:10:04,235 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:10:06,748 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:10:06,948 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 28079
+INFO 2025-12-17 21:10:07,091 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:10:12,780 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:10:12,879 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 28079
+INFO 2025-12-17 21:10:13,026 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:10:43,908 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:10:53,442 basehttp 20496 17556 "GET / HTTP/1.1" 302 0
+INFO 2025-12-17 21:10:53,489 basehttp 20496 17556 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:10:53,546 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:10:53,645 basehttp 20496 17556 "GET /accounts/dashboard/student/ HTTP/1.1" 200 46947
+INFO 2025-12-17 21:10:53,975 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:11:01,389 basehttp 20496 17556 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:11:01,503 basehttp 20496 17556 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2025-12-17 21:11:13,908 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:11:13,979 basehttp 20496 17556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-17 21:11:44,026 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:11:44,049 basehttp 20496 17556 "GET /accounts/login/?next=/gamification/api/check-achievements/ HTTP/1.1" 200 14510
+INFO 2025-12-17 21:11:47,704 basehttp 20496 17556 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:11:47,779 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:11:47,855 basehttp 20496 17556 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25660
+INFO 2025-12-17 21:11:52,972 basehttp 20496 17556 "GET /learning/teacher/classes/ HTTP/1.1" 200 30488
+INFO 2025-12-17 21:11:57,004 basehttp 20496 17556 "GET /learning/teacher/ HTTP/1.1" 200 36758
+INFO 2025-12-17 21:12:06,333 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 24243
+INFO 2025-12-17 21:12:10,008 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:10,075 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 26184
+INFO 2025-12-17 21:12:13,767 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:13,815 basehttp 20496 17556 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 26184
+INFO 2025-12-17 21:12:13,917 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:13,957 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:14,002 basehttp 20496 17556 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:12:27,431 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 24243
+INFO 2025-12-17 21:12:43,897 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:43,977 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:12:44,055 basehttp 20496 17556 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:12:47,795 basehttp 20496 17556 "GET /video/quick-start/ HTTP/1.1" 200 22870
+INFO 2025-12-17 21:13:09,444 basehttp 20496 17556 "POST /video/quick-start/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:09,525 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:09,598 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26400
+INFO 2025-12-17 21:13:13,902 basehttp 20496 17556 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:13,979 basehttp 20496 17556 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:14,063 basehttp 20496 17556 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:13:14,138 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:14,205 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:13:25,719 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 25067
+INFO 2025-12-17 21:13:28,826 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:13:28,899 basehttp 20496 17556 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:13:39,890 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 25067
+INFO 2025-12-17 21:13:56,731 basehttp 20496 17556 "GET /video/sessions/ HTTP/1.1" 200 25067
+INFO 2025-12-17 21:14:05,327 basehttp 20496 17556 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+INFO 2025-12-17 21:14:05,358 basehttp 20496 17556 "GET /static/css/video_call.css HTTP/1.1" 304 0
+INFO 2025-12-17 21:14:05,360 basehttp 20496 3572 "GET /static/js/video_call.js HTTP/1.1" 304 0
+WARNING 2025-12-17 21:14:05,505 log 20496 3572 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:14:05,510 basehttp 20496 3572 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:14:15,889 basehttp 20496 3572 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:14:16,039 log 20496 3572 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:14:16,040 basehttp 20496 3572 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:15:53,656 basehttp 20496 3572 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:15:53,727 basehttp 20496 3572 "GET /video/session/d6bd8308-afcf-4e48-aa86-041daba00849/ HTTP/1.1" 200 26184
+INFO 2025-12-17 21:16:00,078 basehttp 20496 3572 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:16:00,244 log 20496 3572 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:16:00,246 basehttp 20496 3572 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:25:08,263 ai_services 23240 5332 OpenAI client initialized successfully
+INFO 2025-12-17 21:25:08,264 ai_services 23240 5332 OpenAI client initialized successfully
+INFO 2025-12-17 21:25:08,264 ai_services 23240 5332 OpenAI client initialized successfully
+INFO 2025-12-17 21:25:08,264 ai_services 23240 5332 OpenAI client initialized successfully
+INFO 2025-12-17 21:25:08,265 ai_services 23240 5332 OpenAI client initialized successfully
+INFO 2025-12-17 21:35:28,333 basehttp 20496 22848 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:35:28,441 log 20496 22848 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:35:28,442 basehttp 20496 22848 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:36:38,767 ai_services 18384 23044 OpenAI client initialized successfully
+INFO 2025-12-17 21:36:38,768 ai_services 18384 23044 OpenAI client initialized successfully
+INFO 2025-12-17 21:36:38,768 ai_services 18384 23044 OpenAI client initialized successfully
+INFO 2025-12-17 21:36:38,770 ai_services 18384 23044 OpenAI client initialized successfully
+INFO 2025-12-17 21:36:38,770 ai_services 18384 23044 OpenAI client initialized successfully
+INFO 2025-12-17 21:37:24,090 ai_services 22096 10600 OpenAI client initialized successfully
+INFO 2025-12-17 21:37:24,091 ai_services 22096 10600 OpenAI client initialized successfully
+INFO 2025-12-17 21:37:24,092 ai_services 22096 10600 OpenAI client initialized successfully
+INFO 2025-12-17 21:37:24,093 ai_services 22096 10600 OpenAI client initialized successfully
+INFO 2025-12-17 21:37:24,093 ai_services 22096 10600 OpenAI client initialized successfully
+INFO 2025-12-17 21:38:09,375 ai_services 8752 13716 OpenAI client initialized successfully
+INFO 2025-12-17 21:38:09,376 ai_services 8752 13716 OpenAI client initialized successfully
+INFO 2025-12-17 21:38:09,377 ai_services 8752 13716 OpenAI client initialized successfully
+INFO 2025-12-17 21:38:09,377 ai_services 8752 13716 OpenAI client initialized successfully
+INFO 2025-12-17 21:38:09,380 ai_services 8752 13716 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:01,692 ai_services 23016 3996 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:01,694 ai_services 23016 3996 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:01,694 ai_services 23016 3996 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:01,695 ai_services 23016 3996 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:01,696 ai_services 23016 3996 OpenAI client initialized successfully
+INFO 2025-12-17 21:40:41,651 basehttp 20496 16832 "GET /video/sessions/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:40:41,682 basehttp 20496 16832 "GET /accounts/login/?next=/video/sessions/ HTTP/1.1" 200 14510
+INFO 2025-12-17 21:40:41,745 basehttp 20496 16832 "GET /static/css/output.css HTTP/1.1" 200 66438
+INFO 2025-12-17 21:40:41,748 basehttp 20496 4932 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 17355
+INFO 2025-12-17 21:40:41,765 basehttp 20496 4932 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 20705
+WARNING 2025-12-17 21:40:41,972 log 20496 4932 Not Found: /favicon.ico
+WARNING 2025-12-17 21:40:41,973 basehttp 20496 4932 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2025-12-17 21:41:01,763 basehttp 20496 19964 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:41:01,877 log 20496 19964 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:41:01,877 basehttp 20496 19964 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:41:03,291 basehttp 20496 19964 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:41:03,378 log 20496 19964 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:41:03,379 basehttp 20496 19964 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:41:14,829 basehttp 20496 4932 "POST /accounts/login/?next=/video/sessions/ HTTP/1.1" 200 14730
+INFO 2025-12-17 21:42:09,199 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:42:09,264 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:42:17,020 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:42:17,080 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:42:20,314 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:42:20,392 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:42:23,874 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 25956
+INFO 2025-12-17 21:42:32,593 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/join/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:42:32,660 basehttp 20496 19964 "GET /video/session/a13a7374-e70e-4a11-96ae-f17aee120a3b/ HTTP/1.1" 200 26186
+INFO 2025-12-17 21:42:35,153 basehttp 20496 19964 "GET /video/sessions/ HTTP/1.1" 200 25067
+INFO 2025-12-17 21:42:38,106 basehttp 20496 19964 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:42:38,225 log 20496 19964 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:42:38,226 basehttp 20496 19964 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:43:01,900 basehttp 20496 19964 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:43:01,951 basehttp 20496 19964 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2025-12-17 21:43:10,338 basehttp 20496 19964 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:43:10,427 basehttp 20496 19964 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:43:10,590 basehttp 20496 19964 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47147
+INFO 2025-12-17 21:43:10,709 basehttp 20496 19964 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:43:15,238 basehttp 20496 19964 "GET /video/sessions/ HTTP/1.1" 200 26143
+INFO 2025-12-17 21:43:15,370 basehttp 20496 19964 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:43:19,462 basehttp 20496 19964 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 33989
+INFO 2025-12-17 21:43:19,595 basehttp 20496 19964 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-12-17 21:43:19,614 log 20496 23060 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:43:19,617 basehttp 20496 23060 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:43:45,040 basehttp 20496 23060 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 33989
+INFO 2025-12-17 21:43:45,163 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-12-17 21:43:45,189 log 20496 19964 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:43:45,191 basehttp 20496 19964 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:43:49,899 basehttp 20496 19964 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2025-12-17 21:43:52,471 basehttp 20496 19964 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 33989
+INFO 2025-12-17 21:43:52,586 basehttp 20496 19964 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+WARNING 2025-12-17 21:43:52,605 log 20496 23060 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:43:52,606 basehttp 20496 23060 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:43:58,499 basehttp 20496 23060 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:43:58,549 basehttp 20496 23060 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2025-12-17 21:44:05,986 basehttp 20496 23060 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:06,076 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:06,172 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25660
+INFO 2025-12-17 21:44:08,559 basehttp 20496 23060 "GET /learning/teacher/classes/ HTTP/1.1" 200 30488
+INFO 2025-12-17 21:44:11,019 basehttp 20496 23060 "GET /learning/teacher/ HTTP/1.1" 200 36758
+INFO 2025-12-17 21:44:15,217 basehttp 20496 23060 "GET /video/sessions/ HTTP/1.1" 200 25067
+INFO 2025-12-17 21:44:18,713 basehttp 20496 23060 "GET /video/session/4e5156fa-7648-47d2-a11d-cc9b6a03bf1f/join/ HTTP/1.1" 200 32505
+WARNING 2025-12-17 21:44:18,813 log 20496 23060 Not Found: /video-chat/api/ice-servers/
+WARNING 2025-12-17 21:44:18,814 basehttp 20496 23060 "GET /video-chat/api/ice-servers/ HTTP/1.1" 404 3676
+INFO 2025-12-17 21:44:19,906 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:19,993 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:20,089 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:44:49,910 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:49,997 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:44:50,086 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:45:19,899 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:45:19,992 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:45:20,083 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:45:49,900 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:45:50,008 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:45:50,093 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2025-12-17 21:46:19,901 basehttp 20496 23060 "GET /gamification/api/check-achievements/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:46:19,989 basehttp 20496 23060 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2025-12-17 21:46:20,056 basehttp 20496 23060 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25672
+INFO 2026-01-09 13:39:42,046 autoreload 20160 14032 Watching for file changes with StatReloader
+INFO 2026-01-09 13:39:45,913 ai_services 20160 14032 OpenAI client initialized successfully
+INFO 2026-01-09 13:39:45,913 ai_services 20160 14032 OpenAI client initialized successfully
+INFO 2026-01-09 13:39:45,914 ai_services 20160 14032 OpenAI client initialized successfully
+INFO 2026-01-09 13:39:45,914 ai_services 20160 14032 OpenAI client initialized successfully
+INFO 2026-01-09 13:39:45,915 ai_services 20160 14032 OpenAI client initialized successfully
+INFO 2026-01-09 13:39:54,559 basehttp 20160 10664 "GET / HTTP/1.1" 302 0
+INFO 2026-01-09 13:39:54,704 basehttp 20160 10664 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-01-09 13:39:55,096 basehttp 20160 19848 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 17355
+INFO 2026-01-09 13:39:55,098 basehttp 20160 10664 "GET /static/css/output.css HTTP/1.1" 200 66438
+INFO 2026-01-09 13:39:55,127 basehttp 20160 17000 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 20705
+WARNING 2026-01-09 13:39:56,280 log 20160 17000 Not Found: /favicon.ico
+WARNING 2026-01-09 13:39:56,282 basehttp 20160 17000 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-01-09 13:40:02,784 basehttp 20160 17000 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:40:02,884 basehttp 20160 17000 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:40:02,968 basehttp 20160 17000 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25660
+INFO 2026-01-09 13:41:20,602 basehttp 20160 17000 "GET /learning/teacher/classes/ HTTP/1.1" 200 30488
+INFO 2026-01-09 13:41:27,480 basehttp 20160 17000 "GET /learning/teacher/ HTTP/1.1" 200 36758
+INFO 2026-01-09 13:41:51,134 basehttp 20160 17000 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:41:51,234 basehttp 20160 17000 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25461
+INFO 2026-01-09 13:41:52,832 basehttp 20160 17000 "GET /content/library/ HTTP/1.1" 200 32007
+INFO 2026-01-09 13:41:59,776 basehttp 20160 17000 "GET /content/upload/ HTTP/1.1" 200 32750
+INFO 2026-01-09 13:42:11,729 basehttp 20160 17000 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:42:11,789 basehttp 20160 17000 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2026-01-09 13:42:22,820 basehttp 20160 17000 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:42:22,903 basehttp 20160 17000 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-01-09 13:42:23,141 basehttp 20160 17000 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47220
+INFO 2026-01-09 13:42:23,169 basehttp 20160 17000 "GET /static/js/achievement_notifications.js HTTP/1.1" 200 8271
+INFO 2026-01-09 13:42:23,305 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:42:53,263 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:43:23,688 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:43:53,592 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:44:23,623 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:44:53,644 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:45:23,619 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:45:53,610 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:46:30,645 basehttp 20160 17000 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-01-09 13:47:23,596 basehttp 20160 17000 "GET /learning/api/recommendations/ HTTP/1.1" 200 40
+INFO 2026-03-05 22:52:48,740 autoreload 17088 26004 Watching for file changes with StatReloader
+INFO 2026-03-05 22:52:50,570 ai_services 17088 26004 OpenAI client initialized successfully
+INFO 2026-03-05 22:52:50,571 ai_services 17088 26004 OpenAI client initialized successfully
+INFO 2026-03-05 22:52:50,571 ai_services 17088 26004 OpenAI client initialized successfully
+INFO 2026-03-05 22:52:50,572 ai_services 17088 26004 OpenAI client initialized successfully
+INFO 2026-03-05 22:52:50,572 ai_services 17088 26004 OpenAI client initialized successfully
+INFO 2026-03-05 22:52:56,556 basehttp 17088 21832 "GET / HTTP/1.1" 302 0
+INFO 2026-03-05 22:52:56,720 basehttp 17088 21832 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-03-05 22:52:57,131 basehttp 17088 13172 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 20705
+INFO 2026-03-05 22:52:57,137 basehttp 17088 9076 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 17355
+INFO 2026-03-05 22:52:57,140 basehttp 17088 21832 "GET /static/css/output.css HTTP/1.1" 200 66438
+WARNING 2026-03-05 22:52:57,576 log 17088 21832 Not Found: /favicon.ico
+WARNING 2026-03-05 22:52:57,577 basehttp 17088 21832 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-03-05 22:54:06,606 basehttp 17088 21832 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-03-29 18:16:40,335 autoreload 10072 6168 Watching for file changes with StatReloader
+INFO 2026-03-29 18:16:49,490 ai_services 10072 6168 OpenAI client initialized successfully
+INFO 2026-03-29 18:16:49,494 ai_services 10072 6168 OpenAI client initialized successfully
+INFO 2026-03-29 18:16:49,496 ai_services 10072 6168 OpenAI client initialized successfully
+INFO 2026-03-29 18:16:49,497 ai_services 10072 6168 OpenAI client initialized successfully
+INFO 2026-03-29 18:16:49,498 ai_services 10072 6168 OpenAI client initialized successfully
+INFO 2026-03-29 18:16:59,240 basehttp 10072 6876 "GET / HTTP/1.1" 302 0
+INFO 2026-03-29 18:17:00,251 basehttp 10072 6876 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-03-29 18:17:02,201 basehttp 10072 25560 "GET /static/js/mobile-optimizations.js HTTP/1.1" 200 20705
+INFO 2026-03-29 18:17:02,212 basehttp 10072 23380 "GET /static/css/mobile-optimizations.css HTTP/1.1" 200 17355
+INFO 2026-03-29 18:17:02,233 basehttp 10072 6876 "GET /static/css/output.css HTTP/1.1" 200 66438
+WARNING 2026-03-29 18:17:03,661 log 10072 6876 Not Found: /favicon.ico
+WARNING 2026-03-29 18:17:03,673 basehttp 10072 6876 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-03-29 18:17:13,441 basehttp 10072 6876 "POST /accounts/login/ HTTP/1.1" 200 14735
+INFO 2026-03-29 18:17:28,204 basehttp 10072 6876 "POST /accounts/login/ HTTP/1.1" 200 14747
+INFO 2026-03-29 18:17:55,430 basehttp 10072 6876 "POST /accounts/login/ HTTP/1.1" 200 14740
+INFO 2026-03-29 18:18:29,287 basehttp 10072 6876 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:18:29,372 basehttp 10072 6876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:18:29,666 basehttp 10072 6876 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47220
+INFO 2026-03-29 18:18:29,703 basehttp 10072 6876 "GET /static/js/achievement_notifications.js HTTP/1.1" 200 8271
+INFO 2026-03-29 18:18:29,844 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:18:47,142 basehttp 10072 6876 "POST /learning/api/lesson/21/start/ HTTP/1.1" 200 96
+INFO 2026-03-29 18:18:47,261 basehttp 10072 6876 "GET /learning/lesson/21/ HTTP/1.1" 200 60510
+INFO 2026-03-29 18:18:47,364 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:08,791 basehttp 10072 6876 "GET /learning/daily-lesson/ HTTP/1.1" 200 26097
+INFO 2026-03-29 18:19:08,890 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:15,053 basehttp 10072 6876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:19:15,170 basehttp 10072 6876 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47027
+INFO 2026-03-29 18:19:15,243 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:28,214 basehttp 10072 6876 "GET /video/sessions/ HTTP/1.1" 200 26143
+INFO 2026-03-29 18:19:28,331 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:37,015 basehttp 10072 6876 "GET /community/tutors/ HTTP/1.1" 200 25443
+INFO 2026-03-29 18:19:37,106 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:42,493 basehttp 10072 6876 "GET /learning/enroll/ HTTP/1.1" 200 25556
+INFO 2026-03-29 18:19:42,601 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:48,336 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:50,220 basehttp 10072 6876 "GET /community/study-partners/ HTTP/1.1" 200 43820
+INFO 2026-03-29 18:19:50,343 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:19:59,512 basehttp 10072 6876 "GET /community/study-groups/ HTTP/1.1" 200 25229
+INFO 2026-03-29 18:19:59,589 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:05,749 query_optimization 10072 6876 Operation 'get_session_statistics': 1 queries in 0.012s
+INFO 2026-03-29 18:20:05,752 query_optimization 10072 6876 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2026-03-29 18:20:05,810 basehttp 10072 6876 "GET /learning/analytics/ HTTP/1.1" 200 32939
+INFO 2026-03-29 18:20:06,006 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:12,864 basehttp 10072 6876 "GET /content/upload/ HTTP/1.1" 200 34754
+INFO 2026-03-29 18:20:12,981 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:18,044 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:19,802 basehttp 10072 6876 "GET /content/library/ HTTP/1.1" 200 29861
+INFO 2026-03-29 18:20:19,885 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:34,634 basehttp 10072 6876 "GET /content/library/ HTTP/1.1" 200 29861
+INFO 2026-03-29 18:20:34,753 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:37,026 basehttp 10072 6876 "GET /community/tutors/ HTTP/1.1" 200 25443
+INFO 2026-03-29 18:20:37,129 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:39,439 basehttp 10072 6876 "GET /gamification/achievements/ HTTP/1.1" 200 58997
+INFO 2026-03-29 18:20:39,534 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:39,568 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:20:44,209 basehttp 10072 6876 "GET /gamification/shop/ HTTP/1.1" 200 51927
+INFO 2026-03-29 18:20:44,330 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:21:14,308 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:21:14,488 basehttp 10072 6876 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:21:14,523 basehttp 10072 6876 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2026-03-29 18:21:19,622 basehttp 10072 6876 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:21:19,693 basehttp 10072 6876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:21:19,806 basehttp 10072 6876 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47227
+INFO 2026-03-29 18:21:19,936 basehttp 10072 6876 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-03-29 18:21:23,569 basehttp 10072 6876 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-03-29 18:21:23,608 basehttp 10072 6876 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2026-03-29 18:21:35,132 basehttp 10072 6876 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-03-29 18:21:45,637 basehttp 10072 6876 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-03-29 18:22:01,175 basehttp 10072 6876 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-21 08:57:09,124 autoreload 5512 1644 Watching for file changes with StatReloader
+INFO 2026-04-21 08:57:13,118 ai_services 5512 1644 OpenAI client initialized successfully
+INFO 2026-04-21 08:57:13,119 ai_services 5512 1644 OpenAI client initialized successfully
+INFO 2026-04-21 08:57:13,119 ai_services 5512 1644 OpenAI client initialized successfully
+INFO 2026-04-21 08:57:13,120 ai_services 5512 1644 OpenAI client initialized successfully
+INFO 2026-04-21 08:57:13,120 ai_services 5512 1644 OpenAI client initialized successfully
+INFO 2026-04-21 08:57:29,288 basehttp 5512 19152 "GET / HTTP/1.1" 302 0
+INFO 2026-04-21 08:57:29,502 basehttp 5512 19152 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-04-21 08:57:29,572 basehttp 5512 19152 "GET /static/css/output.css HTTP/1.1" 304 0
+INFO 2026-04-21 08:57:29,589 basehttp 5512 19152 "GET /static/css/mobile-optimizations.css HTTP/1.1" 304 0
+INFO 2026-04-21 08:57:29,624 basehttp 5512 19152 "GET /static/js/mobile-optimizations.js HTTP/1.1" 304 0
+WARNING 2026-04-21 08:57:30,250 log 5512 19152 Not Found: /favicon.ico
+WARNING 2026-04-21 08:57:30,251 basehttp 5512 19152 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-04-21 08:58:18,053 basehttp 5512 19152 "POST /accounts/login/ HTTP/1.1" 200 14724
+INFO 2026-04-21 08:59:12,907 basehttp 5512 19152 "GET /admin HTTP/1.1" 301 0
+INFO 2026-04-21 08:59:13,061 basehttp 5512 9876 "GET /admin/ HTTP/1.1" 302 0
+INFO 2026-04-21 08:59:13,671 basehttp 5512 9876 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4158
+INFO 2026-04-21 08:59:14,087 basehttp 5512 19212 "GET /static/admin/css/dark_mode.css HTTP/1.1" 200 2682
+INFO 2026-04-21 08:59:14,088 basehttp 5512 9876 "GET /static/admin/css/base.css HTTP/1.1" 200 21544
+INFO 2026-04-21 08:59:14,149 basehttp 5512 22764 "GET /static/admin/css/login.css HTTP/1.1" 200 958
+INFO 2026-04-21 08:59:14,164 basehttp 5512 18452 "GET /static/admin/css/nav_sidebar.css HTTP/1.1" 200 2810
+INFO 2026-04-21 08:59:14,164 basehttp 5512 23396 "GET /static/admin/css/responsive.css HTTP/1.1" 200 17905
+INFO 2026-04-21 08:59:14,191 basehttp 5512 19212 "GET /static/admin/js/nav_sidebar.js HTTP/1.1" 200 3063
+INFO 2026-04-21 08:59:14,304 basehttp 5512 12796 "GET /static/admin/js/theme.js HTTP/1.1" 200 1943
+INFO 2026-04-21 08:59:26,628 basehttp 5512 12796 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2026-04-21 08:59:26,863 basehttp 5512 12796 "GET /admin/ HTTP/1.1" 200 34580
+INFO 2026-04-21 08:59:26,997 basehttp 5512 12796 "GET /static/admin/css/dashboard.css HTTP/1.1" 200 441
+INFO 2026-04-21 08:59:27,064 basehttp 5512 19212 "GET /static/admin/img/icon-addlink.svg HTTP/1.1" 200 331
+INFO 2026-04-21 08:59:27,064 basehttp 5512 23396 "GET /static/admin/img/icon-changelink.svg HTTP/1.1" 200 380
+INFO 2026-04-21 08:59:27,065 basehttp 5512 12796 "GET /static/admin/img/icon-viewlink.svg HTTP/1.1" 200 581
+INFO 2026-04-21 08:59:27,092 basehttp 5512 19212 "GET /static/admin/img/icon-deletelink.svg HTTP/1.1" 200 392
+INFO 2026-04-21 08:59:35,065 basehttp 5512 19212 "GET /admin/accounts/user/ HTTP/1.1" 200 38092
+INFO 2026-04-21 08:59:35,238 basehttp 5512 18452 "GET /static/admin/js/jquery.init.js HTTP/1.1" 200 347
+INFO 2026-04-21 08:59:35,267 basehttp 5512 19212 "GET /static/admin/css/changelists.css HTTP/1.1" 200 6811
+INFO 2026-04-21 08:59:35,274 basehttp 5512 22764 "GET /static/admin/js/core.js HTTP/1.1" 200 6208
+INFO 2026-04-21 08:59:35,282 basehttp 5512 9876 "GET /static/admin/js/admin/RelatedObjectLookups.js HTTP/1.1" 200 9042
+INFO 2026-04-21 08:59:35,347 basehttp 5512 23396 "GET /static/admin/js/vendor/jquery/jquery.js HTTP/1.1" 200 285314
+INFO 2026-04-21 08:59:35,358 basehttp 5512 12796 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-04-21 08:59:35,433 basehttp 5512 12796 "GET /static/admin/img/icon-yes.svg HTTP/1.1" 200 436
+INFO 2026-04-21 08:59:35,435 basehttp 5512 18452 "GET /static/admin/js/actions.js HTTP/1.1" 200 8067
+INFO 2026-04-21 08:59:35,440 basehttp 5512 19212 "GET /static/admin/js/urlify.js HTTP/1.1" 200 7887
+INFO 2026-04-21 08:59:35,440 basehttp 5512 22764 "GET /static/admin/js/prepopulate.js HTTP/1.1" 200 1531
+INFO 2026-04-21 08:59:35,452 basehttp 5512 23396 "GET /static/admin/img/search.svg HTTP/1.1" 200 458
+INFO 2026-04-21 08:59:35,482 basehttp 5512 12796 "GET /static/admin/img/icon-no.svg HTTP/1.1" 200 560
+INFO 2026-04-21 08:59:35,522 basehttp 5512 12796 "GET /static/admin/js/filters.js HTTP/1.1" 200 978
+INFO 2026-04-21 08:59:35,665 basehttp 5512 9876 "GET /static/admin/js/vendor/xregexp/xregexp.js HTTP/1.1" 200 325171
+INFO 2026-04-21 08:59:35,746 basehttp 5512 9876 "GET /static/admin/img/tooltag-add.svg HTTP/1.1" 200 331
+INFO 2026-04-21 08:59:35,747 basehttp 5512 12796 "GET /static/admin/img/sorting-icons.svg HTTP/1.1" 200 1097
+WARNING 2026-04-21 09:01:45,163 views 5512 12796 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2026-04-21 09:01:45,216 log 5512 12796 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-04-21 09:01:45,249 basehttp 5512 12796 "POST /accounts/login/ HTTP/1.1" 403 18481
+WARNING 2026-04-21 09:03:32,641 views 5512 12796 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2026-04-21 09:03:32,649 log 5512 12796 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-04-21 09:03:32,746 basehttp 5512 12796 "POST /accounts/login/ HTTP/1.1" 403 18481
+WARNING 2026-04-21 09:03:39,961 views 5512 12796 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2026-04-21 09:03:39,971 log 5512 12796 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-04-21 09:03:40,018 basehttp 5512 12796 "POST /accounts/login/ HTTP/1.1" 403 18481
+INFO 2026-04-21 09:03:47,925 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,020 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,086 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,164 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,221 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,319 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,394 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,484 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,559 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,638 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,701 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,787 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,852 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:48,939 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,007 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,113 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,173 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,268 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,333 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:49,431 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:50,692 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:50,768 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:50,842 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:50,885 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:50,960 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,025 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,119 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,197 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,279 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,329 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,396 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,460 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,545 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,612 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,706 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,770 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,881 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:51,934 basehttp 5512 12796 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:52,022 basehttp 5512 12796 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:52,116 basehttp 5512 12796 - Broken pipe from ('127.0.0.1', 60945)
+INFO 2026-04-21 09:03:52,149 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:03:52,198 basehttp 5512 9876 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 14510
+INFO 2026-04-21 09:04:00,798 basehttp 5512 9876 "POST /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 14724
+WARNING 2026-04-21 09:04:32,181 views 5512 9876 CSRF failure for user AnonymousUser: CSRF token from POST incorrect.
+WARNING 2026-04-21 09:04:32,185 log 5512 9876 Forbidden (CSRF token from POST incorrect.): /admin/accounts/user/
+WARNING 2026-04-21 09:04:32,260 basehttp 5512 9876 "POST /admin/accounts/user/ HTTP/1.1" 403 15445
+INFO 2026-04-21 09:04:37,213 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-04-21 09:04:39,308 basehttp 5512 9876 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-21 09:06:35,751 basehttp 5512 9876 "POST /accounts/register/ HTTP/1.1" 200 19047
+INFO 2026-04-21 09:07:08,473 basehttp 5512 9876 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-21 09:07:12,119 basehttp 5512 9876 "GET /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:07:12,208 basehttp 5512 9876 "GET /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 200 4186
+INFO 2026-04-21 09:07:17,914 basehttp 5512 9876 "POST /admin/login/?next=/admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:07:18,047 basehttp 5512 9876 "GET /admin/accounts/user/ HTTP/1.1" 200 38092
+INFO 2026-04-21 09:07:18,205 basehttp 5512 9876 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-04-21 09:07:35,674 basehttp 5512 9876 "POST /admin/accounts/user/ HTTP/1.1" 200 59145
+INFO 2026-04-21 09:07:35,823 basehttp 5512 9876 "GET /static/admin/js/cancel.js HTTP/1.1" 200 884
+INFO 2026-04-21 09:07:43,802 basehttp 5512 9876 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:07:43,938 basehttp 5512 9876 "GET /admin/accounts/user/ HTTP/1.1" 200 37620
+INFO 2026-04-21 09:07:44,071 basehttp 5512 9876 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-04-21 09:08:07,087 basehttp 5512 9876 "GET /accounts/register/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,181 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,252 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,336 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,399 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,489 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,557 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,656 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,720 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,788 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,850 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,927 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:07,986 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,078 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,148 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,238 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,303 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,404 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,454 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:08,521 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:09,735 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:09,788 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:09,867 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:09,918 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:09,987 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,035 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,129 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,199 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,305 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,362 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,442 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,498 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,591 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,665 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,747 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,807 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,884 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:10,947 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:11,031 basehttp 5512 9876 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:11,084 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-21 09:08:12,131 basehttp 5512 9876 "GET /accounts/login/ HTTP/1.1" 200 14510
+INFO 2026-04-21 09:08:14,857 basehttp 5512 9876 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-21 09:09:09,641 basehttp 5512 9876 "POST /accounts/register/ HTTP/1.1" 200 18639
+INFO 2026-04-21 09:10:50,840 basehttp 5512 9876 "POST /accounts/register/ HTTP/1.1" 200 18801
+INFO 2026-04-23 11:16:24,590 autoreload 24028 5492 Watching for file changes with StatReloader
+INFO 2026-04-23 11:16:28,628 ai_services 24028 5492 OpenAI client initialized successfully
+INFO 2026-04-23 11:16:28,628 ai_services 24028 5492 OpenAI client initialized successfully
+INFO 2026-04-23 11:16:28,629 ai_services 24028 5492 OpenAI client initialized successfully
+INFO 2026-04-23 11:16:28,629 ai_services 24028 5492 OpenAI client initialized successfully
+INFO 2026-04-23 11:16:28,629 ai_services 24028 5492 OpenAI client initialized successfully
+INFO 2026-04-23 11:16:37,864 basehttp 24028 25972 "GET / HTTP/1.1" 302 0
+INFO 2026-04-23 11:16:38,157 basehttp 24028 25972 "GET /accounts/login/ HTTP/1.1" 200 14510
+WARNING 2026-04-23 11:16:39,132 log 24028 25972 Not Found: /favicon.ico
+WARNING 2026-04-23 11:16:39,135 basehttp 24028 25972 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-04-23 11:16:47,044 basehttp 24028 25972 "POST /accounts/login/ HTTP/1.1" 200 14724
+INFO 2026-04-23 11:17:04,518 basehttp 24028 25972 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-23 11:18:32,988 basehttp 24028 25972 "POST /accounts/register/ HTTP/1.1" 200 18659
+INFO 2026-04-23 11:19:31,408 basehttp 24028 25972 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:19:31,469 basehttp 24028 25972 "GET /accounts/login/ HTTP/1.1" 200 14759
+INFO 2026-04-23 11:19:41,373 basehttp 24028 25972 "POST /accounts/login/ HTTP/1.1" 200 14725
+INFO 2026-04-23 11:20:32,782 basehttp 24028 25972 "GET /admin HTTP/1.1" 301 0
+INFO 2026-04-23 11:20:33,367 basehttp 24028 21064 "GET /admin/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:20:33,775 basehttp 24028 21064 "GET /admin/login/?next=/admin/ HTTP/1.1" 200 4158
+INFO 2026-04-23 11:20:47,475 basehttp 24028 21064 "POST /admin/login/?next=/admin/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:20:47,729 basehttp 24028 21064 "GET /admin/ HTTP/1.1" 200 34893
+INFO 2026-04-23 11:20:51,877 basehttp 24028 21064 "GET /admin/accounts/user/ HTTP/1.1" 200 38089
+INFO 2026-04-23 11:20:52,141 basehttp 24028 21064 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-04-23 11:26:07,720 autoreload 24028 5492 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2026-04-23 11:26:33,502 autoreload 11252 12448 Watching for file changes with StatReloader
+INFO 2026-04-23 11:27:23,449 autoreload 11252 12448 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2026-04-23 11:27:42,018 autoreload 7668 2812 Watching for file changes with StatReloader
+INFO 2026-04-23 11:27:44,263 ai_services 7668 2812 OpenAI client initialized successfully
+INFO 2026-04-23 11:27:44,264 ai_services 7668 2812 OpenAI client initialized successfully
+INFO 2026-04-23 11:27:44,265 ai_services 7668 2812 OpenAI client initialized successfully
+INFO 2026-04-23 11:27:44,266 ai_services 7668 2812 OpenAI client initialized successfully
+INFO 2026-04-23 11:27:44,266 ai_services 7668 2812 OpenAI client initialized successfully
+INFO 2026-04-23 11:28:36,102 autoreload 7668 2812 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2026-04-23 11:28:54,588 autoreload 16160 24528 Watching for file changes with StatReloader
+INFO 2026-04-23 11:29:01,105 autoreload 16160 24528 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2026-04-23 11:29:19,892 autoreload 24028 16560 Watching for file changes with StatReloader
+INFO 2026-04-23 11:29:29,061 autoreload 24028 16560 C:\Users\methe\Metlab.edu\accounts\views.py changed, reloading.
+INFO 2026-04-23 11:29:50,481 autoreload 6688 25172 Watching for file changes with StatReloader
+INFO 2026-04-23 11:34:07,428 autoreload 6688 25172 C:\Users\methe\Metlab.edu\accounts\urls.py changed, reloading.
+INFO 2026-04-23 11:34:20,626 autoreload 8072 24488 Watching for file changes with StatReloader
+INFO 2026-04-23 11:34:27,600 ai_services 8072 24488 OpenAI client initialized successfully
+INFO 2026-04-23 11:34:27,601 ai_services 8072 24488 OpenAI client initialized successfully
+INFO 2026-04-23 11:34:27,609 ai_services 8072 24488 OpenAI client initialized successfully
+INFO 2026-04-23 11:34:27,610 ai_services 8072 24488 OpenAI client initialized successfully
+INFO 2026-04-23 11:34:27,613 ai_services 8072 24488 OpenAI client initialized successfully
+INFO 2026-04-23 11:37:12,636 basehttp 8072 3944 "GET /admin/ HTTP/1.1" 200 34893
+INFO 2026-04-23 11:37:19,792 basehttp 8072 3944 "GET /admin/accounts/user/ HTTP/1.1" 200 38089
+INFO 2026-04-23 11:37:19,970 basehttp 8072 3944 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+INFO 2026-04-23 11:37:28,586 basehttp 8072 3944 "POST /admin/accounts/user/ HTTP/1.1" 200 26650
+INFO 2026-04-23 11:37:30,976 basehttp 8072 3944 "POST /admin/accounts/user/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:37:31,085 basehttp 8072 3944 "GET /admin/accounts/user/ HTTP/1.1" 200 37620
+INFO 2026-04-23 11:37:31,185 basehttp 8072 3944 "GET /admin/jsi18n/ HTTP/1.1" 200 3342
+WARNING 2026-04-23 11:37:56,416 views 8072 3944 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2026-04-23 11:37:56,446 log 8072 3944 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-04-23 11:37:56,482 basehttp 8072 3944 "POST /accounts/login/ HTTP/1.1" 403 18481
+WARNING 2026-04-23 11:37:59,102 views 8072 3944 CSRF failure for user Met (): CSRF token from POST incorrect.
+WARNING 2026-04-23 11:37:59,113 log 8072 3944 Forbidden (CSRF token from POST incorrect.): /accounts/login/
+WARNING 2026-04-23 11:37:59,145 basehttp 8072 3944 "POST /accounts/login/ HTTP/1.1" 403 18481
+INFO 2026-04-23 11:38:03,354 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,481 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,542 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,635 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,695 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,788 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,868 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:03,969 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,043 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,158 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,227 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,328 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,401 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,504 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,589 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,696 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,771 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,892 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:04,972 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:05,097 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,422 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,493 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,593 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,650 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,760 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,839 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:06,941 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,042 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,173 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,268 basehttp 8072 3944 "GET /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,377 basehttp 8072 3944 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,497 basehttp 8072 3944 - Broken pipe from ('127.0.0.1', 56084)
+INFO 2026-04-23 11:38:07,525 basehttp 8072 19064 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:38:07,617 basehttp 8072 19064 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 17204
+INFO 2026-04-23 11:38:26,907 basehttp 8072 19064 "GET /accounts/login/?next=/accounts/dashboard/ HTTP/1.1" 200 14510
+INFO 2026-04-23 11:38:33,918 basehttp 8072 19064 "GET /accounts/register/ HTTP/1.1" 200 18141
+INFO 2026-04-23 11:40:20,169 basehttp 8072 19064 "POST /accounts/register/ HTTP/1.1" 200 18880
+INFO 2026-04-23 11:40:51,089 basehttp 8072 19064 "POST /accounts/register/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:40:51,152 basehttp 8072 19064 "GET /accounts/login/ HTTP/1.1" 200 14731
+INFO 2026-04-23 11:40:57,712 basehttp 8072 19064 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:40:57,815 basehttp 8072 19064 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:40:57,929 basehttp 8072 19064 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25650
+INFO 2026-04-23 11:44:08,867 basehttp 8072 19064 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:44:08,984 basehttp 8072 19064 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25453
+INFO 2026-04-23 11:44:11,005 basehttp 8072 19064 "GET /content/library/ HTTP/1.1" 200 27849
+INFO 2026-04-23 11:44:14,884 basehttp 8072 19064 "GET /content/upload/ HTTP/1.1" 200 32742
+INFO 2026-04-23 11:44:27,842 basehttp 8072 19064 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:44:27,959 basehttp 8072 19064 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25453
+INFO 2026-04-23 11:44:29,735 basehttp 8072 19064 "GET /content/library/ HTTP/1.1" 200 27849
+INFO 2026-04-23 11:44:31,403 basehttp 8072 19064 "GET /content/upload/ HTTP/1.1" 200 32742
+INFO 2026-04-23 11:44:33,134 basehttp 8072 19064 "GET /learning/teacher/ HTTP/1.1" 200 34640
+INFO 2026-04-23 11:45:08,570 basehttp 8072 19064 "GET /learning/teacher/classes/ HTTP/1.1" 200 21971
+INFO 2026-04-23 11:45:10,899 basehttp 8072 19064 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 26033
+INFO 2026-04-23 11:45:20,816 basehttp 8072 19064 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-23 11:45:20,926 basehttp 8072 19064 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25453
+INFO 2026-04-23 11:45:26,043 basehttp 8072 19064 "GET /content/upload/ HTTP/1.1" 200 32742
+INFO 2026-04-23 11:45:34,596 basehttp 8072 19064 "GET /content/upload/ HTTP/1.1" 200 32742
+INFO 2026-04-23 11:45:43,338 basehttp 8072 19064 "GET /learning/teacher/ HTTP/1.1" 200 34640
+INFO 2026-04-23 11:45:48,022 basehttp 8072 19064 "GET /learning/teacher/bulk-assign/ HTTP/1.1" 200 24435
+INFO 2026-04-23 11:46:00,102 basehttp 8072 19064 "GET /learning/teacher/ HTTP/1.1" 200 34640
+INFO 2026-04-23 11:46:04,265 basehttp 8072 19064 "GET /learning/teacher/quizzes/ HTTP/1.1" 200 21939
+INFO 2026-04-23 11:46:06,550 basehttp 8072 19064 "GET /learning/teacher/upload/ HTTP/1.1" 200 28755
+INFO 2026-04-25 09:26:19,031 autoreload 6532 1748 Watching for file changes with StatReloader
+INFO 2026-04-25 09:26:22,813 ai_services 6532 1748 OpenAI client initialized successfully
+INFO 2026-04-25 09:26:22,814 ai_services 6532 1748 OpenAI client initialized successfully
+INFO 2026-04-25 09:26:22,814 ai_services 6532 1748 OpenAI client initialized successfully
+INFO 2026-04-25 09:26:22,815 ai_services 6532 1748 OpenAI client initialized successfully
+INFO 2026-04-25 09:26:22,815 ai_services 6532 1748 OpenAI client initialized successfully
+INFO 2026-04-25 09:26:30,229 basehttp 6532 16844 "GET / HTTP/1.1" 302 0
+INFO 2026-04-25 09:26:30,462 basehttp 6532 16844 "GET /accounts/login/ HTTP/1.1" 200 14510
+WARNING 2026-04-25 09:26:31,300 log 6532 16844 Not Found: /favicon.ico
+WARNING 2026-04-25 09:26:31,302 basehttp 6532 16844 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-04-25 09:26:37,153 basehttp 6532 16844 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-25 09:26:37,265 basehttp 6532 16844 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-25 09:26:37,367 basehttp 6532 16844 "GET /accounts/dashboard/teacher/ HTTP/1.1" 200 25650
+INFO 2026-04-25 09:26:45,993 basehttp 6532 16844 "GET /learning/teacher/classes/ HTTP/1.1" 200 21971
+INFO 2026-04-25 09:26:49,394 basehttp 6532 16844 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 26033
+INFO 2026-04-25 09:26:59,381 basehttp 6532 16844 "GET /learning/teacher/upload/ HTTP/1.1" 200 28755
+INFO 2026-04-25 09:27:07,429 basehttp 6532 16844 "GET /learning/teacher/ HTTP/1.1" 200 34640
+INFO 2026-04-25 09:27:22,711 basehttp 6532 16844 "GET /video/sessions/ HTTP/1.1" 200 21311
+INFO 2026-04-25 09:27:35,533 basehttp 6532 16844 "GET /learning/teacher/bulk-assign/ HTTP/1.1" 200 24435
+INFO 2026-04-25 09:27:47,426 basehttp 6532 16844 "GET /learning/teacher/content/ HTTP/1.1" 200 21391
+INFO 2026-04-25 09:27:53,535 basehttp 6532 16844 "GET /learning/teacher/classes/create/ HTTP/1.1" 200 26033
+INFO 2026-04-25 09:28:05,003 basehttp 6532 16844 "GET /accounts/logout/ HTTP/1.1" 302 0
+INFO 2026-04-25 09:28:05,078 basehttp 6532 16844 "GET /accounts/login/ HTTP/1.1" 200 14725
+INFO 2026-04-25 09:28:20,173 basehttp 6532 16844 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-25 09:28:20,287 basehttp 6532 16844 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-25 09:28:20,618 basehttp 6532 16844 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47147
+INFO 2026-04-25 09:28:20,742 basehttp 6532 16844 "GET /static/js/achievement_notifications.js HTTP/1.1" 304 0
+INFO 2026-04-25 09:28:20,926 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:28:32,892 basehttp 6532 16844 "GET /accounts/settings/student/ HTTP/1.1" 200 30982
+INFO 2026-04-25 09:28:33,130 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:28:42,598 basehttp 6532 16844 "GET /video/sessions/ HTTP/1.1" 200 23323
+INFO 2026-04-25 09:28:42,842 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:28:48,460 basehttp 6532 16844 "GET /community/tutors/ HTTP/1.1" 200 25443
+INFO 2026-04-25 09:28:48,727 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:28:52,961 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:29:15,229 basehttp 6532 16844 "GET /content/upload/ HTTP/1.1" 200 34754
+INFO 2026-04-25 09:29:15,519 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:29:46,448 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:30:16,427 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:30:46,474 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:31:16,524 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:31:46,431 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:32:16,437 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:32:46,431 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:33:38,448 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:34:38,427 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:35:38,440 basehttp 6532 16844 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:39:49,803 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:40:38,574 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:41:38,434 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:42:38,443 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:43:38,442 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:44:38,443 basehttp 6532 18452 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:46:13,355 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:46:38,451 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:47:38,456 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:48:38,444 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:49:33,844 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:49:46,812 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:50:16,448 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:51:17,444 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:52:18,450 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:53:19,472 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:54:20,441 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:55:21,442 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:56:22,498 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:57:23,458 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:58:24,468 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 09:59:25,422 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:00:26,432 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:01:27,434 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:02:28,444 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:03:29,433 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:04:30,430 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:05:31,491 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:06:32,436 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:07:33,435 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:08:34,419 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:09:35,484 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:10:36,439 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:11:37,456 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:12:38,464 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:13:38,487 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:14:38,439 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:15:38,440 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:16:38,472 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:17:38,439 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:18:38,438 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-25 10:19:38,527 basehttp 6532 26080 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:22:07,638 autoreload 23100 26124 Watching for file changes with StatReloader
+INFO 2026-04-27 22:22:12,129 ai_services 23100 26124 OpenAI client initialized successfully
+INFO 2026-04-27 22:22:12,130 ai_services 23100 26124 OpenAI client initialized successfully
+INFO 2026-04-27 22:22:12,130 ai_services 23100 26124 OpenAI client initialized successfully
+INFO 2026-04-27 22:22:12,131 ai_services 23100 26124 OpenAI client initialized successfully
+INFO 2026-04-27 22:22:12,131 ai_services 23100 26124 OpenAI client initialized successfully
+INFO 2026-04-27 22:22:43,660 basehttp 23100 18760 "GET / HTTP/1.1" 302 0
+INFO 2026-04-27 22:22:43,931 basehttp 23100 18760 "GET /accounts/login/ HTTP/1.1" 200 14510
+WARNING 2026-04-27 22:22:44,682 log 23100 18760 Not Found: /favicon.ico
+WARNING 2026-04-27 22:22:44,685 basehttp 23100 18760 "GET /favicon.ico HTTP/1.1" 404 3628
+INFO 2026-04-27 22:22:49,417 basehttp 23100 18760 "POST /accounts/login/ HTTP/1.1" 302 0
+INFO 2026-04-27 22:22:49,513 basehttp 23100 18760 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-27 22:22:49,800 basehttp 23100 18760 "GET /accounts/dashboard/student/ HTTP/1.1" 200 47147
+INFO 2026-04-27 22:22:50,019 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:22:58,874 basehttp 23100 18760 "GET /video/sessions/ HTTP/1.1" 200 23323
+INFO 2026-04-27 22:22:59,093 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:23:13,001 basehttp 23100 18760 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-27 22:23:13,337 basehttp 23100 18760 "GET /accounts/dashboard/student/ HTTP/1.1" 200 46947
+INFO 2026-04-27 22:23:13,530 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:23:25,810 basehttp 23100 18760 "GET /community/study-groups/ HTTP/1.1" 200 25229
+INFO 2026-04-27 22:23:26,095 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:23:28,869 basehttp 23100 18760 "GET /community/study-groups/create/ HTTP/1.1" 200 29215
+INFO 2026-04-27 22:23:29,249 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:23:49,395 basehttp 23100 18760 "GET /accounts/dashboard/ HTTP/1.1" 302 0
+INFO 2026-04-27 22:23:49,603 basehttp 23100 18760 "GET /accounts/dashboard/student/ HTTP/1.1" 200 46947
+INFO 2026-04-27 22:23:49,804 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:03,412 query_optimization 23100 18760 Operation 'get_session_statistics': 1 queries in 0.011s
+INFO 2026-04-27 22:24:03,414 query_optimization 23100 18760 Operation 'get_student_sessions': 0 queries in 0.001s
+INFO 2026-04-27 22:24:03,647 basehttp 23100 18760 "GET /learning/analytics/ HTTP/1.1" 200 32939
+INFO 2026-04-27 22:24:04,010 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:10,048 basehttp 23100 18760 "GET /content/upload/ HTTP/1.1" 200 34754
+INFO 2026-04-27 22:24:10,285 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:20,277 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:22,802 basehttp 23100 18760 "GET /accounts/settings/student/ HTTP/1.1" 200 30982
+INFO 2026-04-27 22:24:23,079 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:53,057 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:24:56,248 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:25:05,613 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:25:26,045 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:25:56,036 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:26:26,075 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:26:56,062 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:27:26,101 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:27:56,056 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:28:26,068 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:28:56,047 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:29:26,046 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:29:56,094 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:30:26,050 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:30:56,039 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:31:26,030 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:31:56,046 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:32:26,068 basehttp 23100 18760 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:32:32,638 autoreload 23100 26124 C:\Users\methe\Metlab.edu\video_chat\services.py changed, reloading.
+INFO 2026-04-27 22:32:53,803 autoreload 8072 10716 Watching for file changes with StatReloader
+INFO 2026-04-27 22:32:56,138 ai_services 8072 10716 OpenAI client initialized successfully
+INFO 2026-04-27 22:32:56,138 ai_services 8072 10716 OpenAI client initialized successfully
+INFO 2026-04-27 22:32:56,140 ai_services 8072 10716 OpenAI client initialized successfully
+INFO 2026-04-27 22:32:56,140 ai_services 8072 10716 OpenAI client initialized successfully
+INFO 2026-04-27 22:32:56,141 ai_services 8072 10716 OpenAI client initialized successfully
+INFO 2026-04-27 22:32:57,082 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:33:26,067 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:33:56,187 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:34:26,054 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:34:56,067 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:35:26,060 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:35:56,060 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:36:26,055 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:36:56,042 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:37:26,052 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:37:56,059 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:38:26,075 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:38:56,062 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:39:26,032 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:39:56,054 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-04-27 22:40:26,049 basehttp 8072 7352 "GET /gamification/api/check-achievements/ HTTP/1.1" 200 32
+INFO 2026-05-01 08:08:31,329 autoreload 24160 7200 Watching for file changes with StatReloader
+INFO 2026-05-01 08:08:33,659 ai_services 24160 7200 OpenAI client initialized successfully
+INFO 2026-05-01 08:08:33,659 ai_services 24160 7200 OpenAI client initialized successfully
+INFO 2026-05-01 08:08:33,659 ai_services 24160 7200 OpenAI client initialized successfully
+INFO 2026-05-01 08:08:33,660 ai_services 24160 7200 OpenAI client initialized successfully
+INFO 2026-05-01 08:08:33,660 ai_services 24160 7200 OpenAI client initialized successfully
