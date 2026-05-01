@@ -62,3 +62,8 @@ secrets/
 *.pem
 *.key
 *.crt
+
+
+# App.config
+
+app.config.timestamp_1771673112393.js
