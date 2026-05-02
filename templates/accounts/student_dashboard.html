@@ -122,6 +122,110 @@
             </div>
         </div>
 
+        <!-- Teacher Uploads Section -->
+        <div class="bg-white shadow rounded-lg mb-6">
+            <div class="px-6 py-5">
+                <div class="flex items-center justify-between mb-6">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <div class="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                </svg>
+                            </div>
+                        </div>
+                        <div class="ml-4">
+                            <h2 class="text-xl font-semibold text-gray-900">Teacher Uploads</h2>
+                            <p class="text-sm text-gray-600">Access materials from your teachers</p>
+                        </div>
+                    </div>
+                    {% if teacher_content_count %}
+                    <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-100 text-blue-800">
+                        {{ teacher_content_count }} item{{ teacher_content_count|pluralize }}
+                    </span>
+                    {% endif %}
+                </div>
+                
+                <!-- Quick Stats -->
+                <div class="grid grid-cols-3 gap-4 mb-6">
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-gray-900">{{ pdf_count|default:0 }}</div>
+                        <div class="text-sm text-gray-600">PDFs</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-gray-900">{{ recent_uploads_count|default:0 }}</div>
+                        <div class="text-sm text-gray-600">This Week</div>
+                    </div>
+                    <div class="bg-gray-50 rounded-lg p-4 text-center">
+                        <div class="text-2xl font-bold text-gray-900">{{ enrolled_classes_count|default:0 }}</div>
+                        <div class="text-sm text-gray-600">Classes</div>
+                    </div>
+                </div>
+                
+                <!-- Recent Uploads Preview -->
+                {% if recent_teacher_uploads %}
+                <div class="mb-6">
+                    <h3 class="text-sm font-medium text-gray-900 mb-3">Recently Added</h3>
+                    <div class="space-y-2">
+                        {% for content in recent_teacher_uploads|slice:":3" %}
+                        <a href="{% url 'learning:view_content' content.id %}" 
+                           class="flex items-center justify-between p-3 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors group">
+                            <div class="flex items-center space-x-3 flex-1 min-w-0">
+                                <div class="flex-shrink-0">
+                                    {% if content.uploaded_content.content_type == 'pdf' %}
+                                        <svg class="w-8 h-8 text-red-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    {% else %}
+                                        <svg class="w-8 h-8 text-blue-500" fill="currentColor" viewBox="0 0 20 20">
+                                            <path fill-rule="evenodd" d="M4 4a2 2 0 012-2h4.586A2 2 0 0112 2.586L15.414 6A2 2 0 0116 7.414V16a2 2 0 01-2 2H6a2 2 0 01-2-2V4z" clip-rule="evenodd"/>
+                                        </svg>
+                                    {% endif %}
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="text-sm font-medium text-gray-900 truncate group-hover:text-blue-600">{{ content.title }}</p>
+                                    <p class="text-xs text-gray-500 truncate">{{ content.subject }} • {{ content.created_at|timesince }} ago</p>
+                                </div>
+                            </div>
+                            <div class="flex-shrink-0 ml-2">
+                                <span class="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-200 text-gray-700 uppercase">
+                                    {{ content.uploaded_content.content_type }}
+                                </span>
+                            </div>
+                        </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% else %}
+                <div class="mb-6 text-center py-8">
+                    <svg class="w-12 h-12 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    <h3 class="text-sm font-medium text-gray-900 mb-1">No content available yet</h3>
+                    <p class="text-sm text-gray-500">Join a class to see teacher uploads</p>
+                </div>
+                {% endif %}
+                
+                <!-- Action Buttons -->
+                <div class="grid grid-cols-2 gap-3">
+                    <a href="{% url 'learning:all_assigned_content' %}" 
+                       class="flex items-center justify-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                        </svg>
+                        View All Content
+                    </a>
+                    <a href="{% url 'learning:my_classes' %}" 
+                       class="flex items-center justify-center px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-md hover:bg-gray-50 transition-colors text-sm font-medium">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                        </svg>
+                        Browse by Class
+                    </a>
+                </div>
+            </div>
+        </div>
+
         <!-- Quick Actions Grid -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
             <!-- Content Upload Card -->
@@ -190,13 +294,35 @@
                 </div>
             </div>
             
-            <!-- Join Class Card -->
+            <!-- My Classes Card -->
             <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
                 <div class="flex items-center">
                     <div class="flex-shrink-0">
                         <div class="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center">
                             <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">My Classes</h3>
+                        <p class="text-sm text-gray-600">View class materials & content</p>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <a href="{% url 'learning:my_classes' %}" class="block w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 text-center">
+                        View Classes
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Join Class Card -->
+            <div class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center">
+                            <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
                             </svg>
                         </div>
                     </div>
@@ -206,7 +332,7 @@
                     </div>
                 </div>
                 <div class="mt-4">
-                    <a href="{% url 'learning:enroll_in_class' %}" class="block w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200 text-center">
+                    <a href="{% url 'learning:enroll_in_class' %}" class="block w-full bg-green-600 text-white py-2 px-4 rounded-md hover:bg-green-700 transition duration-200 text-center">
                         Join Class
                     </a>
                 </div>

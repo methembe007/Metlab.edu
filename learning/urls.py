@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 from . import teacher_views
 from . import parent_views
+from . import student_content_views
 
 app_name = 'learning'
 
@@ -55,6 +56,14 @@ urlpatterns = [
     
     # Student enrollment
     path('enroll/', teacher_views.enroll_in_class, name='enroll_in_class'),
+    
+    # Student content access
+    path('my-classes/', student_content_views.my_classes, name='my_classes'),
+    path('class/<int:class_id>/content/', student_content_views.class_content, name='class_content'),
+    path('content/<int:content_id>/view/', student_content_views.view_content, name='view_content'),
+    path('content/<int:content_id>/pdf/', student_content_views.view_pdf, name='view_pdf'),
+    path('content/<int:content_id>/download/', student_content_views.download_content, name='download_content'),
+    path('all-content/', student_content_views.all_assigned_content, name='all_assigned_content'),
     
     # Parent monitoring dashboard
     path('parent/', parent_views.parent_dashboard, name='parent_dashboard'),

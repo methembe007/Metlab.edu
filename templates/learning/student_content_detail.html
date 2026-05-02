@@ -1,0 +1,305 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ teacher_content.title }} - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <nav class="flex mb-4" aria-label="Breadcrumb">
+                <ol class="flex items-center space-x-4">
+                    <li>
+                        <a href="{% url 'learning:my_classes' %}" class="text-gray-400 hover:text-gray-500">
+                            My Classes
+                        </a>
+                    </li>
+                    <li>
+                        <div class="flex items-center">
+                            <svg class="flex-shrink-0 h-5 w-5 text-gray-300" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"/>
+                            </svg>
+                            <span class="ml-4 text-sm font-medium text-gray-500">{{ teacher_content.title }}</span>
+                        </div>
+                    </li>
+                </ol>
+            </nav>
+
+            <div class="flex justify-between items-start">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-900">{{ teacher_content.title }}</h1>
+                    <div class="mt-2 flex items-center text-sm text-gray-500">
+                        <span>{{ teacher_content.subject }}</span>
+                        <span class="mx-2">•</span>
+                        <span class="uppercase">{{ uploaded_content.content_type }}</span>
+                        <span class="mx-2">•</span>
+                        <span>{{ uploaded_content.file_size|filesizeformat }}</span>
+                        <span class="mx-2">•</span>
+                        <span>{{ teacher_content.teacher.user.get_full_name|default:teacher_content.teacher.user.username }}</span>
+                    </div>
+                </div>
+                
+                <div class="flex space-x-3">
+                    {% if uploaded_content.content_type == 'pdf' %}
+                        <a href="{% url 'learning:view_pdf' teacher_content.id %}" target="_blank"
+                           class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                            <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                <path d="M10 12a2 2 0 100-4 2 2 0 000 4z"/>
+                                <path fill-rule="evenodd" d="M.458 10C1.732 5.943 5.522 3 10 3s8.268 2.943 9.542 7c-1.274 4.057-5.064 7-9.542 7S1.732 14.057.458 10zM14 10a4 4 0 11-8 0 4 4 0 018 0z" clip-rule="evenodd"/>
+                            </svg>
+                            View PDF
+                        </a>
+                    {% endif %}
+                    <a href="{% url 'learning:download_content' teacher_content.id %}" 
+                       class="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                        <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/>
+                        </svg>
+                        Download
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        {% if teacher_content.description %}
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Description</h2>
+                <p class="text-gray-700">{{ teacher_content.description }}</p>
+            </div>
+        {% endif %}
+
+        <!-- PDF Viewer (if PDF) -->
+        {% if uploaded_content.content_type == 'pdf' %}
+            <div class="bg-white rounded-lg shadow-md p-6 mb-6">
+                <h2 class="text-xl font-semibold text-gray-900 mb-4">Document Preview</h2>
+                
+                <!-- PDF Viewer with fallback -->
+                <div class="border border-gray-300 rounded-lg overflow-hidden bg-gray-100" style="height: 600px; position: relative;">
+                    <!-- Primary: iframe viewer -->
+                    <iframe 
+                        id="pdf-viewer"
+                        src="{% url 'learning:view_pdf' teacher_content.id %}" 
+                        class="w-full h-full"
+                        title="{{ uploaded_content.original_filename }}"
+                        style="border: none;"
+                        onload="handlePdfLoad()"
+                        onerror="handlePdfError()">
+                    </iframe>
+                    
+                    <!-- Fallback message (hidden by default) -->
+                    <div id="pdf-fallback" class="hidden absolute inset-0 flex items-center justify-center bg-gray-50 p-8">
+                        <div class="text-center max-w-md">
+                            <svg class="w-16 h-16 text-gray-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                            </svg>
+                            <h3 class="text-lg font-medium text-gray-900 mb-2">PDF Preview Unavailable</h3>
+                            <p class="text-sm text-gray-600 mb-4">Your browser doesn't support inline PDF viewing, or the file couldn't be loaded.</p>
+                            <div class="space-y-2">
+                                <a href="{% url 'learning:view_pdf' teacher_content.id %}" target="_blank"
+                                   class="block w-full px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors text-sm font-medium">
+                                    Open PDF in New Tab
+                                </a>
+                                <a href="{% url 'learning:download_content' teacher_content.id %}"
+                                   class="block w-full px-4 py-2 border border-gray-300 text-gray-700 bg-white rounded-md hover:bg-gray-50 transition-colors text-sm font-medium">
+                                    Download PDF
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Loading indicator -->
+                    <div id="pdf-loading" class="absolute inset-0 flex items-center justify-center bg-white bg-opacity-90">
+                        <div class="text-center">
+                            <svg class="animate-spin h-10 w-10 text-blue-600 mx-auto mb-3" fill="none" viewBox="0 0 24 24">
+                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
+                            <p class="text-sm text-gray-600">Loading PDF...</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-4 flex items-center justify-between">
+                    <p class="text-sm text-gray-500">
+                        <a href="{% url 'learning:view_pdf' teacher_content.id %}" target="_blank" class="text-blue-600 hover:text-blue-800 font-medium">
+                            Open in new tab for better viewing experience →
+                        </a>
+                    </p>
+                    <div class="flex space-x-2">
+                        <button onclick="refreshPdf()" class="text-sm text-gray-600 hover:text-gray-900 font-medium">
+                            <svg class="w-4 h-4 inline mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                            </svg>
+                            Reload
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <script>
+                let pdfLoadTimeout;
+                
+                function handlePdfLoad() {
+                    // Hide loading indicator
+                    const loading = document.getElementById('pdf-loading');
+                    if (loading) {
+                        loading.style.display = 'none';
+                    }
+                    clearTimeout(pdfLoadTimeout);
+                }
+                
+                function handlePdfError() {
+                    // Show fallback
+                    const fallback = document.getElementById('pdf-fallback');
+                    const loading = document.getElementById('pdf-loading');
+                    if (fallback) {
+                        fallback.classList.remove('hidden');
+                    }
+                    if (loading) {
+                        loading.style.display = 'none';
+                    }
+                }
+                
+                function refreshPdf() {
+                    const iframe = document.getElementById('pdf-viewer');
+                    const loading = document.getElementById('pdf-loading');
+                    const fallback = document.getElementById('pdf-fallback');
+                    
+                    if (loading) loading.style.display = 'flex';
+                    if (fallback) fallback.classList.add('hidden');
+                    
+                    if (iframe) {
+                        iframe.src = iframe.src;
+                    }
+                }
+                
+                // Set timeout for loading (10 seconds)
+                pdfLoadTimeout = setTimeout(function() {
+                    const loading = document.getElementById('pdf-loading');
+                    const iframe = document.getElementById('pdf-viewer');
+                    
+                    // Check if iframe actually loaded
+                    try {
+                        if (iframe && !iframe.contentDocument) {
+                            handlePdfError();
+                        } else {
+                            handlePdfLoad();
+                        }
+                    } catch (e) {
+                        // Cross-origin error means it loaded but we can't access it
+                        handlePdfLoad();
+                    }
+                }, 10000);
+                
+                // Alternative: Use PDF.js if iframe fails
+                window.addEventListener('load', function() {
+                    setTimeout(function() {
+                        const iframe = document.getElementById('pdf-viewer');
+                        const loading = document.getElementById('pdf-loading');
+                        
+                        // If still loading after 3 seconds, might be an issue
+                        if (loading && loading.style.display !== 'none') {
+                            console.log('PDF taking longer than expected to load');
+                        }
+                    }, 3000);
+                });
+            </script>
+        {% endif %}
+
+        <!-- Generated Content -->
+        {% if uploaded_content.processing_status == 'completed' %}
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Summaries -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Summaries</h2>
+                    {% if summaries %}
+                        <div class="space-y-4">
+                            {% for summary in summaries %}
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h3 class="font-medium text-gray-900 capitalize mb-2">{{ summary.get_summary_type_display }}</h3>
+                                    <p class="text-sm text-gray-600 mb-2">{{ summary.word_count }} words</p>
+                                    <p class="text-gray-700 text-sm">{{ summary.text|truncatewords:30 }}</p>
+                                    <button onclick="showFullSummary('{{ summary.id }}')" class="mt-2 text-blue-600 hover:text-blue-800 text-sm font-medium">
+                                        Read more
+                                    </button>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No summaries available yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Quizzes -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Quizzes</h2>
+                    {% if quizzes %}
+                        <div class="space-y-4">
+                            {% for quiz in quizzes %}
+                                <div class="border border-gray-200 rounded-lg p-4">
+                                    <h3 class="font-medium text-gray-900 mb-2">{{ quiz.title }}</h3>
+                                    <div class="flex items-center text-sm text-gray-600 mb-3">
+                                        <span>{{ quiz.question_count }} questions</span>
+                                        <span class="mx-2">•</span>
+                                        <span>{{ quiz.estimated_time_minutes }} min</span>
+                                        <span class="mx-2">•</span>
+                                        <span class="capitalize">{{ quiz.difficulty_level }}</span>
+                                    </div>
+                                    <a href="{% url 'content:quiz' quiz.id %}" 
+                                       class="inline-flex items-center px-3 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+                                        Take Quiz
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No quizzes available yet.</p>
+                    {% endif %}
+                </div>
+
+                <!-- Flashcards -->
+                <div class="bg-white rounded-lg shadow-md p-6">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Flashcards</h2>
+                    {% if flashcards %}
+                        <div class="mb-4">
+                            <p class="text-sm text-gray-600 mb-3">{{ flashcards.count }} flashcards available</p>
+                            <a href="{% url 'content:flashcards' uploaded_content.id %}" 
+                               class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500">
+                                Study Flashcards
+                            </a>
+                        </div>
+                        <div class="space-y-2">
+                            {% for flashcard in flashcards|slice:":3" %}
+                                <div class="text-sm">
+                                    <span class="font-medium text-gray-900">{{ flashcard.concept_tag }}</span>
+                                    <span class="text-gray-500"> - {{ flashcard.front_text|truncatewords:8 }}</span>
+                                </div>
+                            {% endfor %}
+                            {% if flashcards.count > 3 %}
+                                <p class="text-sm text-gray-500">And {{ flashcards.count|add:"-3" }} more...</p>
+                            {% endif %}
+                        </div>
+                    {% else %}
+                        <p class="text-gray-500">No flashcards available yet.</p>
+                    {% endif %}
+                </div>
+            </div>
+        {% elif uploaded_content.processing_status == 'processing' %}
+            <div class="bg-yellow-50 border border-yellow-200 rounded-md p-4">
+                <div class="flex">
+                    <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-yellow-400 animate-spin" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd"/>
+                        </svg>
+                    </div>
+                    <div class="ml-3">
+                        <h3 class="text-sm font-medium text-yellow-800">Processing in progress</h3>
+                        <p class="mt-1 text-sm text-yellow-700">AI-generated materials will be available shortly.</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

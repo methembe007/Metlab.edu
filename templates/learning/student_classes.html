@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+
+{% block title %}My Classes - Metlab.edu{% endblock %}
+
+{% block content %}
+<div class="min-h-screen bg-gray-50 py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- Header -->
+        <div class="mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">My Classes</h1>
+            <p class="mt-2 text-gray-600">View content and materials from your enrolled classes</p>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+            <a href="{% url 'learning:all_assigned_content' %}" class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">All Content</h3>
+                        <p class="text-sm text-gray-600">Browse all assigned materials</p>
+                    </div>
+                </div>
+            </a>
+
+            <a href="{% url 'learning:enroll_in_class' %}" class="bg-white shadow rounded-lg p-6 hover:shadow-md transition-shadow">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="ml-4">
+                        <h3 class="text-lg font-medium text-gray-900">Join New Class</h3>
+                        <p class="text-sm text-gray-600">Enter invitation code</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Classes List -->
+        {% if enrollments %}
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {% for enrollment in enrollments %}
+                    <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                        <!-- Class Header -->
+                        <div class="bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-4">
+                            <h3 class="text-xl font-semibold text-white">{{ enrollment.teacher_class.name }}</h3>
+                            <p class="text-blue-100 text-sm mt-1">{{ enrollment.teacher_class.subject }}</p>
+                        </div>
+
+                        <!-- Class Info -->
+                        <div class="p-6">
+                            <div class="flex items-center text-sm text-gray-600 mb-4">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"/>
+                                </svg>
+                                <span>{{ enrollment.teacher_class.teacher.user.get_full_name|default:enrollment.teacher_class.teacher.user.username }}</span>
+                            </div>
+
+                            <div class="flex items-center text-sm text-gray-600 mb-4">
+                                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"/>
+                                </svg>
+                                <span>Enrolled {{ enrollment.enrolled_at|date:"M d, Y" }}</span>
+                            </div>
+
+                            {% if enrollment.teacher_class.description %}
+                                <p class="text-sm text-gray-600 mb-4">{{ enrollment.teacher_class.description|truncatewords:20 }}</p>
+                            {% endif %}
+
+                            <!-- Stats -->
+                            <div class="grid grid-cols-2 gap-4 mb-4 pt-4 border-t border-gray-200">
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-blue-600">{{ enrollment.teacher_class.assigned_content.count }}</div>
+                                    <div class="text-xs text-gray-500">Materials</div>
+                                </div>
+                                <div class="text-center">
+                                    <div class="text-2xl font-bold text-green-600">{{ enrollment.teacher_class.enrollments.filter.count }}</div>
+                                    <div class="text-xs text-gray-500">Students</div>
+                                </div>
+                            </div>
+
+                            <!-- Action Button -->
+                            <a href="{% url 'learning:class_content' enrollment.teacher_class.id %}" 
+                               class="block w-full bg-blue-600 text-white text-center py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200">
+                                View Content
+                            </a>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <!-- Empty State -->
+            <div class="bg-white rounded-lg shadow-md p-12 text-center">
+                <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.746 0 3.332.477 4.5 1.253v13C19.832 18.477 18.246 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                </svg>
+                <h3 class="mt-4 text-lg font-medium text-gray-900">No classes yet</h3>
+                <p class="mt-2 text-sm text-gray-600">Get started by joining a class with your teacher's invitation code.</p>
+                <div class="mt-6">
+                    <a href="{% url 'learning:enroll_in_class' %}" 
+                       class="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-blue-600 hover:bg-blue-700">
+                        <svg class="-ml-1 mr-2 h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd"/>
+                        </svg>
+                        Join a Class
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

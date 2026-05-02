@@ -90,3 +90,6 @@
 {"timestamp": "2025-12-09 22:14:07,915", "level": "ERROR", "logger": "errors", "message": "Error: TemplateSyntaxError"}
 {"timestamp": "2025-12-09 22:15:39,650", "level": "ERROR", "logger": "errors", "message": "Error: TemplateSyntaxError"}
 {"timestamp": "2025-12-09 22:15:42,212", "level": "ERROR", "logger": "errors", "message": "Error: TemplateSyntaxError"}
+{"timestamp": "2026-05-01 09:11:58,313", "level": "ERROR", "logger": "errors", "message": "Error: VariableDoesNotExist"}
+{"timestamp": "2026-05-01 09:30:11,924", "level": "ERROR", "logger": "errors", "message": "Error: VariableDoesNotExist"}
+{"timestamp": "2026-05-01 09:39:48,543", "level": "ERROR", "logger": "errors", "message": "Error: VariableDoesNotExist"}

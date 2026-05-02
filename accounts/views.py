@@ -121,8 +121,10 @@ def student_dashboard(request):
     """Enhanced student dashboard view with daily lessons, progress, and recommendations"""
     from learning.models import DailyLesson, LearningSession, WeaknessAnalysis, PersonalizedRecommendation
     from learning.services import DailyLessonService, WeaknessAnalysisService, RecommendationService
+    from learning.teacher_models import TeacherContent, ClassEnrollment
     from django.utils import timezone
     from datetime import timedelta
+    from django.db.models import Count, Q
     
     student_profile = request.user.student_profile
     
@@ -178,6 +180,33 @@ def student_dashboard(request):
     except VirtualCurrency.DoesNotExist:
         virtual_currency = None
     
+    # Get teacher uploads data
+    # Get all classes student is enrolled in
+    student_classes = ClassEnrollment.objects.filter(
+        student=student_profile,
+        is_active=True
+    ).values_list('teacher_class_id', flat=True)
+    
+    # Get all content assigned to these classes
+    teacher_content = TeacherContent.objects.filter(
+        assigned_classes__id__in=student_classes
+    ).select_related('uploaded_content', 'teacher__user').distinct()
+    
+    teacher_content_count = teacher_content.count()
+    
+    # Count PDFs
+    pdf_count = teacher_content.filter(uploaded_content__content_type='pdf').count()
+    
+    # Count recent uploads (last 7 days)
+    one_week_ago = timezone.now() - timedelta(days=7)
+    recent_uploads_count = teacher_content.filter(created_at__gte=one_week_ago).count()
+    
+    # Get enrolled classes count
+    enrolled_classes_count = student_classes.count()
+    
+    # Get recent teacher uploads (last 5)
+    recent_teacher_uploads = teacher_content.order_by('-created_at')[:5]
+    
     context = {
         'user': request.user,
         'profile': student_profile,
@@ -190,6 +219,12 @@ def student_dashboard(request):
         'recent_achievements': recent_achievements,
         'achievement_stats': achievement_stats,
         'virtual_currency': virtual_currency,
+        # Teacher uploads data
+        'teacher_content_count': teacher_content_count,
+        'pdf_count': pdf_count,
+        'recent_uploads_count': recent_uploads_count,
+        'enrolled_classes_count': enrolled_classes_count,
+        'recent_teacher_uploads': recent_teacher_uploads,
     }
     return render(request, 'accounts/student_dashboard.html', context)
 
